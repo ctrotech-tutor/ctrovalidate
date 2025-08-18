@@ -22,8 +22,8 @@
 - [Features](#features)
 - [Browser Support](#browser-support)
 - [Installation & Usage](#installation--usage)
-  - [1. Get the Code](#1-get-the-code)
-  - [2. Structure Your HTML](#2-structure-your-html)
+  - [1. Via NPM](#1-via-npm)
+  - [2. Via CDN](#2-via-cdn)
   - [3. Initialize in JavaScript](#3-initialize-in-javascript)
 - [Advanced Usage](#advanced-usage)
   - [Asynchronous Validation](#asynchronous-validation)
@@ -39,11 +39,11 @@
 
 In a world of heavy frameworks, sometimes you just need a simple, powerful tool that works without the overhead. Ctrovalidate.js is designed to be that tool.
 
--   **Declarative & HTML-First:** Define complex validation rules directly in your HTML using `data-` attributes. No messy JavaScript configuration objects.
--   **Zero Dependencies:** Written in pure, modern JavaScript. It's incredibly lightweight and won't bloat your project.
--   **Feature-Rich:** Supports synchronous, asynchronous (e.g., API calls), and conditional validation right out of the box.
+-   **Declarative & HTML-First:** Define complex validation rules directly in your HTML using `data-` attributes.
+-   **Zero Dependencies:** Written in pure, modern JavaScript. It's incredibly lightweight.
+-   **Feature-Rich:** Supports synchronous, asynchronous, and conditional validation out of the box.
 -   **Extensible:** Easily add your own custom validation rules with a simple, clean API.
--   **Graceful UX:** Provides real-time feedback to users *after* they've interacted with a field, preventing premature error messages.
+-   **Graceful UX:** Provides real-time feedback *after* a user has interacted with a field.
 
 ---
 
@@ -51,17 +51,17 @@ In a world of heavy frameworks, sometimes you just need a simple, powerful tool 
 
 Seeing is believing. Check out a live, interactive demo of all features on CodeSandbox:
 
-**[➡️ Open Live Demo on CodeSandbox](https://codesandbox.io/)** 
+**[➡️ Open Live Demo on CodeSandbox](https://codesandbox.io/p/sandbox/ctrovalidate-demo-d6v2tr)** 
 
 ---
 
 ## Features
 
--   **20+ Built-in Rules:** Includes common rules like `required`, `email`, `minLength`, `maxLength`, `numeric`, `sameAs`, and more.
--   **Asynchronous Validation:** Perfect for checking if a username is available on your server. Includes race condition prevention via `AbortController`.
+-   **20+ Built-in Rules:** Includes `required`, `email`, `minLength`, `sameAs`, and more.
+-   **Asynchronous Validation:** Perfect for server-side checks like username availability.
 -   **Conditional Validation:** Dynamically require fields based on the state of other fields.
 -   **Customizable:** Easily configure CSS classes to match your project's styling.
--   **Developer-Friendly Debugging:** Optional logging to see the validation process in real-time.
+-   **Developer-Friendly Debugging:** Optional logging to see the validation process.
 
 ---
 
@@ -77,38 +77,47 @@ Ctrovalidate.js is built with modern JavaScript (`ES2020`) and is designed to wo
 
 ## Installation & Usage
 
-### 1. Get the Code
+### 1. Via NPM
 
-You can include Ctrovalidate.js directly in your project. After running the build step, use the files from the `/dist` folder.
-
-```html
-<!-- For modern projects that support ES Modules -->
-<script type="module" src="path/to/dist/ctrovalidate.js"></script>
+For projects with a build step (like Vite or Webpack), install the package from npm:
+```bash
+npm install ctrovalidate
+```
+Then import it into your project:
+```javascript
+import { Ctrovalidate, LogLevel } from 'ctrovalidate';
 ```
 
-### 2. Structure Your HTML
+### 2. Via CDN
 
-Add `data-validus-rules` to your input fields and provide an element to display the error message.
+For quick demos or projects without a build step, you can use the UMD build directly from a CDN like jsDelivr.
 
 ```html
+<!-- Add this script tag to your HTML file -->
+<script defer src="https://cdn.jsdelivr.net/npm/ctrovalidate@latest/dist/ctrovalidate.umd.cjs"></script>
+```
+This will make the library available globally under the `window.Ctrovalidate` object.
+
+### 3. Initialize in JavaScript
+
+The initialization process is the same regardless of how you install it.
+
+```html
+<!-- 1. Structure your HTML -->
 <form id="my-form" novalidate>
   <div class="form-group">
     <label for="username">Username</label>
-    <input type="text" id="username" name="username"
-           data-validus-rules="required|minLength:3">
+    <input type="text" id="username" name="username" data-validus-rules="required|minLength:3">
     <div class="error-message"></div>
   </div>
   <button type="submit">Submit</button>
 </form>
-```
 
-### 3. Initialize in JavaScript
+<!-- 2. Initialize the library -->
+<script>
+  // If using CDN, the Ctrovalidate object is attached to the window
+  const { Ctrovalidate, LogLevel } = window.Ctrovalidate;
 
-Import `Ctrovalidate`, point it to your form, and you're ready to go.
-
-```html
-<script type="module">
-  import { Ctrovalidate } from './path/to/dist/ctrovalidate.js';
   const form = document.getElementById('my-form');
   const validator = new Ctrovalidate(form);
 
@@ -125,47 +134,24 @@ Import `Ctrovalidate`, point it to your form, and you're ready to go.
 ---
 
 ## Advanced Usage
+*(See the [Live Demo](#live-demo) for full examples.)*
 
-*(For full examples, please see the [Live Demo](#live-demo).)*
-
-### Asynchronous Validation
-
-Register an async rule using `addAsyncRule`. The function must return a `Promise` that resolves to `true` or `false`.
-
-```javascript
-Ctrovalidate.addAsyncRule('isUsernameTaken', async (value) => {
-  const response = await fetch(`/api/check-user?username=${value}`);
-  const data = await response.json();
-  return !data.isTaken; 
-}, 'This username is already in use.');
-```
-
-### Conditional Validation
-
-Use the `data-validus-if` attribute to make rules dynamic. The `email` field below is only required if the `subscribe` checkbox is checked.
-
-```html
-<input type="checkbox" id="subscribe" name="subscribe">
-<input type="email" id="email" name="email"
-       data-validus-rules="required|email"
-       data-validus-if="subscribe:checked">
-```
+- **Asynchronous Validation:** Use `Ctrovalidate.addAsyncRule(...)` to define rules that return a `Promise`.
+- **Conditional Validation:** Use the `data-validus-if="fieldName:checked"` attribute to make rules dynamic.
 
 ---
 
 ## Roadmap
 
-Ctrovalidate.js is actively developed. Here are some features planned for the future:
 -   [ ] More built-in validation rules (e.g., file types, image dimensions).
--   [ ] Official integration guides for popular UI libraries.
--   [ ] A plugin system for more complex extensions.
 -   [ ] Full suite of unit and end-to-end tests.
+-   [ ] Official integration guides for popular UI libraries.
 
 ---
 
 ## Contributing
 
-Contributions are welcome and highly appreciated! Please read our **[Contributing Guidelines](CONTRIBUTING.md)** to learn how you can help improve the project.
+Contributions are welcome! Please read our **[Contributing Guidelines](CONTRIBUTING.md)** to learn how you can help.
 
 ---
 
