@@ -1,0 +1,50 @@
+# .github/workflows/main.yml
+
+# This is the name of our workflow. It will appear in the "Actions" tab of your GitHub repository.
+name: Ctrovalidate CI
+
+# This section defines when the workflow will run.
+on:
+  # Run on every push to the 'main' branch.
+  push:
+    branches: [ "main" ]
+  # Run on every pull request that targets the 'main' branch.
+  pull_request:
+    branches: [ "main" ]
+
+# This section defines the jobs to be run. We only have one job for now: "build".
+jobs:
+  # The name of our job.
+  build:
+    # This specifies the type of machine to run the job on. 
+    # 'ubuntu-latest' is a standard, reliable choice for most web projects.
+    runs-on: ubuntu-latest
+
+    # This defines the sequence of steps that make up the job.
+    steps:
+      # Step 1: Check out the repository's code.
+      # This action downloads your code onto the runner so the workflow can access it.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up the Node.js environment.
+      # This action installs a specific version of Node.js on the runner.
+      # Using an LTS (Long-Term Support) version is a best practice.
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Using Node.js version 20.x
+          cache: 'npm' # This smartly caches our npm dependencies to speed up future runs.
+
+      # Step 3: Install dependencies.
+      # This runs 'npm install' to download Vite, just like we did locally.
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run the build command.
+      # This is the most important step. It executes our 'npm run build' script.
+      # If the build fails for any reason (e.g., a syntax error, a config issue),
+      # this step will fail, and the entire workflow run will be marked as failed.
+      # This is our automated quality gate.
+      - name: Build project
+        run: npm run build
