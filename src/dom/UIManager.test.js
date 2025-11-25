@@ -1,0 +1,94 @@
+// src/dom/UIManager.test.js
+
+import { describe, it, expect, beforeEach } from 'vitest';
+import { UIManager } from './UIManager.js';
+
+describe('UIManager', () => {
+  let form, input, errorElement, uiManager;
+
+  // Set up the DOM environment before each test
+  beforeEach(() => {
+    // Create a mock form structure in jsdom
+    document.body.innerHTML = `
+      <form>
+        <div>
+          <input type="text" name="username" />
+          <div class="error-message"></div>
+        </div>
+      </form>
+    `;
+    form = document.querySelector('form');
+    input = form.querySelector('input');
+    errorElement = form.querySelector('.error-message');
+
+    // Initialize UIManager with standard options
+    uiManager = new UIManager({
+      errorClass: 'is-invalid',
+      errorMessageClass: 'error-message',
+      pendingClass: 'is-validating',
+    });
+  });
+
+  it('should display an error message and set ARIA attributes', () => {
+    const errorMessage = 'This field is required.';
+    uiManager.displayError(input, errorMessage);
+
+    // Check for visual class
+    expect(input.classList.contains('is-invalid')).toBe(true);
+
+    // Check for error message content
+    expect(errorElement.textContent).toBe(errorMessage);
+    expect(errorElement.style.display).not.toBe('none');
+
+    // Check for ARIA attributes
+    expect(input.getAttribute('aria-invalid')).toBe('true');
+    
+    // Check that the error element has an ID and the input is described by it
+    const errorId = errorElement.id;
+    expect(errorId).not.toBeNull();
+    expect(errorId).toContain('ctrovalidate-error-');
+    expect(input.getAttribute('aria-describedby')).toBe(errorId);
+  });
+
+  it('should clear an error message and remove ARIA attributes', () => {
+    // First, set an error state
+    uiManager.displayError(input, 'An error');
+
+    // Now, clear it
+    uiManager.clearError(input);
+
+    // Check that visual class is removed
+    expect(input.classList.contains('is-invalid')).toBe(false);
+
+    // Check that error message is cleared
+    expect(errorElement.textContent).toBe('');
+    expect(errorElement.style.display).toBe('none');
+
+    // Check that ARIA attributes are removed
+    expect(input.hasAttribute('aria-invalid')).toBe(false);
+    expect(input.hasAttribute('aria-describedby')).toBe(false);
+  });
+
+  it('should show and hide the pending state', () => {
+    uiManager.showPending(input);
+    expect(input.classList.contains('is-validating')).toBe(true);
+
+    uiManager.hidePending(input);
+    expect(input.classList.contains('is-validating')).toBe(false);
+  });
+
+  it('should clear existing errors when showing the pending state', () => {
+    // Set an error state
+    uiManager.displayError(input, 'An error');
+    expect(input.classList.contains('is-invalid')).toBe(true);
+    expect(input.hasAttribute('aria-invalid')).toBe(true);
+
+    // Show pending state
+    uiManager.showPending(input);
+
+    // Check that error state is gone and pending state is active
+    expect(input.classList.contains('is-invalid')).toBe(false);
+    expect(input.hasAttribute('aria-invalid')).toBe(false);
+    expect(input.classList.contains('is-validating')).toBe(true);
+  });
+});

@@ -160,19 +160,18 @@
       <button type="submit">Register</button>
     </form>
   </div>
-
-  <script type="module">
-    // 1. I'm importing our library and the LogLevel for debugging.
-    import Validus, { LogLevel } from '../src/index.js';
+    <script type="module">
+    // 1. I'm importing our library using the new, clean named export.
+    import { Ctrovalidate } from '../src/index.js';
 
     // 2. I'm defining all our custom rules, both sync and async.
-    Validus.addRule(
+    Ctrovalidate.addRule(
       'strongPassword',
       (value) => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(value),
       'Password must be at least 8 characters and include an uppercase letter, a lowercase letter, and a number.'
     );
 
-    Validus.addAsyncRule(
+    Ctrovalidate.addAsyncRule(
       'usernameAvailable',
       (value) => {
         return new Promise((resolve) => {
@@ -188,16 +187,16 @@
     // 3. I'm selecting the form element from the DOM.
     const form = document.getElementById('registration-form');
 
-    // 4. I'm initializing a new Validus instance with our desired options.
-    const validator = new Validus(form, {
-      logLevel: LogLevel.DEBUG,
+    // 4. I'm initializing a new Ctrovalidate instance, using the new static LogLevel property.
+    const validator = new Ctrovalidate(form, {
+      logLevel: Ctrovalidate.LogLevel.DEBUG,
       realTime: true
     });
 
     // 5. This is our final, robust submit handler.
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      console.log('Submit button clicked. Handing over to Validus...');
+      console.log('Submit button clicked. Handing over to Ctrovalidate...');
 
       const isFormValid = await validator.validate();
 
@@ -212,6 +211,5 @@
       }
     });
   </script>
-
 </body>
 </html>

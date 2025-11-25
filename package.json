@@ -1,24 +1,29 @@
 {
   "name": "ctrovalidate",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A lightweight, powerful, and zero-dependency JavaScript library for client-side form validation with a declarative, HTML-first approach.",
   "type": "module",
   "main": "./dist/ctrovalidate.umd.cjs",
   "module": "./dist/ctrovalidate.js",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/ctrovalidate.js",
-      "require": "./dist/ctrovalidate.umd.cjs"
+      "require": "./dist/ctrovalidate.umd.cjs",
+      "types": "./dist/types/index.d.ts"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "vitepress dev docs",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "author": "Ctrotech",
   "license": "MIT",
@@ -32,7 +37,10 @@
     "form",
     "no-dependencies",
     "ctrotech-tutor",
-    "ctrotech"
+    "ctrotech",
+    "typescript",
+    "accessible",
+    "a11y"
   ],
   "repository": {
     "type": "git",
@@ -42,9 +50,8 @@
   "devDependencies": {
     "jsdom": "^26.1.0",
     "vite": "^7.1.2",
+    "vitepress": "^1.0.0-rc.25",
     "vitest": "^3.2.4"
   },
-  "dependencies": {
-    "ctrovalidate": "^1.1.0"
-  }
+  "dependencies": {}
 }

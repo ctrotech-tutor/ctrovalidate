@@ -80,81 +80,107 @@ Ctrovalidate.js is built with modern JavaScript (`ES2020`) and is designed to wo
 ### 1. Via NPM
 
 For projects with a build step (like Vite or Webpack), install the package from npm:
+# Ctrovalidate v2.0.0
+
+[![Ctrovalidate CI](https://github.com/ctrotech-tutor/ctrovalidate/actions/workflows/ci.yml/badge.svg)](https://github.com/ctrotech-tutor/ctrovalidate/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/ctrovalidate.svg)](https://badge.fury.io/js/ctrovalidate)
+
+**Ctrovalidate** is a modern, lightweight, and zero-dependency JavaScript library for client-side form validation. It's built with a declarative, HTML-first approach that makes validating forms simple, clean, and powerful.
+
+![Ctrovalidate Logo](docs/public/logo.svg)
+
+## ✨ Key Features
+
+- **Declarative & HTML-First**: Define complex validation rules directly in your HTML.
+- **Fully Accessible (ARIA)**: Automatic management of ARIA attributes makes your forms accessible out-of-the-box.
+- **Zero-Dependency & Lightweight**: No external libraries, no bloat. Ctrovalidate is tiny and fast.
+- **Extensible API**: Easily add your own synchronous or asynchronous validation rules.
+- **SPA & Dynamic Content Ready**: Programmatically `addField()` and `removeField()` to work seamlessly with frameworks like Vue, React, and Svelte.
+- **TypeScript Ready**: Ships with a comprehensive TypeScript declaration file for a superior developer experience.
+
+## 📖 Documentation
+
+For a complete guide to all features, including configuration, all built-in rules, and advanced usage, please visit our **[full documentation website](https://ctrotech-tutor.github.io/ctrovalidate/)**.
+
+## 🚀 Getting Started
+
+### 1. Installation
+
+Install the package using your favorite package manager:
+
 ```bash
 npm install ctrovalidate
 ```
-Then import it into your project:
-```javascript
-import { Ctrovalidate, LogLevel } from 'ctrovalidate';
-```
 
-### 2. Via CDN
-
-For quick demos or projects without a build step, you can use the UMD build directly from a CDN like jsDelivr.
+Or include it directly in your HTML file from a CDN:
 
 ```html
-<!-- Add this script tag to your HTML file -->
-<script defer src="https://cdn.jsdelivr.net/npm/ctrovalidate@latest/dist/ctrovalidate.umd.cjs"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/ctrovalidate@2.0.0/dist/ctrovalidate.js"></script>
 ```
-This will make the library available globally under the `window.Ctrovalidate` object.
 
-### 3. Initialize in JavaScript
+### 2. HTML Setup
 
-The initialization process is the same regardless of how you install it.
+Add `data-ctrovalidate-rules` to the inputs you want to validate. Make sure you have a container with the class `.error-message` for each field.
 
 ```html
-<!-- 1. Structure your HTML -->
 <form id="my-form" novalidate>
-  <div class="form-group">
+  <div>
     <label for="username">Username</label>
-    <input type="text" id="username" name="username" data-validus-rules="required|minLength:3">
+    <input 
+      type="text" 
+      id="username" 
+      name="username" 
+      data-ctrovalidate-rules="required|minLength:3|alphaDash"
+    >
     <div class="error-message"></div>
   </div>
-  <button type="submit">Submit</button>
+  
+  <div>
+    <label for="email">Email</label>
+    <input 
+      type="email" 
+      id="email" 
+      name="email" 
+      data-ctrovalidate-rules="required|email"
+    >
+    <div class="error-message"></div>
+  </div>
+
+  <button type="submit">Register</button>
 </form>
-
-<!-- 2. Initialize the library -->
-<script>
-  // If using CDN, the Ctrovalidate object is attached to the window
-  const { Ctrovalidate, LogLevel } = window.Ctrovalidate;
-
-  const form = document.getElementById('my-form');
-  const validator = new Ctrovalidate(form);
-
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const isFormValid = await validator.validate();
-    if (isFormValid) {
-      alert('Form is valid!');
-    }
-  });
-</script>
 ```
 
----
+### 3. JavaScript Initialization
 
-## Advanced Usage
-*(See the [Live Demo](#live-demo) for full examples.)*
+Initialize the library and add a submit handler.
 
-- **Asynchronous Validation:** Use `Ctrovalidate.addAsyncRule(...)` to define rules that return a `Promise`.
-- **Conditional Validation:** Use the `data-validus-if="fieldName:checked"` attribute to make rules dynamic.
+```javascript
+import { Ctrovalidate } from 'ctrovalidate';
 
----
+const form = document.getElementById('my-form');
 
-## Roadmap
+// Initialize the validator
+const validator = new Ctrovalidate(form, {
+  realTime: true // Enable instant feedback
+});
 
--   [ ] More built-in validation rules (e.g., file types, image dimensions).
--   [ ] Full suite of unit and end-to-end tests.
--   [ ] Official integration guides for popular UI libraries.
+// Handle form submission
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const isFormValid = await validator.validate();
 
----
+  if (isFormValid) {
+    alert('Form is valid! Submitting...');
+    // form.submit();
+  }
+});
+```
 
 ## Contributing
 
-Contributions are welcome! Please read our **[Contributing Guidelines](CONTRIBUTING.md)** to learn how you can help.
-
----
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
 
 ## License
 
-This project is licensed under the **[MIT License](LICENSE)**.
+This project is licensed under the [MIT License](LICENSE).

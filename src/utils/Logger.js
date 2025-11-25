@@ -1,7 +1,7 @@
-// src/core/Logger.js
+// src/utils/Logger.js
 
 /**
- * @file Defines the logging system for Validus.js.
+ * @file Defines the logging system for Ctrovalidate.js.
  * This provides a structured and controllable way to output debug, info,
  * warning, and error messages to the console.
  */
@@ -62,7 +62,7 @@ export class Logger {
   debug(source, message, ...args) {
     if (this.#level >= LogLevel.DEBUG) {
       // Using console.debug for these logs.
-      console.debug(`[Validus::${source}] ${message}`, ...args);
+      console.debug(`[Ctrovalidate::${source}] ${message}`, ...args);
     }
   }
 
@@ -76,7 +76,7 @@ export class Logger {
   info(source, message, ...args) {
     if (this.#level >= LogLevel.INFO) {
       // Styling this with a pleasant green color to make it stand out as a positive status message.
-      console.info(`[Validus::${source}] %c${message}`, 'color: #22c55e', ...args);
+      console.info(`[Ctrovalidate::${source}] %c${message}`, 'color: #22c55e', ...args);
     }
   }
 
@@ -91,7 +91,7 @@ export class Logger {
   warn(source, message, ...args) {
     if (this.#level >= LogLevel.WARN) {
       // console.warn naturally provides a distinct style in most browser consoles.
-      console.warn(`[Validus::${source}] ${message}`, ...args);
+      console.warn(`[Ctrovalidate::${source}] ${message}`, ...args);
     }
   }
 
@@ -105,9 +105,7 @@ export class Logger {
   error(source, message, ...args) {
     if (this.#level >= LogLevel.ERROR) {
       // console.error is the standard for critical issues.
-      console.error(`[Validus::${source}] ${message}`, ...args);
+      console.error(`[Ctrovalidate::${source}] ${message}`, ...args);
     }
   }
 }
-
-

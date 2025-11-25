@@ -1,0 +1,55 @@
+# .github/workflows/ci.yml
+
+# This workflow defines the Continuous Integration (CI) process for Ctrovalidate.
+# It ensures that every push and pull request is automatically tested and built.
+
+name: Ctrovalidate CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  
+  # Triggers the workflow on pull request events to the "main" branch
+  pull_request:
+    branches: [ "main" ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This job is named "test-and-build"
+  test-and-build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Define the Node.js versions to test against. 
+    # Using a matrix allows us to easily test on multiple versions.
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x] # Test on current and next LTS versions
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # 1. Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Sets up the specified version of Node.js
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm' # Enable caching for npm dependencies
+
+      # 3. Installs dependencies using 'npm ci' for clean, reproducible builds
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Runs the test suite using the 'test' script from package.json
+      - name: Run tests
+        run: npm test
+
+      # 5. Runs the production build using the 'build' script from package.json
+      # This is a critical step to ensure the library can be successfully bundled.
+      - name: Run production build
+        run: npm run build

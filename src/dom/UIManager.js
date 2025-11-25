@@ -1,15 +1,14 @@
-// src/core/UIManager.js
+// src/dom/UIManager.js
 
 /**
  * @file This file defines the UIManager class, which is responsible for all direct interactions with the DOM.
- * I've created this as a dedicated "DOM layer" to keep our core validation logic pure and separate
- * from the complexities of web page manipulation. This version is now upgraded to handle the "pending"
- * state for asynchronous validations.
+ * This version is upgraded to automatically manage ARIA attributes for accessibility (a11y)
+ * and to handle the "pending" state for asynchronous validations.
  */
 
 /**
  * @class UIManager
- * @description Manages all visual feedback on the web page.
+ * @description Manages all visual feedback and ARIA attributes on the web page.
  */
 export class UIManager {
   /**
@@ -34,8 +33,7 @@ export class UIManager {
   #pendingClass;
 
   /**
-   * A cache to store references to error elements, preventing repeated DOM queries for the same field.
-   * This is a key performance optimization.
+   * A cache to store references to error elements, preventing repeated DOM queries.
    * @private
    * @type {WeakMap<HTMLInputElement, HTMLElement>}
    */
@@ -43,10 +41,7 @@ export class UIManager {
 
   /**
    * @constructor
-   * @param {object} options - Configuration options from the main Validator instance.
-   * @param {string} options.errorClass - The CSS class for an invalid field.
-   * @param {string} options.errorMessageClass - The CSS class to identify error message containers.
-   * @param {string} options.pendingClass - The CSS class for a field with a pending async validation.
+   * @param {object} options - Configuration options from the main Ctrovalidate instance.
    */
   constructor({ errorClass, errorMessageClass, pendingClass }) {
     this.#errorClass = errorClass;
@@ -55,23 +50,25 @@ export class UIManager {
   }
 
   /**
-   * Finds the dedicated error message container for a given input field.
-   * To make this fast and flexible, I'm using a specific search strategy:
-   * 1. First, I check if we've found this element before and cached it.
-   * 2. If not, I look for a sibling element with the configured error message class.
-   * This is a common and reliable pattern.
+   * Finds or creates the dedicated error message container for a given input field.
    * @private
-   * @param {HTMLInputElement} field - The input field to find the error container for.
-   * @returns {HTMLElement | null} The found error element, or null if it doesn't exist.
+   * @param {HTMLInputElement} field - The input field.
+   * @returns {HTMLElement | null} The found error element.
    */
   #findErrorElement(field) {
     if (this.#errorElementCache.has(field)) {
       return this.#errorElementCache.get(field);
     }
 
+    // Find the error element, assuming it's a sibling or within the parent.
     const errorElement = field.parentElement.querySelector(`.${this.#errorMessageClass}`);
 
     if (errorElement) {
+      // Ensure the error element has a unique ID for ARIA.
+      if (!errorElement.id) {
+        // Generate a unique ID based on the field's name or a random string.
+        errorElement.id = `ctrovalidate-error-${field.name || Math.random().toString(36).substring(2, 9)}`;
+      }
       this.#errorElementCache.set(field, errorElement);
     }
 
@@ -79,44 +76,48 @@ export class UIManager {
   }
 
   /**
-   * Displays a validation error message for a specific field and applies error styling.
-   * This is the primary method for providing visual feedback to the user.
+   * Displays a validation error message and applies error styling and ARIA attributes.
    * @param {HTMLInputElement} field - The field that has an error.
    * @param {string} message - The error message to display.
    */
   displayError(field, message) {
     const errorElement = this.#findErrorElement(field);
+    
+    field.classList.add(this.#errorClass);
+    field.setAttribute('aria-invalid', 'true');
+
     if (errorElement) {
       errorElement.textContent = message;
       errorElement.style.display = '';
+      // Link the field to its error message for screen readers.
+      field.setAttribute('aria-describedby', errorElement.id);
     }
-
-    field.classList.add(this.#errorClass);
   }
 
   /**
-   * Clears the validation error message and removes error styling for a specific field.
-   * This is called when a field becomes valid.
+   * Clears the validation error message, styling, and ARIA attributes.
    * @param {HTMLInputElement} field - The field to clear the error from.
    */
   clearError(field) {
     const errorElement = this.#findErrorElement(field);
+
+    field.classList.remove(this.#errorClass);
+    field.removeAttribute('aria-invalid');
+    
     if (errorElement) {
       errorElement.textContent = '';
       errorElement.style.display = 'none';
+      // Unlink the field from its error message.
+      field.removeAttribute('aria-describedby');
     }
-
-    field.classList.remove(this.#errorClass);
   }
 
   /**
    * Shows the pending state for a field undergoing asynchronous validation.
-   * I'm making sure to clear any previous errors first to avoid a confusing UI state.
    * @param {HTMLInputElement} field - The field to show the pending state for.
    */
   showPending(field) {
-    // It's crucial to clear any existing error state before showing the pending state.
-    this.clearError(field);
+    this.clearError(field); // Clear previous errors before showing pending.
     field.classList.add(this.#pendingClass);
   }
 

@@ -1,101 +1,69 @@
-# Contributing to Ctrovalidate.js
+# Contributing to Ctrovalidate
 
-First off, thank you for considering contributing to Ctrovalidate.js! Your help is greatly appreciated. This project is a community effort, and every contribution, no matter how small, is valuable.
-
-This document provides a set of guidelines for contributing to Ctrovalidate.js. These are mostly guidelines, not strict rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
-
-## Table of Contents
-
-- [Code of Conduct](#code-of-conduct)
-- [How Can I Contribute?](#how-can-i-contribute)
-  - [Reporting Bugs](#reporting-bugs)
-  - [Suggesting Enhancements](#suggesting-enhancements)
-  - [Your First Code Contribution](#your-first-code-contribution)
-  - [Pull Requests](#pull-requests)
-- [Styleguides](#styleguides)
-  - [Git Commit Messages](#git-commit-messages)
-  - [JavaScript Styleguide](#javascript-styleguide)
-- [Development Setup](#development-setup)
+First off, thank you for considering contributing to Ctrovalidate! It's people like you that make open source such a great community. We welcome any and all contributions, from bug reports to new features and documentation improvements.
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior. *(Note: We will need to create this file next.)*
+This project and everyone participating in it is governed by the [Ctrovalidate Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior.
 
 ## How Can I Contribute?
 
 ### Reporting Bugs
 
-This section guides you through submitting a bug report for Ctrovalidate.js. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
-
-Before creating a bug report, please check the existing [issues](https://github.com/ctrotech-tutor/ctrovalidate/issues) as you might find that the bug has already been reported.
-
-When you are creating a bug report, please include as many details as possible:
-- A clear and descriptive title.
-- A step-by-step description of how to reproduce the issue.
-- The expected behavior vs. the actual behavior.
-- A minimal reproducible example (e.g., a link to a CodeSandbox or a small snippet of HTML/JS).
-- The version of Ctrovalidate.js you are using and the browser(s) where you've seen the issue.
+- Ensure the bug was not already reported by searching on GitHub under [Issues](https://github.com/ctrotech-tutor/ctrovalidate/issues ).
+- If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/ctrotech-tutor/ctrovalidate/issues/new?assignees=&labels=bug%2C+needs-triage&template=bug_report.md&title=Bug%3A+ ).
+- Please be sure to include a **title and clear description**, as much relevant information as possible, and a **code sample or a live example** demonstrating the expected behavior that is not occurring.
 
 ### Suggesting Enhancements
 
-This section guides you through submitting an enhancement suggestion for Ctrovalidate.js, including completely new features and minor improvements to existing functionality.
+- We use GitHub issues to track feature requests. Before you create a feature request, please check the [existing issues](https://github.com/ctrotech-tutor/ctrovalidate/issues ) to see if a similar request has already been made.
+- If not, you can [open a new feature request](https://github.com/ctrotech-tutor/ctrovalidate/issues/new?assignees=&labels=enhancement%2C+needs-discussion&template=feature_request.md&title=Feat%3A+ ).
 
-- **Use a clear and descriptive title** for the issue to identify the suggestion.
-- **Provide a step-by-step description** of the suggested enhancement in as many details as possible.
-- **Explain why this enhancement would be useful** to most Ctrovalidate.js users.
-- **Provide a code snippet or mockups** if possible to illustrate the new feature.
+### Submitting Pull Requests
 
-### Your First Code Contribution
+If you want to contribute code, that's fantastic! Here is the process:
 
-Unsure where to begin contributing to Ctrovalidate.js? You can start by looking through these `good-first-issue` and `help-wanted` issues:
-- **Good first issues** - issues which should only require a few lines of code, and a test or two.
-- **Help wanted issues** - issues which should be a bit more involved than `good-first-issue` issues.
-
-### Pull Requests
-
-The process described here has several goals:
-- Maintain Ctrovalidate.js's quality.
-- Fix problems that are important to users.
-- Engage the community in working toward the best possible Ctrovalidate.js.
-- Enable a sustainable system for Ctrovalidate.js's maintainers to review contributions.
-
-Please follow these steps to have your contribution considered by the maintainers:
-1. Fork the repository and create your branch from `main`.
-2. If you've added code that should be tested, add tests.
-3. Ensure your code lints (if a linter is configured).
-4. Issue that pull request!
-
-## Styleguides
-
-### Git Commit Messages
-
-- Use the present tense ("Add feature" not "Added feature").
-- Use the imperative mood ("Move file to..." not "Moves file to...").
-- Limit the first line to 72 characters or less.
-- Reference issues and pull requests liberally after the first line.
-
-### JavaScript Styleguide
-
-All JavaScript code is expected to adhere to the style guide used in the existing codebase. We prioritize clarity, simplicity, and maintainability.
+1.  Fork the repository.
+2.  Create a new branch (`git checkout -b feature/your-amazing-feature`).
+3.  Make your changes.
+4.  Set up the development environment and run tests.
+5.  Ensure your code follows the project's style and linting rules.
+6.  Commit your changes (`git commit -m 'feat: Add some amazing feature'`). We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/ ) specification.
+7.  Push to the branch (`git push origin feature/your-amazing-feature`).
+8.  Open a pull request, using the provided [Pull Request Template](.github/PULL_REQUEST_TEMPLATE.md).
 
 ## Development Setup
 
-Ready to contribute? Here’s how to set up Ctrovalidate.js for local development.
+To get the project running locally for development, follow these steps:
 
-1.  **Fork** the repository `ctrotech-tutor/ctrovalidate`.
-2.  **Clone** your forked repository:
-    ```sh
-    git clone https://github.com/<your-username>/ctrovalidate.git
-    ```
-3.  **Navigate** to the project directory:
-    ```sh
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/ctrotech-tutor/ctrovalidate.git
     cd ctrovalidate
     ```
-4.  **Install** dependencies:
-    ```sh
+
+2.  **Install dependencies:**
+    We use `npm` for package management.
+    ```bash
     npm install
     ```
-5.  **Run** the development server to test your changes with the `examples/simple-form.html` file:
-    ```sh
+
+3.  **Run the development server:**
+    This will start a Vite development server. You can then navigate to the `examples/` directory in your browser to see your changes live.
+    ```bash
     npm run dev
     ```
+
+4.  **Run tests:**
+    Before submitting your changes, make sure all tests pass.
+    ```bash
+    npm test
+    ```
+
+## Code Style
+
+This project uses Prettier for automatic code formatting. We recommend installing a Prettier extension for your code editor to format your code automatically on save.
+
+---
+
+We look forward to your contributions!

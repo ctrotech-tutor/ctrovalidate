@@ -1,14 +1,18 @@
-// src/index.js (New Version)
+// src/index.js
 
 /**
  * @file This is the main entry point for the Ctrovalidate.js library.
- * I'm using this file to define the public-facing API. By only exporting
- * the main `Ctrovalidate` class and the `LogLevel` enum as named exports,
- * we create a clear, unambiguous API for all environments.
+ * It defines the public API, making only the main Ctrovalidate class available
+ * as a named export. Other properties like LogLevel are attached as static
+ * properties to the main class for a cleaner, more organized API.
  */
 
-import { Validus as Ctrovalidate } from './core/Validator.js'; // Rename on import
-import { LogLevel } from './core/Logger.js';
+import { Ctrovalidate as CtrovalidateCore } from './core/Ctrovalidate.js';
+import { LogLevel } from './utils/Logger.js';
 
-// Export both as named exports.
-export { Ctrovalidate, LogLevel };
+// Attach LogLevel as a static property to the main class.
+// This allows users to access it via Ctrovalidate.LogLevel.DEBUG
+CtrovalidateCore.LogLevel = LogLevel;
+
+// Re-export the enhanced class as the primary named export.
+export const Ctrovalidate = CtrovalidateCore;
