@@ -66,4 +66,37 @@ This project uses Prettier for automatic code formatting. We recommend installin
 
 ---
 
+## Commit Message Convention
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). This is a specification for adding human and machine-readable meaning to commit messages. It allows us to automate changelog generation and versioning.
+
+Your commit messages should be structured as follows:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer]
+```
+
+**Common types:**
+- `feat`: A new feature.
+- `fix`: A bug fix.
+- `docs`: Documentation only changes.
+- `style`: Changes that do not affect the meaning of the code (white-space, formatting, etc).
+- `refactor`: A code change that neither fixes a bug nor adds a feature.
+- `test`: Adding missing tests or correcting existing tests.
+- `chore`: Changes to the build process or auxiliary tools and libraries.
+
+**Example:**
+```
+feat(api): add new 'reset' method to validator
+```
+```
+fix(rules): correct behavior of 'between' rule with negative numbers
+```
+
+---
+
 We look forward to your contributions!

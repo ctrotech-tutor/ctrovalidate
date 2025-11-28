@@ -45,11 +45,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 4. Runs the test suite using the 'test' script from package.json
+      # 4. NEW: Run linter to check for code quality and style issues
+      - name: Run linter
+        run: npm run lint
+
+      # 5. Runs the test suite using the 'test' script from package.json
       - name: Run tests
         run: npm test
 
-      # 5. Runs the production build using the 'build' script from package.json
+      # 6. Runs the production build using the 'build' script from package.json
       # This is a critical step to ensure the library can be successfully bundled.
       - name: Run production build
         run: npm run build
