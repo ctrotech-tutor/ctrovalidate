@@ -42,7 +42,7 @@ describe('UIManager', () => {
 
     // Check for ARIA attributes
     expect(input.getAttribute('aria-invalid')).toBe('true');
-    
+
     // Check that the error element has an ID and the input is described by it
     const errorId = errorElement.id;
     expect(errorId).not.toBeNull();

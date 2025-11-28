@@ -13,10 +13,10 @@
  * @enum {number}
  */
 export const LogLevel = {
-  NONE: 0,  // No logs
+  NONE: 0, // No logs
   ERROR: 1, // Only critical errors
-  WARN: 2,  // Warnings and errors
-  INFO: 3,  // Informational messages, warnings, and errors
+  WARN: 2, // Warnings and errors
+  INFO: 3, // Informational messages, warnings, and errors
   DEBUG: 4, // All messages, for deep debugging
 };
 
@@ -76,7 +76,11 @@ export class Logger {
   info(source, message, ...args) {
     if (this.#level >= LogLevel.INFO) {
       // Styling this with a pleasant green color to make it stand out as a positive status message.
-      console.info(`[Ctrovalidate::${source}] %c${message}`, 'color: #22c55e', ...args);
+      console.info(
+        `[Ctrovalidate::${source}] %c${message}`,
+        'color: #22c55e',
+        ...args
+      );
     }
   }
 

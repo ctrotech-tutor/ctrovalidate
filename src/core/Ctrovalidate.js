@@ -65,7 +65,9 @@ export class Ctrovalidate {
    */
   constructor(formElement, options = {}) {
     if (!formElement || formElement.tagName !== 'FORM') {
-      throw new Error('Ctrovalidate requires a valid HTMLFormElement to be initialized.');
+      throw new Error(
+        'Ctrovalidate requires a valid HTMLFormElement to be initialized.'
+      );
     }
     this.#form = formElement;
 
@@ -85,7 +87,7 @@ export class Ctrovalidate {
     // 2. Initialize the Rule Engine with its dependencies
     this.#ruleEngine = new RuleEngine(this.#form, {
       logger: this.#logger,
-      uiManager: uiManager,
+      uiManager,
       rules: Ctrovalidate.#rules,
       asyncRules: Ctrovalidate.#asyncRules,
       messages: Ctrovalidate.#messages,
@@ -97,7 +99,11 @@ export class Ctrovalidate {
       validationHandler: this.#ruleEngine.validateField.bind(this.#ruleEngine),
     });
 
-    this.#logger.info('Ctrovalidate', 'Initializing instance for form:', this.#form);
+    this.#logger.info(
+      'Ctrovalidate',
+      'Initializing instance for form:',
+      this.#form
+    );
 
     // 4. Discover fields and attach listeners
     this.#formController.discoverFields();
@@ -110,17 +116,20 @@ export class Ctrovalidate {
    */
   async validate() {
     this.#logger.info('Ctrovalidate', 'Starting full form validation...');
-    
+
     const fields = this.#formController.getFields();
-    const validationPromises = fields.map(fieldObject => {
+    const validationPromises = fields.map((fieldObject) => {
       fieldObject.state.isDirty = true; // Mark as dirty on full validation attempt
       return this.#ruleEngine.validateField(fieldObject);
     });
 
     const results = await Promise.all(validationPromises);
-    const isFormValid = results.every(isValid => isValid);
+    const isFormValid = results.every((isValid) => isValid);
 
-    this.#logger.info('Ctrovalidate', `Full form validation complete. Is valid: ${isFormValid}`);
+    this.#logger.info(
+      'Ctrovalidate',
+      `Full form validation complete. Is valid: ${isFormValid}`
+    );
     return isFormValid;
   }
 
@@ -130,7 +139,11 @@ export class Ctrovalidate {
    * @param {HTMLElement} fieldElement - The input, textarea, or select element to add.
    */
   addField(fieldElement) {
-    this.#logger.info('Ctrovalidate', 'Dynamically adding field:', fieldElement);
+    this.#logger.info(
+      'Ctrovalidate',
+      'Dynamically adding field:',
+      fieldElement
+    );
     this.#formController.addField(fieldElement, this.#options.realTime);
   }
 
@@ -140,7 +153,11 @@ export class Ctrovalidate {
    * @param {HTMLElement} fieldElement - The input, textarea, or select element to remove.
    */
   removeField(fieldElement) {
-    this.#logger.info('Ctrovalidate', 'Dynamically removing field:', fieldElement);
+    this.#logger.info(
+      'Ctrovalidate',
+      'Dynamically removing field:',
+      fieldElement
+    );
     this.#formController.removeField(fieldElement);
   }
 
@@ -151,8 +168,14 @@ export class Ctrovalidate {
    * @param {string} message - The default error message.
    */
   static addRule(name, logic, message) {
-    if (typeof name !== 'string' || typeof logic !== 'function' || typeof message !== 'string') {
-      console.error('[Ctrovalidate] addRule requires a name (string), logic (function), and message (string).');
+    if (
+      typeof name !== 'string' ||
+      typeof logic !== 'function' ||
+      typeof message !== 'string'
+    ) {
+      console.error(
+        '[Ctrovalidate] addRule requires a name (string), logic (function), and message (string).'
+      );
       return;
     }
     Ctrovalidate.#rules[name] = logic;
@@ -166,8 +189,14 @@ export class Ctrovalidate {
    * @param {string} message - The default error message.
    */
   static addAsyncRule(name, logic, message) {
-    if (typeof name !== 'string' || typeof logic !== 'function' || typeof message !== 'string') {
-      console.error('[Ctrovalidate] addAsyncRule requires a name (string), logic (async function), and message (string).');
+    if (
+      typeof name !== 'string' ||
+      typeof logic !== 'function' ||
+      typeof message !== 'string'
+    ) {
+      console.error(
+        '[Ctrovalidate] addAsyncRule requires a name (string), logic (async function), and message (string).'
+      );
       return;
     }
     Ctrovalidate.#asyncRules[name] = logic;

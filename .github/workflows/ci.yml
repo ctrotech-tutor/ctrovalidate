@@ -9,11 +9,11 @@ name: Ctrovalidate CI
 on:
   # Triggers the workflow on push events but only for the "main" branch
   push:
-    branches: [ "main" ]
-  
+    branches: ['main']
+
   # Triggers the workflow on pull request events to the "main" branch
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -22,7 +22,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Define the Node.js versions to test against. 
+    # Define the Node.js versions to test against.
     # Using a matrix allows us to easily test on multiple versions.
     strategy:
       matrix:

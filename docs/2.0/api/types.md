@@ -18,37 +18,37 @@ This is the interface for the options object that can be passed to the `Ctrovali
 
 ```typescript
 interface CtrovalidateOptions {
-	logLevel?: LogLevel;
-	errorClass?: string;
-	errorMessageClass?: string;
-	pendingClass?: string;
-	realTime?: boolean;
+  logLevel?: LogLevel;
+  errorClass?: string;
+  errorMessageClass?: string;
+  pendingClass?: string;
+  realTime?: boolean;
 }
 ```
 
 ### Properties
 
 - **`logLevel?: LogLevel`**
-	The logging level for the console. Defaults to `LogLevel.NONE`.
+  The logging level for the console. Defaults to `LogLevel.NONE`.
 
 - **`errorClass?: string`**
-	The CSS class applied to an invalid field. Defaults to `'is-invalid'`.
+  The CSS class applied to an invalid field. Defaults to `'is-invalid'`.
 
 - **`errorMessageClass?: string`**
-	The CSS class to identify the error message container. Defaults to `'error-message'`.
+  The CSS class to identify the error message container. Defaults to `'error-message'`.
 
 - **`pendingClass?: string`**
-	The CSS class applied during async validation. Defaults to `'is-validating'`.
+  The CSS class applied during async validation. Defaults to `'is-validating'`.
 
 - **`realTime?: boolean`**
-	Whether to enable real-time validation. Defaults to `true`.
+  Whether to enable real-time validation. Defaults to `true`.
 
 ### Usage
 
 ```typescript
 const options: CtrovalidateOptions = {
-	realTime: false,
-	errorClass: 'form-error'
+  realTime: false,
+  errorClass: 'form-error',
 };
 
 const validator = new Ctrovalidate(form, options);
@@ -64,11 +64,11 @@ This is an enum representing the available logging levels.
 
 ```typescript
 enum LogLevel {
-	NONE = 0,
-	ERROR = 1,
-	WARN = 2,
-	INFO = 3,
-	DEBUG = 4,
+  NONE = 0,
+  ERROR = 1,
+  WARN = 2,
+  INFO = 3,
+  DEBUG = 4,
 }
 ```
 
@@ -80,9 +80,8 @@ Use this enum to provide a type-safe value for the `logLevel` option.
 import { Ctrovalidate, LogLevel, CtrovalidateOptions } from 'ctrovalidate';
 
 const options: CtrovalidateOptions = {
-	logLevel: LogLevel.DEBUG
+  logLevel: LogLevel.DEBUG,
 };
 
 const validator = new Ctrovalidate(form, options);
 ```
-

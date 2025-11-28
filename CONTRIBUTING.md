@@ -10,14 +10,14 @@ This project and everyone participating in it is governed by the [Ctrovalidate C
 
 ### Reporting Bugs
 
-- Ensure the bug was not already reported by searching on GitHub under [Issues](https://github.com/ctrotech-tutor/ctrovalidate/issues ).
-- If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/ctrotech-tutor/ctrovalidate/issues/new?assignees=&labels=bug%2C+needs-triage&template=bug_report.md&title=Bug%3A+ ).
+- Ensure the bug was not already reported by searching on GitHub under [Issues](https://github.com/ctrotech-tutor/ctrovalidate/issues).
+- If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/ctrotech-tutor/ctrovalidate/issues/new?assignees=&labels=bug%2C+needs-triage&template=bug_report.md&title=Bug%3A+).
 - Please be sure to include a **title and clear description**, as much relevant information as possible, and a **code sample or a live example** demonstrating the expected behavior that is not occurring.
 
 ### Suggesting Enhancements
 
-- We use GitHub issues to track feature requests. Before you create a feature request, please check the [existing issues](https://github.com/ctrotech-tutor/ctrovalidate/issues ) to see if a similar request has already been made.
-- If not, you can [open a new feature request](https://github.com/ctrotech-tutor/ctrovalidate/issues/new?assignees=&labels=enhancement%2C+needs-discussion&template=feature_request.md&title=Feat%3A+ ).
+- We use GitHub issues to track feature requests. Before you create a feature request, please check the [existing issues](https://github.com/ctrotech-tutor/ctrovalidate/issues) to see if a similar request has already been made.
+- If not, you can [open a new feature request](https://github.com/ctrotech-tutor/ctrovalidate/issues/new?assignees=&labels=enhancement%2C+needs-discussion&template=feature_request.md&title=Feat%3A+).
 
 ### Submitting Pull Requests
 
@@ -28,7 +28,7 @@ If you want to contribute code, that's fantastic! Here is the process:
 3.  Make your changes.
 4.  Set up the development environment and run tests.
 5.  Ensure your code follows the project's style and linting rules.
-6.  Commit your changes (`git commit -m 'feat: Add some amazing feature'`). We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/ ) specification.
+6.  Commit your changes (`git commit -m 'feat: Add some amazing feature'`). We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 7.  Push to the branch (`git push origin feature/your-amazing-feature`).
 8.  Open a pull request, using the provided [Pull Request Template](.github/PULL_REQUEST_TEMPLATE.md).
 
@@ -37,6 +37,7 @@ If you want to contribute code, that's fantastic! Here is the process:
 To get the project running locally for development, follow these steps:
 
 1.  **Clone the repository:**
+
     ```bash
     git clone https://github.com/ctrotech-tutor/ctrovalidate.git
     cd ctrovalidate
@@ -44,12 +45,14 @@ To get the project running locally for development, follow these steps:
 
 2.  **Install dependencies:**
     We use `npm` for package management.
+
     ```bash
     npm install
     ```
 
 3.  **Run the development server:**
     This will start a Vite development server. You can then navigate to the `examples/` directory in your browser to see your changes live.
+
     ```bash
     npm run dev
     ```
@@ -81,6 +84,7 @@ Your commit messages should be structured as follows:
 ```
 
 **Common types:**
+
 - `feat`: A new feature.
 - `fix`: A bug fix.
 - `docs`: Documentation only changes.
@@ -90,9 +94,11 @@ Your commit messages should be structured as follows:
 - `chore`: Changes to the build process or auxiliary tools and libraries.
 
 **Example:**
+
 ```
 feat(api): add new 'reset' method to validator
 ```
+
 ```
 fix(rules): correct behavior of 'between' rule with negative numbers
 ```

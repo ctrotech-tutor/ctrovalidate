@@ -7,16 +7,16 @@ name: Ctrovalidate CI
 on:
   # Run on every push to the 'main' branch.
   push:
-    branches: [ "main" ]
+    branches: ['main']
   # Run on every pull request that targets the 'main' branch.
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 # This section defines the jobs to be run. We only have one job for now: "build".
 jobs:
   # The name of our job.
   build:
-    # This specifies the type of machine to run the job on. 
+    # This specifies the type of machine to run the job on.
     # 'ubuntu-latest' is a standard, reliable choice for most web projects.
     runs-on: ubuntu-latest
 

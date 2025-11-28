@@ -7,6 +7,7 @@ Ctrovalidate comes with a wide variety of built-in rules to cover the most commo
 ---
 
 ### `required`
+
 Ensures the field is not empty. For checkboxes, it ensures the box is checked.
 
 - **Usage:** `data-ctrovalidate-rules="required"`
@@ -14,6 +15,7 @@ Ensures the field is not empty. For checkboxes, it ensures the box is checked.
 ---
 
 ### `email`
+
 Ensures the value is in a valid email format (e.g., `name@example.com`).
 
 - **Usage:** `data-ctrovalidate-rules="email"`
@@ -21,6 +23,7 @@ Ensures the value is in a valid email format (e.g., `name@example.com`).
 ---
 
 ### `minLength`
+
 Ensures the string length is greater than or equal to a specified minimum.
 
 - **Parameter:** The minimum number of characters.
@@ -29,6 +32,7 @@ Ensures the string length is greater than or equal to a specified minimum.
 ---
 
 ### `maxLength`
+
 Ensures the string length is less than or equal to a specified maximum.
 
 - **Parameter:** The maximum number of characters.
@@ -37,6 +41,7 @@ Ensures the string length is less than or equal to a specified maximum.
 ---
 
 ### `exactLength`
+
 Ensures the string length is exactly equal to a specified value.
 
 - **Parameter:** The exact number of characters.
@@ -45,6 +50,7 @@ Ensures the string length is exactly equal to a specified value.
 ---
 
 ### `sameAs`
+
 Ensures the value is identical to the value of another field.
 
 - **Parameter:** The `name` attribute of the other field.
@@ -55,6 +61,7 @@ Ensures the value is identical to the value of another field.
 ---
 
 ### `alpha`
+
 Ensures the value contains only alphabetic characters (`a-z`, `A-Z`).
 
 - **Usage:** `data-ctrovalidate-rules="alpha"`
@@ -62,6 +69,7 @@ Ensures the value contains only alphabetic characters (`a-z`, `A-Z`).
 ---
 
 ### `alphaNum`
+
 Ensures the value contains only alphanumeric characters (`a-z`, `A-Z`, `0-9`).
 
 - **Usage:** `data-ctrovalidate-rules="alphaNum"`
@@ -69,6 +77,7 @@ Ensures the value contains only alphanumeric characters (`a-z`, `A-Z`, `0-9`).
 ---
 
 ### `alphaDash`
+
 Ensures the value contains only alphanumeric characters, dashes (`-`), and underscores (`_`).
 
 - **Usage:** `data-ctrovalidate-rules="alphaDash"`
@@ -76,6 +85,7 @@ Ensures the value contains only alphanumeric characters, dashes (`-`), and under
 ---
 
 ### `numeric`
+
 Ensures the value is a valid number (can be an integer or decimal).
 
 - **Usage:** `data-ctrovalidate-rules="numeric"`
@@ -83,6 +93,7 @@ Ensures the value is a valid number (can be an integer or decimal).
 ---
 
 ### `integer`
+
 Ensures the value is a valid integer (no decimal point).
 
 - **Usage:** `data-ctrovalidate-rules="integer"`
@@ -90,6 +101,7 @@ Ensures the value is a valid integer (no decimal point).
 ---
 
 ### `decimal`
+
 Ensures the value is a valid decimal number (must contain a decimal point).
 
 - **Usage:** `data-ctrovalidate-rules="decimal"`
@@ -97,6 +109,7 @@ Ensures the value is a valid decimal number (must contain a decimal point).
 ---
 
 ### `url`
+
 Ensures the value is a valid URL format.
 
 - **Usage:** `data-ctrovalidate-rules="url"`
@@ -104,6 +117,7 @@ Ensures the value is a valid URL format.
 ---
 
 ### `phone`
+
 Ensures the value has a generic phone number format.
 
 - **Usage:** `data-ctrovalidate-rules="phone"`
@@ -113,6 +127,7 @@ Ensures the value has a generic phone number format.
 ---
 
 ### `min`
+
 Ensures a numeric value is greater than or equal to a specified minimum.
 
 - **Parameter:** The minimum numeric value.
@@ -121,6 +136,7 @@ Ensures a numeric value is greater than or equal to a specified minimum.
 ---
 
 ### `max`
+
 Ensures a numeric value is less than or equal to a specified maximum.
 
 - **Parameter:** The maximum numeric value.
@@ -129,6 +145,7 @@ Ensures a numeric value is less than or equal to a specified maximum.
 ---
 
 ### `between`
+
 Ensures a numeric value is between a specified minimum and maximum, inclusive.
 
 - **Parameters:** The min and max values, separated by a comma.
@@ -139,6 +156,7 @@ Ensures a numeric value is between a specified minimum and maximum, inclusive.
 ---
 
 ### `creditCard`
+
 Ensures the value is a valid credit card number according to the Luhn algorithm.
 
 - **Usage:** `data-ctrovalidate-rules="creditCard"`
@@ -146,6 +164,7 @@ Ensures the value is a valid credit card number according to the Luhn algorithm.
 ---
 
 ### `ipAddress`
+
 Ensures the value is a valid IPv4 address.
 
 - **Usage:** `data-ctrovalidate-rules="ipAddress"`
@@ -153,6 +172,7 @@ Ensures the value is a valid IPv4 address.
 ---
 
 ### `json`
+
 Ensures the value is a valid JSON string.
 
 - **Usage:** `data-ctrovalidate-rules="json"`
@@ -160,6 +180,7 @@ Ensures the value is a valid JSON string.
 ---
 
 ### `strongPassword`
+
 A pre-built example rule that checks for a common password policy: at least 8 characters, one uppercase letter, one lowercase letter, and one number.
 
 - **Usage:** `data-ctrovalidate-rules="strongPassword"`

@@ -1,164 +1,210 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ctrovalidate 2.0 - Dynamic Form Test</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: #f8f9fa;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 1rem;
-    }
-    .container {
-      background-color: #ffffff;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-      width: 100%;
-      max-width: 550px;
-    }
-    h1 {
-      text-align: center;
-      color: #343a40;
-      margin-bottom: 1.5rem;
-    }
-    .form-group {
-      margin-bottom: 1.25rem;
-      animation: fadeIn 0.5s;
-    }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-    input {
-      width: 100%;
-      padding: 0.7rem;
-      border: 1px solid #ced4da;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-    .is-invalid { border-color: #dc3545; }
-    .error-message {
-      color: #dc3545;
-      font-size: 0.875em;
-      margin-top: 0.4rem;
-      min-height: 1em;
-    }
-    button {
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.2s, transform 0.1s;
-    }
-    button:active { transform: scale(0.98); }
-    .btn-submit { width: 100%; background-color: #0d6efd; color: white; margin-top: 1rem; }
-    .btn-submit:hover { background-color: #0b5ed7; }
-    .controls { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 1.5rem; }
-    .btn-add { background-color: #198754; color: white; }
-    .btn-remove { background-color: #dc3545; color: white; }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <h1>Dynamic Survey</h1>
-    <div class="controls">
-      <button id="add-field-btn" class="btn-add">Add Hobby Field</button>
-      <button id="remove-field-btn" class="btn-remove">Remove Hobby Field</button>
-    </div>
-
-    <form id="dynamic-form" novalidate>
-      <div class="form-group">
-        <label for="name">Your Name</label>
-        <input type="text" id="name" name="name" data-ctrovalidate-rules="required|minLength:2">
-        <div class="error-message"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ctrovalidate 2.0 - Dynamic Form Test</title>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+          Arial, sans-serif;
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 1rem;
+      }
+      .container {
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+        width: 100%;
+        max-width: 550px;
+      }
+      h1 {
+        text-align: center;
+        color: #343a40;
+        margin-bottom: 1.5rem;
+      }
+      .form-group {
+        margin-bottom: 1.25rem;
+        animation: fadeIn 0.5s;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+      input {
+        width: 100%;
+        padding: 0.7rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      .is-invalid {
+        border-color: #dc3545;
+      }
+      .error-message {
+        color: #dc3545;
+        font-size: 0.875em;
+        margin-top: 0.4rem;
+        min-height: 1em;
+      }
+      button {
+        padding: 0.6rem 1.2rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background-color 0.2s,
+          transform 0.1s;
+      }
+      button:active {
+        transform: scale(0.98);
+      }
+      .btn-submit {
+        width: 100%;
+        background-color: #0d6efd;
+        color: white;
+        margin-top: 1rem;
+      }
+      .btn-submit:hover {
+        background-color: #0b5ed7;
+      }
+      .controls {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 1.5rem;
+      }
+      .btn-add {
+        background-color: #198754;
+        color: white;
+      }
+      .btn-remove {
+        background-color: #dc3545;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Dynamic Survey</h1>
+      <div class="controls">
+        <button id="add-field-btn" class="btn-add">Add Hobby Field</button>
+        <button id="remove-field-btn" class="btn-remove">
+          Remove Hobby Field
+        </button>
       </div>
 
-      <!-- Dynamic fields will be added here -->
-      <div id="dynamic-fields-container"></div>
+      <form id="dynamic-form" novalidate>
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            data-ctrovalidate-rules="required|minLength:2"
+          />
+          <div class="error-message"></div>
+        </div>
 
-      <button type="submit" class="btn-submit">Submit Survey</button>
-    </form>
-  </div>
+        <!-- Dynamic fields will be added here -->
+        <div id="dynamic-fields-container"></div>
 
-  <script type="module">
-    import { Ctrovalidate } from '../../src/index.js';
+        <button type="submit" class="btn-submit">Submit Survey</button>
+      </form>
+    </div>
 
-    const form = document.getElementById('dynamic-form');
-    const addBtn = document.getElementById('add-field-btn');
-    const removeBtn = document.getElementById('remove-field-btn');
-    const dynamicContainer = document.getElementById('dynamic-fields-container');
+    <script type="module">
+      import { Ctrovalidate } from '../../src/index.js';
 
-    // 1. Initialize Ctrovalidate on the form.
-    const validator = new Ctrovalidate(form, { realTime: true });
+      const form = document.getElementById('dynamic-form');
+      const addBtn = document.getElementById('add-field-btn');
+      const removeBtn = document.getElementById('remove-field-btn');
+      const dynamicContainer = document.getElementById(
+        'dynamic-fields-container'
+      );
 
-    let hobbyCount = 0;
+      // 1. Initialize Ctrovalidate on the form.
+      const validator = new Ctrovalidate(form, { realTime: true });
 
-    // 2. Add Field Logic
-    addBtn.addEventListener('click', () => {
-      hobbyCount++;
-      const fieldId = `hobby-${hobbyCount}`;
+      let hobbyCount = 0;
 
-      // Create a new form group and input field
-      const newGroup = document.createElement('div');
-      newGroup.className = 'form-group';
-      newGroup.innerHTML = `
+      // 2. Add Field Logic
+      addBtn.addEventListener('click', () => {
+        hobbyCount++;
+        const fieldId = `hobby-${hobbyCount}`;
+
+        // Create a new form group and input field
+        const newGroup = document.createElement('div');
+        newGroup.className = 'form-group';
+        newGroup.innerHTML = `
         <label for="${fieldId}">Hobby #${hobbyCount}</label>
         <input type="text" id="${fieldId}" name="${fieldId}" data-ctrovalidate-rules="required|minLength:3">
         <div class="error-message"></div>
       `;
-      
-      dynamicContainer.appendChild(newGroup);
 
-      // Get the newly created input element
-      const newField = newGroup.querySelector('input');
+        dynamicContainer.appendChild(newGroup);
 
-      // 3. Use the new public API to make the validator aware of the new field.
-      console.log(`%cAdding field: ${fieldId}`, 'color: green');
-      validator.addField(newField);
-    });
+        // Get the newly created input element
+        const newField = newGroup.querySelector('input');
 
-    // 4. Remove Field Logic
-    removeBtn.addEventListener('click', () => {
-      if (hobbyCount <= 0) return;
+        // 3. Use the new public API to make the validator aware of the new field.
+        console.log(`%cAdding field: ${fieldId}`, 'color: green');
+        validator.addField(newField);
+      });
 
-      const fieldId = `hobby-${hobbyCount}`;
-      const fieldToRemove = document.getElementById(fieldId);
-      
-      if (fieldToRemove) {
-        // 5. Use the new public API to make the validator forget the field.
-        console.log(`%cRemoving field: ${fieldId}`, 'color: red');
-        validator.removeField(fieldToRemove);
-        
-        // Remove the element from the DOM
-        fieldToRemove.parentElement.remove();
-        hobbyCount--;
-      }
-    });
+      // 4. Remove Field Logic
+      removeBtn.addEventListener('click', () => {
+        if (hobbyCount <= 0) return;
 
-    // 6. Standard Submit Handler
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const isFormValid = await validator.validate();
-      if (isFormValid) {
-        alert('Survey submitted successfully!');
-        console.log('Form Data:', Object.fromEntries(new FormData(form).entries()));
-      } else {
-        alert('Please fix the errors before submitting.');
-      }
-    });
-  </script>
+        const fieldId = `hobby-${hobbyCount}`;
+        const fieldToRemove = document.getElementById(fieldId);
 
-</body>
+        if (fieldToRemove) {
+          // 5. Use the new public API to make the validator forget the field.
+          console.log(`%cRemoving field: ${fieldId}`, 'color: red');
+          validator.removeField(fieldToRemove);
+
+          // Remove the element from the DOM
+          fieldToRemove.parentElement.remove();
+          hobbyCount--;
+        }
+      });
+
+      // 6. Standard Submit Handler
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const isFormValid = await validator.validate();
+        if (isFormValid) {
+          alert('Survey submitted successfully!');
+          console.log(
+            'Form Data:',
+            Object.fromEntries(new FormData(form).entries())
+          );
+        } else {
+          alert('Please fix the errors before submitting.');
+        }
+      });
+    </script>
+  </body>
 </html>

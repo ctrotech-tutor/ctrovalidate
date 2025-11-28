@@ -1,1 +1,15 @@
-import{_ as i,c as a,o as e,ae as t}from"./chunks/framework.BMU9rCtY.js";const g=JSON.parse('{"title":"TypeScript Types","description":"","frontmatter":{},"headers":[],"relativePath":"2.0/api/types.md","filePath":"2.0/api/types.md"}'),n={name:"2.0/api/types.md"};function l(p,s,h,k,r,o){return e(),a("div",null,[...s[0]||(s[0]=[t("",21)])])}const c=i(n,[["render",l]]);export{g as __pageData,c as default};
+import {
+  _ as i,
+  c as a,
+  o as e,
+  ae as t,
+} from './chunks/framework.BMU9rCtY.js';
+const g = JSON.parse(
+    '{"title":"TypeScript Types","description":"","frontmatter":{},"headers":[],"relativePath":"2.0/api/types.md","filePath":"2.0/api/types.md"}'
+  ),
+  n = { name: '2.0/api/types.md' };
+function l(p, s, h, k, r, o) {
+  return (e(), a('div', null, [...(s[0] || (s[0] = [t('', 21)]))]));
+}
+const c = i(n, [['render', l]]);
+export { g as __pageData, c as default };

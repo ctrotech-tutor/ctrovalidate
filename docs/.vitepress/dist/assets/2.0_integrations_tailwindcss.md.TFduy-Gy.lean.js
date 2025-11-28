@@ -1,1 +1,10 @@
-import{_ as t,c as e,o as a}from"./chunks/framework.BMU9rCtY.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"2.0/integrations/tailwindcss.md","filePath":"2.0/integrations/tailwindcss.md"}'),s={name:"2.0/integrations/tailwindcss.md"};function n(i,r,o,c,d,l){return a(),e("div")}const m=t(s,[["render",n]]);export{_ as __pageData,m as default};
+import { _ as t, c as e, o as a } from './chunks/framework.BMU9rCtY.js';
+const _ = JSON.parse(
+    '{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"2.0/integrations/tailwindcss.md","filePath":"2.0/integrations/tailwindcss.md"}'
+  ),
+  s = { name: '2.0/integrations/tailwindcss.md' };
+function n(i, r, o, c, d, l) {
+  return (a(), e('div'));
+}
+const m = t(s, [['render', n]]);
+export { _ as __pageData, m as default };

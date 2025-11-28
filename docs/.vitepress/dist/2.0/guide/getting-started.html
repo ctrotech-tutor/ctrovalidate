@@ -1,27 +1,761 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Getting Started | Ctrovalidate</title>
-    <meta name="description" content="A lightweight, powerful, and zero-dependency JavaScript library for client-side form validation.">
-    <meta name="generator" content="VitePress v1.6.4">
-    <link rel="preload stylesheet" href="/ctrovalidate/assets/style.UBa6HfFz.css" as="style">
-    <link rel="preload stylesheet" href="/ctrovalidate/vp-icons.css" as="style">
-    
+    <meta
+      name="description"
+      content="A lightweight, powerful, and zero-dependency JavaScript library for client-side form validation."
+    />
+    <meta name="generator" content="VitePress v1.6.4" />
+    <link
+      rel="preload stylesheet"
+      href="/ctrovalidate/assets/style.UBa6HfFz.css"
+      as="style"
+    />
+    <link
+      rel="preload stylesheet"
+      href="/ctrovalidate/vp-icons.css"
+      as="style"
+    />
+
     <script type="module" src="/ctrovalidate/assets/app.7JFxrA1X.js"></script>
-    <link rel="preload" href="/ctrovalidate/assets/inter-roman-latin.Di8DUHzh.woff2" as="font" type="font/woff2" crossorigin="">
-    <link rel="modulepreload" href="/ctrovalidate/assets/chunks/theme.BuOjzYIe.js">
-    <link rel="modulepreload" href="/ctrovalidate/assets/chunks/framework.BMU9rCtY.js">
-    <link rel="modulepreload" href="/ctrovalidate/assets/2.0_guide_getting-started.md.DztjjxM0.lean.js">
-    <script id="check-dark-mode">(()=>{const e=localStorage.getItem("vitepress-theme-appearance")||"auto",a=window.matchMedia("(prefers-color-scheme: dark)").matches;(!e||e==="auto"?a:e==="dark")&&document.documentElement.classList.add("dark")})();</script>
-    <script id="check-mac-os">document.documentElement.classList.toggle("mac",/Mac|iPhone|iPod|iPad/i.test(navigator.platform));</script>
+    <link
+      rel="preload"
+      href="/ctrovalidate/assets/inter-roman-latin.Di8DUHzh.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin=""
+    />
+    <link
+      rel="modulepreload"
+      href="/ctrovalidate/assets/chunks/theme.BuOjzYIe.js"
+    />
+    <link
+      rel="modulepreload"
+      href="/ctrovalidate/assets/chunks/framework.BMU9rCtY.js"
+    />
+    <link
+      rel="modulepreload"
+      href="/ctrovalidate/assets/2.0_guide_getting-started.md.DztjjxM0.lean.js"
+    />
+    <script id="check-dark-mode">
+      (() => {
+        const e = localStorage.getItem('vitepress-theme-appearance') || 'auto',
+          a = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        (!e || e === 'auto' ? a : e === 'dark') &&
+          document.documentElement.classList.add('dark');
+      })();
+    </script>
+    <script id="check-mac-os">
+      document.documentElement.classList.toggle(
+        'mac',
+        /Mac|iPhone|iPod|iPad/i.test(navigator.platform)
+      );
+    </script>
   </head>
   <body>
-    <div id="app"><div class="Layout" data-v-5d98c3a5><!--[--><!--]--><!--[--><span tabindex="-1" data-v-0b0ada53></span><a href="#VPContent" class="VPSkipLink visually-hidden" data-v-0b0ada53>Skip to content</a><!--]--><!----><header class="VPNav" data-v-5d98c3a5 data-v-ae24b3ad><div class="VPNavBar" data-v-ae24b3ad data-v-6aa21345><div class="wrapper" data-v-6aa21345><div class="container" data-v-6aa21345><div class="title" data-v-6aa21345><div class="VPNavBarTitle has-sidebar" data-v-6aa21345 data-v-1168a8e4><a class="title" href="/ctrovalidate/" data-v-1168a8e4><!--[--><!--]--><!--[--><img class="VPImage logo" src="/ctrovalidate/logo.svg" alt data-v-8426fc1a><!--]--><span data-v-1168a8e4>Ctrovalidate</span><!--[--><!--]--></a></div></div><div class="content" data-v-6aa21345><div class="content-body" data-v-6aa21345><!--[--><!--]--><div class="VPNavBarSearch search" data-v-6aa21345><!----></div><nav aria-labelledby="main-nav-aria-label" class="VPNavBarMenu menu" data-v-6aa21345 data-v-dc692963><span id="main-nav-aria-label" class="visually-hidden" data-v-dc692963> Main Navigation </span><!--[--><!--[--><a class="VPLink link VPNavBarMenuLink active" href="/ctrovalidate/2.0/guide/getting-started.html" tabindex="0" data-v-dc692963 data-v-e56f3d57><!--[--><span data-v-e56f3d57>Guide</span><!--]--></a><!--]--><!--[--><a class="VPLink link VPNavBarMenuLink" href="/ctrovalidate/2.0/api/methods.html" tabindex="0" data-v-dc692963 data-v-e56f3d57><!--[--><span data-v-e56f3d57>API</span><!--]--></a><!--]--><!--[--><div class="VPFlyout VPNavBarMenuGroup" data-v-dc692963 data-v-cf11d7a2><button type="button" class="button" aria-haspopup="true" aria-expanded="false" data-v-cf11d7a2><span class="text" data-v-cf11d7a2><!----><span data-v-cf11d7a2>v2.0.0 (Latest)</span><span class="vpi-chevron-down text-icon" data-v-cf11d7a2></span></span></button><div class="menu" data-v-cf11d7a2><div class="VPMenu" data-v-cf11d7a2 data-v-b98bc113><div class="items" data-v-b98bc113><!--[--><!--[--><div class="VPMenuLink" data-v-b98bc113 data-v-35975db6><a class="VPLink link vp-external-link-icon" href="https://github.com/ctrotech-tutor/ctrovalidate/blob/main/CHANGELOG.md" target="_blank" rel="noreferrer" data-v-35975db6><!--[--><span data-v-35975db6>Changelog</span><!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-b98bc113 data-v-35975db6><a class="VPLink link vp-external-link-icon" href="https://github.com/ctrotech-tutor/ctrovalidate/releases" target="_blank" rel="noreferrer" data-v-35975db6><!--[--><span data-v-35975db6>Releases</span><!--]--></a></div><!--]--><!--]--></div><!--[--><!--]--></div></div></div><!--]--><!--]--></nav><!----><div class="VPNavBarAppearance appearance" data-v-6aa21345 data-v-6c893767><button class="VPSwitch VPSwitchAppearance" type="button" role="switch" title aria-checked="false" data-v-6c893767 data-v-5337faa4 data-v-1d5665e3><span class="check" data-v-1d5665e3><span class="icon" data-v-1d5665e3><!--[--><span class="vpi-sun sun" data-v-5337faa4></span><span class="vpi-moon moon" data-v-5337faa4></span><!--]--></span></span></button></div><div class="VPSocialLinks VPNavBarSocialLinks social-links" data-v-6aa21345 data-v-0394ad82 data-v-7bc22406><!--[--><a class="VPSocialLink no-icon" href="https://github.com/ctrotech-tutor/ctrovalidate" aria-label="github" target="_blank" rel="noopener" data-v-7bc22406 data-v-bd121fe5><span class="vpi-social-github"></span></a><!--]--></div><div class="VPFlyout VPNavBarExtra extra" data-v-6aa21345 data-v-bb2aa2f0 data-v-cf11d7a2><button type="button" class="button" aria-haspopup="true" aria-expanded="false" aria-label="extra navigation" data-v-cf11d7a2><span class="vpi-more-horizontal icon" data-v-cf11d7a2></span></button><div class="menu" data-v-cf11d7a2><div class="VPMenu" data-v-cf11d7a2 data-v-b98bc113><!----><!--[--><!--[--><!----><div class="group" data-v-bb2aa2f0><div class="item appearance" data-v-bb2aa2f0><p class="label" data-v-bb2aa2f0>Appearance</p><div class="appearance-action" data-v-bb2aa2f0><button class="VPSwitch VPSwitchAppearance" type="button" role="switch" title aria-checked="false" data-v-bb2aa2f0 data-v-5337faa4 data-v-1d5665e3><span class="check" data-v-1d5665e3><span class="icon" data-v-1d5665e3><!--[--><span class="vpi-sun sun" data-v-5337faa4></span><span class="vpi-moon moon" data-v-5337faa4></span><!--]--></span></span></button></div></div></div><div class="group" data-v-bb2aa2f0><div class="item social-links" data-v-bb2aa2f0><div class="VPSocialLinks social-links-list" data-v-bb2aa2f0 data-v-7bc22406><!--[--><a class="VPSocialLink no-icon" href="https://github.com/ctrotech-tutor/ctrovalidate" aria-label="github" target="_blank" rel="noopener" data-v-7bc22406 data-v-bd121fe5><span class="vpi-social-github"></span></a><!--]--></div></div></div><!--]--><!--]--></div></div></div><!--[--><!--]--><button type="button" class="VPNavBarHamburger hamburger" aria-label="mobile navigation" aria-expanded="false" aria-controls="VPNavScreen" data-v-6aa21345 data-v-e5dd9c1c><span class="container" data-v-e5dd9c1c><span class="top" data-v-e5dd9c1c></span><span class="middle" data-v-e5dd9c1c></span><span class="bottom" data-v-e5dd9c1c></span></span></button></div></div></div></div><div class="divider" data-v-6aa21345><div class="divider-line" data-v-6aa21345></div></div></div><!----></header><div class="VPLocalNav has-sidebar empty" data-v-5d98c3a5 data-v-a6f0e41e><div class="container" data-v-a6f0e41e><button class="menu" aria-expanded="false" aria-controls="VPSidebarNav" data-v-a6f0e41e><span class="vpi-align-left menu-icon" data-v-a6f0e41e></span><span class="menu-text" data-v-a6f0e41e>Menu</span></button><div class="VPLocalNavOutlineDropdown" style="--vp-vh:0px;" data-v-a6f0e41e data-v-8a42e2b4><button data-v-8a42e2b4>Return to top</button><!----></div></div></div><aside class="VPSidebar" data-v-5d98c3a5 data-v-319d5ca6><div class="curtain" data-v-319d5ca6></div><nav class="nav" id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1" data-v-319d5ca6><span class="visually-hidden" id="sidebar-aria-label" data-v-319d5ca6> Sidebar Navigation </span><!--[--><!--]--><!--[--><div class="no-transition group" data-v-c40bc020><section class="VPSidebarItem level-0 has-active" data-v-c40bc020 data-v-b3fd67f8><div class="item" role="button" tabindex="0" data-v-b3fd67f8><div class="indicator" data-v-b3fd67f8></div><h2 class="text" data-v-b3fd67f8>Introduction</h2><!----></div><div class="items" data-v-b3fd67f8><!--[--><div class="VPSidebarItem level-1 is-link" data-v-b3fd67f8 data-v-b3fd67f8><div class="item" data-v-b3fd67f8><div class="indicator" data-v-b3fd67f8></div><a class="VPLink link link" href="/ctrovalidate/2.0/guide/introduction.html" data-v-b3fd67f8><!--[--><p class="text" data-v-b3fd67f8>What is Ctrovalidate?</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-b3fd67f8 data-v-b3fd67f8><div class="item" data-v-b3fd67f8><div class="indicator" data-v-b3fd67f8></div><a class="VPLink link link" href="/ctrovalidate/2.0/guide/getting-started.html" data-v-b3fd67f8><!--[--><p class="text" data-v-b3fd67f8>Getting Started</p><!--]--></a><!----></div><!----></div><!--]--></div></section></div><div class="no-transition group" data-v-c40bc020><section class="VPSidebarItem level-0" data-v-c40bc020 data-v-b3fd67f8><div class="item" role="button" tabindex="0" data-v-b3fd67f8><div class="indicator" data-v-b3fd67f8></div><h2 class="text" data-v-b3fd67f8>Core Concepts</h2><!----></div><div class="items" data-v-b3fd67f8><!--[--><div class="VPSidebarItem level-1 is-link" data-v-b3fd67f8 data-v-b3fd67f8><div class="item" data-v-b3fd67f8><div class="indicator" data-v-b3fd67f8></div><a class="VPLink link link" href="/ctrovalidate/2.0/guide/configuration.html" data-v-b3fd67f8><!--[--><p class="text" data-v-b3fd67f8>Configuration Options</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-b3fd67f8 data-v-b3fd67f8><div class="item" data-v-b3fd67f8><div class="indicator" data-v-b3fd67f8></div><a class="VPLink link link" href="/ctrovalidate/2.0/guide/rules.html" data-v-b3fd67f8><!--[--><p class="text" data-v-b3fd67f8>Built-in Rules</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-b3fd67f8 data-v-b3fd67f8><div class="item" data-v-b3fd67f8><div class="indicator" data-v-b3fd67f8></div><a class="VPLink link link" href="/ctrovalidate/2.0/guide/conditional-validation.html" data-v-b3fd67f8><!--[--><p class="text" data-v-b3fd67f8>Conditional Validation</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-b3fd67f8 data-v-b3fd67f8><div class="item" data-v-b3fd67f8><div class="indicator" data-v-b3fd67f8></div><a class="VPLink link link" href="/ctrovalidate/2.0/guide/spa-dynamic-fields.html" data-v-b3fd67f8><!--[--><p class="text" data-v-b3fd67f8>Working with SPAs</p><!--]--></a><!----></div><!----></div><!--]--></div></section></div><div class="no-transition group" data-v-c40bc020><section class="VPSidebarItem level-0" data-v-c40bc020 data-v-b3fd67f8><div class="item" role="button" tabindex="0" data-v-b3fd67f8><div class="indicator" data-v-b3fd67f8></div><h2 class="text" data-v-b3fd67f8>Advanced</h2><!----></div><div class="items" data-v-b3fd67f8><!--[--><div class="VPSidebarItem level-1 is-link" data-v-b3fd67f8 data-v-b3fd67f8><div class="item" data-v-b3fd67f8><div class="indicator" data-v-b3fd67f8></div><a class="VPLink link link" href="/ctrovalidate/2.0/guide/custom-rules.html" data-v-b3fd67f8><!--[--><p class="text" data-v-b3fd67f8>Creating Custom Rules</p><!--]--></a><!----></div><!----></div><!--]--></div></section></div><!--]--><!--[--><!--]--></nav></aside><div class="VPContent has-sidebar" id="VPContent" data-v-5d98c3a5 data-v-1428d186><div class="VPDoc has-sidebar has-aside" data-v-1428d186 data-v-39a288b8><!--[--><!--]--><div class="container" data-v-39a288b8><div class="aside" data-v-39a288b8><div class="aside-curtain" data-v-39a288b8></div><div class="aside-container" data-v-39a288b8><div class="aside-content" data-v-39a288b8><div class="VPDocAside" data-v-39a288b8 data-v-3f215769><!--[--><!--]--><!--[--><!--]--><nav aria-labelledby="doc-outline-aria-label" class="VPDocAsideOutline" data-v-3f215769 data-v-a5bbad30><div class="content" data-v-a5bbad30><div class="outline-marker" data-v-a5bbad30></div><div aria-level="2" class="outline-title" id="doc-outline-aria-label" role="heading" data-v-a5bbad30>On this page</div><ul class="VPDocOutlineItem root" data-v-a5bbad30 data-v-b933a997><!--[--><!--]--></ul></div></nav><!--[--><!--]--><div class="spacer" data-v-3f215769></div><!--[--><!--]--><!----><!--[--><!--]--><!--[--><!--]--></div></div></div></div><div class="content" data-v-39a288b8><div class="content-container" data-v-39a288b8><!--[--><!--]--><main class="main" data-v-39a288b8><div style="position:relative;" class="vp-doc _ctrovalidate_2_0_guide_getting-started" data-v-39a288b8><div><h1 id="getting-started" tabindex="-1">Getting Started <a class="header-anchor" href="#getting-started" aria-label="Permalink to &quot;Getting Started&quot;">​</a></h1><p>Welcome to Ctrovalidate! This guide will walk you through the process of setting up and using the library in your project.</p><h2 id="installation" tabindex="-1">Installation <a class="header-anchor" href="#installation" aria-label="Permalink to &quot;Installation&quot;">​</a></h2><p>You can install Ctrovalidate using your favorite package manager.</p><h3 id="using-npm" tabindex="-1">Using npm <a class="header-anchor" href="#using-npm" aria-label="Permalink to &quot;Using npm&quot;">​</a></h3><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">npm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> install</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> ctrovalidate</span></span></code></pre></div><h3 id="using-yarn" tabindex="-1">Using yarn <a class="header-anchor" href="#using-yarn" aria-label="Permalink to &quot;Using yarn&quot;">​</a></h3><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">yarn</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> ctrovalidate</span></span></code></pre></div><h3 id="using-pnpm" tabindex="-1">Using pnpm <a class="header-anchor" href="#using-pnpm" aria-label="Permalink to &quot;Using pnpm&quot;">​</a></h3><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> ctrovalidate</span></span></code></pre></div><h3 id="cdn-for-quick-demos" tabindex="-1">CDN (for quick demos) <a class="header-anchor" href="#cdn-for-quick-demos" aria-label="Permalink to &quot;CDN (for quick demos)&quot;">​</a></h3><p>For prototyping or simple HTML files, you can use the library directly from a CDN like jsDelivr.</p><div class="language-html vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">html</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">script</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> type</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;module&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span>
+    <div id="app">
+      <div class="Layout" data-v-5d98c3a5>
+        <!--[--><!--]--><!--[--><span tabindex="-1" data-v-0b0ada53></span
+        ><a href="#VPContent" class="VPSkipLink visually-hidden" data-v-0b0ada53
+          >Skip to content</a
+        ><!--]--><!---->
+        <header class="VPNav" data-v-5d98c3a5 data-v-ae24b3ad>
+          <div class="VPNavBar" data-v-ae24b3ad data-v-6aa21345>
+            <div class="wrapper" data-v-6aa21345>
+              <div class="container" data-v-6aa21345>
+                <div class="title" data-v-6aa21345>
+                  <div
+                    class="VPNavBarTitle has-sidebar"
+                    data-v-6aa21345
+                    data-v-1168a8e4
+                  >
+                    <a class="title" href="/ctrovalidate/" data-v-1168a8e4
+                      ><!--[--><!--]--><!--[--><img
+                        class="VPImage logo"
+                        src="/ctrovalidate/logo.svg"
+                        alt
+                        data-v-8426fc1a
+                      /><!--]--><span data-v-1168a8e4>Ctrovalidate</span
+                      ><!--[--><!--]--></a
+                    >
+                  </div>
+                </div>
+                <div class="content" data-v-6aa21345>
+                  <div class="content-body" data-v-6aa21345>
+                    <!--[--><!--]-->
+                    <div class="VPNavBarSearch search" data-v-6aa21345>
+                      <!---->
+                    </div>
+                    <nav
+                      aria-labelledby="main-nav-aria-label"
+                      class="VPNavBarMenu menu"
+                      data-v-6aa21345
+                      data-v-dc692963
+                    >
+                      <span
+                        id="main-nav-aria-label"
+                        class="visually-hidden"
+                        data-v-dc692963
+                      >
+                        Main Navigation </span
+                      ><!--[--><!--[--><a
+                        class="VPLink link VPNavBarMenuLink active"
+                        href="/ctrovalidate/2.0/guide/getting-started.html"
+                        tabindex="0"
+                        data-v-dc692963
+                        data-v-e56f3d57
+                        ><!--[--><span data-v-e56f3d57>Guide</span
+                        ><!--]--></a
+                      ><!--]--><!--[--><a
+                        class="VPLink link VPNavBarMenuLink"
+                        href="/ctrovalidate/2.0/api/methods.html"
+                        tabindex="0"
+                        data-v-dc692963
+                        data-v-e56f3d57
+                        ><!--[--><span data-v-e56f3d57>API</span
+                        ><!--]--></a
+                      ><!--]--><!--[-->
+                      <div
+                        class="VPFlyout VPNavBarMenuGroup"
+                        data-v-dc692963
+                        data-v-cf11d7a2
+                      >
+                        <button
+                          type="button"
+                          class="button"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                          data-v-cf11d7a2
+                        >
+                          <span class="text" data-v-cf11d7a2
+                            ><!----><span data-v-cf11d7a2>v2.0.0 (Latest)</span
+                            ><span
+                              class="vpi-chevron-down text-icon"
+                              data-v-cf11d7a2
+                            ></span
+                          ></span>
+                        </button>
+                        <div class="menu" data-v-cf11d7a2>
+                          <div class="VPMenu" data-v-cf11d7a2 data-v-b98bc113>
+                            <div class="items" data-v-b98bc113>
+                              <!--[--><!--[-->
+                              <div
+                                class="VPMenuLink"
+                                data-v-b98bc113
+                                data-v-35975db6
+                              >
+                                <a
+                                  class="VPLink link vp-external-link-icon"
+                                  href="https://github.com/ctrotech-tutor/ctrovalidate/blob/main/CHANGELOG.md"
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  data-v-35975db6
+                                  ><!--[--><span data-v-35975db6>Changelog</span
+                                  ><!--]--></a
+                                >
+                              </div>
+                              <!--]--><!--[-->
+                              <div
+                                class="VPMenuLink"
+                                data-v-b98bc113
+                                data-v-35975db6
+                              >
+                                <a
+                                  class="VPLink link vp-external-link-icon"
+                                  href="https://github.com/ctrotech-tutor/ctrovalidate/releases"
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  data-v-35975db6
+                                  ><!--[--><span data-v-35975db6>Releases</span
+                                  ><!--]--></a
+                                >
+                              </div>
+                              <!--]--><!--]-->
+                            </div>
+                            <!--[--><!--]-->
+                          </div>
+                        </div>
+                      </div>
+                      <!--]--><!--]-->
+                    </nav>
+                    <!---->
+                    <div
+                      class="VPNavBarAppearance appearance"
+                      data-v-6aa21345
+                      data-v-6c893767
+                    >
+                      <button
+                        class="VPSwitch VPSwitchAppearance"
+                        type="button"
+                        role="switch"
+                        title
+                        aria-checked="false"
+                        data-v-6c893767
+                        data-v-5337faa4
+                        data-v-1d5665e3
+                      >
+                        <span class="check" data-v-1d5665e3
+                          ><span class="icon" data-v-1d5665e3
+                            ><!--[--><span
+                              class="vpi-sun sun"
+                              data-v-5337faa4
+                            ></span
+                            ><span class="vpi-moon moon" data-v-5337faa4></span
+                            ><!--]--></span
+                          ></span
+                        >
+                      </button>
+                    </div>
+                    <div
+                      class="VPSocialLinks VPNavBarSocialLinks social-links"
+                      data-v-6aa21345
+                      data-v-0394ad82
+                      data-v-7bc22406
+                    >
+                      <!--[--><a
+                        class="VPSocialLink no-icon"
+                        href="https://github.com/ctrotech-tutor/ctrovalidate"
+                        aria-label="github"
+                        target="_blank"
+                        rel="noopener"
+                        data-v-7bc22406
+                        data-v-bd121fe5
+                        ><span class="vpi-social-github"></span></a
+                      ><!--]-->
+                    </div>
+                    <div
+                      class="VPFlyout VPNavBarExtra extra"
+                      data-v-6aa21345
+                      data-v-bb2aa2f0
+                      data-v-cf11d7a2
+                    >
+                      <button
+                        type="button"
+                        class="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        aria-label="extra navigation"
+                        data-v-cf11d7a2
+                      >
+                        <span
+                          class="vpi-more-horizontal icon"
+                          data-v-cf11d7a2
+                        ></span>
+                      </button>
+                      <div class="menu" data-v-cf11d7a2>
+                        <div class="VPMenu" data-v-cf11d7a2 data-v-b98bc113>
+                          <!----><!--[--><!--[--><!---->
+                          <div class="group" data-v-bb2aa2f0>
+                            <div class="item appearance" data-v-bb2aa2f0>
+                              <p class="label" data-v-bb2aa2f0>Appearance</p>
+                              <div class="appearance-action" data-v-bb2aa2f0>
+                                <button
+                                  class="VPSwitch VPSwitchAppearance"
+                                  type="button"
+                                  role="switch"
+                                  title
+                                  aria-checked="false"
+                                  data-v-bb2aa2f0
+                                  data-v-5337faa4
+                                  data-v-1d5665e3
+                                >
+                                  <span class="check" data-v-1d5665e3
+                                    ><span class="icon" data-v-1d5665e3
+                                      ><!--[--><span
+                                        class="vpi-sun sun"
+                                        data-v-5337faa4
+                                      ></span
+                                      ><span
+                                        class="vpi-moon moon"
+                                        data-v-5337faa4
+                                      ></span
+                                      ><!--]--></span
+                                    ></span
+                                  >
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="group" data-v-bb2aa2f0>
+                            <div class="item social-links" data-v-bb2aa2f0>
+                              <div
+                                class="VPSocialLinks social-links-list"
+                                data-v-bb2aa2f0
+                                data-v-7bc22406
+                              >
+                                <!--[--><a
+                                  class="VPSocialLink no-icon"
+                                  href="https://github.com/ctrotech-tutor/ctrovalidate"
+                                  aria-label="github"
+                                  target="_blank"
+                                  rel="noopener"
+                                  data-v-7bc22406
+                                  data-v-bd121fe5
+                                  ><span class="vpi-social-github"></span></a
+                                ><!--]-->
+                              </div>
+                            </div>
+                          </div>
+                          <!--]--><!--]-->
+                        </div>
+                      </div>
+                    </div>
+                    <!--[--><!--]--><button
+                      type="button"
+                      class="VPNavBarHamburger hamburger"
+                      aria-label="mobile navigation"
+                      aria-expanded="false"
+                      aria-controls="VPNavScreen"
+                      data-v-6aa21345
+                      data-v-e5dd9c1c
+                    >
+                      <span class="container" data-v-e5dd9c1c
+                        ><span class="top" data-v-e5dd9c1c></span
+                        ><span class="middle" data-v-e5dd9c1c></span
+                        ><span class="bottom" data-v-e5dd9c1c></span
+                      ></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="divider" data-v-6aa21345>
+              <div class="divider-line" data-v-6aa21345></div>
+            </div>
+          </div>
+          <!---->
+        </header>
+        <div
+          class="VPLocalNav has-sidebar empty"
+          data-v-5d98c3a5
+          data-v-a6f0e41e
+        >
+          <div class="container" data-v-a6f0e41e>
+            <button
+              class="menu"
+              aria-expanded="false"
+              aria-controls="VPSidebarNav"
+              data-v-a6f0e41e
+            >
+              <span class="vpi-align-left menu-icon" data-v-a6f0e41e></span
+              ><span class="menu-text" data-v-a6f0e41e>Menu</span>
+            </button>
+            <div
+              class="VPLocalNavOutlineDropdown"
+              style="--vp-vh: 0px"
+              data-v-a6f0e41e
+              data-v-8a42e2b4
+            >
+              <button data-v-8a42e2b4>Return to top</button
+              ><!---->
+            </div>
+          </div>
+        </div>
+        <aside class="VPSidebar" data-v-5d98c3a5 data-v-319d5ca6>
+          <div class="curtain" data-v-319d5ca6></div>
+          <nav
+            class="nav"
+            id="VPSidebarNav"
+            aria-labelledby="sidebar-aria-label"
+            tabindex="-1"
+            data-v-319d5ca6
+          >
+            <span
+              class="visually-hidden"
+              id="sidebar-aria-label"
+              data-v-319d5ca6
+            >
+              Sidebar Navigation </span
+            ><!--[--><!--]--><!--[-->
+            <div class="no-transition group" data-v-c40bc020>
+              <section
+                class="VPSidebarItem level-0 has-active"
+                data-v-c40bc020
+                data-v-b3fd67f8
+              >
+                <div class="item" role="button" tabindex="0" data-v-b3fd67f8>
+                  <div class="indicator" data-v-b3fd67f8></div>
+                  <h2 class="text" data-v-b3fd67f8>Introduction</h2>
+                  <!---->
+                </div>
+                <div class="items" data-v-b3fd67f8>
+                  <!--[-->
+                  <div
+                    class="VPSidebarItem level-1 is-link"
+                    data-v-b3fd67f8
+                    data-v-b3fd67f8
+                  >
+                    <div class="item" data-v-b3fd67f8>
+                      <div class="indicator" data-v-b3fd67f8></div>
+                      <a
+                        class="VPLink link link"
+                        href="/ctrovalidate/2.0/guide/introduction.html"
+                        data-v-b3fd67f8
+                        ><!--[-->
+                        <p class="text" data-v-b3fd67f8>
+                          What is Ctrovalidate?
+                        </p>
+                        <!--]--></a
+                      ><!---->
+                    </div>
+                    <!---->
+                  </div>
+                  <div
+                    class="VPSidebarItem level-1 is-link"
+                    data-v-b3fd67f8
+                    data-v-b3fd67f8
+                  >
+                    <div class="item" data-v-b3fd67f8>
+                      <div class="indicator" data-v-b3fd67f8></div>
+                      <a
+                        class="VPLink link link"
+                        href="/ctrovalidate/2.0/guide/getting-started.html"
+                        data-v-b3fd67f8
+                        ><!--[-->
+                        <p class="text" data-v-b3fd67f8>Getting Started</p>
+                        <!--]--></a
+                      ><!---->
+                    </div>
+                    <!---->
+                  </div>
+                  <!--]-->
+                </div>
+              </section>
+            </div>
+            <div class="no-transition group" data-v-c40bc020>
+              <section
+                class="VPSidebarItem level-0"
+                data-v-c40bc020
+                data-v-b3fd67f8
+              >
+                <div class="item" role="button" tabindex="0" data-v-b3fd67f8>
+                  <div class="indicator" data-v-b3fd67f8></div>
+                  <h2 class="text" data-v-b3fd67f8>Core Concepts</h2>
+                  <!---->
+                </div>
+                <div class="items" data-v-b3fd67f8>
+                  <!--[-->
+                  <div
+                    class="VPSidebarItem level-1 is-link"
+                    data-v-b3fd67f8
+                    data-v-b3fd67f8
+                  >
+                    <div class="item" data-v-b3fd67f8>
+                      <div class="indicator" data-v-b3fd67f8></div>
+                      <a
+                        class="VPLink link link"
+                        href="/ctrovalidate/2.0/guide/configuration.html"
+                        data-v-b3fd67f8
+                        ><!--[-->
+                        <p class="text" data-v-b3fd67f8>
+                          Configuration Options
+                        </p>
+                        <!--]--></a
+                      ><!---->
+                    </div>
+                    <!---->
+                  </div>
+                  <div
+                    class="VPSidebarItem level-1 is-link"
+                    data-v-b3fd67f8
+                    data-v-b3fd67f8
+                  >
+                    <div class="item" data-v-b3fd67f8>
+                      <div class="indicator" data-v-b3fd67f8></div>
+                      <a
+                        class="VPLink link link"
+                        href="/ctrovalidate/2.0/guide/rules.html"
+                        data-v-b3fd67f8
+                        ><!--[-->
+                        <p class="text" data-v-b3fd67f8>Built-in Rules</p>
+                        <!--]--></a
+                      ><!---->
+                    </div>
+                    <!---->
+                  </div>
+                  <div
+                    class="VPSidebarItem level-1 is-link"
+                    data-v-b3fd67f8
+                    data-v-b3fd67f8
+                  >
+                    <div class="item" data-v-b3fd67f8>
+                      <div class="indicator" data-v-b3fd67f8></div>
+                      <a
+                        class="VPLink link link"
+                        href="/ctrovalidate/2.0/guide/conditional-validation.html"
+                        data-v-b3fd67f8
+                        ><!--[-->
+                        <p class="text" data-v-b3fd67f8>
+                          Conditional Validation
+                        </p>
+                        <!--]--></a
+                      ><!---->
+                    </div>
+                    <!---->
+                  </div>
+                  <div
+                    class="VPSidebarItem level-1 is-link"
+                    data-v-b3fd67f8
+                    data-v-b3fd67f8
+                  >
+                    <div class="item" data-v-b3fd67f8>
+                      <div class="indicator" data-v-b3fd67f8></div>
+                      <a
+                        class="VPLink link link"
+                        href="/ctrovalidate/2.0/guide/spa-dynamic-fields.html"
+                        data-v-b3fd67f8
+                        ><!--[-->
+                        <p class="text" data-v-b3fd67f8>Working with SPAs</p>
+                        <!--]--></a
+                      ><!---->
+                    </div>
+                    <!---->
+                  </div>
+                  <!--]-->
+                </div>
+              </section>
+            </div>
+            <div class="no-transition group" data-v-c40bc020>
+              <section
+                class="VPSidebarItem level-0"
+                data-v-c40bc020
+                data-v-b3fd67f8
+              >
+                <div class="item" role="button" tabindex="0" data-v-b3fd67f8>
+                  <div class="indicator" data-v-b3fd67f8></div>
+                  <h2 class="text" data-v-b3fd67f8>Advanced</h2>
+                  <!---->
+                </div>
+                <div class="items" data-v-b3fd67f8>
+                  <!--[-->
+                  <div
+                    class="VPSidebarItem level-1 is-link"
+                    data-v-b3fd67f8
+                    data-v-b3fd67f8
+                  >
+                    <div class="item" data-v-b3fd67f8>
+                      <div class="indicator" data-v-b3fd67f8></div>
+                      <a
+                        class="VPLink link link"
+                        href="/ctrovalidate/2.0/guide/custom-rules.html"
+                        data-v-b3fd67f8
+                        ><!--[-->
+                        <p class="text" data-v-b3fd67f8>
+                          Creating Custom Rules
+                        </p>
+                        <!--]--></a
+                      ><!---->
+                    </div>
+                    <!---->
+                  </div>
+                  <!--]-->
+                </div>
+              </section>
+            </div>
+            <!--]--><!--[--><!--]-->
+          </nav>
+        </aside>
+        <div
+          class="VPContent has-sidebar"
+          id="VPContent"
+          data-v-5d98c3a5
+          data-v-1428d186
+        >
+          <div
+            class="VPDoc has-sidebar has-aside"
+            data-v-1428d186
+            data-v-39a288b8
+          >
+            <!--[--><!--]-->
+            <div class="container" data-v-39a288b8>
+              <div class="aside" data-v-39a288b8>
+                <div class="aside-curtain" data-v-39a288b8></div>
+                <div class="aside-container" data-v-39a288b8>
+                  <div class="aside-content" data-v-39a288b8>
+                    <div class="VPDocAside" data-v-39a288b8 data-v-3f215769>
+                      <!--[--><!--]--><!--[--><!--]-->
+                      <nav
+                        aria-labelledby="doc-outline-aria-label"
+                        class="VPDocAsideOutline"
+                        data-v-3f215769
+                        data-v-a5bbad30
+                      >
+                        <div class="content" data-v-a5bbad30>
+                          <div class="outline-marker" data-v-a5bbad30></div>
+                          <div
+                            aria-level="2"
+                            class="outline-title"
+                            id="doc-outline-aria-label"
+                            role="heading"
+                            data-v-a5bbad30
+                          >
+                            On this page
+                          </div>
+                          <ul
+                            class="VPDocOutlineItem root"
+                            data-v-a5bbad30
+                            data-v-b933a997
+                          >
+                            <!--[--><!--]-->
+                          </ul>
+                        </div>
+                      </nav>
+                      <!--[--><!--]-->
+                      <div class="spacer" data-v-3f215769></div>
+                      <!--[--><!--]--><!----><!--[--><!--]--><!--[--><!--]-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="content" data-v-39a288b8>
+                <div class="content-container" data-v-39a288b8>
+                  <!--[--><!--]-->
+                  <main class="main" data-v-39a288b8>
+                    <div
+                      style="position: relative"
+                      class="vp-doc _ctrovalidate_2_0_guide_getting-started"
+                      data-v-39a288b8
+                    >
+                      <div>
+                        <h1 id="getting-started" tabindex="-1">
+                          Getting Started
+                          <a
+                            class="header-anchor"
+                            href="#getting-started"
+                            aria-label='Permalink to "Getting Started"'
+                            >​</a
+                          >
+                        </h1>
+                        <p>
+                          Welcome to Ctrovalidate! This guide will walk you
+                          through the process of setting up and using the
+                          library in your project.
+                        </p>
+                        <h2 id="installation" tabindex="-1">
+                          Installation
+                          <a
+                            class="header-anchor"
+                            href="#installation"
+                            aria-label='Permalink to "Installation"'
+                            >​</a
+                          >
+                        </h2>
+                        <p>
+                          You can install Ctrovalidate using your favorite
+                          package manager.
+                        </p>
+                        <h3 id="using-npm" tabindex="-1">
+                          Using npm
+                          <a
+                            class="header-anchor"
+                            href="#using-npm"
+                            aria-label='Permalink to "Using npm"'
+                            >​</a
+                          >
+                        </h3>
+                        <div class="language-bash vp-adaptive-theme">
+                          <button title="Copy Code" class="copy"></button
+                          ><span class="lang">bash</span>
+                          <pre
+                            class="shiki shiki-themes github-light github-dark vp-code"
+                            tabindex="0"
+                          ><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">npm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> install</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> ctrovalidate</span></span></code></pre>
+                        </div>
+                        <h3 id="using-yarn" tabindex="-1">
+                          Using yarn
+                          <a
+                            class="header-anchor"
+                            href="#using-yarn"
+                            aria-label='Permalink to "Using yarn"'
+                            >​</a
+                          >
+                        </h3>
+                        <div class="language-bash vp-adaptive-theme">
+                          <button title="Copy Code" class="copy"></button
+                          ><span class="lang">bash</span>
+                          <pre
+                            class="shiki shiki-themes github-light github-dark vp-code"
+                            tabindex="0"
+                          ><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">yarn</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> ctrovalidate</span></span></code></pre>
+                        </div>
+                        <h3 id="using-pnpm" tabindex="-1">
+                          Using pnpm
+                          <a
+                            class="header-anchor"
+                            href="#using-pnpm"
+                            aria-label='Permalink to "Using pnpm"'
+                            >​</a
+                          >
+                        </h3>
+                        <div class="language-bash vp-adaptive-theme">
+                          <button title="Copy Code" class="copy"></button
+                          ><span class="lang">bash</span>
+                          <pre
+                            class="shiki shiki-themes github-light github-dark vp-code"
+                            tabindex="0"
+                          ><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> ctrovalidate</span></span></code></pre>
+                        </div>
+                        <h3 id="cdn-for-quick-demos" tabindex="-1">
+                          CDN (for quick demos)
+                          <a
+                            class="header-anchor"
+                            href="#cdn-for-quick-demos"
+                            aria-label='Permalink to "CDN (for quick demos)"'
+                            >​</a
+                          >
+                        </h3>
+                        <p>
+                          For prototyping or simple HTML files, you can use the
+                          library directly from a CDN like jsDelivr.
+                        </p>
+                        <div class="language-html vp-adaptive-theme">
+                          <button title="Copy Code" class="copy"></button
+                          ><span class="lang">html</span>
+                          <pre
+                            class="shiki shiki-themes github-light github-dark vp-code"
+                            tabindex="0"
+                          ><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">script</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> type</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;module&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span>
 <span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> { Ctrovalidate } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;https://cdn.jsdelivr.net/npm/ctrovalidate@2.0.0/dist/ctrovalidate.js&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
 <span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  // Your code here...</span></span>
-<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">script</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span></code></pre></div><h2 id="your-first-form" tabindex="-1">Your First Form <a class="header-anchor" href="#your-first-form" aria-label="Permalink to &quot;Your First Form&quot;">​</a></h2><p>Let&#39;s create a simple registration form to see Ctrovalidate in action.</p><h3 id="_1-create-the-html" tabindex="-1">1. Create the HTML <a class="header-anchor" href="#_1-create-the-html" aria-label="Permalink to &quot;1. Create the HTML&quot;">​</a></h3><p>First, create your HTML form. The key is to add the <code>data-ctrovalidate-rules</code> attribute to each input you want to validate.</p><div class="language-html vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">html</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;!</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">DOCTYPE</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> html</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">script</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span></code></pre>
+                        </div>
+                        <h2 id="your-first-form" tabindex="-1">
+                          Your First Form
+                          <a
+                            class="header-anchor"
+                            href="#your-first-form"
+                            aria-label='Permalink to "Your First Form"'
+                            >​</a
+                          >
+                        </h2>
+                        <p>
+                          Let&#39;s create a simple registration form to see
+                          Ctrovalidate in action.
+                        </p>
+                        <h3 id="_1-create-the-html" tabindex="-1">
+                          1. Create the HTML
+                          <a
+                            class="header-anchor"
+                            href="#_1-create-the-html"
+                            aria-label='Permalink to "1. Create the HTML"'
+                            >​</a
+                          >
+                        </h3>
+                        <p>
+                          First, create your HTML form. The key is to add the
+                          <code>data-ctrovalidate-rules</code> attribute to each
+                          input you want to validate.
+                        </p>
+                        <div class="language-html vp-adaptive-theme">
+                          <button title="Copy Code" class="copy"></button
+                          ><span class="lang">html</span>
+                          <pre
+                            class="shiki shiki-themes github-light github-dark vp-code"
+                            tabindex="0"
+                          ><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;!</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">DOCTYPE</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> html</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">html</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> lang</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;en&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">head</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">meta</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> charset</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;UTF-8&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span>
@@ -62,7 +796,28 @@
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">script</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> type</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;module&quot;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> src</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;app.js&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">script</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">body</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span>
-<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">html</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span></code></pre></div><h3 id="_2-initialize-in-javascript" tabindex="-1">2. Initialize in JavaScript <a class="header-anchor" href="#_2-initialize-in-javascript" aria-label="Permalink to &quot;2. Initialize in JavaScript&quot;">​</a></h3><p>Next, create a JavaScript file (e.g., <code>app.js</code>) to initialize the validator.</p><div class="language-javascript vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">javascript</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// app.js</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">html</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span></code></pre>
+                        </div>
+                        <h3 id="_2-initialize-in-javascript" tabindex="-1">
+                          2. Initialize in JavaScript
+                          <a
+                            class="header-anchor"
+                            href="#_2-initialize-in-javascript"
+                            aria-label='Permalink to "2. Initialize in JavaScript"'
+                            >​</a
+                          >
+                        </h3>
+                        <p>
+                          Next, create a JavaScript file (e.g.,
+                          <code>app.js</code>) to initialize the validator.
+                        </p>
+                        <div class="language-javascript vp-adaptive-theme">
+                          <button title="Copy Code" class="copy"></button
+                          ><span class="lang">javascript</span>
+                          <pre
+                            class="shiki shiki-themes github-light github-dark vp-code"
+                            tabindex="0"
+                          ><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// app.js</span></span>
 <span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> { Ctrovalidate } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;ctrovalidate&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// 1. Get the form element from the DOM.</span></span>
@@ -88,8 +843,110 @@
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">else</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    alert</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;Form has errors. Please correct them.&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  }</span></span>
-<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">});</span></span></code></pre></div><p>That&#39;s it! You now have a fully functional, real-time validated form. When a user types in an input and then clicks away, the validation rules will run automatically, displaying error messages in the <code>.error-message</code> div.</p><h2 id="next-steps" tabindex="-1">Next Steps <a class="header-anchor" href="#next-steps" aria-label="Permalink to &quot;Next Steps&quot;">​</a></h2><p>Now that you have a basic form working, explore the other guides to learn more about:</p><ul><li><a href="./configuration.html">Configuration Options</a></li><li><a href="./rules.html">All Built-in Rules</a></li><li><a href="./conditional-validation.html">Conditional Validation</a></li></ul></div></div></main><footer class="VPDocFooter" data-v-39a288b8 data-v-e257564d><!--[--><!--]--><!----><nav class="prev-next" aria-labelledby="doc-footer-aria-label" data-v-e257564d><span class="visually-hidden" id="doc-footer-aria-label" data-v-e257564d>Pager</span><div class="pager" data-v-e257564d><a class="VPLink link pager-link prev" href="/ctrovalidate/2.0/guide/introduction.html" data-v-e257564d><!--[--><span class="desc" data-v-e257564d>Previous page</span><span class="title" data-v-e257564d>What is Ctrovalidate?</span><!--]--></a></div><div class="pager" data-v-e257564d><a class="VPLink link pager-link next" href="/ctrovalidate/2.0/guide/configuration.html" data-v-e257564d><!--[--><span class="desc" data-v-e257564d>Next page</span><span class="title" data-v-e257564d>Configuration Options</span><!--]--></a></div></nav></footer><!--[--><!--]--></div></div></div><!--[--><!--]--></div></div><footer class="VPFooter has-sidebar" data-v-5d98c3a5 data-v-e315a0ad><div class="container" data-v-e315a0ad><p class="message" data-v-e315a0ad>Released under the MIT License.</p><p class="copyright" data-v-e315a0ad>Copyright © 2025-present Ctrotech</p></div></footer><!--[--><!--]--></div></div>
-    <script>window.__VP_HASH_MAP__=JSON.parse("{\"2.0_api_methods.md\":\"DIctXlJQ\",\"2.0_api_static-methods.md\":\"BlHB0pn4\",\"2.0_api_types.md\":\"Chwvs_OB\",\"2.0_guide_conditional-validation.md\":\"7Uiq1g1m\",\"2.0_guide_configuration.md\":\"BKbZgipg\",\"2.0_guide_custom-rules.md\":\"B0tejnan\",\"2.0_guide_getting-started.md\":\"DztjjxM0\",\"2.0_guide_introduction.md\":\"vtAJSEe2\",\"2.0_guide_rules.md\":\"DM1f0cH3\",\"2.0_guide_spa-dynamic-fields.md\":\"CuhHnzgO\",\"2.0_index.md\":\"Bi_KaF0m\",\"2.0_integrations_tailwindcss.md\":\"TFduy-Gy\",\"2.0_project_releases.md\":\"ByAv_R2U\"}");window.__VP_SITE_DATA__=JSON.parse("{\"lang\":\"en-US\",\"dir\":\"ltr\",\"title\":\"Ctrovalidate\",\"description\":\"A lightweight, powerful, and zero-dependency JavaScript library for client-side form validation.\",\"base\":\"/ctrovalidate/\",\"head\":[],\"router\":{\"prefetchLinks\":true},\"appearance\":true,\"themeConfig\":{\"logo\":\"/logo.svg\",\"nav\":[{\"text\":\"Guide\",\"link\":\"/2.0/guide/getting-started\"},{\"text\":\"API\",\"link\":\"/2.0/api/methods\"},{\"text\":\"v2.0.0 (Latest)\",\"items\":[{\"text\":\"Changelog\",\"link\":\"https://github.com/ctrotech-tutor/ctrovalidate/blob/main/CHANGELOG.md\"},{\"text\":\"Releases\",\"link\":\"https://github.com/ctrotech-tutor/ctrovalidate/releases\"}]}],\"sidebar\":{\"/2.0/guide/\":[{\"text\":\"Introduction\",\"items\":[{\"text\":\"What is Ctrovalidate?\",\"link\":\"/2.0/guide/introduction\"},{\"text\":\"Getting Started\",\"link\":\"/2.0/guide/getting-started\"}]},{\"text\":\"Core Concepts\",\"items\":[{\"text\":\"Configuration Options\",\"link\":\"/2.0/guide/configuration\"},{\"text\":\"Built-in Rules\",\"link\":\"/2.0/guide/rules\"},{\"text\":\"Conditional Validation\",\"link\":\"/2.0/guide/conditional-validation\"},{\"text\":\"Working with SPAs\",\"link\":\"/2.0/guide/spa-dynamic-fields\"}]},{\"text\":\"Advanced\",\"items\":[{\"text\":\"Creating Custom Rules\",\"link\":\"/2.0/guide/custom-rules\"}]}],\"/2.0/api/\":[{\"text\":\"API Reference\",\"items\":[{\"text\":\"Public Methods\",\"link\":\"/2.0/api/methods\"},{\"text\":\"Static Methods\",\"link\":\"/2.0/api/static-methods\"},{\"text\":\"TypeScript Types\",\"link\":\"/2.0/api/types\"}]}],\"/2.0/project/\":[{\"text\":\"Project Info\",\"items\":[{\"text\":\"Release Policy\",\"link\":\"/2.0/project/releases\"}]}]},\"socialLinks\":[{\"icon\":\"github\",\"link\":\"https://github.com/ctrotech-tutor/ctrovalidate\"}],\"footer\":{\"message\":\"Released under the MIT License.\",\"copyright\":\"Copyright © 2025-present Ctrotech\"}},\"locales\":{},\"scrollOffset\":134,\"cleanUrls\":false}");</script>
-    
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">});</span></span></code></pre>
+                        </div>
+                        <p>
+                          That&#39;s it! You now have a fully functional,
+                          real-time validated form. When a user types in an
+                          input and then clicks away, the validation rules will
+                          run automatically, displaying error messages in the
+                          <code>.error-message</code> div.
+                        </p>
+                        <h2 id="next-steps" tabindex="-1">
+                          Next Steps
+                          <a
+                            class="header-anchor"
+                            href="#next-steps"
+                            aria-label='Permalink to "Next Steps"'
+                            >​</a
+                          >
+                        </h2>
+                        <p>
+                          Now that you have a basic form working, explore the
+                          other guides to learn more about:
+                        </p>
+                        <ul>
+                          <li>
+                            <a href="./configuration.html"
+                              >Configuration Options</a
+                            >
+                          </li>
+                          <li><a href="./rules.html">All Built-in Rules</a></li>
+                          <li>
+                            <a href="./conditional-validation.html"
+                              >Conditional Validation</a
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </main>
+                  <footer class="VPDocFooter" data-v-39a288b8 data-v-e257564d>
+                    <!--[--><!--]--><!---->
+                    <nav
+                      class="prev-next"
+                      aria-labelledby="doc-footer-aria-label"
+                      data-v-e257564d
+                    >
+                      <span
+                        class="visually-hidden"
+                        id="doc-footer-aria-label"
+                        data-v-e257564d
+                        >Pager</span
+                      >
+                      <div class="pager" data-v-e257564d>
+                        <a
+                          class="VPLink link pager-link prev"
+                          href="/ctrovalidate/2.0/guide/introduction.html"
+                          data-v-e257564d
+                          ><!--[--><span class="desc" data-v-e257564d
+                            >Previous page</span
+                          ><span class="title" data-v-e257564d
+                            >What is Ctrovalidate?</span
+                          ><!--]--></a
+                        >
+                      </div>
+                      <div class="pager" data-v-e257564d>
+                        <a
+                          class="VPLink link pager-link next"
+                          href="/ctrovalidate/2.0/guide/configuration.html"
+                          data-v-e257564d
+                          ><!--[--><span class="desc" data-v-e257564d
+                            >Next page</span
+                          ><span class="title" data-v-e257564d
+                            >Configuration Options</span
+                          ><!--]--></a
+                        >
+                      </div>
+                    </nav>
+                  </footer>
+                  <!--[--><!--]-->
+                </div>
+              </div>
+            </div>
+            <!--[--><!--]-->
+          </div>
+        </div>
+        <footer class="VPFooter has-sidebar" data-v-5d98c3a5 data-v-e315a0ad>
+          <div class="container" data-v-e315a0ad>
+            <p class="message" data-v-e315a0ad>
+              Released under the MIT License.
+            </p>
+            <p class="copyright" data-v-e315a0ad>
+              Copyright © 2025-present Ctrotech
+            </p>
+          </div>
+        </footer>
+        <!--[--><!--]-->
+      </div>
+    </div>
+    <script>
+      window.__VP_HASH_MAP__ = JSON.parse(
+        '{"2.0_api_methods.md":"DIctXlJQ","2.0_api_static-methods.md":"BlHB0pn4","2.0_api_types.md":"Chwvs_OB","2.0_guide_conditional-validation.md":"7Uiq1g1m","2.0_guide_configuration.md":"BKbZgipg","2.0_guide_custom-rules.md":"B0tejnan","2.0_guide_getting-started.md":"DztjjxM0","2.0_guide_introduction.md":"vtAJSEe2","2.0_guide_rules.md":"DM1f0cH3","2.0_guide_spa-dynamic-fields.md":"CuhHnzgO","2.0_index.md":"Bi_KaF0m","2.0_integrations_tailwindcss.md":"TFduy-Gy","2.0_project_releases.md":"ByAv_R2U"}'
+      );
+      window.__VP_SITE_DATA__ = JSON.parse(
+        '{"lang":"en-US","dir":"ltr","title":"Ctrovalidate","description":"A lightweight, powerful, and zero-dependency JavaScript library for client-side form validation.","base":"/ctrovalidate/","head":[],"router":{"prefetchLinks":true},"appearance":true,"themeConfig":{"logo":"/logo.svg","nav":[{"text":"Guide","link":"/2.0/guide/getting-started"},{"text":"API","link":"/2.0/api/methods"},{"text":"v2.0.0 (Latest)","items":[{"text":"Changelog","link":"https://github.com/ctrotech-tutor/ctrovalidate/blob/main/CHANGELOG.md"},{"text":"Releases","link":"https://github.com/ctrotech-tutor/ctrovalidate/releases"}]}],"sidebar":{"/2.0/guide/":[{"text":"Introduction","items":[{"text":"What is Ctrovalidate?","link":"/2.0/guide/introduction"},{"text":"Getting Started","link":"/2.0/guide/getting-started"}]},{"text":"Core Concepts","items":[{"text":"Configuration Options","link":"/2.0/guide/configuration"},{"text":"Built-in Rules","link":"/2.0/guide/rules"},{"text":"Conditional Validation","link":"/2.0/guide/conditional-validation"},{"text":"Working with SPAs","link":"/2.0/guide/spa-dynamic-fields"}]},{"text":"Advanced","items":[{"text":"Creating Custom Rules","link":"/2.0/guide/custom-rules"}]}],"/2.0/api/":[{"text":"API Reference","items":[{"text":"Public Methods","link":"/2.0/api/methods"},{"text":"Static Methods","link":"/2.0/api/static-methods"},{"text":"TypeScript Types","link":"/2.0/api/types"}]}],"/2.0/project/":[{"text":"Project Info","items":[{"text":"Release Policy","link":"/2.0/project/releases"}]}]},"socialLinks":[{"icon":"github","link":"https://github.com/ctrotech-tutor/ctrovalidate"}],"footer":{"message":"Released under the MIT License.","copyright":"Copyright © 2025-present Ctrotech"}},"locales":{},"scrollOffset":134,"cleanUrls":false}'
+      );
+    </script>
   </body>
 </html>

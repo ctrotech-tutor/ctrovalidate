@@ -61,7 +61,9 @@ export class UIManager {
     }
 
     // Find the error element, assuming it's a sibling or within the parent.
-    const errorElement = field.parentElement.querySelector(`.${this.#errorMessageClass}`);
+    const errorElement = field.parentElement.querySelector(
+      `.${this.#errorMessageClass}`
+    );
 
     if (errorElement) {
       // Ensure the error element has a unique ID for ARIA.
@@ -82,7 +84,7 @@ export class UIManager {
    */
   displayError(field, message) {
     const errorElement = this.#findErrorElement(field);
-    
+
     field.classList.add(this.#errorClass);
     field.setAttribute('aria-invalid', 'true');
 
@@ -103,7 +105,7 @@ export class UIManager {
 
     field.classList.remove(this.#errorClass);
     field.removeAttribute('aria-invalid');
-    
+
     if (errorElement) {
       errorElement.textContent = '';
       errorElement.style.display = 'none';

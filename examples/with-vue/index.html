@@ -1,114 +1,130 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ctrovalidate 2.0 - with Vue.js</title>
-  <link rel="stylesheet" href="https://unpkg.com/mvp.css">
-  <style>
-    body { padding: 2rem; }
-    .is-invalid { border-color: #d92b2b; }
-    .error-message { color: #d92b2b; font-size: 0.8rem; }
-  </style>
-</head>
-<body>
-
-  <!-- 1. The root element for our Vue app -->
-  <div id="app">
-    <main>
-      <h1>Register with Vue.js</h1>
-      <p>This form is rendered and managed by a Vue component.</p>
-      
-      <!-- 2. The Form -->
-      <!-- We use @submit.prevent to call our component's method -->
-      <!-- We use :ref="'formEl'" to get a reference to the DOM element -->
-      <form :ref="el => formEl = el" @submit.prevent="handleSubmit" novalidate>
-        <div>
-          <label for="username">Username</label>
-          <input 
-            type="text" 
-            id="username" 
-            name="username" 
-            data-ctrovalidate-rules="required|minLength:3|alphaDash"
-          >
-          <div class="error-message"></div>
-        </div>
-
-        <div>
-          <label for="email">Email Address</label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            data-ctrovalidate-rules="required|email"
-          >
-          <div class="error-message"></div>
-        </div>
-
-        <div>
-          <label for="password">Password</label>
-          <input 
-            type="password" 
-            id="password" 
-            name="password" 
-            data-ctrovalidate-rules="required|strongPassword"
-          >
-          <div class="error-message"></div>
-        </div>
-
-        <button type="submit">Create Account</button>
-      </form>
-    </main>
-  </div>
-
-  <!-- 3. Vue.js and Ctrovalidate Initialization -->
-  <script type="module">
-    // Import Vue from its CDN ESM build
-    import { createApp, ref, onMounted } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-    // Import Ctrovalidate
-    import { Ctrovalidate } from '../../src/index.js';
-
-    // 4. Define and mount the Vue application
-    createApp({
-      setup( ) {
-        // 5. Create a ref to hold the form's DOM element
-        const formEl = ref(null);
-        // Create a ref to hold the validator instance
-        let validator;
-
-        // 6. Use the onMounted lifecycle hook
-        // This code runs after the component's template has been rendered to the DOM
-        onMounted(() => {
-          console.log('Vue component mounted. Initializing Ctrovalidate.');
-          // Now that formEl.value is available, we can initialize the validator
-          validator = new Ctrovalidate(formEl.value, {
-            realTime: true
-          });
-        });
-
-        // 7. Define the submit handler method
-        const handleSubmit = async () => {
-          if (!validator) {
-            console.error('Validator not initialized yet.');
-            return;
-          }
-          const isFormValid = await validator.validate();
-          if (isFormValid) {
-            alert('Vue form is valid! Submitting...');
-            console.log('Form Data:', Object.fromEntries(new FormData(formEl.value).entries()));
-          } else {
-            console.log('Vue form has errors.');
-          }
-        };
-
-        // 8. Expose the ref and method to the template
-        return {
-          formEl,
-          handleSubmit
-        };
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ctrovalidate 2.0 - with Vue.js</title>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+    <style>
+      body {
+        padding: 2rem;
       }
-    }).mount('#app');
-  </script>
+      .is-invalid {
+        border-color: #d92b2b;
+      }
+      .error-message {
+        color: #d92b2b;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 1. The root element for our Vue app -->
+    <div id="app">
+      <main>
+        <h1>Register with Vue.js</h1>
+        <p>This form is rendered and managed by a Vue component.</p>
 
-</body>
+        <!-- 2. The Form -->
+        <!-- We use @submit.prevent to call our component's method -->
+        <!-- We use :ref="'formEl'" to get a reference to the DOM element -->
+        <form
+          :ref="el => formEl = el"
+          @submit.prevent="handleSubmit"
+          novalidate
+        >
+          <div>
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              data-ctrovalidate-rules="required|minLength:3|alphaDash"
+            />
+            <div class="error-message"></div>
+          </div>
+
+          <div>
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              data-ctrovalidate-rules="required|email"
+            />
+            <div class="error-message"></div>
+          </div>
+
+          <div>
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              data-ctrovalidate-rules="required|strongPassword"
+            />
+            <div class="error-message"></div>
+          </div>
+
+          <button type="submit">Create Account</button>
+        </form>
+      </main>
+    </div>
+
+    <!-- 3. Vue.js and Ctrovalidate Initialization -->
+    <script type="module">
+      // Import Vue from its CDN ESM build
+      import {
+        createApp,
+        ref,
+        onMounted,
+      } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+      // Import Ctrovalidate
+      import { Ctrovalidate } from '../../src/index.js';
+
+      // 4. Define and mount the Vue application
+      createApp({
+        setup() {
+          // 5. Create a ref to hold the form's DOM element
+          const formEl = ref(null);
+          // Create a ref to hold the validator instance
+          let validator;
+
+          // 6. Use the onMounted lifecycle hook
+          // This code runs after the component's template has been rendered to the DOM
+          onMounted(() => {
+            console.log('Vue component mounted. Initializing Ctrovalidate.');
+            // Now that formEl.value is available, we can initialize the validator
+            validator = new Ctrovalidate(formEl.value, {
+              realTime: true,
+            });
+          });
+
+          // 7. Define the submit handler method
+          const handleSubmit = async () => {
+            if (!validator) {
+              console.error('Validator not initialized yet.');
+              return;
+            }
+            const isFormValid = await validator.validate();
+            if (isFormValid) {
+              alert('Vue form is valid! Submitting...');
+              console.log(
+                'Form Data:',
+                Object.fromEntries(new FormData(formEl.value).entries())
+              );
+            } else {
+              console.log('Vue form has errors.');
+            }
+          };
+
+          // 8. Expose the ref and method to the template
+          return {
+            formEl,
+            handleSubmit,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
 </html>

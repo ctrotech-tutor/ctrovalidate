@@ -17,9 +17,9 @@ the "controller" field and the condition to check.
 
 The format is `controllerName:condition`.
 
--   `controllerName`: The `name` attribute of the field that controls
-    the validation.
--   `condition`: The state to check for on the controller field.
+- `controllerName`: The `name` attribute of the field that controls
+  the validation.
+- `condition`: The state to check for on the controller field.
 
 ## Available Conditions
 
@@ -31,22 +31,22 @@ run if the controller checkbox is checked.
 **Example:** An email field that is only required if the user subscribes
 to a newsletter.
 
-``` html
+```html
 <div>
-  <input type="checkbox" id="subscribe" name="subscribe_newsletter">
+  <input type="checkbox" id="subscribe" name="subscribe_newsletter" />
   <label for="subscribe">Subscribe to our newsletter</label>
 </div>
 
 <div>
   <label for="email">Email Address</label>
-  <input 
-    type="email" 
-    id="email" 
+  <input
+    type="email"
+    id="email"
     name="email"
     placeholder="Required if you subscribe"
     data-ctrovalidate-rules="required|email"
     data-ctrovalidate-if="subscribe_newsletter:checked"
-  >
+  />
   <div class="error-message"></div>
 </div>
 ```
@@ -62,7 +62,7 @@ it's not an empty string).
 **Example:** A "Reason for contact" field that is only required if the
 user selects "Other" from a dropdown.
 
-``` html
+```html
 <select name="contact_reason">
   <option value="sales">Sales Inquiry</option>
   <option value="support">Support Request</option>
@@ -73,12 +73,12 @@ user selects "Other" from a dropdown.
   name="other_reason"
   placeholder="Please specify"
   data-ctrovalidate-rules="required|minLength:10"
-  data-ctrovalidate-if="contact_reason:present" 
+  data-ctrovalidate-if="contact_reason:present"
 ></textarea>
 ```
 
 Wait, the above example has a flaw. The `:present` condition would
-trigger on *any* selection. A better condition is needed for this use
+trigger on _any_ selection. A better condition is needed for this use
 case.
 
 ### `:value=some_value`
@@ -88,7 +88,7 @@ to `some_value`. This is perfect for the "Other" reason example.
 
 **Example (Corrected):**
 
-``` html
+```html
 <select name="contact_reason">
   <option value="sales">Sales Inquiry</option>
   <option value="support">Support Request</option>
@@ -99,7 +99,7 @@ to `some_value`. This is perfect for the "Other" reason example.
   name="other_reason"
   placeholder="Please specify"
   data-ctrovalidate-rules="required|minLength:10"
-  data-ctrovalidate-if="contact_reason:value=other" 
+  data-ctrovalidate-if="contact_reason:value=other"
 ></textarea>
 ```
 

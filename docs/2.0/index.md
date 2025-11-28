@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "Ctrovalidate"
-  text: "A Modern, Accessible Form Validation Library."
+  name: 'Ctrovalidate'
+  text: 'A Modern, Accessible Form Validation Library.'
   tagline: Lightweight, powerful, and zero-dependency. Built with a declarative, HTML-first approach.
   image:
     src: /logo.svg # We will create this logo later
@@ -33,7 +33,7 @@ features:
   - icon: 🔄
     title: SPA & Dynamic Content Ready
     details: Programmatically add and remove fields, making it a perfect fit for modern frameworks like Vue, React, and Svelte.
-  - icon:  টাই
+  - icon: টাই
     title: TypeScript Ready
     details: Ships with a comprehensive TypeScript declaration file for a superior developer experience with autocompletion and type safety.
 ---

@@ -25,23 +25,23 @@ In your component's `<template>` section, define your form. Use `@submit.prevent
   <form ref="formEl" @submit.prevent="handleSubmit" novalidate>
     <div>
       <label for="username">Username</label>
-      <input 
-        type="text" 
-        id="username" 
-        name="username" 
+      <input
+        type="text"
+        id="username"
+        name="username"
         data-ctrovalidate-rules="required|minLength:3|alphaDash"
-      >
+      />
       <div class="error-message"></div>
     </div>
 
     <div>
       <label for="email">Email Address</label>
-      <input 
-        type="email" 
-        id="email" 
-        name="email" 
+      <input
+        type="email"
+        id="email"
+        name="email"
         data-ctrovalidate-rules="required|email"
-      >
+      />
       <div class="error-message"></div>
     </div>
 
@@ -71,7 +71,7 @@ onMounted(() => {
   if (formEl.value) {
     console.log('Vue component mounted. Initializing Ctrovalidate.');
     validator = new Ctrovalidate(formEl.value, {
-      realTime: true
+      realTime: true,
     });
   }
 });
@@ -79,9 +79,9 @@ onMounted(() => {
 // 4. Define the submit handler method.
 const handleSubmit = async () => {
   if (!validator) return;
-  
+
   const isFormValid = await validator.validate();
-  
+
   if (isFormValid) {
     alert('Vue form is valid! Submitting...');
     // Logic to submit form data
@@ -108,10 +108,13 @@ let validator: CtrovalidateInstance | undefined;
 
 onMounted(() => {
   if (formEl.value) {
-    validator = new Ctrovalidate(formEl.value, { /* ... */ });
+    validator = new Ctrovalidate(formEl.value, {
+      /* ... */
+    });
   }
 });
 ```
+
 By importing and using the `CtrovalidateInstance` type, TypeScript will provide autocompletion and type-checking for all of Ctrovalidate's methods, such as `validator.validate()`.
 
 ### Dynamic Fields with `v-for`

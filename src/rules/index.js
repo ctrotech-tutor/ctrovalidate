@@ -82,14 +82,13 @@
 //       return false;
 //     }
 //   },
-  
+
 //   // --- Placeholder for a custom rule we'll add later ---
 //   strongPassword: (value) => {
 //     // A common example: at least 8 chars, 1 number, 1 uppercase, 1 lowercase.
 //     return /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(String(value));
 //   },
 // };
-
 
 // src/rules/index.js
 

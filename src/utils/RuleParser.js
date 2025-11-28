@@ -39,8 +39,8 @@ export function parseRules(rulesString) {
 
       if (ruleName) {
         // Split the parameters string by commas to get an array of params.
-        const params = paramsString.split(',').map(p => p.trim());
-        parsedRules.push({ name: ruleName, params: params });
+        const params = paramsString.split(',').map((p) => p.trim());
+        parsedRules.push({ name: ruleName, params });
       }
     }
   }

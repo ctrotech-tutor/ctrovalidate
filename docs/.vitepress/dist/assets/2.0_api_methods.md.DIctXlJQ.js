@@ -1,4 +1,21 @@
-import{_ as i,c as a,o as e,ae as n}from"./chunks/framework.BMU9rCtY.js";const E=JSON.parse('{"title":"Public Instance Methods","description":"","frontmatter":{},"headers":[],"relativePath":"2.0/api/methods.md","filePath":"2.0/api/methods.md"}'),t={name:"2.0/api/methods.md"};function l(h,s,p,k,d,r){return e(),a("div",null,[...s[0]||(s[0]=[n(`<h1 id="public-instance-methods" tabindex="-1">Public Instance Methods <a class="header-anchor" href="#public-instance-methods" aria-label="Permalink to &quot;Public Instance Methods&quot;">​</a></h1><p>These methods are available on an instance of the <code>Ctrovalidate</code> class that you create.</p><div class="language-javascript vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">javascript</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> { Ctrovalidate } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;ctrovalidate&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+import {
+  _ as i,
+  c as a,
+  o as e,
+  ae as n,
+} from './chunks/framework.BMU9rCtY.js';
+const E = JSON.parse(
+    '{"title":"Public Instance Methods","description":"","frontmatter":{},"headers":[],"relativePath":"2.0/api/methods.md","filePath":"2.0/api/methods.md"}'
+  ),
+  t = { name: '2.0/api/methods.md' };
+function l(h, s, p, k, d, r) {
+  return (
+    e(),
+    a('div', null, [
+      ...(s[0] ||
+        (s[0] = [
+          n(
+            `<h1 id="public-instance-methods" tabindex="-1">Public Instance Methods <a class="header-anchor" href="#public-instance-methods" aria-label="Permalink to &quot;Public Instance Methods&quot;">​</a></h1><p>These methods are available on an instance of the <code>Ctrovalidate</code> class that you create.</p><div class="language-javascript vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">javascript</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> { Ctrovalidate } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;ctrovalidate&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> form</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> document.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getElementById</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;my-form&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
 <span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> validator</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Ctrovalidate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(form);</span></span>
@@ -35,4 +52,12 @@ import{_ as i,c as a,o as e,ae as n}from"./chunks/framework.BMU9rCtY.js";const E
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">	// Now, safely remove it from the DOM</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">	fieldToRemove.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">remove</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
-<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div>`,24)])])}const c=i(t,[["render",l]]);export{E as __pageData,c as default};
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div>`,
+            24
+          ),
+        ])),
+    ])
+  );
+}
+const c = i(t, [['render', l]]);
+export { E as __pageData, c as default };

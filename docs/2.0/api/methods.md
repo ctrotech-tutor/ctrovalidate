@@ -27,17 +27,17 @@ It's an `async` method, so you should use `await` in an `async` function or use 
 
 ```javascript
 form.addEventListener('submit', async (event) => {
-	event.preventDefault();
+  event.preventDefault();
 
-	const isFormValid = await validator.validate();
+  const isFormValid = await validator.validate();
 
-	if (isFormValid) {
-		// Proceed with form submission
-		console.log('Form is valid!');
-	} else {
-		// Errors will be displayed on the UI automatically
-		console.log('Form has errors.');
-	}
+  if (isFormValid) {
+    // Proceed with form submission
+    console.log('Form is valid!');
+  } else {
+    // Errors will be displayed on the UI automatically
+    console.log('Form has errors.');
+  }
 });
 ```
 
@@ -48,7 +48,7 @@ form.addEventListener('submit', async (event) => {
 Programmatically adds a new field to the validator instance. This is essential for dynamically generated forms, such as in SPAs (Single-Page Applications).
 
 - **Arguments:**
-	- `fieldElement` (`HTMLElement`): The input, textarea, or select element you want to add.
+  - `fieldElement` (`HTMLElement`): The input, textarea, or select element you want to add.
 - **Returns:** `void`
 
 ### Usage
@@ -76,7 +76,7 @@ validator.addField(newField);
 Programmatically removes a field from the validator instance. This cleans up internal tracking and removes any event listeners attached by Ctrovalidate, preventing memory leaks.
 
 - **Arguments:**
-	- `fieldElement` (`HTMLElement`): The input, textarea, or select element you want to remove.
+  - `fieldElement` (`HTMLElement`): The input, textarea, or select element you want to remove.
 - **Returns:** `void`
 
 ### Usage
@@ -88,11 +88,10 @@ Before you remove a field from the DOM, call `removeField()` to have the validat
 const fieldToRemove = document.getElementById('field-to-remove');
 
 if (fieldToRemove) {
-	// Tell the validator to forget about this field
-	validator.removeField(fieldToRemove);
+  // Tell the validator to forget about this field
+  validator.removeField(fieldToRemove);
 
-	// Now, safely remove it from the DOM
-	fieldToRemove.remove();
+  // Now, safely remove it from the DOM
+  fieldToRemove.remove();
 }
 ```
-

@@ -32,10 +32,10 @@ function RegistrationForm() {
     <form ref={formRef} onSubmit={handleSubmit} noValidate>
       <div>
         <label htmlFor="username">Username</label>
-        <input 
-          type="text" 
-          id="username" 
-          name="username" 
+        <input
+          type="text"
+          id="username"
+          name="username"
           data-ctrovalidate-rules="required|minLength:3|alphaDash"
         />
         <div className="error-message"></div>
@@ -43,10 +43,10 @@ function RegistrationForm() {
 
       <div>
         <label htmlFor="email">Email Address</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
+        <input
+          type="email"
+          id="email"
+          name="email"
           data-ctrovalidate-rules="required|email"
         />
         <div className="error-message"></div>
@@ -69,7 +69,7 @@ import { Ctrovalidate } from 'ctrovalidate';
 function RegistrationForm() {
   // 1. Create a ref to hold the form's DOM element.
   const formRef = useRef(null);
-  
+
   // 2. Create a ref to hold the validator instance.
   const validatorRef = useRef(null);
 
@@ -88,9 +88,9 @@ function RegistrationForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validatorRef.current) return;
-    
+
     const isFormValid = await validatorRef.current.validate();
-    
+
     if (isFormValid) {
       alert('React form is valid! Submitting...');
       // Logic to submit form data
@@ -116,14 +116,16 @@ import { Ctrovalidate, CtrovalidateInstance } from 'ctrovalidate';
 function RegistrationForm() {
   // Type the ref for the form element
   const formRef = useRef<HTMLFormElement>(null);
-  
+
   // Type the ref for the validator instance
   const validatorRef = useRef<CtrovalidateInstance | null>(null);
 
   useEffect(() => {
     // Note: formRef.current can be null, so we check it.
     if (formRef.current) {
-      validatorRef.current = new Ctrovalidate(formRef.current, { /* ... */ });
+      validatorRef.current = new Ctrovalidate(formRef.current, {
+        /* ... */
+      });
     }
   }, []);
 
@@ -137,4 +139,4 @@ When rendering a dynamic list of fields, you will need to manage calling `addFie
 
 [**View a simplified CDN example on GitHub**](https://github.com/ctrotech-tutor/ctrovalidate/blob/main/examples/with-react/index.html)
 
-*** End Patch
+\*\*\* End Patch

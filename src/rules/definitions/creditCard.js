@@ -30,10 +30,10 @@ export const creditCard = (value) => {
   for (let i = s.length - 1; i >= 0; i--) {
     c = parseInt(s.charAt(i), 10);
     // Double every second digit from the right
-    b = (i % 2) === (s.length % 2) ? c * 2 : c;
+    b = i % 2 === s.length % 2 ? c * 2 : c;
     // If doubling results in a two-digit number, add the digits
     n += b > 9 ? b - 9 : b;
   }
 
-  return (n % 10) === 0;
+  return n % 10 === 0;
 };

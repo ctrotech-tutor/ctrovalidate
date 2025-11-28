@@ -1,4 +1,21 @@
-import{_ as s,c as a,o as e,ae as t}from"./chunks/framework.BMU9rCtY.js";const g=JSON.parse('{"title":"Configuration Options","description":"","frontmatter":{},"headers":[],"relativePath":"2.0/guide/configuration.md","filePath":"2.0/guide/configuration.md"}'),l={name:"2.0/guide/configuration.md"};function n(h,i,o,p,r,d){return e(),a("div",null,[...i[0]||(i[0]=[t(`<h1 id="configuration-options" tabindex="-1">Configuration Options <a class="header-anchor" href="#configuration-options" aria-label="Permalink to &quot;Configuration Options&quot;">​</a></h1><p>When you create a new <code>Ctrovalidate</code> instance, you can pass an options object as the second argument to customize its behavior.</p><div class="language-javascript vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">javascript</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> { Ctrovalidate } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;ctrovalidate&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+import {
+  _ as s,
+  c as a,
+  o as e,
+  ae as t,
+} from './chunks/framework.BMU9rCtY.js';
+const g = JSON.parse(
+    '{"title":"Configuration Options","description":"","frontmatter":{},"headers":[],"relativePath":"2.0/guide/configuration.md","filePath":"2.0/guide/configuration.md"}'
+  ),
+  l = { name: '2.0/guide/configuration.md' };
+function n(h, i, o, p, r, d) {
+  return (
+    e(),
+    a('div', null, [
+      ...(i[0] ||
+        (i[0] = [
+          t(
+            `<h1 id="configuration-options" tabindex="-1">Configuration Options <a class="header-anchor" href="#configuration-options" aria-label="Permalink to &quot;Configuration Options&quot;">​</a></h1><p>When you create a new <code>Ctrovalidate</code> instance, you can pass an options object as the second argument to customize its behavior.</p><div class="language-javascript vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">javascript</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> { Ctrovalidate } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;ctrovalidate&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> form</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> document.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getElementById</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;my-form&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
 <span class="line"></span>
@@ -14,4 +31,12 @@ import{_ as s,c as a,o as e,ae as t}from"./chunks/framework.BMU9rCtY.js";const g
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">	&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">input</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;username&quot;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> data-ctrovalidate-rules</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;required&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span>
 <span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">	&lt;!-- Ctrovalidate will find this element and put the error message here --&gt;</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">	&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">div</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> class</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;error-message&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">div</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span>
-<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">div</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span></code></pre></div></li><li><p><strong>pendingClass</strong>: Type: <code>string</code> — Default: <code>&#39;is-validating&#39;</code></p><ul><li>The CSS class that will be added to an input field while an asynchronous validation rule (like checking if a username is available on a server) is in progress. This is useful for showing a loading spinner or other visual feedback to the user.</li></ul></li></ul>`,6)])])}const E=s(l,[["render",n]]);export{g as __pageData,E as default};
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">div</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&gt;</span></span></code></pre></div></li><li><p><strong>pendingClass</strong>: Type: <code>string</code> — Default: <code>&#39;is-validating&#39;</code></p><ul><li>The CSS class that will be added to an input field while an asynchronous validation rule (like checking if a username is available on a server) is in progress. This is useful for showing a loading spinner or other visual feedback to the user.</li></ul></li></ul>`,
+            6
+          ),
+        ])),
+    ])
+  );
+}
+const E = s(l, [['render', n]]);
+export { g as __pageData, E as default };

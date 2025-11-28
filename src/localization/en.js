@@ -18,7 +18,8 @@ export const defaultMessages = {
   // --- Type & Format Rules ---
   alpha: 'This field must only contain letters.',
   alphaNum: 'This field must only contain letters and numbers.',
-  alphaDash: 'This field must only contain letters, numbers, dashes, and underscores.',
+  alphaDash:
+    'This field must only contain letters, numbers, dashes, and underscores.',
   numeric: 'This field must be a valid number.',
   integer: 'This field must be a valid integer.',
   decimal: 'This field must be a valid decimal number.',
@@ -35,7 +36,7 @@ export const defaultMessages = {
   creditCard: 'Please enter a valid credit card number.',
   ipAddress: 'Please enter a valid IP address.',
   json: 'Please enter a valid JSON string.',
-  
+
   // --- Custom Password Rule (Example) ---
   strongPassword: 'Password is not strong enough.',
 };

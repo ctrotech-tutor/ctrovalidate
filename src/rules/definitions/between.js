@@ -16,14 +16,22 @@ export const between = (value, params) => {
   if (value === null || value === undefined || value === '') {
     return true;
   }
-  
+
   // The parser now provides a clean array.
   const [min, max] = params;
   const numValue = Number(value);
 
   // Ensure both min and max are valid numbers before comparing.
-  if (min === undefined || max === undefined || isNaN(Number(min)) || isNaN(Number(max))) {
-    console.error(`[Ctrovalidate] Invalid parameters for 'between' rule. Expected two numbers. Received:`, params);
+  if (
+    min === undefined ||
+    max === undefined ||
+    isNaN(Number(min)) ||
+    isNaN(Number(max))
+  ) {
+    console.error(
+      `[Ctrovalidate] Invalid parameters for 'between' rule. Expected two numbers. Received:`,
+      params
+    );
     return false;
   }
 

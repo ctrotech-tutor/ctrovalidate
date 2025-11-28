@@ -101,7 +101,12 @@ export class Ctrovalidate {
    */
   public static addAsyncRule(
     name: string,
-    logic: (value: any, params: string[], field: HTMLElement, signal: AbortSignal) => Promise<boolean>,
+    logic: (
+      value: any,
+      params: string[],
+      field: HTMLElement,
+      signal: AbortSignal
+    ) => Promise<boolean>,
     message: string
   ): void;
 }

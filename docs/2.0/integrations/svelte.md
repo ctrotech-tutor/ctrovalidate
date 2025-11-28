@@ -25,7 +25,7 @@ Let's look at a typical `RegistrationForm.svelte` component. In Svelte, the logi
 
   // 1. Create a variable to hold the form's DOM element.
   let formElement;
-  
+
   // 2. Create a variable to hold the validator instance.
   let validator;
 
@@ -43,9 +43,9 @@ Let's look at a typical `RegistrationForm.svelte` component. In Svelte, the logi
   // 4. Define the submit handler function.
   async function handleSubmit() {
     if (!validator) return;
-    
+
     const isFormValid = await validator.validate();
-    
+
     if (isFormValid) {
       alert('Svelte form is valid! Submitting...');
       // Logic to submit form data
@@ -62,10 +62,10 @@ Let's look at a typical `RegistrationForm.svelte` component. In Svelte, the logi
   <form bind:this={formElement} on:submit|preventDefault={handleSubmit} novalidate>
     <div>
       <label for="username">Username</label>
-      <input 
-        type="text" 
-        id="username" 
-        name="username" 
+      <input
+        type="text"
+        id="username"
+        name="username"
         data-ctrovalidate-rules="required|minLength:3|alphaDash"
       >
       <div class="error-message"></div>
@@ -73,10 +73,10 @@ Let's look at a typical `RegistrationForm.svelte` component. In Svelte, the logi
 
     <div>
       <label for="email">Email Address</label>
-      <input 
-        type="email" 
-        id="email" 
-        name="email" 
+      <input
+        type="email"
+        id="email"
+        name="email"
         data-ctrovalidate-rules="required|email"
       >
       <div class="error-message"></div>
@@ -98,7 +98,7 @@ If you are using TypeScript in your Svelte project (a common setup), you can add
 
   // Type the variable for the form element
   let formElement: HTMLFormElement;
-  
+
   // Type the variable for the validator instance
   let validator: CtrovalidateInstance | undefined;
 
@@ -109,6 +109,7 @@ If you are using TypeScript in your Svelte project (a common setup), you can add
   // ...
 </script>
 ```
+
 By importing and using the `CtrovalidateInstance` type, you get full autocompletion and type-checking on the validator object.
 
 ### Dynamic Fields with `#each`

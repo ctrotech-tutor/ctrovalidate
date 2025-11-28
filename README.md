@@ -39,11 +39,11 @@
 
 In a world of heavy frameworks, sometimes you just need a simple, powerful tool that works without the overhead. Ctrovalidate.js is designed to be that tool.
 
--   **Declarative & HTML-First:** Define complex validation rules directly in your HTML using `data-` attributes.
--   **Zero Dependencies:** Written in pure, modern JavaScript. It's incredibly lightweight.
--   **Feature-Rich:** Supports synchronous, asynchronous, and conditional validation out of the box.
--   **Extensible:** Easily add your own custom validation rules with a simple, clean API.
--   **Graceful UX:** Provides real-time feedback *after* a user has interacted with a field.
+- **Declarative & HTML-First:** Define complex validation rules directly in your HTML using `data-` attributes.
+- **Zero Dependencies:** Written in pure, modern JavaScript. It's incredibly lightweight.
+- **Feature-Rich:** Supports synchronous, asynchronous, and conditional validation out of the box.
+- **Extensible:** Easily add your own custom validation rules with a simple, clean API.
+- **Graceful UX:** Provides real-time feedback _after_ a user has interacted with a field.
 
 ---
 
@@ -51,17 +51,17 @@ In a world of heavy frameworks, sometimes you just need a simple, powerful tool 
 
 Seeing is believing. Check out a live, interactive demo of all features on CodeSandbox:
 
-**[➡️ Open Live Demo on CodeSandbox](https://codesandbox.io/p/sandbox/ctrovalidate-demo-d6v2tr)** 
+**[➡️ Open Live Demo on CodeSandbox](https://codesandbox.io/p/sandbox/ctrovalidate-demo-d6v2tr)**
 
 ---
 
 ## Features
 
--   **20+ Built-in Rules:** Includes `required`, `email`, `minLength`, `sameAs`, and more.
--   **Asynchronous Validation:** Perfect for server-side checks like username availability.
--   **Conditional Validation:** Dynamically require fields based on the state of other fields.
--   **Customizable:** Easily configure CSS classes to match your project's styling.
--   **Developer-Friendly Debugging:** Optional logging to see the validation process.
+- **20+ Built-in Rules:** Includes `required`, `email`, `minLength`, `sameAs`, and more.
+- **Asynchronous Validation:** Perfect for server-side checks like username availability.
+- **Conditional Validation:** Dynamically require fields based on the state of other fields.
+- **Customizable:** Easily configure CSS classes to match your project's styling.
+- **Developer-Friendly Debugging:** Optional logging to see the validation process.
 
 ---
 
@@ -80,6 +80,7 @@ Ctrovalidate.js is built with modern JavaScript (`ES2020`) and is designed to wo
 ### 1. Via NPM
 
 For projects with a build step (like Vite or Webpack), install the package from npm:
+
 # Ctrovalidate v2.0.0
 
 [![Ctrovalidate CI](https://github.com/ctrotech-tutor/ctrovalidate/actions/workflows/ci.yml/badge.svg)](https://github.com/ctrotech-tutor/ctrovalidate/actions/workflows/ci.yml)
@@ -116,7 +117,10 @@ npm install ctrovalidate
 Or include it directly in your HTML file from a CDN:
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/ctrovalidate@2.0.0/dist/ctrovalidate.js"></script>
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/ctrovalidate@2.0.0/dist/ctrovalidate.js"
+></script>
 ```
 
 ### 2. HTML Setup
@@ -127,23 +131,23 @@ Add `data-ctrovalidate-rules` to the inputs you want to validate. Make sure you 
 <form id="my-form" novalidate>
   <div>
     <label for="username">Username</label>
-    <input 
-      type="text" 
-      id="username" 
-      name="username" 
+    <input
+      type="text"
+      id="username"
+      name="username"
       data-ctrovalidate-rules="required|minLength:3|alphaDash"
-    >
+    />
     <div class="error-message"></div>
   </div>
-  
+
   <div>
     <label for="email">Email</label>
-    <input 
-      type="email" 
-      id="email" 
-      name="email" 
+    <input
+      type="email"
+      id="email"
+      name="email"
       data-ctrovalidate-rules="required|email"
-    >
+    />
     <div class="error-message"></div>
   </div>
 
@@ -162,7 +166,7 @@ const form = document.getElementById('my-form');
 
 // Initialize the validator
 const validator = new Ctrovalidate(form, {
-  realTime: true // Enable instant feedback
+  realTime: true, // Enable instant feedback
 });
 
 // Handle form submission

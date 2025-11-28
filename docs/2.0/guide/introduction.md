@@ -16,3 +16,4 @@ We believe that for most use cases, validation logic belongs with the HTML it is
   data-ctrovalidate-rules="required|email"
   data-ctrovalidate-if="wants_newsletter:checked"
 />
+```

@@ -1,0 +1,14 @@
+# .eslintignore
+
+# Ignore build output
+dist/
+
+# Ignore node_modules
+node_modules/
+
+# Ignore documentation files (they have their own standards)
+docs/
+
+# Ignore example files for now, as they may have different setups
+# We can lint them separately if needed later.
+examples/

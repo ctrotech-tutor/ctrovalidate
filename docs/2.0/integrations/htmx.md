@@ -21,20 +21,19 @@ The `input` field has `hx-post` to trigger a request and `hx-trigger="blur"` to 
 
 ```html
 <form id="signup-form" novalidate>
-	<div>
-		<label for="username">Username</label>
-		<input 
-			type="text" 
-			id="username" 
-			name="username"
-			data-ctrovalidate-rules="required|minLength:4|alphaDash"
-      
-			hx-post="/mock-username-check" 
-			hx-trigger="blur"
-			hx-target="#username-feedback"
-		>
-		<div id="username-feedback" class="error-message"></div>
-	</div>
+  <div>
+    <label for="username">Username</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      data-ctrovalidate-rules="required|minLength:4|alphaDash"
+      hx-post="/mock-username-check"
+      hx-trigger="blur"
+      hx-target="#username-feedback"
+    />
+    <div id="username-feedback" class="error-message"></div>
+  </div>
 </form>
 ```
 
@@ -51,28 +50,27 @@ const validator = new Ctrovalidate(form);
 
 // Listen for htmx's 'beforeRequest' event on the input field
 usernameField.addEventListener('htmx:beforeRequest', async (event) => {
-	console.log('htmx:beforeRequest triggered. Validating field first...');
-  
-	// We only want to validate the specific field that triggered the request.
-	const isFieldValid = await validator.validate([usernameField]);
+  console.log('htmx:beforeRequest triggered. Validating field first...');
 
-	if (!isFieldValid) {
-		console.log('Client-side validation failed. Cancelling htmx request.');
-    
-		// If validation fails, prevent the htmx request from being sent.
-		event.preventDefault();
-	} else {
-		console.log('Client-side validation passed. Allowing htmx request.');
-	}
+  // We only want to validate the specific field that triggered the request.
+  const isFieldValid = await validator.validate([usernameField]);
+
+  if (!isFieldValid) {
+    console.log('Client-side validation failed. Cancelling htmx request.');
+
+    // If validation fails, prevent the htmx request from being sent.
+    event.preventDefault();
+  } else {
+    console.log('Client-side validation passed. Allowing htmx request.');
+  }
 });
 ```
 
 ### How It Works
 
--   If you type "abc" (which fails `minLength:4`) and tab away, Ctrovalidate will immediately show an error. The `htmx:beforeRequest` listener will run, `validator.validate()` will return `false`, and `event.preventDefault()` will be called. No server request is made.
--   If you type "validuser", Ctrovalidate passes. The listener allows the event to proceed, and htmx sends the AJAX request to the server to check for availability.
+- If you type "abc" (which fails `minLength:4`) and tab away, Ctrovalidate will immediately show an error. The `htmx:beforeRequest` listener will run, `validator.validate()` will return `false`, and `event.preventDefault()` will be called. No server request is made.
+- If you type "validuser", Ctrovalidate passes. The listener allows the event to proceed, and htmx sends the AJAX request to the server to check for availability.
 
 This pattern provides the best of both worlds: instant client-side feedback and powerful server-side interactions, all with minimal JavaScript.
 
 [**View the full working example on GitHub**](https://github.com/ctrotech-tutor/ctrovalidate/blob/main/examples/with-htmx/index.html)
-

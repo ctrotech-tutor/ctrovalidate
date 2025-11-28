@@ -77,7 +77,10 @@ export class RuleEngine {
     const { element, rules, state, dependency } = fieldObject;
 
     if (!this.#isDependencyMet(dependency)) {
-      this.#logger.debug('RuleEngine', `Dependency for "${element.name}" not met. Skipping validation.`);
+      this.#logger.debug(
+        'RuleEngine',
+        `Dependency for "${element.name}" not met. Skipping validation.`
+      );
       this.#uiManager.clearError(element);
       return true;
     }
@@ -86,7 +89,10 @@ export class RuleEngine {
 
     if (state.abortController) {
       state.abortController.abort();
-      this.#logger.debug('RuleEngine', `Aborted previous validation for "${element.name}".`);
+      this.#logger.debug(
+        'RuleEngine',
+        `Aborted previous validation for "${element.name}".`
+      );
     }
 
     for (const rule of rules) {
@@ -94,7 +100,11 @@ export class RuleEngine {
       const asyncRuleLogic = this.#asyncRules[rule.name];
 
       if (!syncRuleLogic && !asyncRuleLogic) {
-        this.#logger.warn('RuleEngine', `Unknown rule "${rule.name}" used on field:`, element);
+        this.#logger.warn(
+          'RuleEngine',
+          `Unknown rule "${rule.name}" used on field:`,
+          element
+        );
         continue;
       }
 
@@ -109,13 +119,25 @@ export class RuleEngine {
         try {
           // --- UPDATED LINE ---
           // Pass the entire params array to the async rule logic.
-          isValid = await asyncRuleLogic(value, rule.params, element, state.abortController.signal);
+          isValid = await asyncRuleLogic(
+            value,
+            rule.params,
+            element,
+            state.abortController.signal
+          );
         } catch (error) {
           if (error.name === 'AbortError') {
-            this.#logger.debug('RuleEngine', `Async validation for "${element.name}" was successfully aborted.`);
+            this.#logger.debug(
+              'RuleEngine',
+              `Async validation for "${element.name}" was successfully aborted.`
+            );
             return true;
           }
-          this.#logger.error('RuleEngine', `Async rule "${rule.name}" threw an error.`, error);
+          this.#logger.error(
+            'RuleEngine',
+            `Async rule "${rule.name}" threw an error.`,
+            error
+          );
           isValid = false;
         } finally {
           this.#uiManager.hidePending(element);
@@ -125,21 +147,29 @@ export class RuleEngine {
 
       if (!isValid) {
         const messageTemplate = this.#messages[rule.name] || 'Invalid input.';
-        
+
         // This logic no longer needs to split the param string, it just uses the params array.
         const message = messageTemplate.replace(/{(\d+)}/g, (match, index) => {
           const paramIndex = parseInt(index, 10);
-          return rule.params[paramIndex] !== undefined ? rule.params[paramIndex] : match;
+          return rule.params[paramIndex] !== undefined
+            ? rule.params[paramIndex]
+            : match;
         });
 
         this.#uiManager.displayError(element, message);
-        this.#logger.debug('RuleEngine', `Field validation failed for "${element.name}" on rule "${rule.name}".`);
+        this.#logger.debug(
+          'RuleEngine',
+          `Field validation failed for "${element.name}" on rule "${rule.name}".`
+        );
         return false;
       }
     }
 
     this.#uiManager.clearError(element);
-    this.#logger.debug('RuleEngine', `Field validation succeeded for "${element.name}".`);
+    this.#logger.debug(
+      'RuleEngine',
+      `Field validation succeeded for "${element.name}".`
+    );
     return true;
   }
 
@@ -152,7 +182,9 @@ export class RuleEngine {
   #isDependencyMet(dependency) {
     if (!dependency) return true;
 
-    const controllerElement = this.#form.querySelector(`[name="${dependency.controllerName}"]`);
+    const controllerElement = this.#form.querySelector(
+      `[name="${dependency.controllerName}"]`
+    );
     if (!controllerElement) return false;
 
     switch (dependency.type) {

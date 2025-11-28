@@ -64,10 +64,15 @@ export class FormController {
     this.#fields = [];
     this.#fieldMap.clear();
 
-    const fieldsToValidate = this.#form.querySelectorAll('[data-ctrovalidate-rules]');
-    this.#logger.debug('FormController', `Discovered ${fieldsToValidate.length} fields to validate.`);
+    const fieldsToValidate = this.#form.querySelectorAll(
+      '[data-ctrovalidate-rules]'
+    );
+    this.#logger.debug(
+      'FormController',
+      `Discovered ${fieldsToValidate.length} fields to validate.`
+    );
 
-    fieldsToValidate.forEach(element => this.addField(element, false));
+    fieldsToValidate.forEach((element) => this.addField(element, false));
   }
 
   /**
@@ -76,13 +81,17 @@ export class FormController {
    * @param {boolean} attachListener - Whether to immediately attach event listeners.
    */
   addField(element, attachListener = true) {
-    if (!element || !element.hasAttribute('data-ctrovalidate-rules') || this.#fieldMap.has(element)) {
+    if (
+      !element ||
+      !element.hasAttribute('data-ctrovalidate-rules') ||
+      this.#fieldMap.has(element)
+    ) {
       return; // Don't add invalid elements, fields without rules, or duplicates
     }
 
     const rulesString = element.getAttribute('data-ctrovalidate-rules');
     const dependencyString = element.getAttribute('data-ctrovalidate-if');
-    
+
     const fieldObject = {
       element,
       rules: parseRules(rulesString),
@@ -111,15 +120,33 @@ export class FormController {
     const fieldObject = this.#fieldMap.get(element);
 
     // Remove from internal tracking
-    this.#fields = this.#fields.filter(f => f.element !== element);
-    this.#fieldMap.delete(element);
+    this.#fields = this.#fields.filter((f) => f.element !== element);
 
-    // --- Clean up event listeners to prevent memory leaks ---
-    // The most robust way to remove anonymous listeners is to clone the node.
-    const newElement = element.cloneNode(true);
-    element.parentNode.replaceChild(newElement, element);
-    // Note: This also removes any other scripts/listeners attached to the element.
-    // This is a trade-off for ensuring our listeners are gone.
+    // Remove event listeners that we attached earlier
+    if (fieldObject.listeners) {
+      const { onBlur, onInput, onControllerInput, controllerElement } =
+        fieldObject.listeners;
+
+      try {
+        if (onBlur) element.removeEventListener('blur', onBlur);
+        if (onInput) element.removeEventListener('input', onInput);
+        if (controllerElement && onControllerInput)
+          controllerElement.removeEventListener('input', onControllerInput);
+      } catch (e) {
+        // Removing listeners may throw if element has been detached already
+        this.#logger.debug(
+          'FormController',
+          'Error while removing listeners for',
+          element,
+          e
+        );
+      }
+
+      // Clean up the saved listeners object
+      delete fieldObject.listeners;
+    }
+
+    this.#fieldMap.delete(element);
 
     this.#logger.debug('FormController', `Removed field:`, element);
   }
@@ -134,8 +161,13 @@ export class FormController {
       return;
     }
 
-    this.#logger.info('FormController', 'Real-time validation is enabled. Attaching listeners.');
-    this.#fields.forEach(fieldObject => this.#attachSingleFieldListener(fieldObject));
+    this.#logger.info(
+      'FormController',
+      'Real-time validation is enabled. Attaching listeners.'
+    );
+    this.#fields.forEach((fieldObject) =>
+      this.#attachSingleFieldListener(fieldObject)
+    );
   }
 
   /**
@@ -146,30 +178,63 @@ export class FormController {
   #attachSingleFieldListener(fieldObject) {
     const { element, dependency } = fieldObject;
 
-    element.addEventListener('blur', () => {
-      this.#logger.debug('FormController', `Blur event on "${element.name}". Validating.`);
+    // Avoid attaching listeners multiple times for the same field
+    if (fieldObject.listeners) return;
+
+    const onBlur = () => {
+      this.#logger.debug(
+        'FormController',
+        `Blur event on "${element.name}". Validating.`
+      );
       this.#validationHandler(fieldObject);
       fieldObject.state.isDirty = true;
-    });
+    };
 
-    element.addEventListener('input', () => {
+    const onInput = () => {
       if (fieldObject.state.isDirty) {
-        this.#logger.debug('FormController', `Input event on dirty field "${element.name}". Validating.`);
+        this.#logger.debug(
+          'FormController',
+          `Input event on dirty field "${element.name}". Validating.`
+        );
         this.#validationHandler(fieldObject);
       }
-    });
+    };
+
+    element.addEventListener('blur', onBlur);
+    element.addEventListener('input', onInput);
+
+    let controllerElement = null;
+    let onControllerInput = null;
 
     if (dependency) {
-      const controllerElement = this.#form.querySelector(`[name="${dependency.controllerName}"]`);
+      controllerElement = this.#form.querySelector(
+        `[name="${dependency.controllerName}"]`
+      );
       if (controllerElement) {
-        controllerElement.addEventListener('input', () => {
-          this.#logger.debug('FormController', `Controller "${controllerElement.name}" changed. Re-validating dependent field "${element.name}".`);
+        onControllerInput = () => {
+          this.#logger.debug(
+            'FormController',
+            `Controller "${controllerElement.name}" changed. Re-validating dependent field "${element.name}".`
+          );
           this.#validationHandler(fieldObject);
-        });
+        };
+
+        controllerElement.addEventListener('input', onControllerInput);
       } else {
-        this.#logger.warn('FormController', `Could not find controller field with name "${dependency.controllerName}".`);
+        this.#logger.warn(
+          'FormController',
+          `Could not find controller field with name "${dependency.controllerName}".`
+        );
       }
     }
+
+    // Save listener references so they can be removed later
+    fieldObject.listeners = {
+      onBlur,
+      onInput,
+      onControllerInput,
+      controllerElement,
+    };
   }
 
   /**

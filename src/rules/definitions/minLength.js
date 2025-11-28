@@ -17,7 +17,7 @@ export const minLength = (value, params) => {
   if (!value) {
     return true;
   }
-  
+
   const min = params[0];
 
   if (min === undefined) {

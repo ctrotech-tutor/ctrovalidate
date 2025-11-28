@@ -1,144 +1,163 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ctrovalidate 2.0 - Simple Contact Form</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: #f8f9fa;
-      color: #212529;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 1rem;
-    }
-    .container {
-      background-color: #ffffff;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-      width: 100%;
-      max-width: 500px;
-    }
-    h1 {
-      text-align: center;
-      color: #343a40;
-      margin-bottom: 1.5rem;
-    }
-    .form-group {
-      margin-bottom: 1.25rem;
-    }
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-    input,
-    textarea {
-      width: 100%;
-      padding: 0.7rem;
-      border: 1px solid #ced4da;
-      border-radius: 4px;
-      box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    input:focus,
-    textarea:focus {
-      outline: none;
-      border-color: #0d6efd;
-      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
-    }
-    .is-invalid {
-      border-color: #dc3545;
-    }
-    .is-invalid:focus {
-      box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
-    }
-    .error-message {
-      color: #dc3545;
-      font-size: 0.875em;
-      margin-top: 0.4rem;
-      min-height: 1em;
-    }
-    button[type="submit"] {
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #0d6efd;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-    button[type="submit"]:hover {
-      background-color: #0b5ed7;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <h1>Contact Us</h1>
-    <form id="contact-form" novalidate>
-
-      <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" data-ctrovalidate-rules="required|minLength:3">
-        <div class="error-message"></div>
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" data-ctrovalidate-rules="required|email">
-        <div class="error-message"></div>
-      </div>
-
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" data-ctrovalidate-rules="required|minLength:10"></textarea>
-        <div class="error-message"></div>
-      </div>
-
-      <button type="submit">Send Message</button>
-    </form>
-  </div>
-
-  <script type="module">
-    // 1. Import the Ctrovalidate class using our new, clean API.
-    import { Ctrovalidate } from '../../src/index.js';
-
-    // 2. Select the form element.
-    const form = document.getElementById('contact-form');
-
-    // 3. Initialize Ctrovalidate.
-    // We are using the new static property for LogLevel.
-    const validator = new Ctrovalidate(form, {
-      logLevel: Ctrovalidate.LogLevel.INFO,
-      realTime: true
-    });
-
-    // 4. Set up the submit handler.
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      
-      console.log('Submit clicked. Validating form...');
-      const isFormValid = await validator.validate();
-
-      if (isFormValid) {
-        alert('Form is valid! Thank you for your message.');
-        // In a real app, you would submit the form data here.
-        console.log('Form Data:', Object.fromEntries(new FormData(form).entries()));
-      } else {
-        console.log('Validation failed. Please check the fields.');
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ctrovalidate 2.0 - Simple Contact Form</title>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+          Arial, sans-serif;
+        background-color: #f8f9fa;
+        color: #212529;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 1rem;
       }
-    });
-  </script>
+      .container {
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+        width: 100%;
+        max-width: 500px;
+      }
+      h1 {
+        text-align: center;
+        color: #343a40;
+        margin-bottom: 1.5rem;
+      }
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 0.7rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        box-sizing: border-box;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+      }
+      .is-invalid {
+        border-color: #dc3545;
+      }
+      .is-invalid:focus {
+        box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+      }
+      .error-message {
+        color: #dc3545;
+        font-size: 0.875em;
+        margin-top: 0.4rem;
+        min-height: 1em;
+      }
+      button[type='submit'] {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #0d6efd;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      button[type='submit']:hover {
+        background-color: #0b5ed7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Contact Us</h1>
+      <form id="contact-form" novalidate>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            data-ctrovalidate-rules="required|minLength:3"
+          />
+          <div class="error-message"></div>
+        </div>
 
-</body>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            data-ctrovalidate-rules="required|email"
+          />
+          <div class="error-message"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            data-ctrovalidate-rules="required|minLength:10"
+          ></textarea>
+          <div class="error-message"></div>
+        </div>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <script type="module">
+      // 1. Import the Ctrovalidate class using our new, clean API.
+      import { Ctrovalidate } from '../../src/index.js';
+
+      // 2. Select the form element.
+      const form = document.getElementById('contact-form');
+
+      // 3. Initialize Ctrovalidate.
+      // We are using the new static property for LogLevel.
+      const validator = new Ctrovalidate(form, {
+        logLevel: Ctrovalidate.LogLevel.INFO,
+        realTime: true,
+      });
+
+      // 4. Set up the submit handler.
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        console.log('Submit clicked. Validating form...');
+        const isFormValid = await validator.validate();
+
+        if (isFormValid) {
+          alert('Form is valid! Thank you for your message.');
+          // In a real app, you would submit the form data here.
+          console.log(
+            'Form Data:',
+            Object.fromEntries(new FormData(form).entries())
+          );
+        } else {
+          console.log('Validation failed. Please check the fields.');
+        }
+      });
+    </script>
+  </body>
 </html>
