@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ctrovalidate 2.0 - with htmx</title>
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+  <style>
+    body { padding: 2rem; }
+    .is-invalid { border-color: #d92b2b; }
+    .error-message { color: #d92b2b; font-size: 0.8rem; }
+    /* htmx-specific classes for visual feedback */
+    .htmx-request .spinner { display: inline-block; }
+    .spinner { display: none; width: 1em; height: 1em; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .4s linear infinite; margin-left: 0.5em; }
+    @keyframes spin { to { transform: rotate(360deg ); } }
+  </style>
+  <!-- 1. Include htmx and Ctrovalidate -->
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <script type="module" src="../../src/index.js"></script>
+</head>
+<body>
+
+  <main>
+    <h1>Check Username Availability</h1>
+    <p>This form uses htmx to check username availability on the server, but only after Ctrovalidate confirms the input is valid on the client-side.</p>
+    
+    <!-- 2. The Form -->
+    <form id="signup-form" novalidate>
+      <div>
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username"
+          data-ctrovalidate-rules="required|minLength:4|alphaDash"
+          hx-post="/mock-username-check" 
+          hx-trigger="blur"
+          hx-target="#username-feedback"
+          hx-indicator="#username-spinner"
+        >
+        <div id="username-feedback" class="error-message"></div>
+        <span id="username-spinner" class="spinner"></span>
+      </div>
+    </form>
+
+    <hr>
+    <aside>
+      <h3>How it Works:</h3>
+      <ol>
+        <li>Type a username that is too short (e.g., "abc" ) and tab away. Ctrovalidate will show an error instantly. No server request is made.</li>
+        <li>Type a valid username (e.g., "testuser"). Ctrovalidate passes, and htmx makes a request to the (mock) server.</li>
+        <li>The server response will be placed in the `div` below the input.</li>
+      </ol>
+    </aside>
+  </main>
+
+  <!-- 3. Ctrovalidate and htmx Event Handling -->
+  <script type="module">
+    import { Ctrovalidate } from '../../src/index.js';
+
+    const form = document.getElementById('signup-form');
+    const usernameField = document.getElementById('username');
+    const validator = new Ctrovalidate(form);
+
+    // 4. THE INTEGRATION: Listen for htmx's 'beforeRequest' event
+    usernameField.addEventListener('htmx:beforeRequest', async (event) => {
+      console.log('htmx:beforeRequest triggered. Validating field first...');
+      
+      // We only want to validate the specific field that triggered the request.
+      const isFieldValid = await validator.validate([usernameField]);
+
+      if (!isFieldValid) {
+        console.log('%cClient-side validation failed. Cancelling htmx request.', 'color: red');
+        // 5. If validation fails, prevent the htmx request from being sent.
+        event.preventDefault();
+      } else {
+        console.log('%cClient-side validation passed. Allowing htmx request.', 'color: green');
+        // Clear any previous server-side error messages before making a new request
+        document.getElementById('username-feedback').innerHTML = '';
+      }
+    });
+
+    // This is a mock server endpoint for demonstration purposes.
+    // In a real app, this logic would be on your server.
+    htmx.onLoad(function(content) {
+      if (content.querySelector('[hx-post="/mock-username-check"]')) {
+        htmx.defineExtension('mock-server', {
+          onEvent: function (name, evt) {
+            if (name === 'htmx:configRequest') {
+              if (evt.detail.path === '/mock-username-check') {
+                evt.detail.xhr.onload = function () {
+                  const username = evt.detail.parameters.username.toLowerCase();
+                  let responseText = '';
+                  if (['admin', 'root', 'testuser'].includes(username)) {
+                    responseText = '<div id="username-feedback" class="error-message">Username is already taken.</div>';
+                  } else {
+                    responseText = '<div id="username-feedback" style="color: green;">Username is available!</div>';
+                  }
+                  Object.defineProperty(evt.detail.xhr, 'responseText', { value: responseText });
+                };
+              }
+            }
+          }
+        });
+        htmx.process(content);
+      }
+    });
+  </script>
+
+</body>
+</html>
