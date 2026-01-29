@@ -14,6 +14,9 @@ export default defineConfig({
 
   themeConfig: {
     logo: '/logo.svg',
+    search: {
+      provider: 'local',
+    },
 
     nav: [
       { text: 'Guide', link: '/2.0/guide/getting-started' },
@@ -57,6 +60,7 @@ export default defineConfig({
               text: 'Working with SPAs',
               link: '/2.0/guide/spa-dynamic-fields',
             },
+            { text: 'Real-world Examples', link: '/2.0/guide/examples' },
           ],
         },
         {

@@ -1,55 +1,87 @@
 # Configuration Options
 
-When you create a new `Ctrovalidate` instance, you can pass an options object as the second argument to customize its behavior.
+Ctrovalidate is designed with sensible defaults, but it provides deep customization for production requirements. You can pass an options object as the second argument to the `Ctrovalidate` constructor.
 
 ```javascript
 import { Ctrovalidate } from 'ctrovalidate';
 
-const form = document.getElementById('my-form');
-
-const options = {
+const validator = new Ctrovalidate(document.querySelector('form'), {
   realTime: true,
-  logLevel: Ctrovalidate.LogLevel.INFO,
-  errorClass: 'has-error',
-  errorMessageClass: 'validation-feedback',
-  pendingClass: 'is-loading',
-};
-
-const validator = new Ctrovalidate(form, options);
+  errorClass: 'field-error',
+  logLevel: Ctrovalidate.LogLevel.WARN,
+});
 ```
 
 ## Available Options
 
-Here is a list of all available options, their types, and their default values.
+### `realTime`
 
-- **realTime**: Type: `boolean` — Default: `true`
-  - When set to `true`, validation will run automatically on input and blur events for fields that have been interacted with ("dirtied"). This provides instant feedback to the user. If set to `false`, validation will only run when you manually call `validator.validate()`.
+- **Type**: `boolean`
+- **Default**: `true`
+- **Description**: When enabled, the library automatically attaches `blur` and `input` listeners to every tracked field.
+- > [!TIP]
+  > For long, complex forms, `realTime` provides the best UX by preventing "error shock" at the end of the form.
 
-- **logLevel**: Type: `LogLevel` (enum) — Default: `Ctrovalidate.LogLevel.NONE`
-  - Controls the level of detail Ctrovalidate will log to the developer console. Useful for debugging your form or understanding the library's internal state.
-  - Available levels:
-    - `Ctrovalidate.LogLevel.NONE`: No logs are shown.
-    - `Ctrovalidate.LogLevel.ERROR`: Only critical errors are shown.
-    - `Ctrovalidate.LogLevel.WARN`: Shows warnings and errors.
-    - `Ctrovalidate.LogLevel.INFO`: Shows informational messages (like initialization), warnings, and errors.
-    - `Ctrovalidate.LogLevel.DEBUG`: Shows all messages, including detailed execution flow for deep debugging.
+---
 
-- **errorClass**: Type: `string` — Default: `'is-invalid'`
-  - The CSS class that will be added to an input field when it fails validation. You can use this class to apply custom error styling, such as a red border.
+### `logLevel`
 
-- **errorMessageClass**: Type: `string` — Default: `'error-message'`
-  - The CSS class used to identify the HTML element that should display the validation error message for a field. Ctrovalidate looks for an element with this class within the parent of the input field.
+- **Type**: `Ctrovalidate.LogLevel` (enum)
+- **Default**: `LogLevel.NONE`
+- **Description**: Controls console output detail.
+- **Levels**:
+  - `NONE`: No logs.
+  - `ERROR`: Only critical internal failures.
+  - `WARN`: Rule execution issues and configuration warnings.
+  - `INFO`: Initialization steps and field discovery info.
+  - `DEBUG`: Full internal state transitions and event logs.
 
-  Example HTML structure:
+---
 
-  ```html
-  <div>
-    <!-- Parent -->
-    <input name="username" data-ctrovalidate-rules="required" />
-    <!-- Ctrovalidate will find this element and put the error message here -->
-    <div class="error-message"></div>
-  </div>
-  ```
+### `errorClass`
 
-- **pendingClass**: Type: `string` — Default: `'is-validating'`
-  - The CSS class that will be added to an input field while an asynchronous validation rule (like checking if a username is available on a server) is in progress. This is useful for showing a loading spinner or other visual feedback to the user.
+- **Type**: `string`
+- **Default**: `'is-invalid'`
+- **Description**: The class added to the input element itself when validation fails.
+- > [!IMPORTANT]
+  > Ctrovalidate also adds `aria-invalid="true"` automatically to the element whenever this class is present.
+
+---
+
+### `errorMessageClass`
+
+- **Type**: `string`
+- **Default**: `'error-message'`
+- **Description**: The class identifier used to find the error container for each field.
+
+**How discovery works:**
+By default, the library looks for an element with this class that shares the same parent as the input element. If not found, it continues up the DOM tree (up to 3 levels) to find a logical container.
+
+---
+
+### `pendingClass`
+
+- **Type**: `string`
+- **Default**: `'is-validating'`
+- **Description**: Applied to the field while asynchronous rules are executing.
+- **Example Usage**: Use this class to show a spinner or disable the submit button during a "Username Available" check.
+
+---
+
+## Advanced: Global Configuration
+
+While the constructor handles instance-specific settings, some behaviors are global.
+
+### `Ctrovalidate.LogLevel`
+
+The enum used for logging. Always use the static property to ensure type safety.
+
+```javascript
+import { Ctrovalidate } from 'ctrovalidate';
+console.log(Ctrovalidate.LogLevel.DEBUG); // 4
+```
+
+## Next Steps
+
+- **[Built-in Rules](./rules.md)** — Explore the rule library.
+- **[Static Methods](../api/static-methods.md)** — Learn how to add custom rules globally.

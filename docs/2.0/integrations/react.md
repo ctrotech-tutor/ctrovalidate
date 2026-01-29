@@ -1,142 +1,97 @@
-# Integration: React
+# React Integration
 
-Integrating Ctrovalidate into a [React](https://react.dev/) application requires careful handling of DOM elements and component lifecycle, as React controls the DOM. The recommended approach uses React's built-in hooks to ensure that Ctrovalidate initializes correctly and has a stable reference to the form.
+While Ctrovalidate is a DOM-first library, it integrates perfectly with React's component lifecycle using `useRef` and `useEffect`.
 
-This guide assumes you have a standard React project, likely set up with a tool like [Vite](https://vitejs.dev/) or Create React App.
+---
 
-## The Core Pattern
+## 🏗️ Basic Pattern
 
-The key to a successful integration in React is to use the `useRef` and `useEffect` hooks.
+The most reliable way to use Ctrovalidate in React is to initialize it once the component mounts and the form element is available in the DOM.
 
-1.  **`useRef` for DOM Elements:** Use the `useRef` hook to create a persistent reference to your `<form>` DOM element. This is React's standard and safest way to access a DOM node directly.
-2.  **`useRef` for the Instance:** It's also a good practice to store the Ctrovalidate instance itself in a ref (`validatorRef.current`). This prevents the instance from being recreated on every component re-render.
-3.  **`useEffect` for Initialization:** Initialize Ctrovalidate inside a `useEffect` hook with an empty dependency array (`[]`). This is critical because it guarantees the code runs exactly once, right after the component's DOM has been mounted for the first time.
-
-This pattern ensures that you are not fighting against React's lifecycle and that your validator is a stable, persistent object.
-
-## Example: A Standard React Component
-
-Let's create a `RegistrationForm` component in a typical React project.
-
-### 1. The Component JSX
-
-In your component's return statement, define your form. Use the `ref` attribute to attach the ref you created and `onSubmit` to hook into the form's submission event.
-
-```jsx
-import React from 'react';
-
-function RegistrationForm() {
-  // ... hooks and handlers will go here ...
-
-  return (
-    <form ref={formRef} onSubmit={handleSubmit} noValidate>
-      <div>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          data-ctrovalidate-rules="required|minLength:3|alphaDash"
-        />
-        <div className="error-message"></div>
-      </div>
-
-      <div>
-        <label htmlFor="email">Email Address</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          data-ctrovalidate-rules="required|email"
-        />
-        <div className="error-message"></div>
-      </div>
-
-      <button type="submit">Create Account</button>
-    </form>
-  );
-}
-```
-
-### 2. The Component Logic (Hooks)
-
-Inside your component function, use the hooks to manage the integration.
-
-```jsx
-import React, { useRef, useEffect } from 'react';
+```tsx
+import React, { useEffect, useRef } from 'react';
 import { Ctrovalidate } from 'ctrovalidate';
 
-function RegistrationForm() {
-  // 1. Create a ref to hold the form's DOM element.
-  const formRef = useRef(null);
+export const SignupForm = () => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const validatorRef = useRef<Ctrovalidate | null>(null);
 
-  // 2. Create a ref to hold the validator instance.
-  const validatorRef = useRef(null);
-
-  // 3. Use the useEffect hook for initialization.
   useEffect(() => {
-    // The 'formRef.current' will be the actual <form> DOM node.
     if (formRef.current) {
-      console.log('React component mounted. Initializing Ctrovalidate.');
       validatorRef.current = new Ctrovalidate(formRef.current, {
-        realTime: true
+        realTime: true,
       });
     }
-  }, []); // The empty array ensures this effect runs only once.
 
-  // 4. Define the submit handler function.
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!validatorRef.current) return;
+    // Optional: Cleanup
+    return () => {
+      // Instance cleanup if needed
+    };
+  }, []);
 
-    const isFormValid = await validatorRef.current.validate();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const isValid = await validatorRef.current?.validate();
 
-    if (isFormValid) {
-      alert('React form is valid! Submitting...');
-      // Logic to submit form data
-    } else {
-      console.log('React form has errors.');
+    if (isValid) {
+      console.log('Form is valid!');
     }
   };
 
   return (
-    // ... JSX from above ...
+    <form ref={formRef} onSubmit={handleSubmit} novalidate>
+      <input
+        name="email"
+        data-ctrovalidate-rules="required|email"
+        placeholder="Enter email"
+      />
+      <div className="error-message" />
+
+      <button type="submit">Register</button>
+    </form>
   );
-}
+};
 ```
 
-### Notes for TypeScript Users
+---
 
-When using TypeScript with React, you can strongly type your refs for excellent type safety and autocompletion.
+## 🔄 Handling Dynamic Fields
 
-```typescript
-import React, { useRef, useEffect } from 'react';
-import { Ctrovalidate, CtrovalidateInstance } from 'ctrovalidate';
+If your React form fields are added/removed dynamically (e.g., in a list), use a separate `useEffect` or a callback-ref to register/unregister them.
 
-function RegistrationForm() {
-  // Type the ref for the form element
-  const formRef = useRef<HTMLFormElement>(null);
-
-  // Type the ref for the validator instance
-  const validatorRef = useRef<CtrovalidateInstance | null>(null);
+```tsx
+const DynamicInput = ({ validator }: { validator: Ctrovalidate }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Note: formRef.current can be null, so we check it.
-    if (formRef.current) {
-      validatorRef.current = new Ctrovalidate(formRef.current, {
-        /* ... */
-      });
+    if (inputRef.current) {
+      validator.addField(inputRef.current);
     }
-  }, []);
+    return () => {
+      if (inputRef.current) {
+        validator.removeField(inputRef.current);
+      }
+    };
+  }, [validator]);
 
-  // ...
-}
+  return (
+    <input ref={inputRef} name="hobby" data-ctrovalidate-rules="required" />
+  );
+};
 ```
 
-### Dynamic Fields in React
+---
 
-When rendering a dynamic list of fields, you will need to manage calling `addField()` and `removeField()`. The `useEffect` hook is again your best tool. You can create an effect that runs whenever your list of fields changes, and inside it, carefully add or remove fields from the validator instance to keep it in sync with React's state.
+## ⚡ Benefits over Pure React Validation
 
-[**View a simplified CDN example on GitHub**](https://github.com/ctrotech-tutor/ctrovalidate/blob/main/examples/with-react/index.html)
+1.  **Performance**: Validation logic runs outside of React's render cycle, preventing unnecessary re-renders of the entire form.
+2.  **Declarative**: Keep your validation logic in the JSX markup rather than in complex `yup` or `zod` schemas.
+3.  **No State Boilerplate**: You don't need to manually manage `error` or `touched` states in `useState`.
 
-\*\*\* End Patch
+> [!IMPORTANT]
+> Since Ctrovalidate manipulates the DOM directly (adding classes and error messages), ensure your `error-message` containers are empty in your JSX to avoid hydration mismatches.
+
+## Next Steps
+
+- **[API Reference](../api/methods.md)** — More details on `addField` and `removeField`.
+- **[Custom Rules](../guide/custom-rules.md)** — Creating async rules for your React apps.

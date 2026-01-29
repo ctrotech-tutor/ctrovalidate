@@ -1,95 +1,69 @@
-# Working with SPAs & Dynamic Fields
+# SPAs & Dynamic Fields
 
-Modern web applications, especially Single-Page Applications (SPAs) built with frameworks like Vue, React, or Svelte, often add or remove form fields from the DOM without a full page reload.
+Modern web applications (React, Vue, Svelte, etc.) frequently add or remove form fields from the DOM at runtime. Ctrovalidate provides a powerful API to keep your validation instance in sync with these changes.
 
-Ctrovalidate is designed to handle this scenario seamlessly with the `addField()` and `removeField()` methods.
+## 🔄 Managing Field Lifecycle
 
-When you initialize Ctrovalidate on a form, it automatically discovers all the fields that have the `data-ctrovalidate-rules` attribute. However, if you add a new field to the DOM _after_ initialization, the validator won't know about it. That's where `addField()` comes in.
+When you initialize a `Ctrovalidate` instance, it performs a "discovery" pass of the specified form. For any fields added later, you must manually register them.
 
-## `validator.addField(fieldElement)`
+### `addField(element)`
 
-This method allows you to programmatically tell your Ctrovalidate instance to start tracking and validating a new field.
-
-### Example
-
-Imagine you have a "Add Hobby" button that dynamically adds new input fields to your form.
-
-**HTML:**
-
-```html
-<form id="survey-form">
-  <!-- ... other fields ... -->
-  <div id="hobbies-container"></div>
-  <button type="button" id="add-hobby">Add Hobby</button>
-  <button type="submit">Submit</button>
-</form>
-```
-
-**JavaScript:**
+Tells the validator to start tracking a new DOM element.
 
 ```javascript
-import { Ctrovalidate } from 'ctrovalidate';
+const newField = document.createElement('input');
+newField.name = 'dynamic_input';
+newField.setAttribute('data-ctrovalidate-rules', 'required');
 
-const form = document.getElementById('survey-form');
-const addBtn = document.getElementById('add-hobby');
-const container = document.getElementById('hobbies-container');
+// Add to DOM
+document.querySelector('#dynamic-form').appendChild(newField);
 
-// Initialize the validator on the form
-const validator = new Ctrovalidate(form);
-
-let hobbyCounter = 0;
-
-addBtn.addEventListener('click', () => {
-  hobbyCounter++;
-
-  // 1. Create the new HTML element
-  const newInput = document.createElement('input');
-  newInput.type = 'text';
-  newInput.name = `hobby_${hobbyCounter}`;
-  newInput.setAttribute('data-ctrovalidate-rules', 'required|minLength:3');
-
-  // 2. Add it to the DOM
-  container.appendChild(newInput);
-
-  // 3. CRITICAL STEP: Tell Ctrovalidate about the new field
-  validator.addField(newInput);
-});
+// Register with Ctrovalidate
+validator.addField(newField);
 ```
 
-Now, the newly added hobby field will be included in all future validation checks, and if `realTime` is enabled, it will have event listeners attached automatically.
+### `removeField(element)`
 
-## `validator.removeField(fieldElement)`
-
-Conversely, if you remove a field from the DOM, you should also tell Ctrovalidate to stop tracking it. This is important for two reasons:
-
-1. It prevents the validator from trying to validate an element that no longer exists.
-2. It cleans up the event listeners attached to the element, preventing potential memory leaks in long-lived applications.
-
-### Example
-
-Building on the previous example, let's add a "Remove Hobby" button.
-
-**JavaScript:**
+Tells the validator to stop tracking an element and cleans up all internal listeners and caches.
 
 ```javascript
-// ... (previous code) ...
-const removeBtn = document.getElementById('remove-hobby');
+const fieldToRemove = document.querySelector('[name="expired_field"]');
 
-removeBtn.addEventListener('click', () => {
-  if (hobbyCounter <= 0) return;
+// Clean up first
+validator.removeField(fieldToRemove);
 
-  const fieldNameToRemove = `hobby_${hobbyCounter}`;
-  const fieldElement = form.querySelector(`[name="${fieldNameToRemove}"]`);
-
-  if (fieldElement) {
-    // 1. CRITICAL STEP: Tell Ctrovalidate to stop tracking the field
-    validator.removeField(fieldElement);
-
-    // 2. Remove the element from the DOM
-    fieldElement.remove();
-    hobbyCounter--;
-  }
-});
+// Then remove from DOM
+fieldToRemove.remove();
 ```
 
-By using `addField()` and `removeField()`, you can ensure that Ctrovalidate's internal state always stays in sync with your form's DOM, making it a reliable tool for even the most dynamic applications.
+---
+
+## 🧩 Framework Patterns
+
+### Vue / React (Lifecycle Hooks)
+
+In component-based frameworks, use the lifecycle hooks to manage registration.
+
+```javascript
+// React Example using useEffect
+useEffect(() => {
+  const field = fieldRef.current;
+  validator.addField(field);
+
+  return () => {
+    validator.removeField(field);
+  };
+}, []);
+```
+
+### HTMX / Alpine.js (Auto-Discovery)
+
+If you are using tools like HTMX to swap fragments, you can re-run field discovery or specifically add the new fragments.
+
+> [!TIP]
+> Calling `addField` on an already tracked field is safe; Ctrovalidate will simply update internal metadata if rules have changed.
+
+## Next Steps
+
+- **[Custom Rules](./custom-rules.md)** — Learn how to build complex logic for dynamic apps.
+- **[API Methods](../api/methods.md)** — Detailed technical reference for all instance methods.

@@ -1,87 +1,59 @@
-# TypeScript Types
+# TypeScript Support
 
-For developers using TypeScript, Ctrovalidate exports several types and interfaces to ensure type safety and provide excellent editor autocompletion.
+Ctrovalidate is written in standard JavaScript with deep JSDoc integration, providing first-class IntelliSense and type safety for both JavaScript and TypeScript developers.
 
-When you import `Ctrovalidate` in a TypeScript file, you can also import these helper types.
+## 📦 Typings
 
-```typescript
-import { Ctrovalidate, CtrovalidateOptions, LogLevel } from 'ctrovalidate';
-```
+Type definition files are included in the package under `dist/types`. They are automatically detected by modern IDEs and compilers.
 
----
+## 🛠️ Usage in TypeScript
 
-## `CtrovalidateOptions`
-
-This is the interface for the options object that can be passed to the `Ctrovalidate` constructor.
-
-### Definition
+### Basic Initialization
 
 ```typescript
-interface CtrovalidateOptions {
-  logLevel?: LogLevel;
-  errorClass?: string;
-  errorMessageClass?: string;
-  pendingClass?: string;
-  realTime?: boolean;
-}
-```
+import { Ctrovalidate, type CtrovalidateOptions } from 'ctrovalidate';
 
-### Properties
+const form = document.querySelector<HTMLFormElement>('#my-form')!;
 
-- **`logLevel?: LogLevel`**
-  The logging level for the console. Defaults to `LogLevel.NONE`.
-
-- **`errorClass?: string`**
-  The CSS class applied to an invalid field. Defaults to `'is-invalid'`.
-
-- **`errorMessageClass?: string`**
-  The CSS class to identify the error message container. Defaults to `'error-message'`.
-
-- **`pendingClass?: string`**
-  The CSS class applied during async validation. Defaults to `'is-validating'`.
-
-- **`realTime?: boolean`**
-  Whether to enable real-time validation. Defaults to `true`.
-
-### Usage
-
-```typescript
 const options: CtrovalidateOptions = {
-  realTime: false,
-  errorClass: 'form-error',
+  realTime: true,
+  logLevel: Ctrovalidate.LogLevel.INFO,
+  errorClass: 'has-error',
 };
 
 const validator = new Ctrovalidate(form, options);
 ```
 
----
+### Custom Rule Types
 
-## `LogLevel`
-
-This is an enum representing the available logging levels.
-
-### Definition
+When adding custom rules, you can benefit from the imported `RuleLogic` or `AsyncRuleLogic` types.
 
 ```typescript
-enum LogLevel {
-  NONE = 0,
-  ERROR = 1,
-  WARN = 2,
-  INFO = 3,
-  DEBUG = 4,
-}
-```
+import { Ctrovalidate, type RuleLogic } from 'ctrovalidate';
 
-### Usage
-
-Use this enum to provide a type-safe value for the `logLevel` option.
-
-```typescript
-import { Ctrovalidate, LogLevel, CtrovalidateOptions } from 'ctrovalidate';
-
-const options: CtrovalidateOptions = {
-  logLevel: LogLevel.DEBUG,
+const myLogic: RuleLogic = (value, params, field) => {
+  return value.includes('special');
 };
 
-const validator = new Ctrovalidate(form, options);
+Ctrovalidate.addRule('myRule', myLogic, 'Error message');
 ```
+
+---
+
+## 🧩 Key Types Reference
+
+| Type                  | Description                                        |
+| :-------------------- | :------------------------------------------------- |
+| `CtrovalidateOptions` | The configuration object for the constructor.      |
+| `LogLevel`            | Enum values for console output.                    |
+| `ValidationResult`    | The internal object representing a field's status. |
+| `RuleLogic`           | Function signature for synchronous custom rules.   |
+| `AsyncRuleLogic`      | Function signature for asynchronous custom rules.  |
+
+> [!TIP]
+> You don't need to manually install `@types/ctrovalidate`. The library includes them out of the box.
+
+## Next Steps
+
+- **[Instance Methods](./methods.md)** — Detailed method documentation.
+- **[Vite Integration](../integrations/tailwindcss.md)** — See how to use with modern bundlers.

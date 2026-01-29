@@ -1,145 +1,125 @@
 # Getting Started
 
-Welcome to Ctrovalidate! This guide will walk you through the process of
-setting up and using the library in your project.
+Welcome to **Ctrovalidate**! In this guide, we'll walk you through setting up the library and building your first validated form in under 5 minutes.
 
-## Installation
+## 📦 Installation
 
-You can install Ctrovalidate using your favorite package manager.
+Ctrovalidate is available on all major package registries.
 
-### Using npm
+### Package Managers
 
-```bash
+::: code-group
+
+```bash [npm]
 npm install ctrovalidate
 ```
 
-### Using yarn
-
-```bash
+```bash [yarn]
 yarn add ctrovalidate
 ```
 
-### Using pnpm
-
-```bash
+```bash [pnpm]
 pnpm add ctrovalidate
 ```
 
-### CDN (for quick demos)
+:::
 
-For prototyping or simple HTML files, you can use the library directly
-from a CDN like jsDelivr.
+### 🌐 CDN (Quick Prototyping)
+
+For quick tests or simple static sites, you can import Ctrovalidate directly from a CDN.
 
 ```html
 <script type="module">
-  import { Ctrovalidate } from 'https://cdn.jsdelivr.net/npm/ctrovalidate@2.0.0/dist/ctrovalidate.js';
-  // Your code here...
+  import { Ctrovalidate } from 'https://cdn.jsdelivr.net/npm/ctrovalidate@2.1.0/dist/ctrovalidate.js';
+  // Use Ctrovalidate here
 </script>
 ```
 
-## Your First Form
+---
 
-Let's create a simple registration form to see Ctrovalidate in action.
+## 🛠️ Your First Form
 
-### 1. Create the HTML
+Let's build a professional registration form that uses real-time validation and localized error messages.
 
-First, create your HTML form. The key is to add the
-`data-ctrovalidate-rules` attribute to each input you want to validate.
+### 1. HTML Structure
+
+First, define your HTML. The declarative heart of Ctrovalidate lies in the `data-ctrovalidate-rules` attribute.
 
 ```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>My First Ctrovalidate Form</title>
-    <style>
-      /* Basic styling for feedback */
-      .is-invalid {
-        border-color: red;
-      }
-      .error-message {
-        color: red;
-        font-size: 0.875em;
-      }
-    </style>
-  </head>
-  <body>
-    <form id="registration-form" novalidate>
-      <div>
-        <label for="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          data-ctrovalidate-rules="required|minLength:3"
-        />
-        <div class="error-message"></div>
-      </div>
+<form id="registration-form" novalidate>
+  <div class="field-container">
+    <label for="email">Email Address</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      data-ctrovalidate-rules="required|email"
+    />
+    <!-- The error container (auto-detected by Ctrovalidate) -->
+    <div class="error-message"></div>
+  </div>
 
-      <div>
-        <label for="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          data-ctrovalidate-rules="required|email"
-        />
-        <div class="error-message"></div>
-      </div>
+  <div class="field-container">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      data-ctrovalidate-rules="required|minLength:8|strongPassword"
+    />
+    <div class="error-message"></div>
+  </div>
 
-      <button type="submit">Register</button>
-    </form>
-
-    <script type="module" src="app.js"></script>
-  </body>
-</html>
+  <button type="submit">Create Account</button>
+</form>
 ```
 
-### 2. Initialize in JavaScript
+> [!TIP]
+> Always add the `novalidate` attribute to your form to prevent browser default validation from interfering with Ctrovalidate's superior feedback loops.
 
-Next, create a JavaScript file (e.g., `app.js`) to initialize the
-validator.
+### 2. JavaScript Initialization
+
+Now, initialize the library. Ctrovalidate is designed to get out of your way and handle the heavy lifting automatically.
 
 ```javascript
-// app.js
 import { Ctrovalidate } from 'ctrovalidate';
 
-// 1. Get the form element from the DOM.
-const form = document.getElementById('registration-form');
+// Select your form
+const form = document.querySelector('#registration-form');
 
-// 2. Create a new Ctrovalidate instance.
+// Initialize Ctrovalidate
 const validator = new Ctrovalidate(form, {
-  realTime: true, // Enable real-time validation on input/blur events
+  realTime: true, // Validate as the user types
+  logLevel: Ctrovalidate.LogLevel.INFO, // Helpful for development
 });
 
-// 3. Add a submit event listener to the form.
-form.addEventListener('submit', async (event) => {
-  // Prevent the default form submission.
-  event.preventDefault();
+// Handle submission
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-  // Validate the form.
-  const isFormValid = await validator.validate();
+  // The .validate() method returns a boolean Promise
+  const isValid = await validator.validate();
 
-  if (isFormValid) {
-    alert('Form is valid! Submitting...');
-    // In a real application, you would submit the form data here.
-    // form.submit();
-  } else {
-    alert('Form has errors. Please correct them.');
+  if (isValid) {
+    console.log('Success! Sending data...');
+    // e.g. submitToApi(new FormData(form));
   }
 });
 ```
 
-That's it! You now have a fully functional, real-time validated form.
-When a user types in an input and then clicks away, the validation rules
-will run automatically, displaying error messages in the
-`.error-message` div.
+---
 
-## Next Steps
+## 🔍 What Just Happened?
 
-Now that you have a basic form working, explore the other guides to
-learn more about:
+1.  **Rule Mapping**: Ctrovalidate scanned the form for `data-ctrovalidate-rules`.
+2.  **Event Attachment**: Because `realTime` is `true`, it automatically attached `blur` and `input` listeners.
+3.  **A11y Wiring**: The library automatically linked the inputs to their error messages using `aria-describedby` and manages `aria-invalid` states dynamically.
+4.  **Async Support**: If any rules were asynchronous, Ctrovalidate would have automatically handled the pending states and debounced the checks.
 
-- [Configuration Options](./configuration.md)
-- [All Built-in Rules](./rules.md)
-- [Conditional Validation](./conditional-validation.md)
+## 🚀 Next Steps
+
+Now that you're up and running, explore the depths of Ctrovalidate:
+
+- **[Configuration Options](./configuration.md)** — Customize classes, logging, and events.
+- **[Built-in Rules](./rules.md)** — See all 20+ rules available out of the box.
+- **[Conditional Validation](./conditional-validation.md)** — Learn how to validate fields based on other field values.

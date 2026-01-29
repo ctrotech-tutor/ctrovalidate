@@ -1,117 +1,79 @@
-# Creating Custom Rules
+# Extending Ctrovalidate
 
-While Ctrovalidate provides a comprehensive set of built-in rules, you will often have validation needs specific to your application. Ctrovalidate's API makes it easy to add your own custom rules, both synchronous and asynchronous.
+While our built-in rules cover 90% of use cases, Ctrovalidate is built for custom business logic. You can extend the library with synchronous and asynchronous rules using the global `Ctrovalidate` object.
 
-Custom rules are added globally using static methods on the `Ctrovalidate` class. It's best practice to define your custom rules once, before you initialize any validator instances.
+---
 
-## `Ctrovalidate.addRule()` (Synchronous)
+## ⚡ Synchronous Rules
 
-Use this method for rules that can be validated instantly without any delay.
+Use `Ctrovalidate.addRule()` for checks that execute instantly (e.g., regex, range checks, or internal state matching).
 
-The method takes three arguments:
+### Signature
 
-1.  `name` (string): The name of your rule, which you will use in the `data-ctrovalidate-rules` attribute.
-2.  `logic` (function): The function that performs the validation.
-3.  `message` (string): The default error message to display if the rule fails.
+`Ctrovalidate.addRule(name, logic, defaultMessage)`
 
-### The Logic Function
+- **name**: String used in `data-ctrovalidate-rules`.
+- **logic**: Function `(value, params, element) => boolean`.
+- **defaultMessage**: The fallback error message.
 
-Your logic function will receive three arguments:
-
-- `value`: The current value of the field being validated.
-- `params`: An array of strings containing any parameters passed to your rule (e.g., for a rule `myRule:foo,bar`, `params` would be `['foo', 'bar']`).
-- `field`: The HTML element itself.
-
-The function must return `true` if the validation passes and `false` if it fails.
-
-### Example: `isPositive`
-
-Let's create a simple rule to check if a number is greater than zero.
+### Real-world Example: `isWorkEmail`
 
 ```javascript
 import { Ctrovalidate } from 'ctrovalidate';
 
-// Define the custom rule before initializing
 Ctrovalidate.addRule(
-  'isPositive',
-  (value, params, field) => {
-    // Don't fail on empty values; use 'required' for that.
-    if (!value) {
-      return true;
-    }
-    return Number(value) > 0;
+  'isWorkEmail',
+  (value) => {
+    if (!value) return true; // Let 'required' handle empty checks
+    const commonProviders = ['gmail.com', 'yahoo.com', 'hotmail.com'];
+    const domain = value.split('@')[1];
+    return !commonProviders.includes(domain);
   },
-  'The value must be a positive number.'
+  'Please use a corporate email address (Personal domains not allowed).'
 );
-
-// Now you can use it in your HTML
-// <input type="number" data-ctrovalidate-rules="required|numeric|isPositive">
 ```
 
-## `Ctrovalidate.addAsyncRule()` (Asynchronous)
+---
 
-Use this method for rules that require a delay, such as making an API call to a server.
+## 🌐 Asynchronous Rules
 
-The arguments are the same as `addRule`, but the logic function is slightly different.
+Use `Ctrovalidate.addAsyncRule()` for rules that require server-side checks or heavy computation.
 
-### The Async Logic Function
+### Signature
 
-Your async logic function will receive **four** arguments:
+`Ctrovalidate.addAsyncRule(name, logic, defaultMessage)`
 
-- `value`, `params`, `field`: Same as the synchronous version.
-- `signal`: An `AbortSignal` object. This is crucial for handling race conditions. If the user types again while a request is in flight, Ctrovalidate will abort the previous signal. You should pass this signal to your `fetch` call or other async operation.
+- **logic**: Async function `(value, params, element, signal) => Promise<boolean>`.
+- **signal**: An `AbortSignal`. Use this to cancel redundant network requests.
 
-The function must return a `Promise` that resolves to `true` if validation passes and `false` if it fails.
-
-### Example: `usernameAvailable`
-
-Let's create a classic async rule that checks if a username is already taken by querying a fake API.
+### Real-world Example: `usernameAvailable`
 
 ```javascript
-import { Ctrovalidate } from 'ctrovalidate';
-
-// Define the custom async rule
 Ctrovalidate.addAsyncRule(
   'usernameAvailable',
-  async (value, params, field, signal) => {
-    // Don't run the check on an empty value
-    if (!value) {
-      return true;
-    }
+  async (value, params, element, signal) => {
+    if (!value) return true;
 
-    try {
-      // Simulate an API call
-      const response = await fetch(
-        `https://api.example.com/check-username?username=${value}`,
-        {
-          signal, // Pass the abort signal to fetch
-        }
-      );
-
-      if (response.status === 404) {
-        // Username is available
-        return true;
-      } else {
-        // Username is taken
-        return false;
-      }
-    } catch (error) {
-      if (error.name === 'AbortError') {
-        // This is expected if the user types again.
-        // Ctrovalidate handles this, so we can consider it a "pass" for this aborted attempt.
-        console.log('Previous username check aborted.');
-        return true;
-      }
-      // Handle other network errors
-      console.error('Network error during username check.');
-      return false; // Or decide how to handle network failures
-    }
+    const response = await fetch(`/api/check-user?u=${value}`, { signal });
+    const data = await response.json();
+    return data.available;
   },
   'This username is already taken.'
 );
-
-// Now you can use it in your HTML
-// <input type="text" data-ctrovalidate-rules="required|alphaDash|usernameAvailable">
 ```
 
-While the async rule is running, Ctrovalidate will automatically add the `pendingClass` (default: `is-validating`) to the input field, allowing you to show a loading spinner.
+> [!TIP]
+> While an async rule is running, the field receives the `pendingClass` (default: `is-validating`). Use this to show a loading spinner in your CSS.
+
+---
+
+## 🏗️ Best Practices
+
+1.  **Rule Atomicity**: Each rule should do exactly one thing. Combine `required|numeric|isPositive` rather than creating one `requiredPositiveNumber` rule.
+2.  **Graceful Silence**: Rules should generally return `true` for empty values. This allows the `required` rule to manage mandatory state independently.
+3.  **Registration Timing**: Always register your custom rules **before** initializing `new Ctrovalidate()`. This ensures the initial field discovery pass correctly maps your rules.
+
+## Next Steps
+
+- **[API Methods Query](../api/methods.md)** — Detailed technical reference for all instance methods.
+- **[TypeScript Integration](../api/types.md)** — Fully typed custom rules.
