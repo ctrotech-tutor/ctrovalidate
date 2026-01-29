@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Validus.js - Full Feature Demonstration</title>
+    <title>ctrovalidate.js - Full Feature Demonstration</title>
     <style>
       /* I'm using a clean, modern, and professional stylesheet for our final demo. */
       body {
@@ -127,7 +127,7 @@
             type="text"
             id="username"
             name="username"
-            data-validus-rules="required|minLength:3|alphaDash|usernameAvailable"
+            data-ctrovalidate-rules="required|minLength:3|alphaDash|usernameAvailable"
           />
           <div class="spinner"></div>
           <div class="error-message"></div>
@@ -139,7 +139,7 @@
             type="password"
             id="password"
             name="password"
-            data-validus-rules="required|strongPassword"
+            data-ctrovalidate-rules="required|strongPassword"
           />
           <div class="spinner"></div>
           <div class="error-message"></div>
@@ -151,7 +151,7 @@
             type="password"
             id="password-confirm"
             name="password_confirm"
-            data-validus-rules="required|sameAs:password"
+            data-ctrovalidate-rules="required|sameAs:password"
           />
           <div class="spinner"></div>
           <div class="error-message"></div>
@@ -170,8 +170,8 @@
             id="email"
             name="email"
             placeholder="Required if you subscribe"
-            data-validus-rules="required|email"
-            data-validus-if="subscribe:checked"
+            data-ctrovalidate-rules="required|email"
+            data-ctrovalidate-if="subscribe:checked"
           />
           <div class="spinner"></div>
           <div class="error-message"></div>
@@ -182,7 +182,7 @@
     </div>
     <script type="module">
       // 1. I'm importing our library using the new, clean named export.
-      import { Ctrovalidate } from '../src/index.js';
+      import { Ctrovalidate } from '../../src/index.js';
 
       // 2. I'm defining all our custom rules, both sync and async.
       Ctrovalidate.addRule(

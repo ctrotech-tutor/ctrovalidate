@@ -3,12 +3,19 @@
 /// <reference types="vitest" />
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 /**
  * @file This is the configuration file for Vite.
  * This version is now fully configured for both building the library and running tests with Vitest.
  */
 export default defineConfig({
+  plugins: [
+    dts({
+      rollupTypes: true,
+      insertTypesEntry: true,
+    }),
+  ],
   // --- Build Configuration (for creating the 'dist' folder) ---
   build: {
     lib: {

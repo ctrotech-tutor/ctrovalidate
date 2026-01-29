@@ -41,7 +41,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Run the build command.
+      # Step 4: Run Linting
+      # Ensures code style compliance.
+      - name: Lint Code
+        run: npm run lint
+
+      # Step 5: Run Tests
+      # Verifies logic correctness with coverage.
+      - name: Run Tests
+        run: npm run test:coverage
+
+      # Step 6: Run the build command.
       # This is the most important step. It executes our 'npm run build' script.
       # If the build fails for any reason (e.g., a syntax error, a config issue),
       # this step will fail, and the entire workflow run will be marked as failed.
