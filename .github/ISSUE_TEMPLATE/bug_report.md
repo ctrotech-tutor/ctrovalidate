@@ -1,33 +1,35 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
+name: '🐛 Bug Report'
+about: Report a bug to help us improve Ctrovalidate
+title: 'bug: <description>'
+labels: ['bug']
 assignees: ''
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## 🐛 Bug Description
 
-**To Reproduce**
-Steps to reproduce the behavior:
+<!-- A clear and concise description of what the bug is. -->
 
-1. Go to '...'
-2. Click on '...'
-3. Scroll down to '...'
-4. See error
+## 🛠️ Reproduction Steps
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+1.
+2.
+3.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## 📋 Expected Behavior
 
-**Desktop (please complete the following information):**
+<!-- What did you expect to happen? -->
 
-- OS: [e.g. iOS]
-- Browser [e.g. chrome, safari]
-- Version [e.g. 22]
+## 💻 Environment
 
-**Additional context**
-Add any other context about the problem here.
+- **Library Version**:
+- **Browser**:
+- **Framework (if any)**:
+
+## 📸 Screenshots / Console Logs
+
+<!-- If applicable, add screenshots or paste logs to help explain your problem. -->
+
+## 🕵️ Additional Context
+
+<!-- Add any other context about the problem here. -->
