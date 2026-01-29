@@ -93,61 +93,70 @@ For projects with a build step (like Vite or Webpack), install the package from 
 
 ## ✨ Key Features
 
-- **Declarative & HTML-First**: Define complex validation rules directly in your HTML.
-- **Fully Accessible (ARIA)**: Automatic management of ARIA attributes makes your forms accessible out-of-the-box.
-- **Zero-Dependency & Lightweight**: No external libraries, no bloat. Ctrovalidate is tiny and fast.
-- **Extensible API**: Easily add your own synchronous or asynchronous validation rules.
-- **SPA & Dynamic Content Ready**: Programmatically `addField()` and `removeField()` to work seamlessly with frameworks like Vue, React, and Svelte.
-- **TypeScript Ready**: Ships with a comprehensive TypeScript declaration file for a superior developer experience.
+<div align="center">
+  <img src="https://raw.githubusercontent.com/ctrotech-tutor/ctrovalidate/main/public/logo.svg" alt="Ctrovalidate Logo" width="200" height="auto" />
 
-## 📖 Documentation
+# Ctrovalidate
 
-For a complete guide to all features, including configuration, all built-in rules, and advanced usage, please visit our **[full documentation website](https://ctrotech-tutor.github.io/ctrovalidate/)**.
+**The lightweight, declarative, and robust form validation library for modern web applications.**
 
-## 🚀 Getting Started
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/npm/v/ctrovalidate.svg)](https://www.npmjs.com/package/ctrovalidate)
+[![Build Status](https://github.com/ctrotech-tutor/ctrovalidate/actions/workflows/main.yml/badge.svg)](https://github.com/ctrotech-tutor/ctrovalidate/actions)
+[![Standard: Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-### 1. Installation
+[Documentation](https://ctrovalidate.ctrotech.com) | [Examples](https://ctrovalidate.ctrotech.com/examples) | [Contributing](./CONTRIBUTING.md)
 
-Install the package using your favorite package manager:
+</div>
+
+---
+
+## 🚀 Overview
+
+**Ctrovalidate** is a zero-dependency, vanilla JavaScript library designed to make form validation simple, maintainable, and powerful. It embraces a **declarative, HTML-first approach**, allowing you to define validation rules directly in your DOM using `data` attributes, while still providing a powerful JavaScript API for complex, programmatic control.
+
+Built for **modern production environments**, it supports TypeScript (via included definitions), Tree Shaking, and Accessibility (ARIA) out of the box.
+
+## ✨ Features
+
+- **Declarative Syntax**: Define rules in HTML (`data-ctrovalidate-rules="required|email"`).
+- **Zero Dependencies**: Lightweight (<5kb gzipped) and fast.
+- **Type Safe**: First-class TypeScript support with auto-generated definitions.
+- **Robust Rule Set**: 25+ built-in rules (Auth, Numeric, String, Format).
+- **Async Validation**: Built-in support for server-side checks (e.g., `usernameAvailable`).
+- **Dependency Awareness**: Validations that trigger based on other fields (`sameAs`, `requiredIf`).
+- **Accessibility First**: Automatically handles `aria-invalid` and `aria-describedby` for screen readers.
+- **Extensible**: Easily register custom sync and async rules.
+
+## 📦 Installation
 
 ```bash
 npm install ctrovalidate
+# or
+yarn add ctrovalidate
+# or
+pnpm add ctrovalidate
 ```
 
-Or include it directly in your HTML file from a CDN:
+## 🛠️ Quick Start
+
+### 1. HTML Markup
+
+Add `data-ctrovalidate-rules` to your inputs.
 
 ```html
-<script
-  type="module"
-  src="https://cdn.jsdelivr.net/npm/ctrovalidate@2.0.0/dist/ctrovalidate.js"
-></script>
-```
-
-### 2. HTML Setup
-
-Add `data-ctrovalidate-rules` to the inputs you want to validate. Make sure you have a container with the class `.error-message` for each field.
-
-```html
-<form id="my-form" novalidate>
-  <div>
-    <label for="username">Username</label>
-    <input
-      type="text"
-      id="username"
-      name="username"
-      data-ctrovalidate-rules="required|minLength:3|alphaDash"
-    />
-    <div class="error-message"></div>
-  </div>
-
-  <div>
-    <label for="email">Email</label>
+<form id="registrationForm" novalidate>
+  <div class="form-group">
+    <label for="email">Email Address</label>
     <input
       type="email"
       id="email"
       name="email"
+      class="form-control"
       data-ctrovalidate-rules="required|email"
     />
+    <!-- Error message container (auto-detected) -->
     <div class="error-message"></div>
   </div>
 
@@ -155,36 +164,83 @@ Add `data-ctrovalidate-rules` to the inputs you want to validate. Make sure you 
 </form>
 ```
 
-### 3. JavaScript Initialization
-
-Initialize the library and add a submit handler.
+### 2. JavaScript Initialization
 
 ```javascript
 import { Ctrovalidate } from 'ctrovalidate';
 
-const form = document.getElementById('my-form');
-
 // Initialize the validator
-const validator = new Ctrovalidate(form, {
-  realTime: true, // Enable instant feedback
-});
+const form = document.getElementById('registrationForm');
+const validator = new Ctrovalidate(form);
 
-// Handle form submission
-form.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const isFormValid = await validator.validate();
+// Handle specific events (optional, mostly handled automatically)
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-  if (isFormValid) {
-    alert('Form is valid! Submitting...');
+  const isValid = await validator.validate();
+  if (isValid) {
+    console.log('Form is valid! Submitting...');
     // form.submit();
   }
 });
 ```
 
-## Contributing
+## 📚 Core Concepts
 
-Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
+### Rule Syntax
 
-## License
+Rules are pipe-separated. Parameters are colon-separated.
 
-This project is licensed under the [MIT License](LICENSE).
+- `required`
+- `minLength:5`
+- `between:10,20`
+- `sameAs:password`
+
+```html
+<input name="age" data-ctrovalidate-rules="required|integer|between:18,99" />
+```
+
+### Conditional Validation
+
+Use `data-ctrovalidate-if` to run rules only when another field meets a condition.
+
+```html
+<!-- Only validate 'credit_card' if 'payment_method' is 'credit' -->
+<input
+  name="credit_card"
+  data-ctrovalidate-rules="required|creditCard"
+  data-ctrovalidate-if="payment_method:value=credit"
+/>
+```
+
+## 🧪 Development
+
+We adhere to strict industry standards.
+
+```bash
+# Install dependencies
+npm install
+
+# Run tests
+npm test
+
+# Run build (produces ESM, UMD, and TypeDefs)
+npm run build
+
+# Linting
+npm run lint
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](./CONTRIBUTING.md) and [Code of Conduct](./CODE_OF_CONDUCT.md).
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ by <a href="https://github.com/ctrotech-tutor">Ctrotech</a></sub>
+</div>
