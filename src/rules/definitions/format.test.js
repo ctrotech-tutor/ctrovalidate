@@ -30,9 +30,9 @@ describe('Format Rules', () => {
   });
 
   describe('json', () => {
-    it('should return true for valid json', () => {
+    it('should return true for valid json object or array', () => {
       expect(json('{"a":1}')).toBe(true);
-      expect(json('123')).toBe(true); // technically valid JSON
+      expect(json('123')).toBe(false); // Primitive values are valid JSON but not typically what we want in form inputs
     });
 
     it('should return false for invalid json', () => {
