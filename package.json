@@ -1,6 +1,6 @@
 {
   "name": "ctrovalidate",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A lightweight, powerful, and zero-dependency JavaScript library for client-side form validation with a declarative, HTML-first approach.",
   "type": "module",
   "main": "./dist/ctrovalidate.umd.cjs",
