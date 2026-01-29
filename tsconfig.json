@@ -11,11 +11,12 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
+    "outDir": "dist/types",
 
     /* JavaScript Support */
     "allowJs": true,
-    "checkJs": false,
+    "checkJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
 

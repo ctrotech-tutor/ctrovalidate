@@ -14,7 +14,9 @@ const getOtherFieldValue = (field, otherFieldName) => {
   if (!field.form) {
     return '';
   }
-  const otherField = field.form.querySelector(`[name="${otherFieldName}"]`);
+  const otherField = /** @type {HTMLInputElement | null} */ (
+    field.form.querySelector(`[name="${otherFieldName}"]`)
+  );
   return otherField ? otherField.value : '';
 };
 

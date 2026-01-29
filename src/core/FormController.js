@@ -7,39 +7,37 @@
  */
 
 import { parseRules } from '../utils/RuleParser.js';
+/**
+ * @typedef {import('../utils/Logger.js').Logger} Logger
+ */
 
 export class FormController {
   /**
    * The form element being controlled.
-   * @private
    * @type {HTMLFormElement}
    */
   #form;
 
   /**
    * An array of all fields within the form that require validation.
-   * @private
    * @type {Array<object>}
    */
   #fields = [];
 
   /**
    * A map to quickly find a field object by its element.
-   * @private
    * @type {Map<HTMLElement, object>}
    */
   #fieldMap = new Map();
 
   /**
    * A reference to the main validator's logger.
-   * @private
    * @type {Logger}
    */
   #logger;
 
   /**
    * A reference to the validation function to call on events.
-   * @private
    * @type {Function}
    */
   #validationHandler;
@@ -72,7 +70,9 @@ export class FormController {
       `Discovered ${fieldsToValidate.length} fields to validate.`
     );
 
-    fieldsToValidate.forEach((element) => this.addField(element, false));
+    fieldsToValidate.forEach((element) =>
+      this.addField(/** @type {HTMLElement} */ (element), false)
+    );
   }
 
   /**
@@ -172,7 +172,6 @@ export class FormController {
 
   /**
    * Attaches event listeners to a single field object.
-   * @private
    * @param {object} fieldObject - The field object to attach listeners to.
    */
   #attachSingleFieldListener(fieldObject) {
@@ -239,7 +238,6 @@ export class FormController {
 
   /**
    * Parses the dependency condition string from the `data-ctrovalidate-if` attribute.
-   * @private
    * @param {string} conditionString - The string to parse (e.g., "fieldName:checked").
    * @returns {object | null} A structured condition object or null if invalid.
    */

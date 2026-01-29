@@ -20,35 +20,30 @@ import { defaultMessages } from '../localization/en.js';
 export class Ctrovalidate {
   /**
    * The form element this instance is attached to.
-   * @private
    * @type {HTMLFormElement}
    */
   #form;
 
   /**
    * The logger instance for this validator.
-   * @private
    * @type {Logger}
    */
   #logger;
 
   /**
    * The FormController instance for managing fields and events.
-   * @private
    * @type {FormController}
    */
   #formController;
 
   /**
    * The RuleEngine instance for executing validation logic.
-   * @private
    * @type {RuleEngine}
    */
   #ruleEngine;
 
   /**
    * The configuration options for this instance.
-   * @private
    * @type {object}
    */
   #options;

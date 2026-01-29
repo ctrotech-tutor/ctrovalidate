@@ -30,7 +30,6 @@ export const LogLevel = {
 export class Logger {
   /**
    * The current logging level. Only messages at this level or higher will be shown.
-   * @private
    * @type {number}
    */
   #level;

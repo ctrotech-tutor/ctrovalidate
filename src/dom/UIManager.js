@@ -13,28 +13,24 @@
 export class UIManager {
   /**
    * The CSS class to apply to an input field when it's invalid.
-   * @private
    * @type {string}
    */
   #errorClass;
 
   /**
    * The CSS class for the element that displays the error message.
-   * @private
    * @type {string}
    */
   #errorMessageClass;
 
   /**
    * The CSS class to apply to an input field during an async validation.
-   * @private
    * @type {string}
    */
   #pendingClass;
 
   /**
    * A cache to store references to error elements, preventing repeated DOM queries.
-   * @private
    * @type {WeakMap<HTMLInputElement, HTMLElement>}
    */
   #errorElementCache = new WeakMap();
@@ -51,7 +47,6 @@ export class UIManager {
 
   /**
    * Finds or creates the dedicated error message container for a given input field.
-   * @private
    * @param {HTMLInputElement} field - The input field.
    * @returns {HTMLElement | null} The found error element.
    */
@@ -61,8 +56,8 @@ export class UIManager {
     }
 
     // Find the error element, assuming it's a sibling or within the parent.
-    const errorElement = field.parentElement.querySelector(
-      `.${this.#errorMessageClass}`
+    const errorElement = /** @type {HTMLElement} */ (
+      field.parentElement.querySelector(`.${this.#errorMessageClass}`)
     );
 
     if (errorElement) {

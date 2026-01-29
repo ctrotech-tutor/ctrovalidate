@@ -6,45 +6,44 @@
  * formatting error messages.
  */
 
+/**
+ * @typedef {import('../utils/Logger.js').Logger} Logger
+ * @typedef {import('../dom/UIManager.js').UIManager} UIManager
+ */
+
 export class RuleEngine {
   /**
    * A reference to the main validator's logger.
-   * @private
    * @type {Logger}
    */
   #logger;
 
   /**
    * A reference to the UI Manager to display/clear errors.
-   * @private
    * @type {UIManager}
    */
   #uiManager;
 
   /**
    * A reference to the form element for dependency checks.
-   * @private
    * @type {HTMLFormElement}
    */
   #form;
 
   /**
    * A reference to the static rules object.
-   * @private
    * @type {object}
    */
   #rules;
 
   /**
    * A reference to the static async rules object.
-   * @private
    * @type {object}
    */
   #asyncRules;
 
   /**
    * A reference to the static messages object.
-   * @private
    * @type {object}
    */
   #messages;
@@ -175,15 +174,14 @@ export class RuleEngine {
 
   /**
    * Checks if a field's dependency condition is currently met.
-   * @private
    * @param {object} dependency - The parsed dependency object.
    * @returns {boolean} - True if the condition is met, false otherwise.
    */
   #isDependencyMet(dependency) {
     if (!dependency) return true;
 
-    const controllerElement = this.#form.querySelector(
-      `[name="${dependency.controllerName}"]`
+    const controllerElement = /** @type {HTMLInputElement} */ (
+      this.#form.querySelector(`[name="${dependency.controllerName}"]`)
     );
     if (!controllerElement) return false;
 

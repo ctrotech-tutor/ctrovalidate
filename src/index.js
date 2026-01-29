@@ -12,7 +12,8 @@ import { LogLevel } from './utils/Logger.js';
 
 // Attach LogLevel as a static property to the main class.
 // This allows users to access it via Ctrovalidate.LogLevel.DEBUG
-CtrovalidateCore.LogLevel = LogLevel;
+/** @type {any} */
+(CtrovalidateCore).LogLevel = LogLevel;
 
 // Re-export the enhanced class as the primary named export.
 export const Ctrovalidate = CtrovalidateCore;
