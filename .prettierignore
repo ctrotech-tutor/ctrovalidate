@@ -1,0 +1,20 @@
+# .prettierignore
+
+# Dependencies
+node_modules/
+
+# Build & Coverage
+dist/
+coverage/
+
+# Documentation and Examples
+docs/
+examples/
+
+# Lockfiles & Config
+package-lock.json
+
+# Misc
+*.logs
+.DS_Store
+Thumbs.db

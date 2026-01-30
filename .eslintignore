@@ -1,14 +1,17 @@
 # .eslintignore
 
-# Ignore build output
+# Build & Coverage
 dist/
+coverage/
 
-# Ignore node_modules
+# Dependencies
 node_modules/
 
-# Ignore documentation files (they have their own standards)
-docs/
+# VitePress internal folders
+docs/.vitepress/dist/
+docs/.vitepress/cache/
 
-# Ignore example files for now, as they may have different setups
-# We can lint them separately if needed later.
+# Documentation and Examples
+# (Keep these ignored if they have different linting rules)
+docs/
 examples/
