@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { min } from './min';
 import { max } from './max';
 import { between } from './between';
@@ -48,7 +48,9 @@ describe('Number Rules', () => {
     });
 
     it('should handle missing param', () => {
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
       expect(min(10, [])).toBe(false);
       expect(consoleSpy).toHaveBeenCalled();
       consoleSpy.mockRestore();
@@ -66,7 +68,9 @@ describe('Number Rules', () => {
     });
 
     it('should handle missing param', () => {
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
       expect(max(5, [])).toBe(false);
       expect(consoleSpy).toHaveBeenCalled();
       consoleSpy.mockRestore();
