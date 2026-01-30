@@ -40,5 +40,14 @@ export default defineConfig({
     // that might interact with DOM elements, even though we are in a Node.js environment.
     // This is crucial for a front-end library.
     environment: 'jsdom',
+
+    // Coverage configuration to ensure all core files are tracked
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      include: ['src/**/*.js'],
+      exclude: ['src/**/*.test.js', 'src/index.js'],
+      all: true, // Report coverage for all files, even those without tests
+    },
   },
 });
