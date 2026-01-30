@@ -126,7 +126,7 @@ export default defineConfig({
     socialLinks: [
       {
         icon: 'github',
-        link: 'https://github.com/ctrotech-tutor/ctrovalidate',
+        link: 'https://github.com/ctrotech-tutor',
       },
       { icon: 'twitter', link: 'https://twitter.com/ctrotech' },
       { icon: 'youtube', link: 'https://youtube.com/@ctrotech' },
