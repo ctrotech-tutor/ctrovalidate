@@ -1,15 +1,15 @@
 # .gitignore
 
 # Dependencies
-/node_modules
+node_modules/
 
 # Build output
-/dist
-/coverage
+dist/
+coverage/
 
 # VitePress
-docs/.vitepress/dist
-docs/.vitepress/cache
+**/.vitepress/dist/
+**/.vitepress/cache/
 
 # Log files
 *.log
