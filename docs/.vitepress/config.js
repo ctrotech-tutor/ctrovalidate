@@ -3,34 +3,34 @@
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
-  title: 'Ctrovalidate',
-  description:
-    'A lightweight, powerful, and zero-dependency JavaScript library for client-side form validation.',
-  base: '/ctrovalidate',
-
-  lastUpdated: true,
-  cleanUrls: true,
-
-  head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/ctrovalidate/logo.svg' }],
-    ['meta', { name: 'theme-color', content: '#646cff' }],
-    ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:locale', content: 'en' }],
-    ['meta', { property: 'og:site_name', content: 'Ctrovalidate' }],
-    ['meta', { property: 'og:image', content: 'https://ctrovalidate.js.org/og-image.png' }],
-    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { name: 'twitter:site', content: '@ctrotech' }],
-    ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0' }],
-    ['meta', { name: 'robots', content: 'index, follow' }],
-  ],
-
-  sitemap: {
-    hostname: 'https://ctrotech-tutor.github.io/ctrovalidate',
-  },
-
-  rewrites: {
-    '/:page*': '/2.0/:page*',
-  },
+   title: 'Ctrovalidate',
+   description:
+     'A lightweight, powerful, and zero-dependency JavaScript library for client-side form validation.',
+   base: '/ctrovalidate/',
+ 
+   lastUpdated: true,
+   cleanUrls: true,
+ 
+   head: [
+     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/ctrovalidate/logo.svg' }],
+     ['meta', { name: 'theme-color', content: '#646cff' }],
+     ['meta', { property: 'og:type', content: 'website' }],
+     ['meta', { property: 'og:locale', content: 'en' }],
+     ['meta', { property: 'og:site_name', content: 'Ctrovalidate' }],
+     ['meta', { property: 'og:image', content: 'https://ctrovalidate.js.org/og-image.png' }],
+     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+     ['meta', { name: 'twitter:site', content: '@ctrotech' }],
+     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0' }],
+     ['meta', { name: 'robots', content: 'index, follow' }],
+   ],
+ 
+   sitemap: {
+     hostname: 'https://ctrotech-tutor.github.io/ctrovalidate/',
+   },
+ 
+   rewrites: {
+     '2.0/:path*': ':path*',
+   },
 
   themeConfig: {
     logo: '/logo.svg',
@@ -39,9 +39,9 @@ export default defineConfig({
     },
 
     nav: [
-      { text: 'Guide', link: '/2.0/guide/getting-started' },
-      { text: 'Integrations', link: '/2.0/integrations/tailwindcss' },
-      { text: 'API', link: '/2.0/api/methods' },
+      { text: 'Guide', link: '/guide/getting-started' },
+      { text: 'Integrations', link: '/integrations/tailwindcss' },
+      { text: 'API', link: '/api/methods' },
       {
         text: 'v2.0.0 (Latest)',
         items: [
@@ -59,65 +59,65 @@ export default defineConfig({
 
     sidebar: {
       // ... sidebar configuration remains the same ...
-      '/2.0/guide/': [
+      '/guide/': [
         {
           text: 'Introduction',
           items: [
-            { text: 'What is Ctrovalidate?', link: '/2.0/guide/introduction' },
-            { text: 'Getting Started', link: '/2.0/guide/getting-started' },
+            { text: 'What is Ctrovalidate?', link: '/guide/introduction' },
+            { text: 'Getting Started', link: '/guide/getting-started' },
           ],
         },
         {
           text: 'Core Concepts',
           items: [
-            { text: 'Configuration Options', link: '/2.0/guide/configuration' },
-            { text: 'Built-in Rules', link: '/2.0/guide/rules' },
+            { text: 'Configuration Options', link: '/guide/configuration' },
+            { text: 'Built-in Rules', link: '/guide/rules' },
             {
               text: 'Conditional Validation',
-              link: '/2.0/guide/conditional-validation',
+              link: '/guide/conditional-validation',
             },
             {
               text: 'Working with SPAs',
-              link: '/2.0/guide/spa-dynamic-fields',
+              link: '/guide/spa-dynamic-fields',
             },
-            { text: 'Real-world Examples', link: '/2.0/guide/examples' },
+            { text: 'Real-world Examples', link: '/guide/examples' },
           ],
         },
         {
           text: 'Advanced',
           items: [
-            { text: 'Creating Custom Rules', link: '/2.0/guide/custom-rules' },
+            { text: 'Creating Custom Rules', link: '/guide/custom-rules' },
           ],
         },
       ],
-      '/2.0/integrations/': [
+      '/integrations/': [
         {
           text: 'Framework Integrations',
           items: [
-            { text: 'Tailwind CSS', link: '/2.0/integrations/tailwindcss' },
-            { text: 'Alpine.js', link: '/2.0/integrations/alpinejs' },
-            { text: 'htmx', link: '/2.0/integrations/htmx' },
-            { text: 'Vue.js', link: '/2.0/integrations/vue' },
-            { text: 'React', link: '/2.0/integrations/react' },
-            { text: 'Svelte', link: '/2.0/integrations/svelte' },
-            { text: 'Next.js', link: '/2.0/integrations/nextjs' },
+            { text: 'Tailwind CSS', link: '/integrations/tailwindcss' },
+            { text: 'Alpine.js', link: '/integrations/alpinejs' },
+            { text: 'htmx', link: '/integrations/htmx' },
+            { text: 'Vue.js', link: '/integrations/vue' },
+            { text: 'React', link: '/integrations/react' },
+            { text: 'Svelte', link: '/integrations/svelte' },
+            { text: 'Next.js', link: '/integrations/nextjs' },
           ],
         },
       ],
-      '/2.0/api/': [
+      '/api/': [
         {
           text: 'API Reference',
           items: [
-            { text: 'Public Methods', link: '/2.0/api/methods' },
-            { text: 'Static Methods', link: '/2.0/api/static-methods' },
-            { text: 'TypeScript Types', link: '/2.0/api/types' },
+            { text: 'Public Methods', link: '/api/methods' },
+            { text: 'Static Methods', link: '/api/static-methods' },
+            { text: 'TypeScript Types', link: '/api/types' },
           ],
         },
       ],
-      '/2.0/project/': [
+      '/project/': [
         {
           text: 'Project Info',
-          items: [{ text: 'Release Policy', link: '/2.0/project/releases' }],
+          items: [{ text: 'Release Policy', link: '/project/releases' }],
         },
       ],
     },
