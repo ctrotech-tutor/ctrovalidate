@@ -14,7 +14,7 @@ We provide security updates for the following versions of Ctrovalidate:
 We take the security of Ctrovalidate seriously. If you believe you have found a security vulnerability, please do NOT open a public issue. Instead, follow these steps:
 
 1.  **Draft a Report**: Include a detailed description of the vulnerability, steps to reproduce, and any potential fix if known.
-2.  **Submit Privately**: Send your report to [security@ctrotech.com](mailto:security@ctrotech.com).
+2.  **Submit Privately**: Send your report to [ctrotech.devs@gmail.com](mailto:ctrotech.devs@gmail.com).
 3.  **Wait for Response**: We will acknowledge your report within 48 hours and provide a timeline for a fix.
 
 ### What to Expect

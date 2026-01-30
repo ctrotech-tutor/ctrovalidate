@@ -27,7 +27,7 @@ For "How do I..." questions or general help with implementation:
 
 ### Enterprise Support
 
-For priority support or custom integration assistance, please contact us at [support@ctrotech.com](mailto:support@ctrotech.com).
+For priority support or custom integration assistance, please contact us at [ctrotech.devs@gmail.com](mailto:ctrotech.devs@gmail.com).
 
 ---
 
