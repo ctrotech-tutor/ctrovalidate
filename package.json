@@ -1,7 +1,7 @@
 {
   "name": "ctrovalidate",
   "version": "2.1.0",
-  "description": "A lightweight, powerful, and zero-dependency JavaScript library for client-side form validation with a declarative, HTML-first approach.",
+  "description": "The lightweight, declarative, and accessible form validation library for modern web apps. Zero-dependency, HTML-first, and ARIA-ready.",
   "type": "module",
   "main": "./dist/ctrovalidate.umd.cjs",
   "types": "./dist/types/index.d.ts",
@@ -33,31 +33,31 @@
     "format:fix": "prettier . --write",
     "prepare": "husky"
   },
-  "author": "Ctrotech",
+  "author": "Ctrotech (https://github.com/ctrotech)",
   "license": "MIT",
   "keywords": [
     "validation",
-    "form validation",
-    "vanilla js",
-    "client-side",
-    "declarative",
+    "form-validation",
     "validator",
-    "form",
-    "no-dependencies",
-    "ctrotech-tutor",
-    "ctrotech",
-    "typescript",
+    "vanilla-js",
+    "declarative",
+    "html-first",
     "accessible",
-    "a11y"
+    "aria",
+    "zero-dependencies",
+    "typescript",
+    "a11y",
+    "client-side-validation",
+    "modern-forms"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ctrotech-tutor/ctrovalidate.git"
+    "url": "git+https://github.com/ctrotech-tutor/ctrovalidate.git"
   },
   "bugs": {
     "url": "https://github.com/ctrotech-tutor/ctrovalidate/issues"
   },
-  "homepage": "https://github.com/ctrotech-tutor/ctrovalidate#readme",
+  "homepage": "https://ctrotech-tutor.github.io/ctrovalidate/",
   "sideEffects": false,
   "engines": {
     "node": ">=18.0.0"
