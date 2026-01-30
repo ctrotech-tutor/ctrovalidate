@@ -6,7 +6,7 @@ export default defineConfig({
   title: 'Ctrovalidate',
   description:
     'A lightweight, powerful, and zero-dependency JavaScript library for client-side form validation.',
-  base: '/ctrovalidate/',
+  base: '/ctrovalidate',
 
   rewrites: {
     '/:page*': '/2.0/:page*',
