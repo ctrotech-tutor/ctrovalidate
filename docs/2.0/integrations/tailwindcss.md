@@ -1,3 +1,8 @@
+---
+title: Tailwind CSS Integration | Dynamic Form Styling
+description: Seamlessly integrate Ctrovalidate with Tailwind CSS using dynamic classes and peer-state variants for a premium, accessible form experience.
+---
+
 # Tailwind CSS Integration
 
 Ctrovalidate works seamlessly with Tailwind CSS. Since the library is CSS-class driven, you can leverage Tailwind's utility classes to build beautiful, accessible validation states without writing a single line of custom CSS.

@@ -1,4 +1,6 @@
 ---
+title: Ctrovalidate | Modern, Accessible JavaScript Form Validation
+description: A lightweight, zero-dependency JavaScript library for client-side form validation with a declarative, HTML-first approach and full ARIA support.
 # This is YAML frontmatter, used by VitePress to configure the page layout.
 layout: home
 

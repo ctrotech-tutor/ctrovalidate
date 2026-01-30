@@ -1,4 +1,9 @@
-# Instance Methods
+---
+title: Public Methods API Reference | Form Validator Instance
+description: Comprehensive API documentation for Ctrovalidate instance methods, including validate, reset, destroy, and programmatic rule addition.
+---
+
+# Public Methods
 
 Instances of the `Ctrovalidate` class provide several methods to control validation programmatically.
 

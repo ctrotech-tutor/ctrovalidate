@@ -1,4 +1,9 @@
-# Static API
+---
+title: Static Methods API Reference | Global Config & Custom Rules
+description: Learn how to register custom validation rules globally and configure default Ctrovalidate settings using static methods.
+---
+
+# Static Methods
 
 Static methods and properties are accessed directly on the `Ctrovalidate` class. They control global behavior across all instances.
 

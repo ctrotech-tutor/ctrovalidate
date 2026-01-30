@@ -1,3 +1,8 @@
+---
+title: Built-in Rules Catalog | Validation Rule Reference
+description: Explore the complete list of built-in validation rules in Ctrovalidate, from essential required checks to advanced Luhn algorithm credit card validation.
+---
+
 # Built-in Rules Catalog
 
 Ctrovalidate provides a robust suite of validation rules out of the box. Rules are **declarative**, **composable**, and **highly efficient**.

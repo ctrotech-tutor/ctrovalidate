@@ -1,4 +1,9 @@
-# Integration: Next.js
+---
+title: Next.js Integration | Server & Client-Side Validation
+description: Best practices for using Ctrovalidate within Next.js applications, including App Router support and hydration-safe form patterns.
+---
+
+# Next.js Integration
 
 Yes, Ctrovalidate works perfectly with [Next.js](https://nextjs.org/), the React framework for production. However, because Next.js utilizes Server-Side Rendering (SSR) and, more recently, React Server Components (RSC), you must be careful to ensure that Ctrovalidate—a client-side library—only runs in the browser.
 

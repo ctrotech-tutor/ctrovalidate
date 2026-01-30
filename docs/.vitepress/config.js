@@ -8,6 +8,26 @@ export default defineConfig({
     'A lightweight, powerful, and zero-dependency JavaScript library for client-side form validation.',
   base: '/ctrovalidate',
 
+  lastUpdated: true,
+  cleanUrls: true,
+
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/ctrovalidate/logo.svg' }],
+    ['meta', { name: 'theme-color', content: '#646cff' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:locale', content: 'en' }],
+    ['meta', { property: 'og:site_name', content: 'Ctrovalidate' }],
+    ['meta', { property: 'og:image', content: 'https://ctrovalidate.js.org/og-image.png' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:site', content: '@ctrotech' }],
+    ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0' }],
+    ['meta', { name: 'robots', content: 'index, follow' }],
+  ],
+
+  sitemap: {
+    hostname: 'https://ctrotech-tutor.github.io/ctrovalidate',
+  },
+
   rewrites: {
     '/:page*': '/2.0/:page*',
   },

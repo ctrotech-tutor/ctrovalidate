@@ -1,3 +1,8 @@
+---
+title: Introduction | Why Ctrovalidate?
+description: Learn about Ctrovalidate, the declarative, accessible, and zero-dependency form validation library for modern web applications.
+---
+
 # Introduction
 
 Ctrovalidate is a lightweight, zero-dependency JavaScript library designed to make form validation **declarative, maintainable, and accessible**.

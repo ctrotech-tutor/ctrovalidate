@@ -1,3 +1,8 @@
+---
+title: Getting Started | Install and Setup Ctrovalidate
+description: Learn how to install Ctrovalidate via npm, yarn, or CDN and build your first accessible, validated form in minutes.
+---
+
 # Getting Started
 
 Welcome to **Ctrovalidate**! In this guide, we'll walk you through setting up the library and building your first validated form in under 5 minutes.
