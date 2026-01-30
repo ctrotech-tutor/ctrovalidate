@@ -91,4 +91,37 @@ describe('UIManager', () => {
     expect(input.hasAttribute('aria-invalid')).toBe(false);
     expect(input.classList.contains('is-validating')).toBe(true);
   });
+
+  it('should reuse cached error element and preserve ID', () => {
+    uiManager.displayError(input, 'Error 1');
+    const firstId = errorElement.id;
+    
+    uiManager.displayError(input, 'Error 2');
+    expect(errorElement.id).toBe(firstId);
+  });
+
+  it('should handle missing error element gracefully', () => {
+    document.body.innerHTML = `<div><input type="text" name="noError" /></div>`;
+    const noErrorInput = document.querySelector('input');
+    
+    // Should not throw
+    uiManager.displayError(noErrorInput, 'Some error');
+    expect(noErrorInput.classList.contains('is-invalid')).toBe(true);
+    
+    uiManager.clearError(noErrorInput);
+    expect(noErrorInput.classList.contains('is-invalid')).toBe(false);
+  });
+
+  it('should not overwrite existing error element ID', () => {
+    errorElement.id = 'existing-id';
+    uiManager.displayError(input, 'Error');
+    expect(errorElement.id).toBe('existing-id');
+    expect(input.getAttribute('aria-describedby')).toBe('existing-id');
+  });
+
+  it('should generate random ID if field name is missing', () => {
+    input.removeAttribute('name');
+    uiManager.displayError(input, 'Error');
+    expect(errorElement.id).toContain('ctrovalidate-error-');
+  });
 });

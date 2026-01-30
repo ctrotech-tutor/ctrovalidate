@@ -6,7 +6,8 @@
 
 // A very generic regex that checks for a plus sign and at least 3 digits.
 // This is intentionally loose to accommodate international formats.
-const phoneRegex = /^\+?(\d.*){3,}$/;
+// A loose regex for international phone numbers.
+const phoneRegex = /^\+?[\d\s\-().]{3,}$/;
 
 /**
  * Checks if a value has a format that resembles a phone number.

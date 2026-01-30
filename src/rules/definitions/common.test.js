@@ -4,6 +4,7 @@ import { email } from './email';
 import { minLength } from './minLength';
 import { maxLength } from './maxLength';
 import { exactLength } from './exactLength';
+import { sameAs } from './sameAs';
 
 describe('Common Rules', () => {
   describe('required', () => {
@@ -64,6 +65,17 @@ describe('Common Rules', () => {
     it('should return false if length is greater than max', () => {
       expect(maxLength('abcd', ['3'])).toBe(false);
     });
+
+    it('should handle missing param', () => {
+        const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+        expect(maxLength('abcd', [])).toBe(false);
+        expect(consoleSpy).toHaveBeenCalled();
+        consoleSpy.mockRestore();
+    });
+
+    it('should return true for empty value', () => {
+        expect(maxLength('', ['3'])).toBe(true);
+    });
   });
 
   describe('exactLength', () => {
@@ -74,6 +86,53 @@ describe('Common Rules', () => {
     it('should return false if length is not exactly param', () => {
       expect(exactLength('ab', ['3'])).toBe(false);
       expect(exactLength('abcd', ['3'])).toBe(false);
+    });
+
+    it('should handle missing param', () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      expect(exactLength('abc', [])).toBe(false);
+      expect(consoleSpy).toHaveBeenCalled();
+      consoleSpy.mockRestore();
+    });
+  });
+
+  describe('sameAs', () => {
+    it('should return true if values match', () => {
+      const form = document.createElement('form');
+      const otherInput = document.createElement('input');
+      otherInput.name = 'other';
+      otherInput.value = 'match';
+      form.appendChild(otherInput);
+      
+      const field = document.createElement('input');
+      form.appendChild(field); // field.form will be set
+      
+      expect(sameAs('match', ['other'], field)).toBe(true);
+    });
+
+    it('should return false if values do not match', () => {
+      const form = document.createElement('form');
+      const otherInput = document.createElement('input');
+      otherInput.name = 'other';
+      otherInput.value = 'match';
+      form.appendChild(otherInput);
+      
+      const field = document.createElement('input');
+      form.appendChild(field);
+      
+      expect(sameAs('no-match', ['other'], field)).toBe(false);
+    });
+
+    it('should return empty string if field has no form', () => {
+        const field = document.createElement('input');
+        expect(sameAs('val', ['other'], field)).toBe(false);
+    });
+
+    it('should handle missing parameter', () => {
+        const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+        expect(sameAs('val', [], {})).toBe(false);
+        expect(consoleSpy).toHaveBeenCalled();
+        consoleSpy.mockRestore();
     });
   });
 });

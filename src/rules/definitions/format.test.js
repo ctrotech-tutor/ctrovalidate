@@ -5,6 +5,9 @@ import { alphaDash } from './alphaDash';
 import { ipAddress } from './ipAddress';
 import { json } from './json';
 import { url } from './url';
+import { creditCard } from './creditCard';
+import { phone } from './phone';
+import { strongPassword } from './strongPassword';
 
 describe('Format Rules', () => {
   describe('alpha', () => {
@@ -12,6 +15,11 @@ describe('Format Rules', () => {
       expect(alpha('abc')).toBe(true);
       expect(alpha('123')).toBe(false);
       expect(alpha('a b')).toBe(false);
+    });
+
+    it('should return true for empty value', () => {
+        expect(alpha('')).toBe(true);
+        expect(alpha(null)).toBe(true);
     });
   });
 
@@ -38,6 +46,10 @@ describe('Format Rules', () => {
     it('should return false for invalid json', () => {
       expect(json('{a:1}')).toBe(false); // keys must be quoted
     });
+
+    it('should return false for strings not starting with { or [', () => {
+      expect(json('not-json')).toBe(false);
+    });
   });
 
   describe('ipAddress', () => {
@@ -57,6 +69,46 @@ describe('Format Rules', () => {
     });
     it('should fail invalid URL', () => {
       expect(url('google.com')).toBe(false); // needs protocol usually with new URL()
+    });
+
+    it('should return true for empty value', () => {
+        expect(url('')).toBe(true);
+    });
+  });
+
+  describe('creditCard', () => {
+    it('should validate credit card', () => {
+      expect(creditCard('4242424242424242')).toBe(true);
+      expect(creditCard('123')).toBe(false);
+    });
+
+    it('should return true for empty value', () => {
+        expect(creditCard('')).toBe(true);
+    });
+  });
+
+  describe('phone', () => {
+    it('should validate phone', () => {
+      expect(phone('+123456789')).toBe(true);
+      expect(phone('09041622945')).toBe(true); // Local
+      expect(phone('+2349041622945')).toBe(true); // E.164
+      expect(phone('12')).toBe(false);
+      expect(phone('123abc')).toBe(false);
+    });
+
+    it('should return true for empty value', () => {
+        expect(phone('')).toBe(true);
+    });
+  });
+
+  describe('strongPassword', () => {
+    it('should validate strong password', () => {
+      expect(strongPassword('Password123')).toBe(true);
+      expect(strongPassword('weak')).toBe(false);
+    });
+
+    it('should return true for empty value', () => {
+        expect(strongPassword('')).toBe(true);
     });
   });
 });

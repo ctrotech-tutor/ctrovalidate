@@ -46,6 +46,13 @@ describe('Number Rules', () => {
     it('should return false if value is less than min', () => {
       expect(min(4, ['5'])).toBe(false);
     });
+
+    it('should handle missing param', () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      expect(min(10, [])).toBe(false);
+      expect(consoleSpy).toHaveBeenCalled();
+      consoleSpy.mockRestore();
+    });
   });
 
   describe('max', () => {
@@ -56,6 +63,13 @@ describe('Number Rules', () => {
 
     it('should return false if value is greater than max', () => {
       expect(max(11, ['10'])).toBe(false);
+    });
+
+    it('should handle missing param', () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      expect(max(5, [])).toBe(false);
+      expect(consoleSpy).toHaveBeenCalled();
+      consoleSpy.mockRestore();
     });
   });
 
