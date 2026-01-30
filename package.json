@@ -27,7 +27,7 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "release": "release-it",
-    "lint": "eslint .",
+    "lint": "eslint . && echo \"ESLint: Linting passed!\"",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --check",
     "format:fix": "prettier . --write",
