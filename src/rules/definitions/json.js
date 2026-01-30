@@ -25,7 +25,7 @@ export const json = (value) => {
   try {
     JSON.parse(strValue);
     return true;
-  } catch (_) {
+  } catch {
     return false;
   }
 };

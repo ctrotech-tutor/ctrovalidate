@@ -21,7 +21,7 @@ export const url = (value) => {
     const testUrl = new URL(String(value));
     // We can add a basic check to ensure it has a protocol, which is a good sanity check.
     return testUrl.protocol === 'http:' || testUrl.protocol === 'https:';
-  } catch (_) {
+  } catch {
     // The constructor threw an error, so the URL is invalid.
     return false;
   }

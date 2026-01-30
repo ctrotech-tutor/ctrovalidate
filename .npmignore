@@ -1,0 +1,4 @@
+# .npmignore
+docs/
+examples/
+coverage/
