@@ -29,7 +29,8 @@ export default defineConfig({
      ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0' }],
      ['meta', { name: 'robots', content: 'index, follow' }],
      ['meta', { name: 'keywords', content: 'form validation, javascript, accessibility, aria, zero-dependency, web-development, frontend' }],
-   ],
+      ['meta', { name: 'google-site-verification', content: '06TmKUBafqk7SKGbkDYTU6xjsXqlw35V8IrXHCFLB3E' }],
+    ],
  
    sitemap: {
      hostname: 'https://ctrotech-tutor.github.io/ctrovalidate/',
