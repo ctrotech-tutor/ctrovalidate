@@ -1,3 +1,9 @@
+## [2.1.1](https://github.com/ctrotech-tutor/ctrovalidate/compare/v2.1.0...v2.1.1) (2026-01-31)
+
+### Bug Fixes
+
+- resolve linting errors in test files and refine validation logic ([2b7fd8a](https://github.com/ctrotech-tutor/ctrovalidate/commit/2b7fd8a356a3393c783bc8b163546bbfc054dc59))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
