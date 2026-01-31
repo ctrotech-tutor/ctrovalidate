@@ -126,7 +126,6 @@ export default defineConfig({
           text: 'Community',
           items: [
             { text: 'Donate', link: '/community/donate' },
-            { text: 'Thank You', link: '/community/thanks' },
           ],
         },
       ],
