@@ -3,42 +3,42 @@
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
-   title: 'Ctrovalidate',
-   description:
-     'Ctrovalidate is a lightweight, powerful, and zero-dependency JavaScript library designed for modern web apps, featuring full ARIA support and an accessible-by-default philosophy.',
-   base: '/ctrovalidate/',
- 
-   lastUpdated: true,
-   cleanUrls: true,
- 
-   head: [
-     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/ctrovalidate/logo.svg' }],
-     ['meta', { name: 'theme-color', content: '#646cff' }],
-     ['meta', { property: 'og:type', content: 'website' }],
-     ['meta', { property: 'og:locale', content: 'en' }],
-     ['meta', { property: 'og:site_name', content: 'Ctrovalidate' }],
-     ['meta', { property: 'og:title', content: 'Ctrovalidate - Modern & Accessible Form Validation' }],
-      ['meta', { property: 'og:description', content: 'Explore Ctrovalidate, the lightweight and ARIA-ready form validation library for modern web apps. Zero-dependency, HTML-first, and designed for accessibility.' }],
-      ['meta', { property: 'og:url', content: 'https://ctrotech-tutor.github.io/ctrovalidate/' }],
-      ['meta', { property: 'og:image', content: 'https://ctrotech-tutor.github.io/ctrovalidate/og-image.jpg' }],
-      ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-      ['meta', { name: 'twitter:title', content: 'Ctrovalidate - Modern & Accessible Form Validation' }],
-      ['meta', { name: 'twitter:description', content: 'Explore Ctrovalidate, the lightweight and ARIA-ready form validation library for modern web apps. Zero-dependency, HTML-first, and designed for accessibility.' }],
-     ['meta', { name: 'twitter:image', content: 'https://ctrotech-tutor.github.io/ctrovalidate/og-image.jpg' }],
-     ['meta', { name: 'twitter:site', content: '@ctrotech' }],
-     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0' }],
-     ['meta', { name: 'robots', content: 'index, follow' }],
-     ['meta', { name: 'keywords', content: 'form validation, javascript, accessibility, aria, zero-dependency, web-development, frontend' }],
-      ['meta', { name: 'google-site-verification', content: '06TmKUBafqk7SKGbkDYTU6xjsXqlw35V8IrXHCFLB3E' }],
-    ],
- 
-   sitemap: {
-     hostname: 'https://ctrotech-tutor.github.io/ctrovalidate/',
-   },
- 
-   rewrites: {
-     '2.0/:path*': ':path*',
-   },
+  title: 'Ctrovalidate',
+  description:
+    'Ctrovalidate is a lightweight, powerful, and zero-dependency JavaScript library designed for modern web apps, featuring full ARIA support and an accessible-by-default philosophy.',
+  base: '/ctrovalidate/',
+
+  lastUpdated: true,
+  cleanUrls: true,
+
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/ctrovalidate/logo.svg' }],
+    ['meta', { name: 'theme-color', content: '#646cff' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:locale', content: 'en' }],
+    ['meta', { property: 'og:site_name', content: 'Ctrovalidate' }],
+    ['meta', { property: 'og:title', content: 'Ctrovalidate - Modern & Accessible Form Validation' }],
+    ['meta', { property: 'og:description', content: 'Explore Ctrovalidate, the lightweight and ARIA-ready form validation library for modern web apps. Zero-dependency, HTML-first, and designed for accessibility.' }],
+    ['meta', { property: 'og:url', content: 'https://ctrotech-tutor.github.io/ctrovalidate/' }],
+    ['meta', { property: 'og:image', content: 'https://ctrotech-tutor.github.io/ctrovalidate/og-image.jpg' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: 'Ctrovalidate - Modern & Accessible Form Validation' }],
+    ['meta', { name: 'twitter:description', content: 'Explore Ctrovalidate, the lightweight and ARIA-ready form validation library for modern web apps. Zero-dependency, HTML-first, and designed for accessibility.' }],
+    ['meta', { name: 'twitter:image', content: 'https://ctrotech-tutor.github.io/ctrovalidate/og-image.jpg' }],
+    ['meta', { name: 'twitter:site', content: '@ctrotech' }],
+    ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0' }],
+    ['meta', { name: 'robots', content: 'index, follow' }],
+    ['meta', { name: 'keywords', content: 'form validation, javascript, accessibility, aria, zero-dependency, web-development, frontend' }],
+    ['meta', { name: 'google-site-verification', content: '06TmKUBafqk7SKGbkDYTU6xjsXqlw35V8IrXHCFLB3E' }],
+  ],
+
+  sitemap: {
+    hostname: 'https://ctrotech-tutor.github.io/ctrovalidate/',
+  },
+
+  rewrites: {
+    '2.0/:path*': ':path*',
+  },
 
   themeConfig: {
     logo: '/logo.svg',
