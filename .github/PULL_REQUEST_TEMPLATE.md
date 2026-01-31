@@ -1,23 +1,24 @@
 <!--
-Thank you for your contribution to Ctrovalidate!
+Thank you for your contribution to Ctrovalidate! 🚀
 
-Please provide a clear and detailed description of your changes.
-If your PR addresses an open issue, please link to it.
+Before submitting, please ensure:
+1. You have read the CONTRIBUTING.md guide.
+2. Your code follows the project's style and passes all tests.
+3. You have linked any related issues.
 -->
 
-### Description
+## 📝 Description
 
-<!-- A clear and concise description of what this pull request does. -->
-<!-- Why is this change required? What problem does it solve? -->
+<!--
+A clear and concise description of the changes.
+Why is this change required? What problem does it solve?
+-->
 
-### Related Issue
+## 🔗 Related Issues
 
-<!-- If this PR fixes an open issue, please link to it here. -->
-<!-- e.g., "Fixes #123" or "Closes #123" -->
+<!-- e.g., Fixes #123, Closes #456 -->
 
-### Type of Change
-
-<!-- Please delete options that are not relevant. -->
+## 🧪 Type of Change
 
 - [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
 - [ ] ✨ New feature (non-breaking change which adds functionality)
@@ -25,26 +26,25 @@ If your PR addresses an open issue, please link to it.
 - [ ] 📚 Documentation update
 - [ ] ⚙️ Chore (refactoring, build process, CI, etc.)
 
-### How Has This Been Tested?
+## 🛠️ Testing Details
 
 <!--
 Please describe the tests that you ran to verify your changes.
-Provide instructions so we can reproduce.
-Please also list any relevant details for your test configuration.
+Include reproduction instructions if applicable.
 -->
 
-- [ ] I have added new tests that prove my fix is effective or that my feature works.
-- [ ] I have run `npm test` and all existing tests pass with my changes.
-- [ ] I have tested my changes in the example files and they work as expected.
+- [ ] I have added/updated unit tests.
+- [ ] I have verified the changes in a real browser environment.
+- [ ] All existing tests pass (`npm test`).
 
-### Checklist:
+## ✅ Checklist
 
-- [ ] My code follows the style guidelines of this project.
-- [ ] I have performed a self-review of my own code.
-- [ ] I have commented my code, particularly in hard-to-understand areas.
-- [ ] I have made corresponding changes to the documentation.
+- [ ] My code follows the project style.
+- [ ] I have commented complex logic.
+- [ ] I have updated the documentation accordingly.
+- [ ] I have added an entry to the `CHANGELOG.md` (if applicable).
 - [ ] My changes generate no new warnings.
 
-### Additional Notes
+## 🕵️ Additional Notes
 
-<!-- Any other information you believe is important for the reviewers. -->
+<!-- Any other information for the reviewers. -->

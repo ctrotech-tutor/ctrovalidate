@@ -1,8 +1,8 @@
 ---
 name: '🐛 Bug Report'
-about: Report a bug to help us improve Ctrovalidate
+about: Report a reproducible bug to help us improve Ctrovalidate.
 title: 'bug: <description>'
-labels: ['bug']
+labels: ['bug', 'needs-triage']
 assignees: ''
 ---
 
@@ -10,7 +10,16 @@ assignees: ''
 
 <!-- A clear and concise description of what the bug is. -->
 
-## 🛠️ Reproduction Steps
+## � Minimal Reproduction
+
+<!--
+IMPORTANT: Please providing a minimal reproduction (CodeSandbox, StackBlitz, or GitHub repo).
+Issues without a reproduction may be closed.
+-->
+
+- **Reproduction Link:** <!-- e.g., https://codesandbox.io/s/... -->
+
+## 🛠️ Steps to Reproduce
 
 1.
 2.
@@ -20,16 +29,13 @@ assignees: ''
 
 <!-- What did you expect to happen? -->
 
-## 💻 Environment
+## 💻 Environment Details
 
-- **Library Version**:
-- **Browser**:
-- **Framework (if any)**:
-
-## 📸 Screenshots / Console Logs
-
-<!-- If applicable, add screenshots or paste logs to help explain your problem. -->
+- **Ctrovalidate Version**: <!-- e.g., 2.1.0 -->
+- **Browser & Version**: <!-- e.g., Chrome 120 -->
+- **Framework / Tooling**: <!-- e.g., Next.js 14, Vite, No framework -->
+- **Operating System**: <!-- e.g., Windows 11, macOS -->
 
 ## 🕵️ Additional Context
 
-<!-- Add any other context about the problem here. -->
+<!-- Add any other context about the problem, such as console logs or screenshots. -->

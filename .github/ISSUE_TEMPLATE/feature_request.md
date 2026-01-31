@@ -1,8 +1,8 @@
 ---
 name: '✨ Feature Request'
-about: Suggest an idea or enhancement for Ctrovalidate
+about: Suggest a new idea or enhancement for Ctrovalidate.
 title: 'feat: <description>'
-labels: ['enhancement']
+labels: ['enhancement', 'discussion']
 assignees: ''
 ---
 
@@ -12,7 +12,10 @@ assignees: ''
 
 ## ❓ Problem Statement
 
-<!-- Is your feature request related to a problem? Please describe. -->
+<!--
+Is your feature request related to a problem? Please describe.
+e.g., "I'm always frustrated when [...]"
+-->
 
 ## 🚀 Proposed Solution
 
@@ -21,6 +24,10 @@ assignees: ''
 ## 🛠️ Alternatives Considered
 
 <!-- A clear and concise description of any alternative solutions or features you've considered. -->
+
+## 📖 Real-world Use Case
+
+<!-- Describe a scenario where this feature would be used in a real application. -->
 
 ## 🕵️ Additional Context
 
