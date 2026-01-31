@@ -42,6 +42,7 @@ export default defineConfig({
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'Integrations', link: '/integrations/tailwindcss' },
       { text: 'API', link: '/api/methods' },
+      { text: 'Sponsor', link: '/community/donate' },
       {
         text: 'v2.0.0 (Latest)',
         items: [
@@ -118,6 +119,15 @@ export default defineConfig({
         {
           text: 'Project Info',
           items: [{ text: 'Release Policy', link: '/project/releases' }],
+        },
+      ],
+      '/community/': [
+        {
+          text: 'Community',
+          items: [
+            { text: 'Donate', link: '/community/donate' },
+            { text: 'Thank You', link: '/community/thanks' },
+          ],
         },
       ],
     },

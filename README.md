@@ -111,7 +111,7 @@ Contributions are what make the open-source community an amazing place to learn,
 
 If you find Ctrovalidate useful and would like to support its development, consider sponsoring the project:
 
-[**Sponsor on GitHub**](https://github.com/sponsors/ctrotech-tutor) · [**Buy Me a Coffee**](https://www.buymeacoffee.com/ctrotech) · [**Support on Paystack**](https://paystack.shop/pay/ctrovalidate-support)
+[**Sponsor on GitHub**](https://github.com/sponsors/ctrotech-tutor) · [**Buy Me a Coffee**](https://www.buymeacoffee.com/ctrotech) · [**Support on Paystack**](https://paystack.shop/pay/ctrovalidate-support) · [**Donate via Flutterwave**](https://flutterwave.com/donate/nkde0iddzjde)
 
 ## 📄 License
 
