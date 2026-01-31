@@ -17,11 +17,13 @@ export default defineConfig({
      ['meta', { property: 'og:type', content: 'website' }],
      ['meta', { property: 'og:locale', content: 'en' }],
      ['meta', { property: 'og:site_name', content: 'Ctrovalidate' }],
-     ['meta', { property: 'og:image', content: 'https://ctrovalidate.js.org/og-image.png' }],
+     ['meta', { property: 'og:image', content: 'https://ctrotech-tutor.github.io/ctrovalidate/og-image.jpg' }],
      ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+     ['meta', { name: 'twitter:image', content: 'https://ctrotech-tutor.github.io/ctrovalidate/og-image.jpg' }],
      ['meta', { name: 'twitter:site', content: '@ctrotech' }],
      ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0' }],
      ['meta', { name: 'robots', content: 'index, follow' }],
+     ['meta', { name: 'keywords', content: 'form validation, javascript, accessibility, aria, zero-dependency, web-development, frontend' }],
    ],
  
    sitemap: {
