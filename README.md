@@ -107,6 +107,12 @@ Contributions are what make the open-source community an amazing place to learn,
 - [Code of Conduct](./CODE_OF_CONDUCT.md)
 - [Security Policy](./SECURITY.md)
 
+### Sponsor this project
+
+If you find Ctrovalidate useful and would like to support its development, consider sponsoring the project:
+
+[**Sponsor on GitHub**](https://github.com/sponsors/ctrotech-tutor) · [**Buy Me a Coffee**](https://www.buymeacoffee.com/ctrotech)
+
 ## 📄 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
