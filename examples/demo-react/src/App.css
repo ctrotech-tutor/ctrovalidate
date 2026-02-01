@@ -1,119 +1,178 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Reset & Base */
+:root {
+  --bg-color: #f5f5f5;
+  --card-bg: #ffffff;
+  --text-primary: #171717;
+  --text-secondary: #737373;
+  --border-color: #e5e5e5;
+  --primary: #171717;
+  --danger: #ef4444;
+  --focus-ring: rgba(23, 23, 23, 0.1);
 }
 
 body {
-  background-color: #ffffff;
-  color: #000000;
-  font-family: 'Inter', -apple-system, sans-serif;
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.app-container {
   min-height: 100vh;
-}
-
-.container {
-  width: 100%;
-  max-width: 480px;
-  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
-  text-align: left;
-  border: 1px solid #e5e7eb;
-  border-radius: 4px;
 }
 
-h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  margin: 0;
+}
+
+.header p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  border-bottom: 2px solid #000;
-  padding-bottom: 0.5rem;
-  margin-bottom: 2rem;
+  margin-top: 0.5rem;
 }
 
-.badge {
-  font-size: 0.7rem;
-  background: #000;
-  color: #fff;
-  padding: 0.2rem 0.5rem;
-  border-radius: 2px;
-  text-transform: uppercase;
-  margin-left: 0.5rem;
-}
-
-.validation-form {
-  margin-top: 1rem;
-}
-
-.form-group {
-  margin-bottom: 2rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+/* Card */
+.card {
   width: 100%;
-  padding: 0.75rem 0;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #e5e7eb;
-  color: #000;
+  max-width: 500px;
+  background: var(--card-bg);
+  border: 1px solid var(--primary);
+  box-shadow: 8px 8px 0 0 var(--primary);
+  padding: 2rem;
+}
+
+/* Fields */
+.members-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field-group label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  background: var(--bg-color);
   font-family: inherit;
   font-size: 1rem;
-  transition: border-color 0.2s;
-  border-radius: 0;
+  transition: all 0.2s;
 }
 
 input:focus {
   outline: none;
-  border-bottom-color: #000;
+  border-color: var(--primary);
+  background: white;
 }
 
-input.is-invalid {
-  border-bottom-color: #ef4444 !important;
+/* Error State (Applied by Ctrovalidate) */
+input.error-visible {
+  border-color: var(--danger);
+  background-color: #fef2f2;
 }
 
-.error-message {
-  color: #ef4444;
+.error-msg {
   font-size: 0.75rem;
-  margin-top: 0.5rem;
+  color: var(--danger);
+  font-weight: 600;
   min-height: 1rem;
 }
 
-.submit-btn {
-  width: 100%;
-  padding: 1rem;
-  background: #000;
-  color: #fff;
-  border: 1px solid #000;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+/* Buttons */
+.icon-btn {
+  background: none;
+  border: 2px solid transparent;
   cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  padding: 0 0.75rem;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
 }
 
-.submit-btn:hover {
-  background: #fff;
-  color: #000;
+.icon-btn:hover:not(:disabled) {
+  color: var(--danger);
+  background: #fee2e2;
 }
 
-footer {
-  margin-top: 3rem;
-  font-size: 0.7rem;
-  color: #6b7280;
+.icon-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 1rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn.primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+}
+
+.btn.primary:hover {
+  background: #000;
+}
+
+.btn.secondary {
+  background: white;
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn.secondary:hover {
+  border-color: var(--primary);
 }

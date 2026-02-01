@@ -1,72 +1,23 @@
-import './style.css';
-import Alpine from 'alpinejs';
-import { Ctrovalidate } from 'ctrovalidate';
+import './style.css'
+import Alpine from 'alpinejs'
+import { Ctrovalidate } from 'ctrovalidate'
 
-// Extend Window interface for Alpine
-declare global {
-  interface Window {
-    Alpine: typeof Alpine;
-  }
-}
+// Initialize Alpine
+window.Alpine = Alpine
+Alpine.start()
 
-window.Alpine = Alpine;
-
-document.addEventListener('alpine:init', () => {
-  Alpine.data('formHandler', () => ({
-    contactMethod: 'email',
-    validator: null as Ctrovalidate | null,
-
-    init() {
-      // Initialize Custom Rules
-      Ctrovalidate.addRule(
-        'strongPassword',
-        (value) => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(value as string),
-        'Use at least 8 characters with upper, lower, and numeric values.'
-      );
-
-      Ctrovalidate.addAsyncRule(
-        'usernameAvailable',
-        async (value) => {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              const reserved = ['admin', 'root', 'ctrotech'];
-              resolve(!reserved.includes((value as string).toLowerCase()));
-            }, 1000);
-          });
-        },
-        'This username is already reserved by the system.'
-      );
-
-      // Initialize Validator on the form
-      const form = document.querySelector<HTMLFormElement>('#showcase-form');
-      if (form) {
-        this.validator = new Ctrovalidate(form, {
-          logLevel: Ctrovalidate.LogLevel.DEBUG,
-          realTime: true,
-          pendingClass: 'is-validating',
-        });
-      }
-    },
-
-    async submitForm() {
-      console.log('--- ALPINE SUBMISSION INITIATED ---');
-      if (this.validator) {
-        const isValid = await this.validator.validate();
-
-        if (isValid) {
-          console.log('✅ VALIDATION SUCCESS');
-          alert('🚀 Registration successful! (Alpine JS Demo)');
-          const form = document.querySelector<HTMLFormElement>('#showcase-form');
-          if (form) {
-            const data = Object.fromEntries(new FormData(form).entries());
-            console.table(data);
-          }
-        } else {
-          console.warn('❌ VALIDATION FAILURE');
-        }
-      }
-    },
-  }));
+// Initialize Validator
+const form = document.getElementById('quote-form') as HTMLFormElement;
+window.validator = new Ctrovalidate(form, {
+  realTime: true,
+  errorClass: 'border-red-500 bg-red-50 text-red-900',
+  pendingClass: 'opacity-50',
 });
 
-Alpine.start();
+// Expose validator globally for the inline HTML scripts to access
+declare global {
+  interface Window {
+    Alpine: any;
+    validator: Ctrovalidate;
+  }
+}

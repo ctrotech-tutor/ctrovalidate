@@ -1,109 +1,158 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ctrovalidate • Alpine JS Vite Demo</title>
+    <title>Ctrovalidate x Alpine | Conditional Logic Demo</title>
+    <link rel="stylesheet" href="./src/style.css" />
+    <style>
+      /* Quick overrides for this specific demo */
+      .hidden-field { display: none; }
+      [x-cloak] { display: none !important; }
+    </style>
   </head>
-  <body>
-    <div id="app" x-data="formHandler()">
-      <div class="showcase-container">
-        <header>
-          <div class="logo-text">Ctrovalidate</div>
-          <p>Alpine JS • Vite • Monochrome</p>
-        </header>
-
-        <form id="showcase-form" novalidate @submit.prevent="submitForm">
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input
-              name="name"
-              id="name"
-              type="text"
-              placeholder="e.g. John Doe"
-              data-ctrovalidate-rules="required|minLength:3|alpha"
-            />
-            <div class="spinner"></div>
-            <div class="error-message"></div>
-          </div>
-
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Check availability..."
-              data-ctrovalidate-rules="required|minLength:3|alphaDash|usernameAvailable"
-            />
-            <div class="spinner"></div>
-            <div class="error-message"></div>
-          </div>
-
-          <div class="form-group">
-            <label for="contact_method">Preferred Contact Method</label>
-            <select name="contact_method" id="contact_method" x-model="contactMethod">
-              <option value="email">Email</option>
-              <option value="phone">Phone</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="mobile">Mobile Number</label>
-            <input
-              name="mobile"
-              id="mobile"
-              type="text"
-              placeholder="+1 234 567 890"
-              data-ctrovalidate-rules="required|phone"
-              data-ctrovalidate-if="contact_method:value=phone"
-            />
-            <div class="spinner"></div>
-            <div class="error-message"></div>
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="john@example.com"
-              data-ctrovalidate-rules="required|email"
-              data-ctrovalidate-if="contact_method:value=email"
-            />
-            <div class="spinner"></div>
-            <div class="error-message"></div>
-          </div>
-
-          <div class="form-group">
-            <label for="password">Security Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="••••••••"
-              data-ctrovalidate-rules="required|strongPassword"
-            />
-            <div class="spinner"></div>
-            <div class="error-message"></div>
-          </div>
-
-          <div class="form-group checkbox-group">
-            <input type="checkbox" id="terms" name="terms" data-ctrovalidate-rules="required" />
-            <label for="terms">I agree to the industrial standards of testing</label>
-          </div>
-          <div class="error-message" style="margin-top: -0.5rem"></div>
-
-          <button type="submit">Deploy Alpine Integration</button>
-        </form>
-
-        <div class="footer-note">
-          Powered by Ctrovalidate Core v2.1.1
-        </div>
+  <body class="bg-zinc-50 min-h-screen flex items-center justify-center p-4">
+    
+    <div 
+      class="max-w-xl w-full bg-white border border-zinc-200 shadow-xl"
+      x-data="{ 
+        projectType: '',
+        budget: '',
+        success: false 
+      }"
+    >
+      <!-- Header -->
+      <div class="p-8 border-b border-zinc-100">
+        <h1 class="text-2xl font-black uppercase tracking-tighter text-zinc-900">Request Quote</h1>
+        <p class="text-sm text-zinc-500 mt-2">Dynamic Conditional Validation Logic</p>
       </div>
+
+      <!-- Success State -->
+      <div x-show="success" x-cloak class="p-8 bg-green-50 text-center">
+        <h3 class="text-xl font-bold text-green-900 mb-2">Quote Request Received</h3>
+        <p class="text-green-700 mb-6">Our automated agents are processing your specification.</p>
+        <button 
+          @click="success = false; $refs.form.reset(); window.validator.reset()" 
+          class="underline font-bold text-green-900"
+        >
+          Submit another request
+        </button>
+      </div>
+
+      <!-- Form -->
+      <form 
+        id="quote-form" 
+        x-ref="form"
+        x-show="!success"
+        class="p-8 space-y-8" 
+        novalidate
+        @submit.prevent="
+          const isValid = await window.validator.validate();
+          if(isValid) success = true;
+        "
+      >
+        
+        <!-- 1. Project Type (Controller) -->
+        <div class="space-y-3">
+          <label class="block text-xs font-bold uppercase tracking-widest text-zinc-500">Project Type</label>
+          <div class="grid grid-cols-2 gap-4">
+            <label class="border p-4 cursor-pointer hover:bg-zinc-50 transition-colors has-[:checked]:border-zinc-900 has-[:checked]:bg-zinc-900 has-[:checked]:text-white">
+              <input type="radio" name="project_type" value="web" class="sr-only" x-model="projectType">
+              <span class="font-bold">Web App</span>
+            </label>
+            <label class="border p-4 cursor-pointer hover:bg-zinc-50 transition-colors has-[:checked]:border-zinc-900 has-[:checked]:bg-zinc-900 has-[:checked]:text-white">
+              <input type="radio" name="project_type" value="mobile" class="sr-only" x-model="projectType">
+              <span class="font-bold">Mobile App</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 2. Conditional Web Fields -->
+        <div x-show="projectType === 'web'" x-transition>
+          <div class="space-y-2">
+            <label for="framework" class="block text-xs font-bold uppercase tracking-widest text-zinc-500">Preferred Framework</label>
+            <select 
+              id="framework" 
+              name="framework"
+              class="w-full border-b-2 border-zinc-200 bg-transparent py-2 outline-none focus:border-zinc-900 transition-colors"
+              data-ctrovalidate-rules="required"
+              data-ctrovalidate-if="project_type:value:web"
+            >
+              <option value="">Select a Framework...</option>
+              <option value="react">React</option>
+              <option value="vue">Vue</option>
+              <option value="angular">Angular</option>
+            </select>
+            <div class="error-message text-red-600 text-xs font-bold mt-1 min-h-[1.25em]"></div>
+          </div>
+        </div>
+
+        <!-- 3. Conditional Mobile Fields -->
+        <div x-show="projectType === 'mobile'" x-transition>
+          <div class="space-y-2">
+            <label class="block text-xs font-bold uppercase tracking-widest text-zinc-500">Target Platforms (Select at least one)</label>
+            <div class="flex gap-6">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  name="platform_ios" 
+                  class="w-5 h-5 accent-zinc-900" 
+                >
+                <span class="font-medium">iOS</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  name="platform_android" 
+                  class="w-5 h-5 accent-zinc-900"
+                >
+                <span class="font-medium">Android</span>
+              </label>
+            </div>
+            <!-- Hack: Validating group check using a hidden input conditional or custom rule. 
+                 For simplicity in this demo, let's validate a specific "OS version" field instead.
+            -->
+          </div>
+
+          <div class="mt-4 space-y-2">
+            <label for="min_os" class="block text-xs font-bold uppercase tracking-widest text-zinc-500">Minimum OS Version</label>
+            <input 
+              type="text" 
+              id="min_os" 
+              name="min_os" 
+              placeholder="e.g. iOS 16"
+              class="w-full border-b-2 border-zinc-200 bg-transparent py-2 outline-none focus:border-zinc-900 transition-colors"
+              data-ctrovalidate-rules="required"
+              data-ctrovalidate-if="project_type:value:mobile"
+            >
+            <div class="error-message text-red-600 text-xs font-bold mt-1 min-h-[1.25em]"></div>
+          </div>
+        </div>
+
+        <!-- 4. Budget (Always visible) -->
+        <div class="space-y-2">
+           <label for="email" class="block text-xs font-bold uppercase tracking-widest text-zinc-500">Contact Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="w-full border-b-2 border-zinc-200 bg-transparent py-2 outline-none focus:border-zinc-900 transition-colors"
+              data-ctrovalidate-rules="required|email"
+            >
+            <div class="error-message text-red-600 text-xs font-bold mt-1 min-h-[1.25em]"></div>
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full bg-zinc-900 text-white font-bold uppercase tracking-widest py-4 hover:bg-zinc-800 transition-colors"
+        >
+          Submit Quote
+        </button>
+
+      </form>
     </div>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -78,7 +78,7 @@ describe('RuleEngine', () => {
     const fieldObject: FieldObject = {
       element: input,
       rules: [{ name: 'required', params: [] }],
-      state: { isDirty: false, abortController: null },
+      state: { isDirty: false, abortController: null, lastError: null },
       dependency: { controllerName: 'dependOnMe', type: 'checked' },
     };
 
@@ -97,7 +97,7 @@ describe('RuleEngine', () => {
     const fieldObject: FieldObject = {
       element: input,
       rules: [{ name: 'min', params: ['3'] }],
-      state: { isDirty: false, abortController: null },
+      state: { isDirty: false, abortController: null, lastError: null },
       dependency: null,
     };
 
@@ -115,7 +115,7 @@ describe('RuleEngine', () => {
     const fieldObject: FieldObject = {
       element: input,
       rules: [{ name: 'remote', params: [] }],
-      state: { isDirty: false, abortController: null },
+      state: { isDirty: false, abortController: null, lastError: null },
       dependency: null,
     };
 
@@ -131,7 +131,7 @@ describe('RuleEngine', () => {
     const fieldObject: FieldObject = {
       element: input,
       rules: [{ name: 'remote', params: [] }],
-      state: { isDirty: false, abortController: null },
+      state: { isDirty: false, abortController: null, lastError: null },
       dependency: null,
     };
 
@@ -150,7 +150,7 @@ describe('RuleEngine', () => {
     const fieldObject: FieldObject = {
       element: input,
       rules: [{ name: 'errorRule', params: [] }],
-      state: { isDirty: false, abortController: null },
+      state: { isDirty: false, abortController: null, lastError: null },
       dependency: null,
     };
 
@@ -164,7 +164,7 @@ describe('RuleEngine', () => {
     const fieldObject: FieldObject = {
       element: input,
       rules: [{ name: 'unknown', params: [] }],
-      state: { isDirty: false, abortController: null },
+      state: { isDirty: false, abortController: null, lastError: null },
       dependency: null,
     };
 
@@ -185,7 +185,7 @@ describe('RuleEngine', () => {
     const fieldObject: FieldObject = {
       element: input,
       rules: [{ name: 'required', params: [] }],
-      state: { isDirty: false, abortController: null },
+      state: { isDirty: false, abortController: null, lastError: null },
       dependency: { controllerName: 'dependOnMe', type: 'value', value: 'foo' },
     };
 
@@ -205,7 +205,7 @@ describe('RuleEngine', () => {
     const fieldObject: FieldObject = {
       element: input,
       rules: [{ name: 'required', params: [] }],
-      state: { isDirty: false, abortController: null },
+      state: { isDirty: false, abortController: null, lastError: null },
       dependency: { controllerName: 'nonExistent', type: 'checked' },
     };
 
@@ -218,7 +218,11 @@ describe('RuleEngine', () => {
     const fieldObject: FieldObject = {
       element: input,
       rules: [{ name: 'remote', params: [] }],
-      state: { isDirty: false, abortController: new AbortController() },
+      state: {
+        isDirty: false,
+        abortController: new AbortController(),
+        lastError: null,
+      },
       dependency: null,
     };
 
@@ -235,7 +239,7 @@ describe('RuleEngine', () => {
     const fieldObject: FieldObject = {
       element: input,
       rules: [{ name: 'required', params: [] }],
-      state: { isDirty: false, abortController: null },
+      state: { isDirty: false, abortController: null, lastError: null },
       dependency: { controllerName: 'dependOnMe', type: 'unknown' },
     };
 
@@ -252,7 +256,7 @@ describe('RuleEngine', () => {
       const fieldObject: FieldObject = {
         element: input,
         rules: [{ name: 'required', params: [] }],
-        state: { isDirty: false, abortController: null },
+        state: { isDirty: false, abortController: null, lastError: null },
         dependency: null,
       };
 
@@ -266,7 +270,7 @@ describe('RuleEngine', () => {
       const fieldObject: FieldObject = {
         element: input,
         rules: [{ name: 'min', params: [] }], // Missing param for {0}
-        state: { isDirty: false, abortController: null },
+        state: { isDirty: false, abortController: null, lastError: null },
         dependency: null,
       };
 

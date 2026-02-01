@@ -1,3 +1,8 @@
+---
+title: Custom Rules | Extending the Engine
+description: Learn how to build and register custom sync and async validation rules to handle complex business logic with Ctrovalidate.
+---
+
 # Extending Ctrovalidate
 
 While our built-in rules cover 90% of use cases, Ctrovalidate is built for custom business logic. You can extend the library with synchronous and asynchronous rules using the global `Ctrovalidate` object.

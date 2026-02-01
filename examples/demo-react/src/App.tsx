@@ -1,173 +1,122 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Ctrovalidate } from 'ctrovalidate';
 import './App.css';
 
-/**
- * CTROVALIDATE REACT DEMO 🚀
- * 
- * This example demonstrates how to integrate Ctrovalidate with a modern 
- * React component using the 'useRef' pattern for direct DOM access,
- * ensuring high performance and zero-dependency overhead.
- */
+interface TeamMember {
+  id: string;
+  email: string;
+}
+
 function App() {
   const formRef = useRef<HTMLFormElement>(null);
-  const [contactMethod, setContactMethod] = useState('email');
+  const validatorRef = useRef<Ctrovalidate | null>(null);
+  const [members, setMembers] = useState<TeamMember[]>([
+    { id: crypto.randomUUID(), email: '' }
+  ]);
 
   useEffect(() => {
-    if (formRef.current) {
-      // 1. Initialize Custom Rules
-      // You can define rules once and use them across all fields.
-      Ctrovalidate.addRule(
-        'strongPassword',
-        (value) => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(value as string),
-        'Use at least 8 characters with upper, lower, and numeric values.'
-      );
-
-      // 2. Initialize Async Rules
-      // Perfect for server-side checks like username or email availability.
-      Ctrovalidate.addAsyncRule(
-        'usernameAvailable',
-        async (value) => {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              const reserved = ['admin', 'root', 'ctrotech'];
-              resolve(!reserved.includes((value as string).toLowerCase()));
-            }, 1000);
-          });
-        },
-        'This username is already reserved by the system.'
-      );
-
-      // 3. Create Validator Instance
-      const validator = new Ctrovalidate(formRef.current, {
-        logLevel: Ctrovalidate.LogLevel.DEBUG,
-        realTime: true, // Validate as the user types
-        pendingClass: 'is-validating',
+    if (formRef.current && !validatorRef.current) {
+      validatorRef.current = new Ctrovalidate(formRef.current, {
+        realTime: true,
+        errorClass: 'error-visible',
+        errorMessageClass: 'error-msg',
       });
-
-      // 4. Handle Submission
-      const handleSubmission = async (e: Event) => {
-        e.preventDefault();
-        console.log('--- REACT SUBMISSION INITIATED ---');
-
-        const isValid = await validator.validate();
-
-        if (isValid) {
-          console.log('✅ VALIDATION SUCCESS');
-          alert('🚀 Registration successful! (React Demo)');
-          if (formRef.current) {
-            const data = Object.fromEntries(new FormData(formRef.current).entries());
-            console.table(data);
-          }
-        } else {
-          console.warn('❌ VALIDATION FAILURE');
-        }
-      };
-
-      formRef.current.addEventListener('submit', handleSubmission);
-
-      // 5. Lifecycle Cleanup
-      return () => {
-        formRef.current?.removeEventListener('submit', handleSubmission);
-      };
     }
+
+    return () => {
+      validatorRef.current?.destroy();
+    };
   }, []);
 
+  // When members array changes, we don't necessarily need to re-initialize.
+  // We can use a ref callback or individual useEffects for new fields, 
+  // OR just call refresh() if we wanted lazy updates. 
+  // Here we show the precise 'addField' pattern via Ref callbacks for maximum control.
+
+  const addMember = () => {
+    setMembers(prev => [...prev, { id: crypto.randomUUID(), email: '' }]);
+  };
+
+  const removeMember = (id: string) => {
+    if (members.length <= 1) return;
+    setMembers(prev => prev.filter(m => m.id !== id));
+    // Note: Ctrovalidate automatically cleans up when elements are removed from DOM
+    // thanks to the MutationObserver in the core engine, BUT 
+    // explicit removal (validator.removeField) is good practice if ensuring cleanup 
+    // before DOM removal, or if MutationObserver support is not relied upon.
+    // In this React example, DOM removal happens *after* state update, so 
+    // we let the validator's internal observer or refresh handle it, 
+    // or we could manually handle it if we had a ref to the element before removal.
+    // For simplicity in this demo, we can just call refresh() in a useEffect [members].
+  };
+
+  useEffect(() => {
+    // Ideally, for big lists, use refresh()
+    if (validatorRef.current) {
+      validatorRef.current.refresh();
+    }
+  }, [members]);
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const isValid = await validatorRef.current?.validate();
+
+    if (isValid) {
+      alert(`Inviting ${members.length} new team members!`);
+      // Reset logic
+      formRef.current?.reset();
+      validatorRef.current?.reset();
+    }
+  };
+
   return (
-    <div className="container">
-      <header>
-        <h1>Ctrovalidate <span className="badge">v2.1.1</span></h1>
-        <p>Industrial React Integration • Monochrome Minimalist</p>
+    <div className="app-container">
+      <header className="header">
+        <h1>Team Onboarding</h1>
+        <p>Dynamic Field Management Demo</p>
       </header>
 
-      <form ref={formRef} noValidate className="validation-form">
-        <div className="form-group">
-          <label htmlFor="name">Full Name</label>
-          <input
-            name="name"
-            id="name"
-            type="text"
-            placeholder="e.g. John Doe"
-            data-ctrovalidate-rules="required|minLength:3|alpha"
-          />
-          <div className="error-message"></div>
+      <form ref={formRef} noValidate onSubmit={handleSubmit} className="card">
+        <div className="members-list">
+          {members.map((member, index) => (
+            <div key={member.id} className="field-group">
+              <label htmlFor={`email-${member.id}`}>
+                Member {index + 1}
+              </label>
+              <div className="input-row">
+                <input
+                  id={`email-${member.id}`}
+                  type="email"
+                  name={`email_${member.id}`}
+                  data-ctrovalidate-rules="required|email" // Declarative rules
+                  placeholder="colleague@company.com"
+                  defaultValue={member.email}
+                />
+                <button
+                  type="button"
+                  onClick={() => removeMember(member.id)}
+                  className="icon-btn delete-btn"
+                  title="Remove"
+                  disabled={members.length === 1}
+                >
+                  &times;
+                </button>
+              </div>
+              <div className="error-msg"></div> {/* Container for Ctrovalidate */}
+            </div>
+          ))}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Check availability..."
-            data-ctrovalidate-rules="required|minLength:3|alphaDash|usernameAvailable"
-          />
-          <div className="error-message"></div>
+        <div className="actions">
+          <button type="button" onClick={addMember} className="btn secondary">
+            + Add Another
+          </button>
+          <button type="submit" className="btn primary">
+            Send Invites
+          </button>
         </div>
-
-        <div className="form-group">
-          <label htmlFor="contact_method">Preferred Contact Method</label>
-          <select
-            name="contact_method"
-            id="contact_method"
-            value={contactMethod}
-            onChange={(e) => setContactMethod(e.target.value)}
-          >
-            <option value="email">Email</option>
-            <option value="phone">Phone</option>
-          </select>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="mobile">Mobile Number</label>
-          <input
-            name="mobile"
-            id="mobile"
-            type="text"
-            placeholder="+1 234 567 890"
-            data-ctrovalidate-rules="required|phone"
-            data-ctrovalidate-if="contact_method:value=phone"
-          />
-          <div className="error-message"></div>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email">Email Address</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="john@example.com"
-            data-ctrovalidate-rules="required|email"
-            data-ctrovalidate-if="contact_method:value=email"
-          />
-          <div className="error-message"></div>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Security Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="••••••••"
-            data-ctrovalidate-rules="required|strongPassword"
-          />
-          <div className="error-message"></div>
-        </div>
-
-        <div className="form-group row">
-          <input type="checkbox" name="terms" id="terms" data-ctrovalidate-rules="required" />
-          <label htmlFor="terms">I agree to the industrial standards of testing</label>
-        </div>
-        <div className="error-message" style={{ marginBottom: '1rem' }}></div>
-
-        <button type="submit" className="submit-btn">Verify Integration</button>
       </form>
-
-      <footer>
-        <p>Powered by Ctrovalidate • Built for real-world performance</p>
-      </footer>
     </div>
   );
 }
