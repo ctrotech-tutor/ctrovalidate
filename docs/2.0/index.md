@@ -47,24 +47,27 @@ Validation shouldn't be a chore. Ctrovalidate allows you to describe **what** yo
 
 ```html
 <!-- Define rules directly in HTML -->
-<input 
-  type="email" 
-  name="user_email"
-  data-ctrovalidate-rules="required|email"
-  data-ctrovalidate-on="input" 
-/>
-
-<!-- Errors are handled automatically -->
-<div class="error-container"></div>
+<div class="showcase-container">
+  <input 
+    type="email" 
+    name="user_email"
+    data-ctrovalidate-rules="required|email"
+    className="validation-form"
+  />
+  <div class="error-message"></div>
+</div>
 ```
 
 ```javascript
 import { Ctrovalidate } from 'ctrovalidate';
 
-// One line to initialize
-const validator = new Ctrovalidate(document.querySelector('form'));
+// Initialize with industrial defaults
+const validator = new Ctrovalidate(
+  document.querySelector('form'), 
+  { realTime: true }
+);
 
-// Promise-based validation
+// High-performance validation
 const isValid = await validator.validate();
 ```
 

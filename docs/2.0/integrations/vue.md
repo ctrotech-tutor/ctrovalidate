@@ -14,35 +14,40 @@ import { ref, onMounted } from 'vue';
 import { Ctrovalidate } from 'ctrovalidate';
 
 const formRef = ref(null);
-let validator = null;
 
 onMounted(() => {
-  validator = new Ctrovalidate(formRef.value, {
-    realTime: true,
-  });
+  if (formRef.value) {
+    // Initialize Industrial-grade validator
+    new Ctrovalidate(formRef.value, {
+      realTime: true,
+      logLevel: Ctrovalidate.LogLevel.DEBUG,
+      pendingClass: 'is-validating',
+    });
+  }
 });
 
 const submitForm = async () => {
-  if (await validator.validate()) {
-    console.log('Success!');
-  }
+  // Logic to validate on submit is handled by the 
+  // library's native 'submit' listener.
 };
 </script>
 
 <template>
-  <form ref="formRef" @submit.prevent="submitForm" novalidate>
-    <div class="mb-3">
-      <label>Username</label>
-      <input
-        name="username"
-        data-ctrovalidate-rules="required|minLength:3"
-        class="form-control"
-      />
-      <div class="error-message"></div>
-    </div>
+  <div class="showcase-container">
+    <form ref="formRef" @submit.prevent="submitForm" novalidate>
+      <div class="form-group">
+        <label>Username</label>
+        <input
+          name="username"
+          data-ctrovalidate-rules="required|minLength:3"
+          placeholder="e.g. johndoe"
+        />
+        <div class="error-message"></div>
+      </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+      <button type="submit" class="submit-btn">Deploy Vue Integration</button>
+    </form>
+  </div>
 </template>
 ```
 

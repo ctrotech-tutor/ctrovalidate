@@ -23,90 +23,78 @@ Let's look at a typical `RegistrationForm.svelte` component. In Svelte, the logi
   import { onMount } from 'svelte';
   import { Ctrovalidate } from 'ctrovalidate';
 
-  // 1. Create a variable to hold the form's DOM element.
   let formElement;
-
-  // 2. Create a variable to hold the validator instance.
   let validator;
 
-  // 3. Use the onMount lifecycle function.
   onMount(() => {
-    // 'formElement' is now the actual <form> DOM node.
     if (formElement) {
-      console.log('Svelte component mounted. Initializing Ctrovalidate.');
+      // Initialize Industrial-grade validator
       validator = new Ctrovalidate(formElement, {
-        realTime: true
+        realTime: true,
+        logLevel: Ctrovalidate.LogLevel.DEBUG,
+        pendingClass: 'is-validating'
       });
     }
   });
 
-  // 4. Define the submit handler function.
   async function handleSubmit() {
     if (!validator) return;
-
-    const isFormValid = await validator.validate();
-
-    if (isFormValid) {
-      alert('Svelte form is valid! Submitting...');
-      // Logic to submit form data
-    } else {
-      console.log('Svelte form has errors.');
-    }
+    // Logic to validate on submit is handled by the 
+    // library's native 'submit' listener.
   }
 </script>
 
-<main>
-  <!-- 5. The Form -->
-  <!-- Use bind:this to get a reference to the DOM element -->
-  <!-- Use on:submit|preventDefault to call our handler -->
-  <form bind:this={formElement} on:submit|preventDefault={handleSubmit} novalidate>
-    <div>
+<div class="showcase-container">
+  <form 
+    bind:this={formElement} 
+    on:submit|preventDefault={handleSubmit} 
+    noValidate 
+    className="validation-form"
+  >
+    <div class="form-group">
       <label for="username">Username</label>
       <input
         type="text"
         id="username"
         name="username"
         data-ctrovalidate-rules="required|minLength:3|alphaDash"
-      >
+        placeholder="e.g. johndoe"
+      />
       <div class="error-message"></div>
     </div>
 
-    <div>
+    <div class="form-group">
       <label for="email">Email Address</label>
       <input
         type="email"
         id="email"
         name="email"
         data-ctrovalidate-rules="required|email"
-      >
+        placeholder="john@example.com"
+      />
       <div class="error-message"></div>
     </div>
 
-    <button type="submit">Create Account</button>
+    <button type="submit" class="submit-btn">Verify Svelte Integration</button>
   </form>
-</main>
+</div>
 ```
 
 ### Notes for TypeScript Users
 
-If you are using TypeScript in your Svelte project (a common setup), you can add types to your variables for better safety and editor support.
+If you are using TypeScript in your Svelte project, you can add types to your variables for better safety and editor support.
 
 ```typescript
 <script lang="ts">
   import { onMount } from 'svelte';
   import { Ctrovalidate, type CtrovalidateInstance } from 'ctrovalidate';
 
-  // Type the variable for the form element
   let formElement: HTMLFormElement;
-
-  // Type the variable for the validator instance
   let validator: CtrovalidateInstance | undefined;
 
   onMount(() => {
     // ... same initialization logic ...
   });
-
-  // ...
 </script>
 ```
 
@@ -114,6 +102,4 @@ By importing and using the `CtrovalidateInstance` type, you get full autocomplet
 
 ### Dynamic Fields with `#each`
 
-If you are using Svelte's `#each` block to render a dynamic list of fields, you can use Svelte's reactive statements (`$:`) or the `afterUpdate` lifecycle function to call `addField()` and `removeField()`. This ensures that Ctrovalidate is always aware of the exact fields present in the DOM, even as your data changes.
-
-[**View the Svelte component file on GitHub**](https://github.com/ctrotech-tutor/ctrovalidate/blob/main/examples/with-svelte/App.svelte)
+If you are using Svelte's `#each` block to render a dynamic list of fields, you can use Svelte's reactive statements (`$:`) or the `afterUpdate` lifecycle function to call `addField()` and `removeField()`. This ensures that Ctrovalidate is always aware of the exact fields present in the DOM.

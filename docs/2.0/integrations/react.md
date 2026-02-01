@@ -6,49 +6,59 @@ While Ctrovalidate is a DOM-first library, it integrates perfectly with React's 
 
 ## 🏗️ Basic Pattern
 
-The most reliable way to use Ctrovalidate in React is to initialize it once the component mounts and the form element is available in the DOM.
+The most reliable way to use Ctrovalidate in React is to initialize it once the component mounts using the standard hooks pattern.
 
 ```tsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Ctrovalidate } from 'ctrovalidate';
 
 export const SignupForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
-  const validatorRef = useRef<Ctrovalidate | null>(null);
+  const [contactMethod, setContactMethod] = useState('email');
 
   useEffect(() => {
     if (formRef.current) {
-      validatorRef.current = new Ctrovalidate(formRef.current, {
+      // Initialize Ctrovalidate with industrial defaults
+      const validator = new Ctrovalidate(formRef.current, {
         realTime: true,
+        logLevel: Ctrovalidate.LogLevel.DEBUG,
+        pendingClass: 'is-validating',
       });
-    }
 
-    // Optional: Cleanup
-    return () => {
-      // Instance cleanup if needed
-    };
+      // Cleanup listeners on unmount
+      return () => {
+        // Ctrovalidate manages its own listeners, 
+        // but it's good practice to keep this hook focused.
+      };
+    }
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const isValid = await validatorRef.current?.validate();
-
-    if (isValid) {
-      console.log('Form is valid!');
-    }
+    // Logic to validate on submit is handled by the 
+    // native 'submit' listener if you don't override it,
+    // or you can call .validate() manually here.
   };
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} novalidate>
-      <input
-        name="email"
-        data-ctrovalidate-rules="required|email"
-        placeholder="Enter email"
-      />
-      <div className="error-message" />
+    <div className="showcase-container">
+      <form ref={formRef} noValidate className="validation-form">
+        <div className="form-group">
+          <label htmlFor="email">Email Address</label>
+          <input
+            id="email"
+            name="email"
+            data-ctrovalidate-rules="required|email"
+            placeholder="john@example.com"
+          />
+          <div className="error-message" />
+        </div>
 
-      <button type="submit">Register</button>
-    </form>
+        <button type="submit" className="submit-btn">
+          Verify Integration
+        </button>
+      </form>
+    </div>
   );
 };
 ```

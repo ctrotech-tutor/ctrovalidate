@@ -35,7 +35,7 @@ For quick tests or simple static sites, you can import Ctrovalidate directly fro
 
 ```html
 <script type="module">
-  import { Ctrovalidate } from 'https://cdn.jsdelivr.net/npm/ctrovalidate@2.1.0/dist/ctrovalidate.js';
+  import { Ctrovalidate } from 'https://cdn.jsdelivr.net/npm/ctrovalidate@2.1.1/dist/ctrovalidate.js';
   // Use Ctrovalidate here
 </script>
 ```
@@ -127,4 +127,4 @@ Now that you're up and running, explore the depths of Ctrovalidate:
 
 - **[Configuration Options](./configuration.md)** — Customize classes, logging, and events.
 - **[Built-in Rules](./rules.md)** — See all 20+ rules available out of the box.
-- **[Conditional Validation](./conditional-validation.md)** — Learn how to validate fields based on other field values.
+- **[Industrial Examples](./examples.md)** — Explore our high-standards monochrome demo suite.

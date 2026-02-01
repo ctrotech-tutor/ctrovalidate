@@ -99,16 +99,17 @@ Ctrovalidate.addAsyncRule(
 Ctrovalidate handles the ARIA wiring, but you should ensure your CSS makes the states visible.
 
 ```css
-/* Styling based on ARIA states */
+```css
+/* Industrial Monochrome Feedback Pattern */
 [aria-invalid='true'] {
-  border: 2px solid #dc2626;
-  background-color: #fef2f2;
+  border-bottom-color: #ef4444 !important;
 }
 
-[aria-invalid='true'] + .error-message {
-  display: block;
-  color: #dc2626;
-  margin-top: 0.25rem;
+.error-message {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  min-height: 1rem;
 }
 ```
 

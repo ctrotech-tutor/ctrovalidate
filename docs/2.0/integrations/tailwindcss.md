@@ -9,13 +9,14 @@ Ctrovalidate works seamlessly with Tailwind CSS. Since the library is CSS-class 
 
 ---
 
-## 🎨 Design Strategy
+## 🎨 Design Strategy: Industrial Monochrome
 
-The easiest way to integrate is by configuring Ctrovalidate to use Tailwind's error classes.
+The easiest way to integrate is by configuring Ctrovalidate to use Tailwind's error classes, maintaining our high-standards monochrome palette (Black, White, and Red for errors).
 
 ```javascript
 const validator = new Ctrovalidate(form, {
-  errorClass: 'border-red-500 ring-1 ring-red-500', // Tailwind classes
+  errorClass: 'border-red-500 ring-0', // Minimalist Red Border
+  pendingClass: 'is-validating',
 });
 ```
 
@@ -23,27 +24,29 @@ const validator = new Ctrovalidate(form, {
 
 ## 🛠️ Implementation Example
 
-Here is a production-ready field structure using Tailwind's `group` utility for coordinated state changes.
+Here is a production-ready field structure using the **Industrial Monochrome** design system.
 
 ```html
-<form id="taiwind-form" novalidate>
-  <div class="mb-4">
-    <label class="block text-sm font-medium text-gray-700">Email</label>
+<form id="taiwind-form" novalidate className="space-y-6">
+  <div class="form-group">
+    <label class="block text-sm font-semibold text-black uppercase tracking-wider">
+      Email Address
+    </label>
 
     <input
       name="email"
       data-ctrovalidate-rules="required|email"
-      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm transition-colors"
+      class="mt-1 block w-full border-0 border-b-2 border-black bg-transparent py-2 focus:border-red-500 focus:ring-0 transition-all duration-300"
     />
 
     <!-- Error message container -->
-    <div class="error-message mt-2 text-sm text-red-600 h-5"></div>
+    <div class="error-message mt-2 text-xs text-red-600 font-bold h-4"></div>
   </div>
 
   <button
-    class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+    class="w-full bg-black text-white font-bold py-4 uppercase tracking-widest hover:bg-gray-900 transition-colors"
   >
-    Submit
+    Verify Integration
   </button>
 </form>
 ```
@@ -53,11 +56,10 @@ Here is a production-ready field structure using Tailwind's `group` utility for 
 If you prefer to define your error styles in your CSS file using `@apply`, you can target the default `is-invalid` class:
 
 ```css
-/* main.css */
+/* industrial.css */
 input.is-invalid {
-  @apply border-red-500 bg-red-50 ring-2 ring-red-100;
+  @apply border-red-500 text-red-600;
 }
-
 div.error-message {
   @apply text-red-600 font-medium;
 }

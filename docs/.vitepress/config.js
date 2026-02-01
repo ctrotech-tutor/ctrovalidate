@@ -61,7 +61,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       { text: 'API', link: '/api/methods' },
       { text: 'Sponsor', link: '/community/donate' },
       {
-        text: 'v2.0.0 (Latest)',
+        text: 'v2.1.1 (Latest)',
         items: [
           {
             text: 'Changelog',

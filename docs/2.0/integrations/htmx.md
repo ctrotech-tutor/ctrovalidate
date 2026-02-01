@@ -73,4 +73,5 @@ usernameField.addEventListener('htmx:beforeRequest', async (event) => {
 
 This pattern provides the best of both worlds: instant client-side feedback and powerful server-side interactions, all with minimal JavaScript.
 
-[**View the full working example on GitHub**](https://github.com/ctrotech-tutor/ctrovalidate/blob/main/examples/with-htmx/index.html)
+> [!TIP]
+> Use the `pendingClass: 'is-validating'` configuration to show loading states that automatically synchronize with both Ctrovalidate and htmx requests.

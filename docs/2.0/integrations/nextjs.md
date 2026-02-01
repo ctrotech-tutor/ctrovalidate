@@ -19,7 +19,7 @@ This guide focuses on the modern Next.js App Router. The pattern is nearly ident
 
 ## Example: A Next.js Client Component
 
-Let's create a `RegistrationForm` component within a Next.js project.
+Let's create a `RegistrationForm` component within a Next.js project using the App Router.
 
 ### 1. Create the Client Component
 
@@ -28,67 +28,62 @@ Create a new file, for example, `components/RegistrationForm.tsx`. The `"use cli
 ```tsx
 // components/RegistrationForm.tsx
 
-'use client'; // This is the most important line!
+'use client'; // Essential for browser-side validation
 
 import React, { useRef, useEffect } from 'react';
-import { Ctrovalidate, type CtrovalidateInstance } from 'ctrovalidate';
+import { Ctrovalidate } from 'ctrovalidate';
 
 export function RegistrationForm() {
-  // Create refs to hold the form element and validator instance
   const formRef = useRef<HTMLFormElement>(null);
-  const validatorRef = useRef<CtrovalidateInstance | null>(null);
 
-  // Initialize Ctrovalidate once the component mounts on the client
   useEffect(() => {
     if (formRef.current) {
-      console.log('Component mounted on client. Initializing Ctrovalidate.');
-      validatorRef.current = new Ctrovalidate(formRef.current, {
+      // Initialize industrial-grade validator
+      const validator = new Ctrovalidate(formRef.current, {
         realTime: true,
+        logLevel: Ctrovalidate.LogLevel.DEBUG,
+        pendingClass: 'is-validating',
       });
     }
-  }, []); // Empty array ensures this runs only once
+  }, []);
 
-  // Define the submit handler
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!validatorRef.current) return;
-
-    const isFormValid = await validatorRef.current.validate();
-
-    if (isFormValid) {
-      alert('Next.js form is valid! Submitting...');
-      // Logic to submit form data via an API route or server action
-    } else {
-      console.log('Next.js form has errors.');
-    }
+    // Native submission handling or manual .validate() call
   };
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} noValidate>
-      <div>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          data-ctrovalidate-rules="required|minLength:3|alphaDash"
-        />
-        <div className="error-message"></div>
-      </div>
+    <div className="showcase-container">
+      <form ref={formRef} noValidate className="validation-form">
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="e.g. johndoe"
+            data-ctrovalidate-rules="required|minLength:3|alphaDash"
+          />
+          <div className="error-message"></div>
+        </div>
 
-      <div>
-        <label htmlFor="email">Email Address</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          data-ctrovalidate-rules="required|email"
-        />
-        <div className="error-message"></div>
-      </div>
+        <div className="form-group">
+          <label htmlFor="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="john@example.com"
+            data-ctrovalidate-rules="required|email"
+          />
+          <div className="error-message"></div>
+        </div>
 
-      <button type="submit">Create Account</button>
-    </form>
+        <button type="submit" className="submit-btn text-white">
+          Deploy Registration
+        </button>
+      </form>
+    </div>
   );
 }
 ```
