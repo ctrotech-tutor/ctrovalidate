@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ctrovalidate • Alpine JS Vite Demo</title>
+  </head>
+  <body>
+    <div id="app" x-data="formHandler()">
+      <div class="showcase-container">
+        <header>
+          <div class="logo-text">Ctrovalidate</div>
+          <p>Alpine JS • Vite • Monochrome</p>
+        </header>
+
+        <form id="showcase-form" novalidate @submit.prevent="submitForm">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input
+              name="name"
+              id="name"
+              type="text"
+              placeholder="e.g. John Doe"
+              data-ctrovalidate-rules="required|minLength:3|alpha"
+            />
+            <div class="spinner"></div>
+            <div class="error-message"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Check availability..."
+              data-ctrovalidate-rules="required|minLength:3|alphaDash|usernameAvailable"
+            />
+            <div class="spinner"></div>
+            <div class="error-message"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="contact_method">Preferred Contact Method</label>
+            <select name="contact_method" id="contact_method" x-model="contactMethod">
+              <option value="email">Email</option>
+              <option value="phone">Phone</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="mobile">Mobile Number</label>
+            <input
+              name="mobile"
+              id="mobile"
+              type="text"
+              placeholder="+1 234 567 890"
+              data-ctrovalidate-rules="required|phone"
+              data-ctrovalidate-if="contact_method:value=phone"
+            />
+            <div class="spinner"></div>
+            <div class="error-message"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="john@example.com"
+              data-ctrovalidate-rules="required|email"
+              data-ctrovalidate-if="contact_method:value=email"
+            />
+            <div class="spinner"></div>
+            <div class="error-message"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Security Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="••••••••"
+              data-ctrovalidate-rules="required|strongPassword"
+            />
+            <div class="spinner"></div>
+            <div class="error-message"></div>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="terms" name="terms" data-ctrovalidate-rules="required" />
+            <label for="terms">I agree to the industrial standards of testing</label>
+          </div>
+          <div class="error-message" style="margin-top: -0.5rem"></div>
+
+          <button type="submit">Deploy Alpine Integration</button>
+        </form>
+
+        <div class="footer-note">
+          Powered by Ctrovalidate Core v2.1.1
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

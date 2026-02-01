@@ -13,8 +13,8 @@ export default defineConfig({
   // --- Build Configuration (for creating the 'dist' folder) ---
   build: {
     lib: {
-      // The entry point remains src/index.js, which is correct.
-      entry: resolve(__dirname, 'src/index.js'),
+      // The entry point is now src/index.ts
+      entry: resolve(__dirname, 'src/index.ts'),
       // Ensure the global variable name for the UMD build is 'Ctrovalidate'.
       name: 'Ctrovalidate',
       // The output filenames are already correct based on package.json.
@@ -45,8 +45,8 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      include: ['src/**/*.js'],
-      exclude: ['src/**/*.test.js', 'src/index.js'],
+      include: ['src/**/*.ts'],
+      exclude: ['src/**/*.test.ts', 'src/index.ts'],
       all: true, // Report coverage for all files, even those without tests
     },
   },

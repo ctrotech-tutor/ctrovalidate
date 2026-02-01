@@ -14,18 +14,18 @@
     "noEmit": false,
     "outDir": "dist/types",
 
-    /* JavaScript Support */
-    "allowJs": true,
-    "checkJs": true,
+    /* High Quality Settings */
+    "allowJs": false,
+    "checkJs": false,
     "declaration": true,
     "emitDeclarationOnly": true,
 
     /* Linting */
-    "strict": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.js", "src/**/*.d.ts"],
-  "exclude": ["node_modules", "src/**/*.test.js"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "exclude": ["node_modules"]
 }

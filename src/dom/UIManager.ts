@@ -1,0 +1,101 @@
+// src/dom/UIManager.ts
+
+import { CtrovalidateOptions } from '../types/index';
+
+/**
+ * Manages all visual feedback and ARIA attributes on the web page.
+ */
+export class UIManager {
+  #errorClass: string;
+  #errorMessageClass: string;
+  #pendingClass: string;
+
+  /**
+   * A cache to store references to error elements, preventing repeated DOM queries.
+   */
+  #errorElementCache: WeakMap<HTMLElement, HTMLElement> = new WeakMap();
+
+  /**
+   * @param options - Configuration options.
+   */
+  constructor({
+    errorClass = 'ctrovalidate-error',
+    errorMessageClass = 'ctrovalidate-error-message',
+    pendingClass = 'ctrovalidate-pending',
+  }: CtrovalidateOptions) {
+    this.#errorClass = errorClass;
+    this.#errorMessageClass = errorMessageClass;
+    this.#pendingClass = pendingClass;
+  }
+
+  /**
+   * Finds or creates the dedicated error message container for a given input field.
+   */
+  #findErrorElement(field: HTMLElement): HTMLElement | null {
+    if (this.#errorElementCache.has(field)) {
+      return this.#errorElementCache.get(field) || null;
+    }
+
+    if (!field.parentElement) return null;
+
+    const errorElement = field.parentElement.querySelector(
+      `.${this.#errorMessageClass}`
+    ) as HTMLElement | null;
+
+    if (errorElement) {
+      if (!errorElement.id) {
+        errorElement.id = `ctrovalidate-error-${(field as any).name || Math.random().toString(36).substring(2, 9)}`;
+      }
+      this.#errorElementCache.set(field, errorElement);
+    }
+
+    return errorElement;
+  }
+
+  /**
+   * Displays a validation error message and applies error styling and ARIA attributes.
+   */
+  displayError(field: HTMLElement, message: string): void {
+    const errorElement = this.#findErrorElement(field);
+
+    field.classList.add(this.#errorClass);
+    field.setAttribute('aria-invalid', 'true');
+
+    if (errorElement) {
+      errorElement.textContent = message;
+      errorElement.style.display = '';
+      field.setAttribute('aria-describedby', errorElement.id);
+    }
+  }
+
+  /**
+   * Clears the validation error message, styling, and ARIA attributes.
+   */
+  clearError(field: HTMLElement): void {
+    const errorElement = this.#findErrorElement(field);
+
+    field.classList.remove(this.#errorClass);
+    field.removeAttribute('aria-invalid');
+
+    if (errorElement) {
+      errorElement.textContent = '';
+      errorElement.style.display = 'none';
+      field.removeAttribute('aria-describedby');
+    }
+  }
+
+  /**
+   * Shows the pending state for a field undergoing asynchronous validation.
+   */
+  showPending(field: HTMLElement): void {
+    this.clearError(field);
+    field.classList.add(this.#pendingClass);
+  }
+
+  /**
+   * Hides the pending state for a field after an asynchronous validation is complete.
+   */
+  hidePending(field: HTMLElement): void {
+    field.classList.remove(this.#pendingClass);
+  }
+}

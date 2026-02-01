@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ctrovalidate • Industrial Form Validation Demo</title>
+    <!-- 
+      WELCOME TO THE CTROVALIDATE SHOWCASE! 🚀
+      
+      This example is designed to demonstrate the power, simplicity, and flexibility 
+      of Ctrovalidate in a real-world, premium environment.
+      
+      AESTHETICS: Modern glassmorphic design with CSS gradients.
+      ACCESSIBILITY: ARIA-ready, with dynamic error announcements.
+      BEST PRACTICES: Clean separation of concerns and extensive commenting.
+    -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+      :root {
+        --bg: #ffffff;
+        --text: #000000;
+        --border: #e5e7eb;
+        --border-hover: #000000;
+        --muted: #6b7280;
+        --error: #ef4444;
+        --success: #10b981;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+      }
+
+      .showcase-container {
+        width: 100%;
+        max-width: 480px;
+        padding: 2rem;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+      }
+
+      header {
+        text-align: left;
+        margin-bottom: 3rem;
+        border-bottom: 2px solid #000;
+        padding-bottom: 1rem;
+      }
+
+      .logo-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.25rem;
+      }
+
+      header p {
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      .form-group {
+        margin-bottom: 2rem;
+        position: relative;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      input[type='text'],
+      input[type='email'],
+      input[type='password'],
+      select {
+        width: 100%;
+        padding: 0.75rem 0;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid var(--border);
+        color: var(--text);
+        font-family: inherit;
+        font-size: 1rem;
+        transition: border-color 0.2s;
+        border-radius: 0;
+      }
+
+      input:focus, select:focus {
+        outline: none;
+        border-bottom-color: var(--border-hover);
+      }
+
+      .is-invalid {
+        border-bottom-color: var(--error) !important;
+      }
+
+      .error-message {
+        color: var(--error);
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+        min-height: 1rem;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 1rem;
+      }
+
+      .checkbox-group input[type='checkbox'] {
+        width: 1rem;
+        height: 1rem;
+        accent-color: #000;
+        cursor: pointer;
+      }
+
+      .checkbox-group label {
+        margin-bottom: 0;
+        text-transform: none;
+        letter-spacing: 0;
+        font-weight: 400;
+      }
+
+      button[type='submit'] {
+        width: 100%;
+        padding: 1rem;
+        background: #000;
+        color: #fff;
+        border: 1px solid #000;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+        margin-top: 1rem;
+      }
+
+      button[type='submit']:hover {
+        background: #fff;
+        color: #000;
+      }
+
+      .spinner {
+        position: absolute;
+        right: 0;
+        top: 25px;
+        width: 14px;
+        height: 14px;
+        border: 2px solid var(--border);
+        border-left-color: #000;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        display: none;
+      }
+
+      .is-validating + .spinner {
+        display: block;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      .footer-note {
+        text-align: center;
+        margin-top: 4rem;
+        font-size: 0.7rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="showcase-container">
+      <header>
+        <div class="logo-text">Ctrovalidate</div>
+        <p>Zero-dependency • Industrial • Accessible</p>
+      </header>
+
+      <!-- 
+        1. THE FORM STRUCTURE
+        Always use 'novalidate' on the form when using client-side libraries 
+        to prevent browser native popups from conflicting with your custom UI.
+      -->
+      <form id="showcase-form" novalidate>
+        
+        <!-- FULL NAME (Alpha validation) -->
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input
+            name="name"
+            id="name"
+            type="text"
+            placeholder="e.g. John Doe"
+            data-ctrovalidate-rules="required|minLength:3|alpha"
+          />
+          <div class="spinner"></div>
+          <div class="error-message"></div>
+        </div>
+
+        <!-- USERNAME (Async validation) -->
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Check availability..."
+            data-ctrovalidate-rules="required|minLength:3|alphaDash|usernameAvailable"
+          />
+          <div class="spinner"></div>
+          <div class="error-message"></div>
+        </div>
+
+        <!-- CONTACT INFO (Conditional Logic) -->
+        <div class="form-group">
+          <label for="contact_method">Preferred Contact Method</label>
+          <select name="contact_method" id="contact_method">
+            <option value="email">Email</option>
+            <option value="phone">Phone</option>
+          </select>
+        </div>
+
+        <!-- Dynamic field: Only validated if 'phone' is selected above -->
+        <div class="form-group">
+          <label for="mobile">Mobile Number</label>
+          <input
+            name="mobile"
+            id="mobile"
+            type="text"
+            placeholder="+1 234 567 890"
+            data-ctrovalidate-rules="required|phone"
+            data-ctrovalidate-if="contact_method:value=phone"
+          />
+          <div class="spinner"></div>
+          <div class="error-message"></div>
+        </div>
+
+        <!-- EMAIL (Conditionally validated if 'email' is selected above) -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="john@example.com"
+            data-ctrovalidate-rules="required|email"
+            data-ctrovalidate-if="contact_method:value=email"
+          />
+          <div class="spinner"></div>
+          <div class="error-message"></div>
+        </div>
+
+        <!-- PASSWORD (Custom Rule validation) -->
+        <div class="form-group">
+          <label for="password">Security Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="••••••••"
+            data-ctrovalidate-rules="required|strongPassword"
+          />
+          <div class="spinner"></div>
+          <div class="error-message"></div>
+        </div>
+
+        <!-- TERMS (Checkbox validation) -->
+        <div class="form-group checkbox-group">
+          <input type="checkbox" id="terms" name="terms" data-ctrovalidate-rules="required" />
+          <label for="terms">I agree to the industrial standards of testing</label>
+        </div>
+        <div class="error-message" style="margin-top: -0.5rem"></div>
+
+        <button type="submit">Deploy Integration</button>
+      </form>
+
+      <div class="footer-note">
+        Powered by Ctrovalidate Core Engine v2.1.1
+      </div>
+    </div>
+
+    <script type="module">
+      /**
+       * 2. LIBRARY INITIALIZATION
+       * We import the production build to ensure we're testing the real artifact.
+       */
+      import { Ctrovalidate } from '../../dist/ctrovalidate.js';
+
+      /**
+       * 3. CUSTOM RULE DEFINITION
+       * Synchronous rules execute immediately on every trigger.
+       */
+      Ctrovalidate.addRule(
+        'strongPassword',
+        (value) => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(value),
+        'Use at least 8 characters with upper, lower, and numeric values.'
+      );
+
+      /**
+       * 4. ASYNC RULE DEFINITION
+       * Perfect for server-side checks (usernames, coupons, unique emails).
+       */
+      Ctrovalidate.addAsyncRule(
+        'usernameAvailable',
+        async (value) => {
+          // Simulating a network request...
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              const reserved = ['admin', 'root', 'ctrotech'];
+              resolve(!reserved.includes(value.toLowerCase()));
+            }, 800);
+          });
+        },
+        'This username is already reserved by the system.'
+      );
+
+      // Select the form
+      const form = document.querySelector('#showcase-form');
+
+      /**
+       * 5. THE VALIDATOR INSTANCE
+       * We enable DEBUG logging so you can see exactly how the engine thinks 
+       * in your browser console (F12).
+       */
+      const validator = new Ctrovalidate(form, {
+        logLevel: Ctrovalidate.LogLevel.DEBUG,
+        realTime: true, // Triggers on 'blur' and 'input' (once dirty)
+        pendingClass: 'is-validating',
+      });
+
+      /**
+       * 6. SUBMISSION HANDLING
+       * Our manual handler ensures we don't submit unless everything is perfect.
+       */
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        console.log('--- FORM SUBMISSION INITIATED ---');
+        
+        // Trigger validation for the entire form
+        const isValid = await validator.validate();
+
+        if (isValid) {
+          console.log('✅ VALIDATION SUCCESS');
+          alert('🚀 Integration successful! Your form data is ready for the cloud.');
+          
+          // Access form data using standard Web APIs
+          const data = Object.fromEntries(new FormData(form).entries());
+          console.table(data);
+        } else {
+          console.warn('❌ VALIDATION FAILURE');
+        }
+      });
+    </script>
+  </body>
+</html>
