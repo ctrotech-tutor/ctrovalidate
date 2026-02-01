@@ -128,3 +128,4 @@ Now that you're up and running, explore the depths of Ctrovalidate:
 - **[Configuration Options](./configuration.md)** — Customize classes, logging, and events.
 - **[Built-in Rules](./rules.md)** — See all 20+ rules available out of the box.
 - **[Industrial Examples](./examples.md)** — Explore our high-standards monochrome demo suite.
+- **[Framework Integrations](../integrations/tailwindcss.md)** — React, Vue, Svelte, Alpine, and more.

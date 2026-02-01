@@ -26,5 +26,4 @@ onMounted(() => {
 ```
 
 ---
-
-[Back to Framework Suite](../)
+[**View Full Documentation**](https://ctrotech-tutor.github.io/ctrovalidate/integrations/vue) | [**Framework Suite**](../)

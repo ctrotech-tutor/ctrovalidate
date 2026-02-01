@@ -18,5 +18,4 @@ Simply open `index.html` in your browser. No build step required.
 - **Feedback**: Monochrome error states with high-contrast borders.
 
 ---
-
-[Back to Framework Suite](../)
+[**View Full Documentation**](https://ctrotech-tutor.github.io/ctrovalidate/guide/getting-started) | [**Framework Suite**](../)

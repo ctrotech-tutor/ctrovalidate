@@ -27,18 +27,21 @@
 - **Micro-Weight**: <5KB gzipped. Zero dependencies. No bloat.
 - **Monochrome Aesthetic**: Designed for high-contrast, professional-grade UIs.
 
-## 📦 Multi-Framework Ecosystem
+## 📦 The Ecosystem
 
-Ctrovalidate is tool-agnostic. We provide first-class integration patterns and industrial demos for:
+Ctrovalidate is tool-agnostic. We provide first-class integration patterns and industrial demos to get you running in minutes.
 
-| Framework       | Demo                                                                     | Status    |
-| :-------------- | :----------------------------------------------------------------------- | :-------- |
-| **React 18+**   | [`demo-react`](./examples/demo-react)                                    | ✅ Stable |
-| **Next.js 15+** | [`demo-nextjs`](./examples/demo-nextjs)                                  | ✅ Stable |
-| **Vue 3**       | [`demo-vue`](./examples/demo-vue)                                        | ✅ Stable |
-| **Alpine.js**   | [`demo-alpine`](./examples/demo-alpine)                                  | ✅ Stable |
-| **Vanilla JS**  | [`demo-vanilla-js`](./examples/demo-vanilla-js)                          | ✅ Stable |
-| **HTMX**        | [Guide](https://ctrotech-tutor.github.io/ctrovalidate/integrations/htmx) | ✅ Active |
+| Framework       | Industrial Demo                                                                       | Documentation Guide                                                                          |
+| :-------------- | :------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------- |
+| **React 18+**   | [`demo-react`](./examples/demo-react)                                                 | [React Integration](https://ctrotech-tutor.github.io/ctrovalidate/integrations/react)        |
+| **Next.js 15+** | [`demo-nextjs`](./examples/demo-nextjs)                                               | [Next.js Integration](https://ctrotech-tutor.github.io/ctrovalidate/integrations/nextjs)     |
+| **Vue 3**       | [`demo-vue`](./examples/demo-vue)                                                     | [Vue Integration](https://ctrotech-tutor.github.io/ctrovalidate/integrations/vue)            |
+| **Alpine.js**   | [`demo-alpine`](./examples/demo-alpine)                                               | [Alpine.js Integration](https://ctrotech-tutor.github.io/ctrovalidate/integrations/alpinejs) |
+| **Vanilla JS**  | [`demo-vanilla-js`](./examples/demo-vanilla-js)                                       | [Getting Started](https://ctrotech-tutor.github.io/ctrovalidate/guide/getting-started)       |
+| **HTMX**        | [Protective Pattern](https://ctrotech-tutor.github.io/ctrovalidate/integrations/htmx) | [HTMX Best Practices](https://ctrotech-tutor.github.io/ctrovalidate/integrations/htmx)       |
+
+> [!TIP]
+> **New to Ctrovalidate?** Start with our [**Getting Started Guide**](https://ctrotech-tutor.github.io/ctrovalidate/guide/getting-started) for a complete walkthrough of the industrial pattern.
 
 ## 🛠️ Quick Start (Industrial Pattern)
 

@@ -28,5 +28,4 @@ useEffect(() => {
 ```
 
 ---
-
-[Back to Framework Suite](../)
+[**View Full Documentation**](https://ctrotech-tutor.github.io/ctrovalidate/integrations/react) | [**Framework Suite**](../)
