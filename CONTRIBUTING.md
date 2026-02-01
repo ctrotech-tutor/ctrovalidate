@@ -17,7 +17,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 
 ## I Have a Question
 
-If you want to ask a question, we assume that you have read the available [Documentation](https://ctrovalidate.ctrotech.com).
+If you want to ask a question, we assume that you have read the available [Documentation](https://ctrotech-tutor.github.io/ctrovalidate/).
 
 ## I Want To Contribute
 

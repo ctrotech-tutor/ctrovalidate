@@ -1,124 +1,92 @@
 # Ctrovalidate
 
-**The lightweight, declarative, and accessible form validation library for modern web applications.**
+**Modern, declarative, and accessible form validation for the industrial web.**
 
 <p align="center">
-  <a href="https://github.com/ctrotech-tutor/ctrovalidate/actions"><img src="https://github.com/ctrotech-tutor/ctrovalidate/actions/workflows/ci.yml/badge.svg" alt="Ctrovalidate CI"></a>
-  <a href="https://www.npmjs.com/package/ctrovalidate"><img src="https://img.shields.io/npm/v/ctrovalidate.svg" alt="NPM Version"></a>
-  <a href="https://bundlephobia.com/package/ctrovalidate"><img src="https://img.shields.io/bundlephobia/minzip/ctrovalidate.svg" alt="Bundle Size"></a>
-  <a href="https://github.com/ctrotech-tutor/ctrovalidate/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/ctrovalidate.svg" alt="License"></a>
-  <a href="https://conventionalcommits.org"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg" alt="Conventional Commits"></a>
+  <a href="https://github.com/ctrotech-tutor/ctrovalidate/actions"><img src="https://github.com/ctrotech-tutor/ctrovalidate/actions/workflows/ci.yml/badge.svg" alt="CI Status"></a>
+  <a href="https://www.npmjs.com/package/ctrovalidate"><img src="https://img.shields.io/npm/v/ctrovalidate.svg" alt="NPM"></a>
+  <a href="https://bundlephobia.com/package/ctrovalidate"><img src="https://img.shields.io/bundlephobia/minzip/ctrovalidate.svg" alt="Size"></a>
+  <a href="https://conventionalcommits.org"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-black.svg" alt="Conventional Commits"></a>
 </p>
 
 ---
 
-[Documentation](https://ctrotech-tutor.github.io/ctrovalidate/) | [Integrations](https://ctrotech-tutor.github.io/ctrovalidate/integrations/tailwindcss) | [API Reference](https://ctrotech-tutor.github.io/ctrovalidate/api/methods) | [Contributing](./CONTRIBUTING.md)
+[Documentation](https://ctrotech-tutor.github.io/ctrovalidate/) | [Framework Demos](./examples/) | [API Reference](https://ctrotech-tutor.github.io/ctrovalidate/api/methods) | [Contributing](./CONTRIBUTING.md)
 
 ---
 
 ## 🚀 Overview
 
-**Ctrovalidate** is a zero-dependency, vanilla JavaScript library designed to make form validation simple, maintainable, and powerful. It embraces a **declarative, HTML-first approach**, allowing you to define validation rules directly in your DOM using `data` attributes, while still providing a powerful JavaScript API for complex, programmatic control.
+**Ctrovalidate** is a zero-dependency, vanilla JavaScript library that bridges the gap between raw DOM power and framework-ready APIs. It embraces a **declarative, HTML-first approach**, allowing you to define validation rules directly in your markup using `data` attributes, powered by an industrial-grade monochrome design philosophy.
 
-Built for **modern production environments**, it supports TypeScript, treeshaking, and accessibility (ARIA) out of the box.
+## ✨ Why Ctrovalidate?
 
-## ✨ Features
+- **HTML-First logic**: Keep validation rules where your data lives.
+- **A11y-by-default**: Native ARIA management for screen-reader excellence.
+- **Industrial Standards**: Built-in support for async checks, conditional logic, and deep field dependencies.
+- **Micro-Weight**: <5KB gzipped. Zero dependencies. No bloat.
+- **Monochrome Aesthetic**: Designed for high-contrast, professional-grade UIs.
 
-- **Declarative Syntax**: Define rules in HTML (`data-ctrovalidate-rules="required|email"`).
-- **Accessibility First**: Automatically handles `aria-invalid` and `aria-describedby` for screen readers.
-- **Zero Dependencies**: Lightweight (<5kb gzipped) and incredibly fast.
-- **Async Validation**: Built-in support for server-side checks (e.g., username availability).
-- **Conditional Validation**: Rules that trigger based on other field states (`data-ctrovalidate-if`).
-- **Framework Agnostic**: Minimalist core works perfectly with React, Vue, Svelte, Alpine.js, and more.
-- **Type Safe**: First-class TypeScript support with comprehensive definitions.
+## 📦 Multi-Framework Ecosystem
 
-## 📦 Installation
+Ctrovalidate is tool-agnostic. We provide first-class integration patterns and industrial demos for:
 
-```bash
-npm install ctrovalidate
-# or
-yarn add ctrovalidate
-# or
-pnpm add ctrovalidate
-```
+| Framework       | Demo                                                                     | Status    |
+| :-------------- | :----------------------------------------------------------------------- | :-------- |
+| **React 18+**   | [`demo-react`](./examples/demo-react)                                    | ✅ Stable |
+| **Next.js 15+** | [`demo-nextjs`](./examples/demo-nextjs)                                  | ✅ Stable |
+| **Vue 3**       | [`demo-vue`](./examples/demo-vue)                                        | ✅ Stable |
+| **Alpine.js**   | [`demo-alpine`](./examples/demo-alpine)                                  | ✅ Stable |
+| **Vanilla JS**  | [`demo-vanilla-js`](./examples/demo-vanilla-js)                          | ✅ Stable |
+| **HTMX**        | [Guide](https://ctrotech-tutor.github.io/ctrovalidate/integrations/htmx) | ✅ Active |
 
-## 🛠️ Quick Start
+## 🛠️ Quick Start (Industrial Pattern)
 
-### 1. Define your rules in HTML
-
-Add `data-ctrovalidate-rules` to your inputs. The library will automatically detect them.
+### 1. The Markup
 
 ```html
-<form id="registrationForm" novalidate>
-  <div class="form-group">
-    <label for="email">Email Address</label>
-    <input type="email" name="email" data-ctrovalidate-rules="required|email" />
-    <!-- Error container (auto-detected) -->
-    <div class="error-message"></div>
-  </div>
-
-  <button type="submit">Register</button>
-</form>
+<div class="showcase-container">
+  <form id="registrationForm" novalidate className="validation-form">
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        name="email"
+        data-ctrovalidate-rules="required|email"
+        placeholder="john@example.com"
+      />
+      <div class="error-message"></div>
+    </div>
+    <button type="submit" class="submit-btn">Verify Integration</button>
+  </form>
+</div>
 ```
 
-### 2. Initialize in JavaScript
+### 2. The Implementation
 
 ```javascript
 import { Ctrovalidate } from 'ctrovalidate';
 
-const form = document.querySelector('#registrationForm');
-const validator = new Ctrovalidate(form);
+// Initialize with industrial defaults
+const validator = new Ctrovalidate(
+  document.querySelector('#registrationForm'),
+  { realTime: true, pendingClass: 'is-validating' }
+);
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const isValid = await validator.validate();
-  if (isValid) {
-    console.log('Form is valid!');
-  }
-});
+// Unified validation handler
+const isValid = await validator.validate();
 ```
 
-## 📚 Documentation
-
-For full documentation, guides, and API reference, visit:
-[**https://ctrotech-tutor.github.io/ctrovalidate/**](https://ctrotech-tutor.github.io/ctrovalidate/)
-
-## 🧪 Development & Testing
-
-We adhere to strict industry standards for library development.
+## 🧪 Development
 
 ```bash
-# Register dependencies
-npm install
-
-# Run test suite
-npm test
-
-# Generate production builds
-npm run build
+npm install     # Install suite
+npm test        # Run verification (Vitest)
+npm run build   # Generate industrial bundles
 ```
-
-## 🤝 Contributing & Community
-
-Contributions are what make the open-source community an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-- [Contributing Guide](./CONTRIBUTING.md)
-- [Code of Conduct](./CODE_OF_CONDUCT.md)
-- [Security Policy](./SECURITY.md)
-
-### Sponsor this project
-
-If you find Ctrovalidate useful and would like to support its development, consider sponsoring the project:
-
-[**Sponsor on GitHub**](https://github.com/sponsors/ctrotech-tutor) · [**Buy Me a Coffee**](https://www.buymeacoffee.com/ctrotech) · [**Support on Paystack**](https://paystack.shop/pay/ctrovalidate-support) · [**Donate via Flutterwave**](https://flutterwave.com/donate/nkde0iddzjde)
-
-## 📄 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
 <p align="center">
-  Built with ❤️ by <a href="https://github.com/ctrotech-tutor">Ctrotech</a>
+  Built with ❤️ for the industrial web by <a href="https://github.com/ctrotech-tutor">Ctrotech</a>
 </p>

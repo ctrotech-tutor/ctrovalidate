@@ -2,7 +2,11 @@
 
 ### Bug Fixes
 
-- resolve linting errors in test files and refine validation logic ([2b7fd8a](https://github.com/ctrotech-tutor/ctrovalidate/commit/2b7fd8a356a3393c783bc8b163546bbfc054dc59))
+- **Industrialization**: Standardized framework integration suite with high-standards monochrome examples for React, Vue, Next.js, and Alpine.js.
+- **Documentation Overhaul**: Complete rewrite of the documentation site with localized integration guides and professional patterns.
+- **Ecosystem Expansion**: Introduced dedicated `demo-*` repository structure for framework-specific examples.
+- **Quality Assurance**: Resolved critical linting errors in test files and refined internal validation engine stability.
+- **VitePress Configuration**: Enhanced VitePress configuration with advanced social metadata tags.
 
 # Changelog
 

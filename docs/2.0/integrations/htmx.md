@@ -11,67 +11,72 @@ The key is to hook into htmx's event lifecycle. We will listen for the `htmx:bef
 3.  **Listen for `htmx:beforeRequest`:** Add an event listener for this event on the element that will trigger the request.
 4.  **Validate and Prevent:** Inside the listener, call `await validator.validate()`. If validation fails, call `event.preventDefault()` on the event object. This will cancel the htmx request.
 
-## Example: Username Availability Checker
+## Example: Industrial AJAX Verification
 
-This example shows how to validate a username field on the client-side before htmx makes a server request to check if it's available.
+This pattern shows how to build a high-performance verification flow where Ctrovalidate acts as the client-side firewall for htmx.
 
-### 1. HTML Structure with htmx Attributes
+### 1. HTML Structure
 
-The `input` field has `hx-post` to trigger a request and `hx-trigger="blur"` to specify when it happens.
+We use `hx-post` for server-side availability checks, but Ctrovalidate ensures we only hit the server when client-side rules pass.
 
 ```html
-<form id="signup-form" novalidate>
-  <div>
-    <label for="username">Username</label>
-    <input
-      type="text"
-      id="username"
-      name="username"
-      data-ctrovalidate-rules="required|minLength:4|alphaDash"
-      hx-post="/mock-username-check"
-      hx-trigger="blur"
-      hx-target="#username-feedback"
-    />
-    <div id="username-feedback" class="error-message"></div>
-  </div>
-</form>
+<div class="showcase-container">
+  <form id="verification-form" novalidate className="validation-form">
+    <div class="form-group">
+      <label for="username">System ID / Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="e.g. admin_pro"
+        data-ctrovalidate-rules="required|minLength:4|alphaDash"
+        hx-post="/api/verify-id"
+        hx-trigger="blur"
+        hx-target="#id-status"
+      />
+      <div id="id-status" class="error-message"></div>
+    </div>
+
+    <button type="submit" class="submit-btn">Verify Account</button>
+  </form>
+</div>
 ```
 
 ### 2. JavaScript Integration
 
-The JavaScript sets up the validator and the crucial event listener.
-
 ```javascript
 import { Ctrovalidate } from 'ctrovalidate';
 
-const form = document.getElementById('signup-form');
+const form = document.getElementById('verification-form');
 const usernameField = document.getElementById('username');
-const validator = new Ctrovalidate(form);
+const validator = new Ctrovalidate(form, {
+  realTime: true,
+  pendingClass: 'is-validating'
+});
 
-// Listen for htmx's 'beforeRequest' event on the input field
+// Intercept htmx requests to ensure client-side validity
 usernameField.addEventListener('htmx:beforeRequest', async (event) => {
-  console.log('htmx:beforeRequest triggered. Validating field first...');
-
-  // We only want to validate the specific field that triggered the request.
+  // Validate only the triggering field
   const isFieldValid = await validator.validate([usernameField]);
 
   if (!isFieldValid) {
-    console.log('Client-side validation failed. Cancelling htmx request.');
-
-    // If validation fails, prevent the htmx request from being sent.
+    // Prevent the server request if local rules fail
     event.preventDefault();
-  } else {
-    console.log('Client-side validation passed. Allowing htmx request.');
   }
 });
 ```
 
-### How It Works
+## 🏗️ Professional Patterns
 
-- If you type "abc" (which fails `minLength:4`) and tab away, Ctrovalidate will immediately show an error. The `htmx:beforeRequest` listener will run, `validator.validate()` will return `false`, and `event.preventDefault()` will be called. No server request is made.
-- If you type "validuser", Ctrovalidate passes. The listener allows the event to proceed, and htmx sends the AJAX request to the server to check for availability.
+### Global Interception
+For large applications, you can listen for `htmx:beforeRequest` on the `document` body to automatically protect all forms without individual listeners.
 
-This pattern provides the best of both worlds: instant client-side feedback and powerful server-side interactions, all with minimal JavaScript.
+### Cohesive Feedback
+Use `pendingClass: 'is-validating'` to show a consistent loading state that bridges the gap between Ctrovalidate's local checks and htmx's server response.
 
-> [!TIP]
-> Use the `pendingClass: 'is-validating'` configuration to show loading states that automatically synchronize with both Ctrovalidate and htmx requests.
+---
+
+## Next Steps
+
+- **[Real-time Configuration](../guide/configuration.md)** — Customizing feedback loops.
+- **[Advanced Rules](../guide/rules.md)** — Composing complex security schemas.

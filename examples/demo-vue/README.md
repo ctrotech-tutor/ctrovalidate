@@ -1,5 +1,30 @@
-# Vue 3 + TypeScript + Vite
+# Ctrovalidate Demo: Vue 3
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+**Modern validation for the Composition API.**
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+This demo showcases how Ctrovalidate perfectly complements Vue 3's template-driven philosophy while maintaining high performance.
+
+## 🚀 Features
+- **Composition API**: Uses `onMounted` and `ref` for clean, modern integration.
+- **HTML-First Templates**: Logical rules kept in the `<template>`, keeping your `<script>` focused.
+- **Showcase Aesthetic**: Implements the industrial monochrome design system.
+
+## 🛠️ How to run
+```bash
+npm install
+npm run dev
+```
+
+## 📝 Integration
+```javascript
+onMounted(() => {
+  new Ctrovalidate(formRef.value, {
+    realTime: true,
+    logLevel: Ctrovalidate.LogLevel.DEBUG
+  });
+});
+```
+
+---
+
+[Back to Framework Suite](../)
