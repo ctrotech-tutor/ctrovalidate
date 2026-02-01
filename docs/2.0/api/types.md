@@ -1,3 +1,8 @@
+---
+title: TypeScript Definitions | Typings Reference
+description: Complete reference of TypeScript interfaces and types for Ctrovalidate, ensuring type safety in modern web projects.
+---
+
 # TypeScript Support
 
 Ctrovalidate is written in standard JavaScript with deep JSDoc integration, providing first-class IntelliSense and type safety for both JavaScript and TypeScript developers.

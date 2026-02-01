@@ -1,9 +1,9 @@
 ---
-title: Public Methods API Reference | Form Validator Instance
-description: Comprehensive API documentation for Ctrovalidate instance methods, including validate, reset, destroy, and programmatic rule addition.
+title: Instance Methods API | Ctrovalidate Reference
+description: API documentation for Ctrovalidate instance methods, including validate, addField, getError, and isDirty for precise form control.
 ---
 
-# Public Methods
+# Instance Methods
 
 Instances of the `Ctrovalidate` class provide several methods to control validation programmatically.
 
@@ -74,10 +74,43 @@ Retrieve the current error state for a specific field.
 
 ## `isDirty(fieldName)`
 
-Check if a user has interacted with a field.
+Check if a user has interacted with a field (triggered a blur event).
 
 - **Params**: `fieldName` (string)
 - **Returns**: `boolean`
+
+---
+
+## `reset()`
+
+Resets the validation state of the entire form.
+
+- **Description**: Clears all error messages from the DOM, removes error classes, and resets all field "dirty" states to `false`.
+
+**Usage:**
+
+```javascript
+// Clear the form and the validator state
+form.reset();
+validator.reset();
+```
+
+---
+
+## `destroy()`
+
+Completely cleans up the validator instance.
+
+- **Description**: Removes all event listeners attached to the form and its fields, clears all error states, and releases internal references. Use this when a component in a framework like React or Vue is about to be unmounted.
+
+**Usage:**
+
+```javascript
+// Framework cleanup
+onUnmounted(() => {
+  validator.destroy();
+});
+```
 
 ## Next Steps
 

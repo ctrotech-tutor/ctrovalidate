@@ -1,67 +1,40 @@
+---
+title: Conditional Validation | State-Based Rules
+description: Master the data-ctrovalidate-if attribute to create dynamic forms where validation rules depend on the state of other fields.
+---
+
 # Conditional Validation
 
-In real-world applications, fields are often only required based on the state of other fields. Ctrovalidate handles this elegantly through the `data-ctrovalidate-if` attribute.
-
-## 🧠 The Logic
-
-The `if` attribute follows a simple controller-condition pattern:
-`data-ctrovalidate-if="controllerName:condition"`
-
-- **controllerName**: The `name` attribute of the field to watch.
-- **condition**: The state to check for.
+In industrial form design, validation logic is rarely static. You often need to validate a field only if another condition is met (e.g., "Validate Shipping Address only if 'Ship to different address' is checked"). Ctrovalidate makes this declarative via the `data-ctrovalidate-if` attribute.
 
 ---
 
-## 🛠️ Supported Conditions
+## ⚙️ The `if` Syntax
 
-### `:checked`
+The `data-ctrovalidate-if` attribute takes a controller expression in the format `controllerName:type[:value]`.
 
-Validation runs only if the target checkbox or radio is checked.
+### 1. Boolean State (`checked`)
+Validates the current field only if the controller (checkbox/radio) is checked.
 
 ```html
-<input type="checkbox" name="newsletter" id="news" />
-<label for="news">Subscribe?</label>
+<input type="checkbox" name="wants_newsletter" id="newsletter" />
 
-<!-- Email is only validated if 'newsletter' is checked -->
-<input
-  name="email"
+<input 
+  name="email" 
   data-ctrovalidate-rules="required|email"
-  data-ctrovalidate-if="newsletter:checked"
+  data-ctrovalidate-if="wants_newsletter:checked"
 />
 ```
 
-### `:present`
-
-Validation runs if the target field has any non-empty value.
-
-```html
-<input name="coupon_code" placeholder="Have a code?" />
-
-<!-- Discount info required only if coupon is entered -->
-<input
-  name="referral"
-  data-ctrovalidate-rules="required"
-  data-ctrovalidate-if="coupon_code:present"
-/>
-```
-
-### `:value=...`
-
-Validation runs only if the target field exactly matches the specified value.
+### 2. Matching Value (`value`)
+Validates only if the controller's value exactly matches the provided string.
 
 ```html
-<select name="contact_method">
-  <option value="email">Email</option>
-  <option value="phone">Phone</option>
+<select name="country">
+  <option value="US">USA</option>
+  <option value="CA">Canada</option>
 </select>
 
-<!-- Phone rules only apply if 'phone' is selected -->
-<input
-  name="mobile"
-  data-ctrovalidate-rules="required|phone"
-  data-ctrovalidate-if="contact_method:value=phone"
-/>
-```
 
 ---
 

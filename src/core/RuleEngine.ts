@@ -56,6 +56,7 @@ export class RuleEngine {
         `Dependency for "${(element as any).name}" not met. Skipping validation.`
       );
       this.#uiManager.clearError(element);
+      fieldObject.state.lastError = null;
       return true;
     }
 
@@ -127,6 +128,7 @@ export class RuleEngine {
         });
 
         this.#uiManager.displayError(element, message);
+        fieldObject.state.lastError = message;
         this.#logger.debug(
           'RuleEngine',
           `Field validation failed for "${input.name}" on rule "${rule.name}".`
@@ -136,6 +138,7 @@ export class RuleEngine {
     }
 
     this.#uiManager.clearError(element);
+    fieldObject.state.lastError = null;
     this.#logger.debug(
       'RuleEngine',
       `Field validation succeeded for "${input.name}".`

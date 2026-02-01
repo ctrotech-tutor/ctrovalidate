@@ -1,4 +1,7 @@
-# Configuration Options
+---
+title: Configuration Reference | Customizing Ctrovalidate
+description: Comprehensive guide to Ctrovalidate configuration options, including error classes, logging levels, and real-time validation settings for industrial environments.
+---
 
 Ctrovalidate is designed with sensible defaults, but it provides deep customization for production requirements. You can pass an options object as the second argument to the `Ctrovalidate` constructor.
 

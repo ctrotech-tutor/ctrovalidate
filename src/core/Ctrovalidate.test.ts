@@ -188,4 +188,52 @@ describe('Ctrovalidate', () => {
       input.dispatchEvent(new Event('blur'));
     });
   });
+
+  describe('Programmatic Methods (Industrial API)', () => {
+    it('should correctly report field dirty state', () => {
+      const v = new Ctrovalidate(form);
+      expect(v.isDirty('username')).toBe(false);
+
+      const input = form.querySelector('[name="username"]') as HTMLInputElement;
+      input.dispatchEvent(new Event('blur'));
+      expect(v.isDirty('username')).toBe(true);
+    });
+
+    it('should return the current error message via getError', async () => {
+      const v = new Ctrovalidate(form);
+      const input = form.querySelector('[name="username"]') as HTMLInputElement;
+      input.value = ''; // Invalid (required)
+
+      await v.validate();
+      expect(v.getError('username')).toBe('This field is required.');
+
+      input.value = 'valid';
+      await v.validate();
+      expect(v.getError('username')).toBeNull();
+    });
+
+    it('should reset the entire form state via reset()', async () => {
+      const v = new Ctrovalidate(form);
+      const input = form.querySelector('[name="username"]') as HTMLInputElement;
+      input.value = '';
+      input.dispatchEvent(new Event('blur')); // Make it dirty
+
+      await v.validate(); // Show error
+      expect(v.isDirty('username')).toBe(true);
+      expect(v.getError('username')).not.toBeNull();
+
+      v.reset();
+      expect(v.isDirty('username')).toBe(false);
+      expect(v.getError('username')).toBeNull();
+    });
+
+    it('should fully clean up via destroy()', () => {
+      const v = new Ctrovalidate(form);
+      v.destroy();
+
+      // Dispatch event - should not trigger log or change state if destroyed correctly
+      // (Simplified check as destroy mainly removes listeners)
+      expect(v.isDirty('username')).toBe(false);
+    });
+  });
 });

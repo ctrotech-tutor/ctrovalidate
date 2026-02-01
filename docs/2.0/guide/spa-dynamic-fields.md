@@ -1,3 +1,8 @@
+---
+title: Dynamic Fields in SPAs | Lifecycle Management
+description: Learn how to manage form fields that enter and leave the DOM in React, Vue, and Alpine.js with Ctrovalidate's addField and refresh methods.
+---
+
 # SPAs & Dynamic Fields
 
 Modern web applications (React, Vue, Svelte, etc.) frequently add or remove form fields from the DOM at runtime. Ctrovalidate provides a powerful API to keep your validation instance in sync with these changes.
@@ -38,22 +43,34 @@ fieldToRemove.remove();
 
 ---
 
+### `refresh()`
+
+For complex updates where multiple fields are added or removed (e.g., rendering a new list via `v-for`), calling `refresh()` is often cleaner than managing individual lifecycle hooks.
+
+```javascript
+// 1. Update your DOM
+myList.innerHTML = generateNewFields();
+
+// 2. Tell Ctrovalidate to re-scan the form
+validator.refresh();
+```
+
+---
+
 ## 🧩 Framework Patterns
 
 ### Vue / React (Lifecycle Hooks)
 
-In component-based frameworks, use the lifecycle hooks to manage registration.
+In component-based frameworks, use the lifecycle hooks to manage registration or refresh.
 
 ```javascript
-// React Example using useEffect
+// React Example using useEffect for a list
 useEffect(() => {
-  const field = fieldRef.current;
-  validator.addField(field);
-
-  return () => {
-    validator.removeField(field);
-  };
-}, []);
+  // Wait for render
+  if (items.length > 0) {
+    validator.current?.refresh();
+  }
+}, [items]);
 ```
 
 ### HTMX / Alpine.js (Auto-Discovery)

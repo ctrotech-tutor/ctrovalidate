@@ -171,4 +171,44 @@ export class Ctrovalidate {
     this.#formController.discoverFields();
     this.#formController.attachEventListeners(this.#options.realTime);
   }
+
+  /**
+   * Returns the current error for a field by its name.
+   */
+  getError(fieldName: string): string | null {
+    const field = this.#formController
+      .getFields()
+      .find((f) => (f.element as any).name === fieldName);
+    return field ? field.state.lastError : null;
+  }
+
+  /**
+   * Checks if a field has been interacted with.
+   */
+  isDirty(fieldName: string): boolean {
+    const field = this.#formController
+      .getFields()
+      .find((f) => (f.element as any).name === fieldName);
+    return field ? field.state.isDirty : false;
+  }
+
+  /**
+   * Resets the validation state of the form.
+   */
+  reset(): void {
+    this.#formController.reset();
+    this.#formController.getFields().forEach((f) => {
+      this.#uiManager.clearError(f.element);
+    });
+  }
+
+  /**
+   * Fully cleans up the validator instance.
+   */
+  destroy(): void {
+    this.#formController.destroy();
+    this.#formController.getFields().forEach((f) => {
+      this.#uiManager.clearError(f.element);
+    });
+  }
 }

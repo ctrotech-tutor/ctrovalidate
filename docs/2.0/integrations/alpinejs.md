@@ -5,11 +5,102 @@
 ## The Strategy
 
 The key to a successful integration is to use Ctrovalidate's programmatic API (`addField` and `removeField`) to keep the validator synchronized with the DOM changes made by Alpine.
+## Alpine.js Integration
 
-1.  **Initialize Ctrovalidate Once:** Create a single validator instance for your form.
-2.  **Register Alpine Component:** Use the `alpine:init` event to safely register your component data. This is the recommended pattern.
-3.  **Call `addField`:** When your Alpine component adds a new form field to the DOM, use `$nextTick` to wait for the DOM to update, then call `validator.addField()` on the new element(s).
-4.  **Call `removeField`:** _Before_ your Alpine component removes a field, call `validator.removeField()` on the element(s) to be removed.
+Ctrovalidate and Alpine.js are a match made in heaven. Both libraries share a "markup-first" philosophy, allowing you to build reactive, validated forms directly in your HTML without a heavy build step.
+
+---
+
+## ⚙️ Setting Up Your Project
+
+Alpine.js is famous for its simplicity. You can use it via CDN or NPM.
+
+### 1. Using CDN (No Build Step)
+Perfect for static sites or CMS integrations (WordPress, Laravel Blade).
+
+```html
+<!-- Include Alpine.js and Ctrovalidate -->
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script type="module">
+  import { Ctrovalidate } from 'https://cdn.jsdelivr.net/npm/ctrovalidate@2.1.1/dist/ctrovalidate.js';
+  window.Ctrovalidate = Ctrovalidate;
+</script>
+```
+
+### 2. Using NPM (Modern Build)
+```bash
+npm install alpinejs ctrovalidate
+```
+
+---
+
+## 🏗️ The Declarative Pattern
+
+The most elegant way to use Ctrovalidate with Alpine is to initialize the validator within Alpine's `x-init` directive.
+
+### Complete Implementation
+
+```html
+<div x-data="{ 
+    validator: null,
+    async submit() {
+      if (await this.validator.validate()) {
+        console.log('Alpine Form Verified!');
+      }
+    }
+  }" 
+  x-init="validator = new Ctrovalidate($refs.form, { realTime: true })"
+  class="max-w-md mx-auto p-6 bg-white border border-black"
+>
+  <form x-ref="form" @submit.prevent="submit" novalidate class="space-y-4">
+    <div>
+      <label class="block text-xs font-bold uppercase">Subscriber Email</label>
+      <input
+        name="email"
+        type="email"
+        data-ctrovalidate-rules="required|email"
+        class="w-full border-b border-black py-2 focus:outline-none focus:bg-gray-50 transition-all"
+      />
+      <div class="error-message text-red-600 text-[10px] uppercase font-bold mt-1"></div>
+    </div>
+
+    <button type="submit" class="w-full bg-black text-white p-3 font-bold uppercase hover:bg-gray-800">
+      Join Network
+    </button>
+  </form>
+</div>
+```
+
+---
+
+## 🔄 Reactive Synchronization
+
+Because Ctrovalidate observers the DOM directly, it automatically stays in sync with Alpine's `x-model`. 
+
+### Dynamic Fields with `x-for`
+When fields are added dynamically via `x-for`, you should call the refresh method to ensure Ctrovalidate tracks the new elements.
+
+```html
+<button @click="items.push({}); $nextTick(() => validator.refresh())">
+  Add Field
+</button>
+```
+
+---
+
+## ⚡ Why Use Ctrovalidate with Alpine.js?
+
+1.  **Alignment of Philosophy**: Both libraries emphasize the power of HTML attributes over complex JS logic.
+2.  **Lightweight Stack**: Combining Alpine + Ctrovalidate gives you high reactivity and robust validation for under 20KB total.
+3.  **No Context Switching**: Stay in your HTML file for both layout and validation rules.
+
+> [!TIP]
+> You can use `x-show` or `x-if` to conditionally show error containers, though Ctrovalidate handles the `display: none` of error messages automatically.
+
+## Next Steps
+
+- **[Vanilla JS Guide](../guide/getting-started.md)** — Working without any framework.
+- **[HTMX Integration](./htmx.md)** — Using Ctrovalidate with AJAX fragments.
 
 ## Example: Industrial Dynamic Registration
 

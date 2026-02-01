@@ -35,6 +35,7 @@ export interface RuleDefinition {
 export interface FieldState {
   isDirty: boolean;
   abortController: AbortController | null;
+  lastError: string | null;
 }
 
 /**

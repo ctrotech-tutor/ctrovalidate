@@ -1,61 +1,89 @@
 # React Integration
 
-While Ctrovalidate is a DOM-first library, it integrates perfectly with React's component lifecycle using `useRef` and `useEffect`.
+Ctrovalidate is a DOM-first library, making it an ideal "headless" validation engine for React. By running validation outside of the React render cycle, you achieve **peak performance** without the overhead of heavy state-management libraries.
 
 ---
 
-## 🏗️ Basic Pattern
+## ⚙️ Setting Up Your React Project
 
-The most reliable way to use Ctrovalidate in React is to initialize it once the component mounts using the standard hooks pattern.
+We recommend using **Vite** for a modern React development environment.
+
+### 1. Initialize with Vite
+```bash
+npm create vite@latest my-react-app -- --template react-ts
+cd my-react-app
+npm install ctrovalidate
+npm run dev
+```
+
+### 2. Styling (Tailwind CSS)
+For the best aesthetic results with our monochrome design, we recommend Tailwind CSS.
+```bash
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+---
+
+## 🏗️ The Industrial Pattern
+
+The most reliable way to integrate Ctrovalidate is to use `useRef` to hold the validator instance. This ensures the library survives re-renders while maintaining a stable connection to the DOM.
+
+### Complete Implementation
 
 ```tsx
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Ctrovalidate } from 'ctrovalidate';
 
-export const SignupForm = () => {
+export const IndustrialSignup = () => {
   const formRef = useRef<HTMLFormElement>(null);
-  const [contactMethod, setContactMethod] = useState('email');
+  const validatorRef = useRef<Ctrovalidate | null>(null);
 
   useEffect(() => {
-    if (formRef.current) {
-      // Initialize Ctrovalidate with industrial defaults
-      const validator = new Ctrovalidate(formRef.current, {
+    if (formRef.current && !validatorRef.current) {
+      // Initialize once on mount
+      validatorRef.current = new Ctrovalidate(formRef.current, {
         realTime: true,
         logLevel: Ctrovalidate.LogLevel.DEBUG,
-        pendingClass: 'is-validating',
+        errorClass: 'border-black ring-1 ring-black',
+        errorMessageClass: 'text-xs font-mono uppercase mt-1'
       });
-
-      // Cleanup listeners on unmount
-      return () => {
-        // Ctrovalidate manages its own listeners, 
-        // but it's good practice to keep this hook focused.
-      };
     }
+
+    // Optional: Clean up on unmount
+    return () => {
+      validatorRef.current?.destroy();
+      validatorRef.current = null;
+    };
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Logic to validate on submit is handled by the 
-    // native 'submit' listener if you don't override it,
-    // or you can call .validate() manually here.
+    
+    if (await validatorRef.current?.validate()) {
+      const formData = new FormData(formRef.current!);
+      console.log('Verification successful:', Object.fromEntries(formData));
+    }
   };
 
   return (
-    <div className="showcase-container">
-      <form ref={formRef} noValidate className="validation-form">
-        <div className="form-group">
-          <label htmlFor="email">Email Address</label>
+    <div className="max-w-md mx-auto p-8 border border-black bg-white">
+      <h2 className="text-2xl font-bold mb-6 uppercase tracking-tighter">Register Account</h2>
+      
+      <form ref={formRef} noValidate onSubmit={onFormSubmit} className="space-y-6">
+        <div>
+          <label className="block text-sm font-medium uppercase mb-1">Email</label>
           <input
-            id="email"
             name="email"
+            type="email"
             data-ctrovalidate-rules="required|email"
-            placeholder="john@example.com"
+            className="w-full border-b border-black py-2 focus:outline-none focus:border-gray-400 transition-colors"
           />
           <div className="error-message" />
         </div>
 
-        <button type="submit" className="submit-btn">
-          Verify Integration
+        <button type="submit" className="w-full bg-black text-white py-3 uppercase text-sm font-bold hover:bg-gray-800 transition-colors">
+          Initialize Access
         </button>
       </form>
     </div>
@@ -65,43 +93,31 @@ export const SignupForm = () => {
 
 ---
 
-## 🔄 Handling Dynamic Fields
+## 🔄 Handling Dynamic State
 
-If your React form fields are added/removed dynamically (e.g., in a list), use a separate `useEffect` or a callback-ref to register/unregister them.
+If your form depends on dynamic React state (e.g., a "Toggle Password" field), Ctrovalidate handles it seamlessly. Because it reads the DOM on the fly during validation, it will always see the current value of the elements.
+
+### When to call `.refresh()`
+If you add or remove input elements from the DOM using React's conditional rendering (`{showField && <input ... />}`), you should call `validator.refresh()` inside a `useEffect` that tracks that state.
 
 ```tsx
-const DynamicInput = ({ validator }: { validator: Ctrovalidate }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      validator.addField(inputRef.current);
-    }
-    return () => {
-      if (inputRef.current) {
-        validator.removeField(inputRef.current);
-      }
-    };
-  }, [validator]);
-
-  return (
-    <input ref={inputRef} name="hobby" data-ctrovalidate-rules="required" />
-  );
-};
+useEffect(() => {
+  validatorRef.current?.refresh();
+}, [isAdvancedMode]);
 ```
 
 ---
 
-## ⚡ Benefits over Pure React Validation
+## ⚡ Why Use Ctrovalidate with React?
 
-1.  **Performance**: Validation logic runs outside of React's render cycle, preventing unnecessary re-renders of the entire form.
-2.  **Declarative**: Keep your validation logic in the JSX markup rather than in complex `yup` or `zod` schemas.
-3.  **No State Boilerplate**: You don't need to manually manage `error` or `touched` states in `useState`.
+1.  **Skip the Re-renders**: Ctrovalidate handles error display and class toggling directly in the DOM. Your component only re-renders when **you** want it to.
+2.  **Type Safety**: Full TypeScript support with `CtrovalidateOptions` and `RuleLogic` types.
+3.  **A11y Automated**: No more manual `aria-invalid` management.
 
-> [!IMPORTANT]
-> Since Ctrovalidate manipulates the DOM directly (adding classes and error messages), ensure your `error-message` containers are empty in your JSX to avoid hydration mismatches.
+> [!TIP]
+> Use the `pendingClass` option to show high-fidelity loading states during async checks (like "Username Available") without writing any custom React state logic.
 
 ## Next Steps
 
-- **[API Reference](../api/methods.md)** — More details on `addField` and `removeField`.
-- **[Custom Rules](../guide/custom-rules.md)** — Creating async rules for your React apps.
+- **[Next.js integration](./nextjs.md)** — Working with Server Components and Hydration.
+- **[API Methods Reference](../api/methods.md)** — Deep dive into `getError()` and `isDirty()`.

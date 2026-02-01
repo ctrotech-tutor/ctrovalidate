@@ -39,52 +39,65 @@ For quick tests or simple static sites, you can import Ctrovalidate directly fro
   // Use Ctrovalidate here
 </script>
 ```
+## ⚙️ Setting Up Your Project
+
+Before we dive into the code, ensure your environment is ready for modern development. Ctrovalidate works out-of-the-box with any build tool (Vite, Webpack, etc.) or as a simple `<script>` tag.
+
+### 1. Initialize your environment
+If you are starting from scratch, we recommend using **Vite** for the fastest developer experience.
+
+```bash
+npm create vite@latest my-form-app -- --template vanilla-ts
+cd my-form-app
+npm install ctrovalidate
+npm run dev
+```
 
 ---
 
 ## 🛠️ Your First Form
 
-Let's build a professional registration form that uses real-time validation and localized error messages.
+Let's build a professional registration form. This example covers everything from HTML attributes to handling asynchronous success.
 
-### 1. HTML Structure
+### 1. The Markup (HTML)
 
-First, define your HTML. The declarative heart of Ctrovalidate lies in the `data-ctrovalidate-rules` attribute.
+Define your form and fields. The declarative power of Ctrovalidate lies in the `data-ctrovalidate-rules` attribute.
 
 ```html
-<form id="registration-form" novalidate>
-  <div class="field-container">
-    <label for="email">Email Address</label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      data-ctrovalidate-rules="required|email"
-    />
-    <!-- The error container (auto-detected by Ctrovalidate) -->
-    <div class="error-message"></div>
-  </div>
+<div class="showcase-container">
+  <form id="registration-form" novalidate className="validation-form">
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="e.g. alex@industrial.com"
+        data-ctrovalidate-rules="required|email"
+      />
+      <div class="error-message"></div>
+    </div>
 
-  <div class="field-container">
-    <label for="password">Password</label>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      data-ctrovalidate-rules="required|minLength:8|strongPassword"
-    />
-    <div class="error-message"></div>
-  </div>
+    <div class="form-group">
+      <label for="password">Security Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="••••••••"
+        data-ctrovalidate-rules="required|minLength:8|strongPassword"
+      />
+      <div class="error-message"></div>
+    </div>
 
-  <button type="submit">Create Account</button>
-</form>
+    <button type="submit" class="submit-btn">Verify Account</button>
+  </form>
+</div>
 ```
 
-> [!TIP]
-> Always add the `novalidate` attribute to your form to prevent browser default validation from interfering with Ctrovalidate's superior feedback loops.
+### 2. The Logic (JavaScript/TypeScript)
 
-### 2. JavaScript Initialization
-
-Now, initialize the library. Ctrovalidate is designed to get out of your way and handle the heavy lifting automatically.
+Initialize the library and protect your submission logic.
 
 ```javascript
 import { Ctrovalidate } from 'ctrovalidate';
@@ -92,13 +105,14 @@ import { Ctrovalidate } from 'ctrovalidate';
 // Select your form
 const form = document.querySelector('#registration-form');
 
-// Initialize Ctrovalidate
+// Initialize with industrial defaults
 const validator = new Ctrovalidate(form, {
-  realTime: true, // Validate as the user types
-  logLevel: Ctrovalidate.LogLevel.INFO, // Helpful for development
+  realTime: true,
+  logLevel: Ctrovalidate.LogLevel.INFO,
+  pendingClass: 'is-validating'
 });
 
-// Handle submission
+// Handle submission securely
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -106,13 +120,14 @@ form.addEventListener('submit', async (e) => {
   const isValid = await validator.validate();
 
   if (isValid) {
-    console.log('Success! Sending data...');
-    // e.g. submitToApi(new FormData(form));
+    const data = new FormData(form);
+    console.log('Form verified. Data ready for payload:', Object.fromEntries(data));
+    
+    // Simulate API call
+    alert('Security check passed. Welcome aboard.');
   }
 });
 ```
-
----
 
 ## 🔍 What Just Happened?
 

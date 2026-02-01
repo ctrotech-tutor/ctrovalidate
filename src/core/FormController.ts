@@ -71,7 +71,7 @@ export class FormController {
       element,
       rules: parseRules(rulesString),
       dependency: this.#parseDependency(dependencyString),
-      state: { isDirty: false, abortController: null },
+      state: { isDirty: false, abortController: null, lastError: null },
     };
 
     this.#fields.push(fieldObject);
@@ -221,6 +221,25 @@ export class FormController {
     } else {
       return { controllerName, type: condition };
     }
+  }
+
+  /**
+   * Resets all field states to clean.
+   */
+  reset(): void {
+    this.#fields.forEach((field) => {
+      field.state.isDirty = false;
+      field.state.lastError = null;
+    });
+  }
+
+  /**
+   * Cleans up all event listeners.
+   */
+  destroy(): void {
+    [...this.#fields].forEach((field) => {
+      this.removeField(field.element);
+    });
   }
 
   /**

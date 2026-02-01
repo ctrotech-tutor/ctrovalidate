@@ -1,3 +1,8 @@
+---
+title: Industrial Examples | Production Patterns
+description: Start-to-finish code examples for secure registration, conditional checkout, and async validation using Ctrovalidate.
+---
+
 # Real-world Examples
 
 This page provides functional patterns and code snippets for common production scenarios.
