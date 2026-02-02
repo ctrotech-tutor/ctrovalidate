@@ -45,10 +45,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     hostname: 'https://ctrotech-tutor.github.io/ctrovalidate/',
   },
 
-  rewrites: {
-    '2.0/:path*': ':path*',
-  },
-
   themeConfig: {
     logo: '/logo.svg',
     search: {
@@ -61,7 +57,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       { text: 'API', link: '/api/methods' },
       { text: 'Sponsor', link: '/community/donate' },
       {
-        text: 'v2.1.1 (Latest)',
+        text: 'v3.0.0',
         items: [
           {
             text: 'Changelog',

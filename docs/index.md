@@ -1,12 +1,12 @@
 ---
-title: Ctrovalidate | Modern, Accessible JavaScript Form Validation
+title: Ctrovalidate | Lightweight JavaScript Form Validation
 description: A lightweight, zero-dependency JavaScript library for client-side form validation with a declarative, HTML-first approach and full ARIA support.
 layout: home
 
 hero:
   name: 'Ctrovalidate'
-  text: 'Modern Form Validation for the Web.'
-  tagline: Lightweight, accessible-by-default, and zero-dependency. Define rules in HTML, handle the rest in JS.
+  text: 'Declarative Form Validation'
+  tagline: Lightweight, accessible, and zero-dependency. TypeScript-native with 98% test coverage. Define rules in HTML, handle the rest in JS.
   image:
     src: /logo.svg
     alt: Ctrovalidate Logo
@@ -23,36 +23,35 @@ features:
     title: HTML-First API
     details: Use `data-ctrovalidate-rules` to define validation directly on your inputs. Keep logic clean and readable.
   - icon: ♿
-    title: Native Accessibility
-    details: Automatically manages `aria-invalid` and `aria-describedby` states, ensuring your forms are usable by everyone.
-  - icon: 🚀
-    title: Tiny & Fast
-    details: Under 5KB gzipped with zero dependencies. Performance you can feel, without the bloat.
-  - icon: 🧩
-    title: Fully Extensible
-    details: Build custom sync or async rules with a simple, powerful API. Perfect for unique business logic.
-  - icon: 🔄
-    title: Modern Frameworks
-    details: Seamlessly integrates with React, Vue, Svelte, and Alpine.js with hydration-safe patterns.
-  - icon: 🛡️
-    title: Production Ready
-    details: Built-in support for conditional validation, field dependencies, and real-time feedback loops.
+    title: ARIA-Compliant
+    details: Automatically manages `aria-invalid` and `aria-describedby` states for screen reader compatibility.
+  - icon: 📦
+    title: <5KB Gzipped
+    details: Zero dependencies. Lightweight bundle that won't bloat your application.
+  - icon: 🔧
+    title: 21 Built-in Rules
+    details: Common, format, and numeric validation rules out of the box. Extensible with custom sync or async rules.
+  - icon: ⚡
+    title: TypeScript Native
+    details: Full TypeScript support with comprehensive type definitions. 98% test coverage for reliability.
+  - icon: 🌐
+    title: Framework Agnostic
+    details: Works with React, Vue, Svelte, Alpine.js, and vanilla JavaScript. Includes conditional validation and field dependencies.
 ---
 
 <div class="code-preview-section">
 
 ## Declarative. Reliable. Accessible.
 
-Validation shouldn't be a chore. Ctrovalidate allows you to describe **what** you want, leaving the **how** to us.
+Define validation rules in HTML attributes. Ctrovalidate handles the validation logic, error display, and accessibility.
 
 ```html
 <!-- Define rules directly in HTML -->
-<div class="showcase-container">
+<div class="form-group">
   <input 
     type="email" 
     name="user_email"
     data-ctrovalidate-rules="required|email"
-    className="validation-form"
   />
   <div class="error-message"></div>
 </div>
@@ -61,13 +60,13 @@ Validation shouldn't be a chore. Ctrovalidate allows you to describe **what** yo
 ```javascript
 import { Ctrovalidate } from 'ctrovalidate';
 
-// Initialize with industrial defaults
+// Initialize with configuration options
 const validator = new Ctrovalidate(
   document.querySelector('form'), 
   { realTime: true }
 );
 
-// High-performance validation
+// Validate programmatically
 const isValid = await validator.validate();
 ```
 
