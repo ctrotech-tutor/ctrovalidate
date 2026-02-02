@@ -112,6 +112,7 @@ describe('Number Rules', () => {
     it('should return true for empty value', () => {
       expect(between('', ['1', '10'])).toBe(true);
       expect(between(null, ['1', '10'])).toBe(true);
+      expect(between(undefined, ['1', '10'])).toBe(true);
     });
   });
 });

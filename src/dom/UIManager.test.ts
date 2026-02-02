@@ -132,4 +132,26 @@ describe('UIManager', () => {
     uiManager.displayError(orphan, 'Error');
     expect(orphan.classList.contains('is-invalid')).toBe(true);
   });
+
+  it('should handle space-separated class strings correctly', () => {
+    const multiClassManager = new UIManager({
+      errorClass: 'border-red-500 bg-red-50',
+      pendingClass: 'opacity-50 animate-pulse',
+    });
+
+    // Display error
+    multiClassManager.displayError(input, 'Error');
+    expect(input.classList.contains('border-red-500')).toBe(true);
+    expect(input.classList.contains('bg-red-50')).toBe(true);
+
+    // Clear error
+    multiClassManager.clearError(input);
+    expect(input.classList.contains('border-red-500')).toBe(false);
+    expect(input.classList.contains('bg-red-50')).toBe(false);
+
+    // Show pending
+    multiClassManager.showPending(input);
+    expect(input.classList.contains('opacity-50')).toBe(true);
+    expect(input.classList.contains('animate-pulse')).toBe(true);
+  });
 });

@@ -55,10 +55,13 @@ export class UIManager {
   /**
    * Displays a validation error message and applies error styling and ARIA attributes.
    */
+  /**
+   * Displays a validation error message and applies error styling and ARIA attributes.
+   */
   displayError(field: HTMLElement, message: string): void {
     const errorElement = this.#findErrorElement(field);
 
-    field.classList.add(this.#errorClass);
+    field.classList.add(...this.#errorClass.split(/\s+/).filter(Boolean));
     field.setAttribute('aria-invalid', 'true');
 
     if (errorElement) {
@@ -74,7 +77,7 @@ export class UIManager {
   clearError(field: HTMLElement): void {
     const errorElement = this.#findErrorElement(field);
 
-    field.classList.remove(this.#errorClass);
+    field.classList.remove(...this.#errorClass.split(/\s+/).filter(Boolean));
     field.removeAttribute('aria-invalid');
 
     if (errorElement) {
@@ -89,13 +92,13 @@ export class UIManager {
    */
   showPending(field: HTMLElement): void {
     this.clearError(field);
-    field.classList.add(this.#pendingClass);
+    field.classList.add(...this.#pendingClass.split(/\s+/).filter(Boolean));
   }
 
   /**
    * Hides the pending state for a field after an asynchronous validation is complete.
    */
   hidePending(field: HTMLElement): void {
-    field.classList.remove(this.#pendingClass);
+    field.classList.remove(...this.#pendingClass.split(/\s+/).filter(Boolean));
   }
 }

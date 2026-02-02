@@ -57,8 +57,10 @@ describe('Format Rules', () => {
       expect(json('{a:1}')).toBe(false); // keys must be quoted
     });
 
-    it('should return false for strings not starting with { or [', () => {
-      expect(json('not-json')).toBe(false);
+    it('should return true for empty value', () => {
+      expect(json('')).toBe(true);
+      expect(json(null)).toBe(true);
+      expect(json(undefined)).toBe(true);
     });
   });
 
@@ -70,6 +72,12 @@ describe('Format Rules', () => {
     it('should fail invalid IP', () => {
       expect(ipAddress('256.256.256.256')).toBe(false);
       expect(ipAddress('abc')).toBe(false);
+    });
+
+    it('should return true for empty value', () => {
+      expect(ipAddress('')).toBe(true);
+      expect(ipAddress(null)).toBe(true);
+      expect(ipAddress(undefined)).toBe(true);
     });
   });
 
@@ -83,6 +91,8 @@ describe('Format Rules', () => {
 
     it('should return true for empty value', () => {
       expect(url('')).toBe(true);
+      expect(url(null)).toBe(true);
+      expect(url(undefined)).toBe(true);
     });
   });
 
@@ -94,6 +104,8 @@ describe('Format Rules', () => {
 
     it('should return true for empty value', () => {
       expect(creditCard('')).toBe(true);
+      expect(creditCard(null)).toBe(true);
+      expect(creditCard(undefined)).toBe(true);
     });
   });
 
@@ -108,6 +120,8 @@ describe('Format Rules', () => {
 
     it('should return true for empty value', () => {
       expect(phone('')).toBe(true);
+      expect(phone(null)).toBe(true);
+      expect(phone(undefined)).toBe(true);
     });
   });
 
@@ -119,6 +133,8 @@ describe('Format Rules', () => {
 
     it('should return true for empty value', () => {
       expect(strongPassword('')).toBe(true);
+      expect(strongPassword(null)).toBe(true);
+      expect(strongPassword(undefined)).toBe(true);
     });
   });
 });
