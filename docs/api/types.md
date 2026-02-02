@@ -41,7 +41,7 @@ const form = document.querySelector<HTMLFormElement>('#myForm')!;
 
 const options: CtrovalidateOptions = {
   realTime: true,
-  logLevel: 'DEBUG',
+  logLevel: LogLevel.DEBUG,
   errorClass: 'is-invalid',
   errorMessageClass: 'error-message',
   pendingClass: 'is-validating'
@@ -59,12 +59,26 @@ const validator = new Ctrovalidate(form, options);
 Configuration options for the validator instance.
 
 ```typescript
+import { LogLevel } from 'ctrovalidate';
+
 interface CtrovalidateOptions {
   realTime?: boolean;           // Default: true
-  logLevel?: string;            // Default: 'NONE'
+  logLevel?: LogLevel;          // Default: LogLevel.NONE (0)
   errorClass?: string;          // Default: 'is-invalid'
   errorMessageClass?: string;   // Default: 'error-message'
   pendingClass?: string;        // Default: 'ctrovalidate-pending'
+}
+```
+
+**LogLevel Enum:**
+
+```typescript
+enum LogLevel {
+  NONE = 0,   // No logging (production)
+  ERROR = 1,  // Critical errors only
+  WARN = 2,   // Warnings and errors
+  INFO = 3,   // Info, warnings, and errors
+  DEBUG = 4   // All messages (development)
 }
 ```
 
@@ -146,7 +160,7 @@ interface FieldObject {
 
 ```typescript
 import { useEffect, useRef } from 'react';
-import { Ctrovalidate, type CtrovalidateOptions } from 'ctrovalidate';
+import { Ctrovalidate, LogLevel, type CtrovalidateOptions } from 'ctrovalidate';
 
 function MyForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -157,7 +171,7 @@ function MyForm() {
 
     const options: CtrovalidateOptions = {
       realTime: true,
-      logLevel: 'WARN'
+      logLevel: LogLevel.WARN
     };
 
     validatorRef.current = new Ctrovalidate(formRef.current, options);
@@ -262,6 +276,7 @@ Ctrovalidate.addAsyncRule('emailAvailable', checkEmail, 'Email already in use.')
 |:-----|:------------|
 | `Ctrovalidate` | Main validator class |
 | `CtrovalidateOptions` | Configuration options interface |
+| `LogLevel` | Enum for logging levels (0-4) |
 | `RuleLogic` | Synchronous rule function type |
 | `AsyncRuleLogic` | Asynchronous rule function type |
 | `FieldObject` | Internal field tracking object |

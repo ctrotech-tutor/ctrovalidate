@@ -66,11 +66,13 @@ In production, accessibility is a legal and ethical requirement.
 
 ## 📝 Logging Levels
 
-Set `logLevel` to `'NONE'` or `'WARN'` in production to keep the console clean:
+Set `logLevel` to `LogLevel.NONE` in production to keep the console clean:
 
 ```javascript
+import { Ctrovalidate, LogLevel } from 'ctrovalidate';
+
 const validator = new Ctrovalidate(form, {
-  logLevel: 'NONE' // Disable logging in production
+  logLevel: LogLevel.NONE // Disable logging in production
 });
 ```
 

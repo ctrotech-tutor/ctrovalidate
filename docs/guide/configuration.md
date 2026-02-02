@@ -8,10 +8,11 @@ description: Comprehensive guide to Ctrovalidate configuration options, includin
 Ctrovalidate provides sensible defaults, but you can customize its behavior by passing an options object as the second argument to the constructor.
 
 ```javascript
-import { Ctrovalidate } from 'ctrovalidate';
+import { Ctrovalidate, LogLevel } from 'ctrovalidate';
 
 const validator = new Ctrovalidate(document.querySelector('form'), {
   realTime: true,
+  logLevel: LogLevel.WARN,
   errorClass: 'field-error',
   errorMessageClass: 'error-text',
   pendingClass: 'is-validating'
@@ -32,20 +33,22 @@ const validator = new Ctrovalidate(document.querySelector('form'), {
 
 ### `logLevel`
 
-- **Type**: `string`
-- **Default**: `'NONE'`
+- **Type**: `LogLevel` (enum)
+- **Default**: `LogLevel.NONE` (0)
 - **Description**: Controls console output detail for debugging.
 - **Levels**:
-  - `'NONE'`: No logs
-  - `'ERROR'`: Only critical internal failures
-  - `'WARN'`: Rule execution issues and configuration warnings
-  - `'INFO'`: Initialization steps and field discovery
-  - `'DEBUG'`: Full internal state transitions and event logs
+  - `LogLevel.NONE` (0): No logs
+  - `LogLevel.ERROR` (1): Only critical internal failures
+  - `LogLevel.WARN` (2): Rule execution issues and configuration warnings
+  - `LogLevel.INFO` (3): Initialization steps and field discovery
+  - `LogLevel.DEBUG` (4): Full internal state transitions and event logs
 
 **Example:**
 ```javascript
+import { Ctrovalidate, LogLevel } from 'ctrovalidate';
+
 const validator = new Ctrovalidate(form, {
-  logLevel: 'DEBUG' // Enable detailed logging
+  logLevel: LogLevel.DEBUG // Enable detailed logging
 });
 ```
 
@@ -86,12 +89,22 @@ By default, the library looks for an element with this class that shares the sam
 Here's a complete reference:
 
 ```typescript
+import { LogLevel } from 'ctrovalidate';
+
 interface CtrovalidateOptions {
   realTime?: boolean;           // Default: true
-  logLevel?: string;            // Default: 'NONE'
+  logLevel?: LogLevel;          // Default: LogLevel.NONE (0)
   errorClass?: string;          // Default: 'is-invalid'
   errorMessageClass?: string;   // Default: 'error-message'
-  pendingClass?: string;        // Default: 'is-validating'
+  pendingClass?: string;        // Default: 'ctrovalidate-pending'
+}
+
+enum LogLevel {
+  NONE = 0,
+  ERROR = 1,
+  WARN = 2,
+  INFO = 3,
+  DEBUG = 4
 }
 ```
 
