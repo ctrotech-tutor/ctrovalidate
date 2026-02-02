@@ -5,7 +5,7 @@ description: Learn how to prepare Ctrovalidate for high-traffic production envir
 
 # Production Readiness
 
-Transitioning from a development prototype to a high-traffic production application requires careful consideration of performance, security, and bundle size. Ctrovalidate is built for speed, but these best practices will ensure your forms remain industrial-grade.
+Transitioning from development to production requires consideration of performance, security, and bundle size. This guide covers best practices for deploying Ctrovalidate in production environments.
 
 ---
 
@@ -66,15 +66,16 @@ In production, accessibility is a legal and ethical requirement.
 
 ## 📝 Logging Levels
 
-Ensure you set the `logLevel` to `NONE` or `WARN` in your production builds to keep the console clean and prevent leaking internal form structures.
+Set `logLevel` to `'NONE'` or `'WARN'` in production to keep the console clean:
 
 ```javascript
 const validator = new Ctrovalidate(form, {
-  logLevel: Ctrovalidate.LogLevel.NONE
+  logLevel: 'NONE' // Disable logging in production
 });
 ```
 
 ## Next Steps
 
-- **[Deployment Examples](./examples.md)** — Production-ready UI patterns.
-- **[Public API](../api/methods.md)** — Methods for manual cleanup and reset.
+- **[Examples](./examples.md)** — Production-ready patterns
+- **[API Methods](../api/methods.md)** — Methods for cleanup and reset
+- **[Configuration](./configuration.md)** — All configuration options

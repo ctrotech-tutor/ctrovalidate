@@ -1,9 +1,11 @@
 ---
 title: Configuration Reference | Customizing Ctrovalidate
-description: Comprehensive guide to Ctrovalidate configuration options, including error classes, logging levels, and real-time validation settings for industrial environments.
+description: Comprehensive guide to Ctrovalidate configuration options, including error classes, logging levels, and real-time validation settings.
 ---
 
-Ctrovalidate is designed with sensible defaults, but it provides deep customization for production requirements. You can pass an options object as the second argument to the `Ctrovalidate` constructor.
+# Configuration Options
+
+Ctrovalidate provides sensible defaults, but you can customize its behavior by passing an options object as the second argument to the constructor.
 
 ```javascript
 import { Ctrovalidate } from 'ctrovalidate';
@@ -11,7 +13,8 @@ import { Ctrovalidate } from 'ctrovalidate';
 const validator = new Ctrovalidate(document.querySelector('form'), {
   realTime: true,
   errorClass: 'field-error',
-  logLevel: Ctrovalidate.LogLevel.WARN,
+  errorMessageClass: 'error-text',
+  pendingClass: 'is-validating'
 });
 ```
 
@@ -29,15 +32,22 @@ const validator = new Ctrovalidate(document.querySelector('form'), {
 
 ### `logLevel`
 
-- **Type**: `Ctrovalidate.LogLevel` (enum)
-- **Default**: `LogLevel.NONE`
-- **Description**: Controls console output detail.
+- **Type**: `string`
+- **Default**: `'NONE'`
+- **Description**: Controls console output detail for debugging.
 - **Levels**:
-  - `NONE`: No logs.
-  - `ERROR`: Only critical internal failures.
-  - `WARN`: Rule execution issues and configuration warnings.
-  - `INFO`: Initialization steps and field discovery info.
-  - `DEBUG`: Full internal state transitions and event logs.
+  - `'NONE'`: No logs
+  - `'ERROR'`: Only critical internal failures
+  - `'WARN'`: Rule execution issues and configuration warnings
+  - `'INFO'`: Initialization steps and field discovery
+  - `'DEBUG'`: Full internal state transitions and event logs
+
+**Example:**
+```javascript
+const validator = new Ctrovalidate(form, {
+  logLevel: 'DEBUG' // Enable detailed logging
+});
+```
 
 ---
 
@@ -71,17 +81,18 @@ By default, the library looks for an element with this class that shares the sam
 
 ---
 
-## Advanced: Global Configuration
+## All Configuration Options
 
-While the constructor handles instance-specific settings, some behaviors are global.
+Here's a complete reference:
 
-### `Ctrovalidate.LogLevel`
-
-The enum used for logging. Always use the static property to ensure type safety.
-
-```javascript
-import { Ctrovalidate } from 'ctrovalidate';
-console.log(Ctrovalidate.LogLevel.DEBUG); // 4
+```typescript
+interface CtrovalidateOptions {
+  realTime?: boolean;           // Default: true
+  logLevel?: string;            // Default: 'NONE'
+  errorClass?: string;          // Default: 'is-invalid'
+  errorMessageClass?: string;   // Default: 'error-message'
+  pendingClass?: string;        // Default: 'is-validating'
+}
 ```
 
 ## Next Steps

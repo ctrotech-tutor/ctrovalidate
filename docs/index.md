@@ -72,28 +72,66 @@ const isValid = await validator.validate();
 
 </div>
 
+<div class="stats-section">
+
+## v3.0.0 Highlights
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-number">21</div>
+    <div class="stat-label">Built-in Rules</div>
+    <div class="stat-desc">Common, format, and numeric validation</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">9</div>
+    <div class="stat-label">API Methods</div>
+    <div class="stat-desc">Complete programmatic control</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">&lt;5KB</div>
+    <div class="stat-label">Bundle Size</div>
+    <div class="stat-desc">Gzipped, zero dependencies</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">98%</div>
+    <div class="stat-label">Test Coverage</div>
+    <div class="stat-desc">Production-ready reliability</div>
+  </div>
+</div>
+
+</div>
+
 <div class="integrations-grid">
 
-## Works with your favorite tools
+## Framework Integration
 
-Ctrovalidate is tool-agnostic and designed to fit perfectly into your existing stack.
+Ctrovalidate works with any JavaScript framework or vanilla JS.
 
-| **Frameworks** | **Styles** | **Tools** |
-| :--- | :--- | :--- |
-| Next.js / React | Tailwind CSS | Vite / Webpack |
-| Nuxt / Vue.js | CSS Modules | TypeScript |
-| SvelteKit / Svelte | Vanilla CSS | JSDoc |
-| Alpine.js / HTMX | Bootstrap | Rollup / Esbuild |
+| Framework | Status | Demo | Documentation |
+| :--- | :---: | :---: | :---: |
+| **Vanilla JS** | ✅ | [View Demo](https://github.com/ctrotech-tutor/ctrovalidate/tree/main/examples/demo-vanilla-js) | [Guide](/guide/getting-started) |
+| **React 18+** | ✅ | [View Demo](https://github.com/ctrotech-tutor/ctrovalidate/tree/main/examples/demo-react) | [Integration](/integrations/react) |
+| **Next.js 15+** | ✅ | [View Demo](https://github.com/ctrotech-tutor/ctrovalidate/tree/main/examples/demo-nextjs) | [Integration](/integrations/nextjs) |
+| **Vue 3** | ✅ | [View Demo](https://github.com/ctrotech-tutor/ctrovalidate/tree/main/examples/demo-vue) | [Integration](/integrations/vue) |
+| **Alpine.js** | ✅ | [View Demo](https://github.com/ctrotech-tutor/ctrovalidate/tree/main/examples/demo-alpine) | [Integration](/integrations/alpinejs) |
+| **Svelte** | ✅ | - | [Integration](/integrations/svelte) |
+| **HTMX** | ✅ | - | [Best Practices](/integrations/htmx) |
+
+**Styling**: Works with Tailwind CSS, CSS Modules, Vanilla CSS, Bootstrap, or any CSS framework.
 
 </div>
 
 <div class="cta-bottom">
 
-## Ready to build better forms?
+## Get Started
 
-Join developers building accessible and performant web applications with Ctrovalidate.
+Install via npm and start validating forms in minutes.
 
-[**Get Started in 5 Minutes**](/guide/getting-started) · [**Browse API Reference**](/api/methods)
+```bash
+npm install ctrovalidate
+```
+
+[**Read the Documentation**](/guide/getting-started) · [**View API Reference**](/api/methods) · [**See Examples**](/guide/examples)
 
 </div>
 
@@ -107,6 +145,45 @@ Join developers building accessible and performant web applications with Ctroval
   font-weight: 800;
   margin-bottom: 24px;
 }
+
+.stats-section {
+  margin: 80px 0;
+  text-align: center;
+}
+.stats-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 48px;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.stat-card {
+  padding: 32px 24px;
+  background: var(--vp-c-bg-soft);
+  border-radius: 12px;
+  border: 1px solid var(--vp-c-divider);
+}
+.stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--vp-c-brand-1);
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.stat-desc {
+  font-size: 0.9rem;
+  color: var(--vp-c-text-2);
+}
+
 .integrations-grid {
   margin: 80px 0;
   padding: 40px;
@@ -116,7 +193,19 @@ Join developers building accessible and performant web applications with Ctroval
 .integrations-grid h2 {
   text-align: center;
   margin-bottom: 32px;
+  font-size: 2rem;
+  font-weight: 700;
 }
+.integrations-grid table {
+  margin: 32px auto 24px;
+}
+.integrations-grid p {
+  text-align: center;
+  color: var(--vp-c-text-2);
+  font-size: 0.95rem;
+  margin-top: 24px;
+}
+
 .cta-bottom {
   margin: 100px 0 60px;
   text-align: center;
@@ -126,6 +215,20 @@ Join developers building accessible and performant web applications with Ctroval
 .cta-bottom h2 {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
+}
+.cta-bottom pre {
+  max-width: 400px;
+  margin: 24px auto;
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .stat-number {
+    font-size: 2.5rem;
+  }
 }
 </style>

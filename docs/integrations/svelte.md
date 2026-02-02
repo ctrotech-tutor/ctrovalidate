@@ -115,5 +115,6 @@ By using the **showcase-container** pattern, you ensure your Svelte forms share 
 
 ## Next Steps
 
-- **[SPA Dynamics](../guide/spa-dynamic-fields.md)** — Deep dive into dynamic field management.
-- **[Configuration](../guide/configuration.md)** — Overriding default classes for Svelte components.
+- **[Dynamic Fields](../guide/dynamic-fields.md)** — Managing dynamic field lifecycle
+- **[Configuration](../guide/configuration.md)** — Customizing validation options
+- **[API Reference](../api/methods.md)** — All 9 public methods

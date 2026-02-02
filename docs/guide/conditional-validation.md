@@ -5,7 +5,7 @@ description: Master the data-ctrovalidate-if attribute to create dynamic forms w
 
 # Conditional Validation
 
-In industrial form design, validation logic is rarely static. You often need to validate a field only if another condition is met (e.g., "Validate Shipping Address only if 'Ship to different address' is checked"). Ctrovalidate makes this declarative via the `data-ctrovalidate-if` attribute.
+In complex forms, validation logic often depends on other field states. For example, you might want to validate a shipping address only if "Ship to different address" is checked. Ctrovalidate makes this declarative using the `data-ctrovalidate-if` attribute.
 
 ---
 
@@ -35,17 +35,25 @@ Validates only if the controller's value exactly matches the provided string.
   <option value="CA">Canada</option>
 </select>
 
+<input 
+  name="state" 
+  data-ctrovalidate-rules="required"
+  data-ctrovalidate-if="country:value:US"
+  placeholder="Enter US state"
+/>
+```
 
 ---
 
 ## ⚡ Real-Time Reactivity
 
-Because Ctrovalidate uses a centralized `RuleEngine`, it automatically detects when a "controller" field changes and updates the validation state of all dependent fields instantly.
+When `realTime` is enabled, Ctrovalidate automatically detects when a controller field changes and updates the validation state of all dependent fields.
 
 > [!IMPORTANT]
 > When a condition is **not met**, the field is considered valid and any existing error messages are automatically cleared.
 
 ## Next Steps
 
-- **[Built-in Rules](./rules.md)** — See all rules you can apply conditionally.
-- **[SPAs & Dynamic Fields](./spa-dynamic-fields.md)** — Learn how to handle fields added after page load.
+- **[Built-in Rules](./rules.md)** — See all 21 rules you can apply conditionally
+- **[Dynamic Fields](./dynamic-fields.md)** — Learn how to handle fields added after page load
+- **[Custom Rules](./custom-rules.md)** — Create custom validation logic

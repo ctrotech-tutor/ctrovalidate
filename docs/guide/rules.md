@@ -1,11 +1,11 @@
 ---
 title: Built-in Rules Catalog | Validation Syntax
-description: Explore the full library of 20+ built-in validation rules in Ctrovalidate, covering strings, numbers, emails, and complex patterns with industrial precision.
+description: Explore all 21 built-in validation rules in Ctrovalidate, covering common, format, and numeric validation patterns.
 ---
 
 # Built-in Rules Catalog
 
-Ctrovalidate provides a robust suite of validation rules out of the box. Rules are **declarative**, **composable**, and **highly efficient**.
+Ctrovalidate provides **21 built-in validation rules** out of the box. Rules are declarative, composable, and can be combined in any order.
 
 ---
 
@@ -45,7 +45,7 @@ Rules are defined in the `data-ctrovalidate-rules` attribute.
 
 ---
 
-## 🔣 String & Format
+## 🔣 Format & Pattern Rules
 
 | Rule        | Description                              | Usage Example |
 | :---------- | :--------------------------------------- | :------------ |
@@ -54,41 +54,27 @@ Rules are defined in the `data-ctrovalidate-rules` attribute.
 | `alphaDash` | Letters, numbers, `-`, and `_`.          | `alphaDash`   |
 | `url`       | Standard URL format (requires protocol). | `url`         |
 | `phone`     | General international phone format.      | `phone`       |
-| `ipAddress` | Validates IPv4 format.                   | `ipAddress`   |
+| `ipAddress` | Validates IPv4 and IPv6 formats.         | `ipAddress`   |
 | `json`      | Validates JSON Object/Array string.      | `json`        |
+| `creditCard`| Validates credit card using Luhn Algorithm. | `creditCard` |
 
 ---
 
-## 🛡️ Security & Advanced
+## 💡 Rule Composition
 
-### `strongPassword`
+Rules are independent and can be combined in any order:
+- `required|numeric|min:18` is identical to `numeric|min:18|required`
+- All rules are executed in the order they appear
+- Validation stops at the first failing rule
 
-Ensures a baseline production security level:
+## Total: 21 Built-in Rules
 
-- Minimum 8 characters
-- At least one uppercase letter
-- At least one lowercase letter
-- At least one digit
-
-**Usage:** `data-ctrovalidate-rules="required|strongPassword"`
-
-### `creditCard`
-
-Validates credit card numbers using the **Luhn Algorithm**.
-
-> [!NOTE]
-> This checks the format and mathematical validity, not the actual card balance or existence.
-
-**Usage:** `data-ctrovalidate-rules="required|creditCard"`
-
----
-
-## 💡 Pro-Tip: Rule Independence
-
-Ctrovalidate treats rules as independent units. This means you can combine them in any order:
-`required|numeric|min:18` is functionally identical to `numeric|min:18|required`.
+- **Common Rules (6)**: required, email, minLength, maxLength, exactLength, sameAs
+- **Numeric Rules (6)**: numeric, integer, decimal, min, max, between
+- **Format Rules (9)**: alpha, alphaNum, alphaDash, url, phone, ipAddress, json, creditCard
 
 ## Next Steps
 
-- **[Conditional Validation](./conditional-validation.md)** — Learn how to apply these rules dynamically.
-- **[Custom Rules](./custom-rules.md)** — Build your own logic.
+- **[Conditional Validation](./conditional-validation.md)** — Apply rules dynamically based on other fields
+- **[Custom Rules](./custom-rules.md)** — Create your own validation logic
+- **[API Reference](/api/methods)** — Explore all 9 public methods
