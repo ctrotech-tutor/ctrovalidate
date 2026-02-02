@@ -34,3 +34,6 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Release Notes
+RELEASE_NOTES.md
