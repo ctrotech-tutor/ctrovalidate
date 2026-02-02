@@ -1,3 +1,18 @@
+# [3.0.0](https://github.com/ctrotech-tutor/ctrovalidate/compare/v2.1.1...v3.0.0) (2026-02-02)
+
+### Features
+
+- **demos:** diversified demo suite and fixed core test mocks ([6c5a995](https://github.com/ctrotech-tutor/ctrovalidate/commit/6c5a995c595de89094ec9ad639e69e42b2939469))
+- **examples:** overhaul ecosystem with multi-framework monochrome demos and industrial standards ([cc201c5](https://github.com/ctrotech-tutor/ctrovalidate/commit/cc201c52b516ecbebb2b04cd2c51f051e69a6261))
+
+### Tests
+
+- achieve 98% coverage with comprehensive edge case testing ([b4a294c](https://github.com/ctrotech-tutor/ctrovalidate/commit/b4a294c8761bd670181145bb3f6d833e791d2969))
+
+### BREAKING CHANGES
+
+- None
+
 ## [2.1.1](https://github.com/ctrotech-tutor/ctrovalidate/compare/v2.1.0...v2.1.1) (2026-01-31)
 
 ### Bug Fixes
