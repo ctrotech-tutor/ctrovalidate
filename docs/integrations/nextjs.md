@@ -1,224 +1,273 @@
 ---
 title: Next.js Integration | Server & Client-Side Validation
-description: Best practices for using Ctrovalidate within Next.js applications, including App Router support and hydration-safe form patterns.
+description: Best practices for using Ctrovalidate with Next.js App Router, including Server Components and hydration-safe patterns.
 ---
 
 # Next.js Integration
 
-Yes, Ctrovalidate works perfectly with [Next.js](https://nextjs.org/), the React framework for production. However, because Next.js utilizes Server-Side Rendering (SSR) and, more recently, React Server Components (RSC), you must be careful to ensure that Ctrovalidate—a client-side library—only runs in the browser.
-
-The key to using any browser-dependent library in Next.js is the `"use client"` directive.
-
-## The Core Pattern in the App Router
-
-This guide focuses on the modern Next.js App Router. The pattern is nearly identical to the standard React pattern, with the addition of `"use client"`.
-
-1.  **`"use client"` Directive:** Any component that uses React hooks like `useState`, `useEffect`, or `useRef`, or interacts with browser APIs, must be a Client Component. You declare this by placing `"use client";` at the very top of your component file.
-2.  **`useRef` for DOM Elements:** Use the `useRef` hook to get a stable reference to your `<form>` DOM element.
-Ctrovalidate is fully compatible with Next.js 15+ and the **App Router**. Because the primary validation logic is DOM-based, you'll use `"use client"` directives to create high-performance, hydration-safe validation boundaries.
+Ctrovalidate works seamlessly with Next.js 13+ and the App Router. Because Ctrovalidate is a client-side library, you'll use the `"use client"` directive to create validation boundaries.
 
 ---
 
-## ⚙️ Setting Up Your Next.js Project
+## Installation
 
-We recommend using the official `create-next-app` CLI with TypeScript and Tailwind CSS.
-
-### 1. Initialize
 ```bash
-npx create-next-app@latest my-next-app --typescript --tailwind --eslint
-cd my-next-app
 npm install ctrovalidate
 ```
 
 ---
 
-## 🏗️ The App Router Pattern
+## App Router Pattern
 
-Validated forms in Next.js should be created as **Client Components**. This ensures that Ctrovalidate has access to the browser's DOM APIs (like `HTMLFormElement`) which are not available on the server.
+Forms using Ctrovalidate must be Client Components. Use the `"use client"` directive at the top of your component file.
 
-### Complete Client Component
+### Complete Example
 
 ```tsx
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Ctrovalidate } from 'ctrovalidate';
+import { Ctrovalidate, LogLevel } from 'ctrovalidate';
 
-export default function IndustrialContactForm() {
+export default function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const validator = useRef<Ctrovalidate | null>(null);
+  const validatorRef = useRef<Ctrovalidate | null>(null);
 
   useEffect(() => {
-    if (formRef.current && !validator.current) {
-      // Initialize only on the client
-      validator.current = new Ctrovalidate(formRef.current, {
+    if (formRef.current && !validatorRef.current) {
+      validatorRef.current = new Ctrovalidate(formRef.current, {
         realTime: true,
-        logLevel: Ctrovalidate.LogLevel.INFO,
-        errorClass: 'border-red-500 bg-red-50',
-        errorMessageClass: 'text-sm text-red-700 font-bold mt-2'
+        logLevel: LogLevel.WARN
       });
     }
 
     return () => {
-      validator.current?.destroy();
-      validator.current = null;
+      validatorRef.current?.destroy();
+      validatorRef.current = null;
     };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (await validator.current?.validate()) {
+    if (await validatorRef.current?.validate()) {
       const formData = new FormData(formRef.current!);
-      // Use Next.js Server Actions or API routes here
-      alert('Security Verification Passed.');
+      // Use Server Actions or API routes
+      console.log('Form valid:', Object.fromEntries(formData));
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto my-12 p-10 border-2 border-dashed border-black">
-      <h1 className="text-3xl font-black uppercase mb-8">System Access</h1>
-      
-      <form ref={formRef} noValidate onSubmit={handleSubmit} className="flex flex-col gap-6">
-        <div className="flex flex-col">
-          <label className="text-xs uppercase font-bold text-gray-500">Node ID (Email)</label>
-          <input
-            name="node_id"
-            type="email"
-            data-ctrovalidate-rules="required|email"
-            className="border-b-2 border-black p-2 focus:bg-gray-50 outline-none transition-all"
-          />
-          <div className="error-message"></div>
-        </div>
+    <form ref={formRef} noValidate onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          data-ctrovalidate-rules="required|email"
+        />
+        <div className="error-message" />
+      </div>
 
-        <button type="submit" className="bg-black text-white p-4 font-bold uppercase hover:bg-white hover:text-black border-2 border-black transition-all">
-          Authorize Payload
-        </button>
-      </form>
-    </div>
+      <div>
+        <label htmlFor="message">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          data-ctrovalidate-rules="required|minLength:10"
+        />
+        <div className="error-message" />
+      </div>
+
+      <button type="submit">Send Message</button>
+    </form>
   );
 }
 ```
 
 ---
 
-## 🔄 Hydration & SSR Safety
+## Using in a Page
 
-Ctrovalidate is designed to be **Hydration Safe**. 
-
-1.  **Ref Initialization**: By using `useRef` and initializing inside `useEffect`, we guarantee that the library only touches the DOM after the component has successfully hydrated on the client.
-2.  **Server Rendering**: On the server, Next.js renders the static HTML of your form. Ctrovalidate's `data-*` attributes are standard HTML attributes, so they are SEO-friendly and contribute to a fast First Contentful Paint (FCP).
-
----
-
-## ⚡ Why Use Ctrovalidate with Next.js?
-
-1.  **Lightweight**: At <5KB, Ctrovalidate is significantly smaller than libraries like Formik or React Hook Form, keeping your client bundle lean.
-2.  **Server Action Ready**: Use Ctrovalidate to pre-verify data on the client before sending it to a high-speed Server Action.
-3.  **Zero CSS Bloat**: Ctrovalidate doesn't ship its own styles. It relies on your existing Tailwind or Global CSS, keeping your CSS bundle small.
-
-> [!CAUTION]
-> Avoid using Ctrovalidate directly in Server Components (files without `"use client"`). The library requires the `window` and `document` objects to operate.
-
-## Next Steps
-
-- **[Framework Integration Suite](../guide/examples.md)** — See all demos in action.
-- **[Public Methods API](../api/methods.md)** — Master programmatic control.
-
-## Example: A Next.js Client Component
-
-Let's create a `RegistrationForm` component within a Next.js project using the App Router.
-
-### 1. Create the Client Component
-
-Create a new file, for example, `components/RegistrationForm.tsx`. The `"use client"` directive at the top is essential.
+Import your Client Component in any page:
 
 ```tsx
-// components/RegistrationForm.tsx
+// app/contact/page.tsx
 
-'use client'; // Essential for browser-side validation
+import ContactForm from '@/components/ContactForm';
 
-import React, { useRef, useEffect } from 'react';
-import { Ctrovalidate } from 'ctrovalidate';
-
-export function RegistrationForm() {
-  const formRef = useRef<HTMLFormElement>(null);
-
-  useEffect(() => {
-    if (formRef.current) {
-      // Initialize industrial-grade validator
-      const validator = new Ctrovalidate(formRef.current, {
-        realTime: true,
-        logLevel: Ctrovalidate.LogLevel.DEBUG,
-        pendingClass: 'is-validating',
-      });
-    }
-  }, []);
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // Native submission handling or manual .validate() call
-  };
-
-  return (
-    <div className="showcase-container">
-      <form ref={formRef} noValidate className="validation-form">
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="e.g. johndoe"
-            data-ctrovalidate-rules="required|minLength:3|alphaDash"
-          />
-          <div className="error-message"></div>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email">Email Address</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="john@example.com"
-            data-ctrovalidate-rules="required|email"
-          />
-          <div className="error-message"></div>
-        </div>
-
-        <button type="submit" className="submit-btn text-white">
-          Deploy Registration
-        </button>
-      </form>
-    </div>
-  );
-}
-```
-
-### 2. Use the Component in a Page
-
-Now, you can import and use this `RegistrationForm` component in any of your pages (e.g., `app/register/page.tsx`).
-
-```tsx
-// app/register/page.tsx
-
-import { RegistrationForm } from '@/components/RegistrationForm';
-
-export default function RegisterPage() {
+export default function ContactPage() {
   return (
     <main>
-      <h1>Create Your Account</h1>
-      <RegistrationForm />
+      <h1>Contact Us</h1>
+      <ContactForm />
     </main>
   );
 }
 ```
 
+---
+
+## Server Actions Integration
+
+Ctrovalidate works perfectly with Next.js Server Actions for form submission:
+
+```tsx
+'use client';
+
+import { useEffect, useRef } from 'react';
+import { Ctrovalidate } from 'ctrovalidate';
+import { submitForm } from './actions';
+
+export default function ServerActionForm() {
+  const formRef = useRef<HTMLFormElement>(null);
+  const validatorRef = useRef<Ctrovalidate | null>(null);
+
+  useEffect(() => {
+    if (formRef.current) {
+      validatorRef.current = new Ctrovalidate(formRef.current, {
+        realTime: true
+      });
+    }
+    return () => validatorRef.current?.destroy();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validate before sending to server
+    if (await validatorRef.current?.validate()) {
+      const formData = new FormData(formRef.current!);
+      await submitForm(formData);
+    }
+  };
+
+  return (
+    <form ref={formRef} noValidate onSubmit={handleSubmit}>
+      {/* form fields */}
+    </form>
+  );
+}
+```
+
+```typescript
+// actions.ts
+'use server';
+
+export async function submitForm(formData: FormData) {
+  // Server-side processing
+  const email = formData.get('email');
+  // ... save to database
+}
+```
+
+---
+
+## Hydration Safety
+
+Ctrovalidate is hydration-safe by design:
+
+1. **`useRef` Initialization**: The validator is created inside `useEffect`, which only runs on the client
+2. **Server Rendering**: During SSR, Next.js renders the form's static HTML with `data-ctrovalidate-rules` attributes
+3. **Client Hydration**: After hydration, `useEffect` fires and Ctrovalidate initializes
+
 ### Why This Works
 
-- By marking the component with `"use client"`, you tell Next.js to ship the component's JavaScript to the browser and render it there.
-- During the server-side rendering pass, the component might be pre-rendered as static HTML, but the `useEffect` hook will not run.
-- Once the page loads in the browser and React "hydrates" the HTML, the `useEffect` hook will fire, and Ctrovalidate will be safely initialized in the browser environment where it can find the form element and attach its event listeners.
+- The `data-*` attributes are standard HTML and render correctly on the server
+- The validator only initializes after React hydrates the component
+- No hydration mismatches occur because validation logic runs client-side only
 
-This pattern allows you to benefit from Next.js's performance features while still using powerful client-side libraries like Ctrovalidate for rich interactivity.
+---
+
+## TypeScript Support
+
+Full TypeScript support with proper types:
+
+```tsx
+import { Ctrovalidate, LogLevel, type CtrovalidateOptions } from 'ctrovalidate';
+
+const options: CtrovalidateOptions = {
+  realTime: true,
+  logLevel: LogLevel.DEBUG,
+  errorClass: 'border-red-500',
+  errorMessageClass: 'text-red-600 text-sm'
+};
+
+const validator = new Ctrovalidate(formElement, options);
+```
+
+---
+
+## Best Practices
+
+### 1. Always Use `"use client"`
+
+Mark components using Ctrovalidate as Client Components:
+
+```tsx
+'use client';
+
+import { Ctrovalidate } from 'ctrovalidate';
+// ... component code
+```
+
+### 2. Initialize in `useEffect`
+
+Ensure the validator only runs on the client:
+
+```tsx
+useEffect(() => {
+  if (formRef.current && !validatorRef.current) {
+    validatorRef.current = new Ctrovalidate(formRef.current);
+  }
+}, []);
+```
+
+### 3. Clean Up on Unmount
+
+Prevent memory leaks:
+
+```tsx
+useEffect(() => {
+  // ... initialization
+  return () => {
+    validatorRef.current?.destroy();
+  };
+}, []);
+```
+
+### 4. Validate Before Server Actions
+
+Always validate client-side before calling Server Actions:
+
+```tsx
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  
+  if (await validatorRef.current?.validate()) {
+    await submitToServer(formData);
+  }
+};
+```
+
+---
+
+## Benefits
+
+- **Lightweight**: <5KB gzipped, smaller than form libraries
+- **Server Action Ready**: Validate before sending data to server
+- **SEO Friendly**: `data-*` attributes render in SSR
+- **Hydration Safe**: No client/server mismatches
+
+> [!CAUTION]
+> Do not use Ctrovalidate in Server Components. It requires browser APIs (`window`, `document`) that are not available on the server.
+
+---
+
+## Next Steps
+
+- **[React Integration](./react.md)** — General React patterns
+- **[Dynamic Fields Guide](../guide/dynamic-fields.md)** — Managing field lifecycle
+- **[API Reference](../api/methods.md)** — All 9 instance methods
+- **[Server Actions Docs](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations)** — Next.js documentation

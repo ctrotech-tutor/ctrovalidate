@@ -1,82 +1,234 @@
-# Integration: htmx
+# HTMX Integration
 
-[htmx](https://htmx.org/) allows you to access modern browser features like AJAX directly from HTML, without writing much JavaScript. Ctrovalidate can act as a powerful client-side "gatekeeper" for htmx, preventing unnecessary server requests for forms with invalid data.
+Ctrovalidate can act as a client-side validator for HTMX, preventing unnecessary server requests for forms with invalid data.
 
-## The Strategy
+---
 
-The key is to hook into htmx's event lifecycle. We will listen for the `htmx:beforeRequest` event, which is dispatched on an element just before an AJAX request is made.
+## Installation
 
-1.  **Set up htmx:** Add `hx-*` attributes to your form fields to trigger server requests (e.g., `hx-post` on blur).
-2.  **Initialize Ctrovalidate:** Set up your validator instance as usual.
-3.  **Listen for `htmx:beforeRequest`:** Add an event listener for this event on the element that will trigger the request.
-4.  **Validate and Prevent:** Inside the listener, call `await validator.validate()`. If validation fails, call `event.preventDefault()` on the event object. This will cancel the htmx request.
-
-## Example: Industrial AJAX Verification
-
-This pattern shows how to build a high-performance verification flow where Ctrovalidate acts as the client-side firewall for htmx.
-
-### 1. HTML Structure
-
-We use `hx-post` for server-side availability checks, but Ctrovalidate ensures we only hit the server when client-side rules pass.
-
-```html
-<div class="showcase-container">
-  <form id="verification-form" novalidate className="validation-form">
-    <div class="form-group">
-      <label for="username">System ID / Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        placeholder="e.g. admin_pro"
-        data-ctrovalidate-rules="required|minLength:4|alphaDash"
-        hx-post="/api/verify-id"
-        hx-trigger="blur"
-        hx-target="#id-status"
-      />
-      <div id="id-status" class="error-message"></div>
-    </div>
-
-    <button type="submit" class="submit-btn">Verify Account</button>
-  </form>
-</div>
+```bash
+npm install htmx.org ctrovalidate
 ```
 
-### 2. JavaScript Integration
+Or via CDN:
+
+```html
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+<script type="module">
+  import { Ctrovalidate } from 'https://cdn.jsdelivr.net/npm/ctrovalidate@3.0.0/dist/ctrovalidate.js';
+  window.Ctrovalidate = Ctrovalidate;
+</script>
+```
+
+---
+
+## Basic Pattern
+
+Use HTMX's `htmx:beforeRequest` event to validate before sending AJAX requests.
+
+### Complete Example
+
+```html
+<form id="contact-form" novalidate>
+  <div>
+    <label for="username">Username</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      data-ctrovalidate-rules="required|minLength:4"
+      hx-post="/api/check-username"
+      hx-trigger="blur"
+      hx-target="#username-status"
+    />
+    <div id="username-status" class="error-message"></div>
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      data-ctrovalidate-rules="required|email"
+    />
+    <div class="error-message"></div>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+```
 
 ```javascript
 import { Ctrovalidate } from 'ctrovalidate';
 
-const form = document.getElementById('verification-form');
+const form = document.getElementById('contact-form');
 const usernameField = document.getElementById('username');
+
 const validator = new Ctrovalidate(form, {
   realTime: true,
   pendingClass: 'is-validating'
 });
 
-// Intercept htmx requests to ensure client-side validity
+// Intercept HTMX requests to validate first
 usernameField.addEventListener('htmx:beforeRequest', async (event) => {
-  // Validate only the triggering field
-  const isFieldValid = await validator.validate([usernameField]);
-
-  if (!isFieldValid) {
-    // Prevent the server request if local rules fail
+  // Validate the field before allowing the request
+  const isValid = await validator.validate();
+  
+  if (!isValid) {
+    // Prevent the server request if validation fails
     event.preventDefault();
   }
 });
 ```
 
-## 🏗️ Professional Patterns
+---
 
-### Global Interception
-For large applications, you can listen for `htmx:beforeRequest` on the `document` body to automatically protect all forms without individual listeners.
+## Global Interception
 
-### Cohesive Feedback
-Use `pendingClass: 'is-validating'` to show a consistent loading state that bridges the gap between Ctrovalidate's local checks and htmx's server response.
+For larger applications, intercept all HTMX requests globally:
+
+```javascript
+import { Ctrovalidate } from 'ctrovalidate';
+
+const form = document.getElementById('my-form');
+const validator = new Ctrovalidate(form, { realTime: true });
+
+// Intercept all HTMX requests from this form
+document.body.addEventListener('htmx:beforeRequest', async (event) => {
+  // Only validate if the request comes from our form
+  if (event.target.closest('#my-form')) {
+    const isValid = await validator.validate();
+    
+    if (!isValid) {
+      event.preventDefault();
+    }
+  }
+});
+```
+
+---
+
+## Form Submission
+
+Validate the entire form before HTMX submits:
+
+```html
+<form 
+  id="signup-form" 
+  hx-post="/api/signup" 
+  hx-target="#response"
+  novalidate
+>
+  <div>
+    <label>Email</label>
+    <input name="email" data-ctrovalidate-rules="required|email" />
+    <div class="error-message"></div>
+  </div>
+
+  <div>
+    <label>Password</label>
+    <input 
+      type="password" 
+      name="password" 
+      data-ctrovalidate-rules="required|minLength:8" 
+    />
+    <div class="error-message"></div>
+  </div>
+
+  <button type="submit">Sign Up</button>
+</form>
+
+<div id="response"></div>
+```
+
+```javascript
+import { Ctrovalidate } from 'ctrovalidate';
+
+const form = document.getElementById('signup-form');
+const validator = new Ctrovalidate(form, { realTime: true });
+
+form.addEventListener('htmx:beforeRequest', async (event) => {
+  const isValid = await validator.validate();
+  
+  if (!isValid) {
+    event.preventDefault();
+  }
+});
+```
+
+---
+
+## Loading States
+
+Use `pendingClass` to show loading states during validation:
+
+```javascript
+const validator = new Ctrovalidate(form, {
+  realTime: true,
+  pendingClass: 'is-validating'
+});
+```
+
+```css
+.is-validating {
+  border-color: #3b82f6;
+  background-image: url('data:image/svg+xml,...'); /* spinner */
+}
+```
+
+---
+
+## Best Practices
+
+### 1. Validate Before Requests
+
+Always validate before allowing HTMX to make server requests:
+
+```javascript
+element.addEventListener('htmx:beforeRequest', async (event) => {
+  if (!await validator.validate()) {
+    event.preventDefault();
+  }
+});
+```
+
+### 2. Use `pendingClass`
+
+Show consistent loading states:
+
+```javascript
+const validator = new Ctrovalidate(form, {
+  pendingClass: 'is-validating'
+});
+```
+
+### 3. Target Specific Forms
+
+When using global interception, check which form triggered the request:
+
+```javascript
+document.body.addEventListener('htmx:beforeRequest', async (event) => {
+  if (event.target.closest('#my-form')) {
+    // Validate only this form
+  }
+});
+```
+
+---
+
+## Benefits
+
+- **Reduced Server Load**: Only send valid data to the server
+- **Better UX**: Instant client-side feedback before AJAX requests
+- **Consistent Validation**: Same rules for real-time and AJAX validation
+- **Accessibility**: Automatic ARIA attribute management
 
 ---
 
 ## Next Steps
 
-- **[Real-time Configuration](../guide/configuration.md)** — Customizing feedback loops.
-- **[Advanced Rules](../guide/rules.md)** — Composing complex security schemas.
+- **[Configuration](../guide/configuration.md)** — Customizing validation options
+- **[API Reference](../api/methods.md)** — All 9 instance methods
+- **[Alpine.js Integration](./alpinejs.md)** — Using with Alpine.js
+- **[HTMX Documentation](https://htmx.org/docs/)** — HTMX official docs

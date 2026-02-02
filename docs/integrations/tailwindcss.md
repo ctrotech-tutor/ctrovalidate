@@ -1,92 +1,234 @@
 ---
 title: Tailwind CSS Integration | Dynamic Form Styling
-description: Seamlessly integrate Ctrovalidate with Tailwind CSS using dynamic classes and peer-state variants for a premium, accessible form experience.
+description: Integrate Ctrovalidate with Tailwind CSS using utility classes for accessible, styled validation states.
 ---
 
 # Tailwind CSS Integration
 
-Ctrovalidate works seamlessly with Tailwind CSS. Since the library is CSS-class driven, you can leverage Tailwind's utility classes to build beautiful, accessible validation states without writing a single line of custom CSS.
+Ctrovalidate works seamlessly with Tailwind CSS. Configure the library to use Tailwind's utility classes for validation states.
 
 ---
 
-## 🎨 Design Strategy: Industrial Monochrome
+## Basic Configuration
 
-The easiest way to integrate is by configuring Ctrovalidate to use Tailwind's error classes, maintaining our high-standards monochrome palette (Black, White, and Red for errors).
+Configure Ctrovalidate to use Tailwind classes:
 
 ```javascript
+import { Ctrovalidate, LogLevel } from 'ctrovalidate';
+
 const validator = new Ctrovalidate(form, {
-  errorClass: 'border-red-500 ring-0', // Minimalist Red Border
-  pendingClass: 'is-validating',
+  errorClass: 'border-red-500 ring-1 ring-red-500',
+  errorMessageClass: 'text-red-600 text-sm mt-1',
+  pendingClass: 'border-blue-500 animate-pulse'
 });
 ```
 
 ---
 
-## 🛠️ Implementation Example
-
-Here is a production-ready field structure using the **Industrial Monochrome** design system.
+## Complete Example
 
 ```html
-<form id="taiwind-form" novalidate className="space-y-6">
-  <div class="form-group">
-    <label class="block text-sm font-semibold text-black uppercase tracking-wider">
+<form id="signup-form" novalidate class="space-y-6 max-w-md mx-auto">
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">
       Email Address
     </label>
-
     <input
       name="email"
+      type="email"
       data-ctrovalidate-rules="required|email"
-      class="mt-1 block w-full border-0 border-b-2 border-black bg-transparent py-2 focus:border-red-500 focus:ring-0 transition-all duration-300"
+      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
     />
+    <div class="error-message"></div>
+  </div>
 
-    <!-- Error message container -->
-    <div class="error-message mt-2 text-xs text-red-600 font-bold h-4"></div>
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">
+      Password
+    </label>
+    <input
+      name="password"
+      type="password"
+      data-ctrovalidate-rules="required|minLength:8"
+      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+    />
+    <div class="error-message"></div>
   </div>
 
   <button
-    class="w-full bg-black text-white font-bold py-4 uppercase tracking-widest hover:bg-gray-900 transition-colors"
+    type="submit"
+    class="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors"
   >
-    Verify Integration
+    Sign Up
   </button>
 </form>
 ```
 
-### Dynamic Styling with `is-invalid`
+```javascript
+import { Ctrovalidate } from 'ctrovalidate';
 
-If you prefer to define your error styles in your CSS file using `@apply`, you can target the default `is-invalid` class:
-
-```css
-/* industrial.css */
-input.is-invalid {
-  @apply border-red-500 text-red-600;
-}
-div.error-message {
-  @apply text-red-600 font-medium;
-}
+const form = document.getElementById('signup-form');
+const validator = new Ctrovalidate(form, {
+  realTime: true,
+  errorClass: 'border-red-500 ring-1 ring-red-500',
+  errorMessageClass: 'text-red-600 text-sm font-medium mt-1'
+});
 ```
 
 ---
 
-## 🧩 Advanced: Peer Selection
+## Using `@apply` Directive
 
-You can even use Tailwind's `peer` utility to style sibling elements based on the validation status of the input.
+Define error styles in your CSS file:
+
+```css
+/* styles.css */
+input.is-invalid {
+  @apply border-red-500 ring-1 ring-red-500;
+}
+
+div.error-message {
+  @apply text-red-600 text-sm font-medium mt-1;
+}
+
+input.ctrovalidate-pending {
+  @apply border-blue-500 animate-pulse;
+}
+```
+
+```javascript
+// Use default class names
+const validator = new Ctrovalidate(form, {
+  realTime: true
+  // errorClass: 'is-invalid' (default)
+  // errorMessageClass: 'error-message' (default)
+  // pendingClass: 'ctrovalidate-pending' (default)
+});
+```
+
+---
+
+## Advanced: Peer Selection
+
+Use Tailwind's `peer` utility to style elements based on validation state:
 
 ```html
 <div class="relative">
   <input
     name="username"
-    class="peer ... border-gray-300 is-invalid:border-red-500"
+    class="peer w-full px-4 py-2 border border-gray-300 rounded-lg"
     data-ctrovalidate-rules="required"
   />
-  <!-- This icon only shows when the input IS NOT invalid -->
-  <div class="hidden peer-[:not(.is-invalid)]:block">✅</div>
+  
+  <!-- Show checkmark when valid -->
+  <div class="hidden peer-[:not(.is-invalid)]:block absolute right-3 top-3 text-green-500">
+    ✓
+  </div>
+  
+  <!-- Show error icon when invalid -->
+  <div class="hidden peer-[.is-invalid]:block absolute right-3 top-3 text-red-500">
+    ✗
+  </div>
 </div>
 ```
 
+---
+
+## Dark Mode Support
+
+Use Tailwind's dark mode variants:
+
+```javascript
+const validator = new Ctrovalidate(form, {
+  errorClass: 'border-red-500 dark:border-red-400',
+  errorMessageClass: 'text-red-600 dark:text-red-400 text-sm mt-1'
+});
+```
+
+Or in CSS:
+
+```css
+input.is-invalid {
+  @apply border-red-500 dark:border-red-400;
+}
+
+div.error-message {
+  @apply text-red-600 dark:text-red-400 text-sm;
+}
+```
+
+---
+
+## Loading States
+
+Style async validation with Tailwind:
+
+```javascript
+const validator = new Ctrovalidate(form, {
+  pendingClass: 'border-blue-500 bg-blue-50 animate-pulse'
+});
+```
+
+```html
+<input
+  name="username"
+  data-ctrovalidate-rules="required|usernameAvailable"
+  class="w-full px-4 py-2 border border-gray-300 rounded-lg transition-all"
+/>
+```
+
+When the async rule runs, the input will have the `border-blue-500 bg-blue-50 animate-pulse` classes applied.
+
+---
+
+## Best Practices
+
+### 1. Use Transitions
+
+Add smooth transitions to validation states:
+
+```html
+<input class="... transition-all duration-200" />
+```
+
+### 2. Consistent Error Styling
+
+Use the same error classes across all forms:
+
+```javascript
+const defaultOptions = {
+  errorClass: 'border-red-500 ring-1 ring-red-500',
+  errorMessageClass: 'text-red-600 text-sm mt-1'
+};
+
+const validator = new Ctrovalidate(form, defaultOptions);
+```
+
+### 3. Accessible Colors
+
+Ensure error colors meet WCAG contrast requirements:
+
+```javascript
+// Good contrast for accessibility
+errorClass: 'border-red-600 ring-1 ring-red-600'
+```
+
+---
+
+## Benefits
+
+- **Utility-First**: Use Tailwind's utility classes directly
+- **No Custom CSS**: No need to write custom stylesheets
+- **Responsive**: Easy to add responsive validation styles
+- **Dark Mode**: Built-in dark mode support
+
 > [!TIP]
-> Use Tailwind's `transition` classes on your input to make the error border appear smoothly when validation triggers.
+> Use Tailwind's `transition` classes on inputs to make validation state changes smooth and polished.
+
+---
 
 ## Next Steps
 
-- **[Configuration Options](../guide/configuration.md)** — Learn more about customizing classes.
-- **[A11y Best Practices](../guide/introduction.md)** — Combining Tailwind with screen-reader support.
+- **[Configuration Options](../guide/configuration.md)** — All configuration options
+- **[Getting Started](../guide/getting-started.md)** — Basic usage guide
+- **[React Integration](./react.md)** — Using with React and Tailwind
