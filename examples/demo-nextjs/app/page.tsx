@@ -48,6 +48,7 @@ export default function Home() {
         errorClass: 'border-red-500 bg-red-50 text-red-900',
         pendingClass: 'animate-pulse bg-gray-100',
         errorMessageClass: 'text-[10px] uppercase font-bold tracking-wider text-red-600 mt-1'
+        
       });
     }
 

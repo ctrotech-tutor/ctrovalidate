@@ -14,6 +14,13 @@ function App() {
     { id: crypto.randomUUID(), email: '' }
   ]);
 
+// Register a rule named 'isCompanyEmail'
+Ctrovalidate.addRule(
+  'isCompanyEmail',
+  (value) => value.endsWith('@industrial.com'),
+  'Please use your official company email address.'
+);
+
   useEffect(() => {
     if (formRef.current && !validatorRef.current) {
       validatorRef.current = new Ctrovalidate(formRef.current, {
@@ -89,10 +96,13 @@ function App() {
                   id={`email-${member.id}`}
                   type="email"
                   name={`email_${member.id}`}
-                  data-ctrovalidate-rules="required|email" // Declarative rules
+                  data-ctrovalidate-rules="required|isCompanyEmail" // Declarative rules
                   placeholder="colleague@company.com"
                   defaultValue={member.email}
                 />
+
+              <div className="error-msg"></div> {/* Container for Ctrovalidate */}
+
                 <button
                   type="button"
                   onClick={() => removeMember(member.id)}
@@ -103,7 +113,7 @@ function App() {
                   &times;
                 </button>
               </div>
-              <div className="error-msg"></div> {/* Container for Ctrovalidate */}
+              
             </div>
           ))}
         </div>

@@ -1,14 +1,16 @@
 import './style.css';
 import { Ctrovalidate } from 'ctrovalidate';
 
+const validator = Ctrovalidate;
+
 // Initialize Custom Rules
-Ctrovalidate.addRule(
+validator.addRule(
   'strongPassword',
-  (value) => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(value as string),
-  'Use at least 8 characters with upper, lower, and numeric values.'
+  (value) => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/.test(value as string),
+  'Use at least 10 characters with upper, lower, and numeric values for you.'
 );
 
-Ctrovalidate.addAsyncRule(
+validator.addAsyncRule(
   'usernameAvailable',
   async (value) => {
     return new Promise((resolve) => {
