@@ -7,6 +7,7 @@
   --border-hover: #000000;
   --muted: #6b7280;
   --error: #ef4444;
+  --success: #10b981;
 }
 
 * {
@@ -17,53 +18,177 @@
 
 body {
   font-family: 'Inter', -apple-system, sans-serif;
-  background-color: var(--bg);
+  background-color: #f9fafb;
   color: var(--text);
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
+  padding: 2rem 1rem;
 }
 
 #app {
   width: 100%;
-  display: flex;
-  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .showcase-container {
   width: 100%;
-  max-width: 480px;
   padding: 2rem;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* ============================================================================
+   HEADER
+   ============================================================================ */
+
 header {
-  text-align: left;
-  margin-bottom: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
   border-bottom: 2px solid #000;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
 }
 
 .logo-text {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 header p {
   color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 500;
 }
 
-.form-group {
+/* ============================================================================
+   API CONTROLS
+   ============================================================================ */
+
+.api-controls {
+  background: #f9fafb;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem;
   margin-bottom: 2rem;
+}
+
+.api-controls h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.api-btn {
+  padding: 0.65rem 1rem;
+  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.api-btn:hover {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* ============================================================================
+   STATE INSPECTOR
+   ============================================================================ */
+
+.state-inspector {
+  background: #fffbeb;
+  border: 1px solid #fbbf24;
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.state-inspector h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.state-output {
+  font-size: 0.85rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.state-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.state-table th {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 2px solid var(--border);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+
+.state-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.state-table code {
+  background: #f3f4f6;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
+}
+
+.error-text {
+  color: var(--error);
+  font-size: 0.75rem;
+}
+
+/* ============================================================================
+   FORM SECTIONS
+   ============================================================================ */
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+legend {
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
   position: relative;
 }
 
@@ -76,9 +201,15 @@ label {
   letter-spacing: 0.05em;
 }
 
+.required {
+  color: var(--error);
+}
+
 input[type='text'],
 input[type='email'],
 input[type='password'],
+input[type='number'],
+textarea,
 select {
   width: 100%;
   padding: 0.75rem 0;
@@ -92,14 +223,43 @@ select {
   border-radius: 0;
 }
 
+textarea {
+  resize: vertical;
+  min-height: 80px;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
 input:focus,
+textarea:focus,
 select:focus {
   outline: none;
   border-bottom-color: var(--border-hover);
 }
 
+textarea:focus {
+  border-color: var(--border-hover);
+}
+
+small {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ============================================================================
+   VALIDATION STATES
+   ============================================================================ */
+
 .is-invalid {
   border-bottom-color: var(--error) !important;
+}
+
+textarea.is-invalid {
+  border-color: var(--error) !important;
 }
 
 .error-message {
@@ -107,55 +267,13 @@ select:focus {
   font-size: 0.75rem;
   margin-top: 0.5rem;
   min-height: 1rem;
-}
-
-.checkbox-group {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-
-.checkbox-group input[type='checkbox'] {
-  width: 1rem;
-  height: 1rem;
-  accent-color: #000;
-  cursor: pointer;
-}
-
-.checkbox-group label {
-  margin-bottom: 0;
-  text-transform: none;
-  letter-spacing: 0;
-  font-weight: 400;
-}
-
-button[type='submit'] {
-  width: 100%;
-  padding: 1rem;
-  background: #000;
-  color: #fff;
-  border: 1px solid #000;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  transition:
-    background 0.2s,
-    color 0.2s;
-  margin-top: 1rem;
-}
-
-button[type='submit']:hover {
-  background: #fff;
-  color: #000;
+  font-weight: 500;
 }
 
 .spinner {
   position: absolute;
   right: 0;
-  top: 25px;
+  top: 28px;
   width: 14px;
   height: 14px;
   border: 2px solid var(--border);
@@ -175,11 +293,126 @@ button[type='submit']:hover {
   }
 }
 
+/* ============================================================================
+   CHECKBOXES
+   ============================================================================ */
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.checkbox-group input[type='checkbox'] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: #000;
+  cursor: pointer;
+}
+
+.checkbox-group label {
+  margin-bottom: 0;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+/* ============================================================================
+   DYNAMIC FIELDS
+   ============================================================================ */
+
+.dynamic-field-group {
+  background: #f0fdf4;
+  border: 1px dashed var(--success);
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.remove-field-btn {
+  float: right;
+  padding: 0.25rem 0.5rem;
+  background: var(--error);
+  color: #fff;
+  border: none;
+  font-size: 0.7rem;
+  cursor: pointer;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+.remove-field-btn:hover {
+  background: #dc2626;
+}
+
+/* ============================================================================
+   BUTTONS
+   ============================================================================ */
+
+button[type='submit'],
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background: #000;
+  color: #fff;
+  border: 1px solid #000;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  margin-top: 1rem;
+  border-radius: 4px;
+}
+
+button[type='submit']:hover,
+.submit-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* ============================================================================
+   FOOTER
+   ============================================================================ */
+
 .footer-note {
   text-align: center;
-  margin-top: 4rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
   font-size: 0.7rem;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 640px) {
+  .showcase-container {
+    padding: 1.5rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .api-btn {
+    width: 100%;
+  }
+
+  .logo-text {
+    font-size: 1.25rem;
+  }
+
+  header p {
+    font-size: 0.75rem;
+  }
 }

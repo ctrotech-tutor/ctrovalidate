@@ -4,79 +4,277 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ctrovalidate • Vanilla JS Vite Demo</title>
+  <title>Ctrovalidate • Complete Feature Showcase</title>
 </head>
 
 <body>
   <div id="app">
     <div class="showcase-container">
       <header>
-        <div class="logo-text">Ctrovalidate</div>
-        <p>Vanilla JS • Vite • Monochrome</p>
+        <div class="logo-text">Ctrovalidate v3.0.0</div>
+        <p>Complete Feature Showcase • All 21 Rules • All 9 API Methods</p>
       </header>
 
+      <!-- API CONTROL PANEL -->
+      <div class="api-controls">
+        <h3>🎮 API Controls</h3>
+        <div class="button-group">
+          <button type="button" id="btn-validate" class="api-btn">✓ Validate Form</button>
+          <button type="button" id="btn-reset" class="api-btn">↻ Reset Form</button>
+          <button type="button" id="btn-refresh" class="api-btn">⟳ Refresh Fields</button>
+          <button type="button" id="btn-add-field" class="api-btn">+ Add Dynamic Field</button>
+          <button type="button" id="btn-destroy" class="api-btn">✕ Destroy Validator</button>
+        </div>
+      </div>
+
+      <!-- STATE INSPECTOR -->
+      <div class="state-inspector">
+        <h3>🔍 State Inspector</h3>
+        <div id="state-output" class="state-output">
+          <p><em>Interact with fields to see state changes...</em></p>
+        </div>
+      </div>
+
+      <!-- MAIN FORM -->
       <form id="showcase-form" novalidate>
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <input name="name" id="name" type="text" placeholder="e.g. John Doe"
-            data-ctrovalidate-rules="required|minLength:3|alpha" />
-          <div class="spinner"></div>
-          <div class="error-message"></div>
-        </div>
 
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" placeholder="Check availability..."
-            data-ctrovalidate-rules="required|minLength:3|alphaDash|usernameAvailable" />
-          <div class="spinner"></div>
-          <div class="error-message"></div>
-        </div>
+        <!-- SECTION 1: COMMON VALIDATION RULES -->
+        <fieldset>
+          <legend>📋 Common Validation Rules</legend>
 
-        <div class="form-group">
-          <label for="contact_method">Preferred Contact Method</label>
-          <select name="contact_method" id="contact_method">
-            <option value="email">Email</option>
-            <option value="phone">Phone</option>
-          </select>
-        </div>
+          <!-- required -->
+          <div class="form-group">
+            <label for="fullname">Full Name <span class="required">*</span></label>
+            <input name="fullname" id="fullname" type="text" placeholder="e.g. John Doe"
+              data-ctrovalidate-rules="required|minLength:3|maxLength:50" />
+            <small>Rules: required, minLength:3, maxLength:50</small>
+            <div class="error-message"></div>
+          </div>
 
-        <div class="form-group">
-          <label for="mobile">Mobile Number</label>
-          <input name="mobile" id="mobile" type="text" placeholder="+1 234 567 890"
-            data-ctrovalidate-rules="required|phone" data-ctrovalidate-if="contact_method:value=phone" />
-          <div class="spinner"></div>
-          <div class="error-message"></div>
-        </div>
+          <!-- email -->
+          <div class="form-group">
+            <label for="email">Email Address <span class="required">*</span></label>
+            <input type="email" id="email" name="email" placeholder="john@example.com"
+              data-ctrovalidate-rules="required|email" />
+            <small>Rules: required, email</small>
+            <div class="error-message"></div>
+          </div>
 
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="john@example.com"
-            data-ctrovalidate-rules="required|email" data-ctrovalidate-if="contact_method:value=email" />
-          <div class="spinner"></div>
-          <div class="error-message"></div>
-        </div>
+          <!-- exactLength -->
+          <div class="form-group">
+            <label for="invite_code">Invite Code <span class="required">*</span></label>
+            <input name="invite_code" id="invite_code" type="text" placeholder="ABC123"
+              data-ctrovalidate-rules="required|exactLength:6|alphaNum" maxlength="6" />
+            <small>Rules: required, exactLength:6, alphaNum</small>
+            <div class="error-message"></div>
+          </div>
+        </fieldset>
 
-        <div class="form-group">
-          <label for="password">Security Password</label>
-          <input type="password" id="password" name="password" placeholder="••••••••"
-            data-ctrovalidate-rules="required|strongPassword" />
-          <div class="spinner"></div>
-          <div class="error-message"></div>
-        </div>
+        <!-- SECTION 2: PASSWORD & CONFIRMATION (sameAs) -->
+        <fieldset>
+          <legend>🔒 Password Validation</legend>
 
-        <div>
+          <!-- strongPassword -->
+          <div class="form-group">
+            <label for="password">Password <span class="required">*</span></label>
+            <input type="password" id="password" name="password" placeholder="••••••••"
+              data-ctrovalidate-rules="required|strongPassword" />
+            <small>Rules: required, strongPassword (min 8 chars, uppercase, lowercase, number, special)</small>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- sameAs (password confirmation) -->
+          <div class="form-group">
+            <label for="password_confirm">Confirm Password <span class="required">*</span></label>
+            <input type="password" id="password_confirm" name="password_confirm" placeholder="••••••••"
+              data-ctrovalidate-rules="required|sameAs:password" />
+            <small>Rules: required, sameAs:password</small>
+            <div class="error-message"></div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION 3: FORMAT VALIDATION RULES -->
+        <fieldset>
+          <legend>🎨 Format Validation Rules</legend>
+
+          <!-- alpha -->
+          <div class="form-group">
+            <label for="country_code">Country Code</label>
+            <input name="country_code" id="country_code" type="text" placeholder="USA"
+              data-ctrovalidate-rules="alpha|exactLength:3" maxlength="3" />
+            <small>Rules: alpha (letters only), exactLength:3</small>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- alphaDash -->
+          <div class="form-group">
+            <label for="username">Username <span class="required">*</span></label>
+            <input type="text" id="username" name="username" placeholder="john_doe-123"
+              data-ctrovalidate-rules="required|minLength:3|alphaDash|usernameAvailable" />
+            <small>Rules: required, minLength:3, alphaDash, usernameAvailable (async)</small>
+            <div class="spinner"></div>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- phone -->
+          <div class="form-group">
+            <label for="mobile">Mobile Number</label>
+            <input name="mobile" id="mobile" type="text" placeholder="+1 234 567 890" data-ctrovalidate-rules="phone" />
+            <small>Rules: phone (international & local formats)</small>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- url -->
+          <div class="form-group">
+            <label for="website">Website URL</label>
+            <input name="website" id="website" type="text" placeholder="https://example.com"
+              data-ctrovalidate-rules="url" />
+            <small>Rules: url</small>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- creditCard -->
+          <div class="form-group">
+            <label for="card_number">Credit Card Number</label>
+            <input name="card_number" id="card_number" type="text" placeholder="4242424242424242"
+              data-ctrovalidate-rules="creditCard" maxlength="16" />
+            <small>Rules: creditCard (Luhn algorithm)</small>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- ipAddress -->
+          <div class="form-group">
+            <label for="ip_address">IP Address</label>
+            <input name="ip_address" id="ip_address" type="text" placeholder="192.168.1.1"
+              data-ctrovalidate-rules="ipAddress" />
+            <small>Rules: ipAddress (IPv4 & IPv6)</small>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- json -->
+          <div class="form-group">
+            <label for="metadata">Metadata (JSON)</label>
+            <textarea name="metadata" id="metadata" rows="3" placeholder='{"key": "value"}'
+              data-ctrovalidate-rules="json"></textarea>
+            <small>Rules: json (valid JSON object/array)</small>
+            <div class="error-message"></div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION 4: NUMERIC VALIDATION RULES -->
+        <fieldset>
+          <legend>🔢 Numeric Validation Rules</legend>
+
+          <!-- numeric -->
+          <div class="form-group">
+            <label for="employee_id">Employee ID</label>
+            <input name="employee_id" id="employee_id" type="text" placeholder="12345"
+              data-ctrovalidate-rules="numeric" />
+            <small>Rules: numeric (any number)</small>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- integer -->
+          <div class="form-group">
+            <label for="years_experience">Years of Experience</label>
+            <input name="years_experience" id="years_experience" type="text" placeholder="5"
+              data-ctrovalidate-rules="integer|min:0|max:50" />
+            <small>Rules: integer, min:0, max:50</small>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- decimal -->
+          <div class="form-group">
+            <label for="hourly_rate">Hourly Rate ($)</label>
+            <input name="hourly_rate" id="hourly_rate" type="text" placeholder="25.50"
+              data-ctrovalidate-rules="decimal|min:15|max:200" />
+            <small>Rules: decimal, min:15, max:200</small>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- between -->
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input name="age" id="age" type="number" placeholder="25"
+              data-ctrovalidate-rules="integer|between:18,100" />
+            <small>Rules: integer, between:18,100</small>
+            <div class="error-message"></div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION 5: CONDITIONAL VALIDATION (Dependencies) -->
+        <fieldset>
+          <legend>🔀 Conditional Validation (Dependencies)</legend>
+
+          <!-- Controller field -->
+          <div class="form-group">
+            <label for="contact_method">Preferred Contact Method</label>
+            <select name="contact_method" id="contact_method">
+              <option value="">-- Select --</option>
+              <option value="email">Email</option>
+              <option value="phone">Phone</option>
+              <option value="mail">Physical Mail</option>
+            </select>
+            <small>This controls which fields below are validated</small>
+          </div>
+
+          <!-- Dependent field: email (validates only if contact_method = email) -->
+          <div class="form-group">
+            <label for="contact_email">Contact Email</label>
+            <input type="email" id="contact_email" name="contact_email" placeholder="contact@example.com"
+              data-ctrovalidate-rules="required|email" data-ctrovalidate-if="contact_method:value:email" />
+            <small>Rules: required, email (only if contact_method = "email")</small>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- Dependent field: phone (validates only if contact_method = phone) -->
+          <div class="form-group">
+            <label for="contact_phone">Contact Phone</label>
+            <input name="contact_phone" id="contact_phone" type="text" placeholder="+1 234 567 890"
+              data-ctrovalidate-rules="required|phone" data-ctrovalidate-if="contact_method:value:phone" />
+            <small>Rules: required, phone (only if contact_method = "phone")</small>
+            <div class="error-message"></div>
+          </div>
+
+          <!-- Checkbox controller -->
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="has_referral" name="has_referral" />
+            <label for="has_referral">I have a referral code</label>
+          </div>
+
+          <!-- Dependent field: validates only if checkbox is checked -->
+          <div class="form-group">
+            <label for="referral_code">Referral Code</label>
+            <input name="referral_code" id="referral_code" type="text" placeholder="REF123"
+              data-ctrovalidate-rules="required|alphaNum|exactLength:6" data-ctrovalidate-if="has_referral:checked" />
+            <small>Rules: required, alphaNum, exactLength:6 (only if checkbox checked)</small>
+            <div class="error-message"></div>
+          </div>
+        </fieldset>
+
+        <!-- SECTION 6: DYNAMIC FIELDS (will be added programmatically) -->
+        <fieldset id="dynamic-fields-container">
+          <legend>⚡ Dynamic Fields (Added Programmatically)</legend>
+          <p><em>Click "Add Dynamic Field" button above to add fields programmatically</em></p>
+          <!-- Fields will be added here via addField() API -->
+        </fieldset>
+
+        <!-- SECTION 7: TERMS & SUBMIT -->
+        <fieldset>
+          <legend>✅ Final Step</legend>
+
           <div class="form-group checkbox-group">
             <input type="checkbox" id="terms" name="terms" data-ctrovalidate-rules="required" />
-            <label for="terms">I agree to the industrial standards of testing</label>
+            <label for="terms">I agree to the Terms and Conditions <span class="required">*</span></label>
           </div>
           <div class="error-message" style="margin-top: -0.5rem"></div>
-        </div>
 
-        <button type="submit">Register Integration</button>
+          <button type="submit" class="submit-btn">🚀 Complete Registration</button>
+        </fieldset>
       </form>
 
       <div class="footer-note">
-        Powered by Ctrovalidate Core Engine v2.1.1
+        Powered by Ctrovalidate v3.0.0 • 98% Test Coverage • Zero Dependencies
       </div>
     </div>
   </div>
