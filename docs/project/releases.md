@@ -1,6 +1,11 @@
+---
+title: Release Policy & Changelog
+description: Ctrovalidate follows Semantic Versioning. View our changelog and release notes for all versions.
+---
+
 # Release Policy & Changelog
 
-This document outlines our release policy, our commitment to Semantic Versioning, and how to stay up-to-date with changes to Ctrovalidate.
+Ctrovalidate follows [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) for predictable, reliable updates.
 
 ## Semantic Versioning (SemVer)
 

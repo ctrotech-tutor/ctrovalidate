@@ -3,7 +3,7 @@ title: Support Ctrovalidate
 description: Support the development of Ctrovalidate - a modern, accessible form validation library.
 ---
 
-# Support Ctrovalidate 🚀
+# Support Ctrovalidate
 
 Ctrovalidate is an open-source project dedicated to making web forms accessible and developer-friendly. Your support helps maintain the library and ensure its continued growth.
 

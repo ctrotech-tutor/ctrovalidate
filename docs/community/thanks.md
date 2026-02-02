@@ -3,11 +3,11 @@ title: Thank You
 description: We are incredibly grateful for your support!
 ---
 
-# You're Awesome! 💖
+# Thank You!
 
-Thank you so much for your support of **Ctrovalidate**. We've received your contribution and are truly grateful.
+Thank you for your support of Ctrovalidate. We've received your contribution and are truly grateful.
 
-Your support helps us keep the library free, fast, and accessible for everyone. It means a lot to the maintainers and the community.
+Your support helps keep the library free, fast, and accessible for everyone.
 
 ## What's Next?
 
