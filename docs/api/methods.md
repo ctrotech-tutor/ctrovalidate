@@ -1,83 +1,136 @@
 ---
 title: Instance Methods API | Ctrovalidate Reference
-description: API documentation for Ctrovalidate instance methods, including validate, addField, getError, and isDirty for precise form control.
+description: Complete API reference for all 9 Ctrovalidate instance methods including validate, addField, removeField, refresh, getError, isDirty, reset, and destroy.
 ---
 
 # Instance Methods
 
-Instances of the `Ctrovalidate` class provide several methods to control validation programmatically.
+The `Ctrovalidate` class provides 9 public methods for programmatic form validation control.
 
 ```javascript
-const validator = new Ctrovalidate(formElement);
+const validator = new Ctrovalidate(formElement, options);
 ```
 
 ---
 
 ## `validate()`
 
-The primary method for triggering a full form check.
+Validates all tracked fields in the form.
 
-- **Returns**: `Promise<boolean>`
-- **Description**: Scans all tracked fields, executes their rules, and updates the DOM.
+**Returns:** `Promise<boolean>`
+
+**Description:** Executes validation rules for all fields, updates the DOM with error messages, and returns `true` if all fields are valid.
 
 **Usage:**
 
 ```javascript
-form.onsubmit = async (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  
   if (await validator.validate()) {
-    // Submit data
+    // All fields valid - submit form
+    const formData = new FormData(form);
+    await fetch('/api/submit', { method: 'POST', body: formData });
   }
-};
+});
 ```
 
 ---
 
 ## `addField(element)`
 
-Dynamically registers a new field.
+Registers a new field for validation tracking.
 
-- **Params**: `element` (HTMLElement)
-- **Description**: Adds the element to the tracking list and attaches real-time listeners if enabled.
+**Parameters:**
+- `element` (HTMLElement) - The input element to track
+
+**Description:** Adds the element to validation tracking and attaches event listeners if `realTime` is enabled.
 
 **Usage:**
 
 ```javascript
-const input = document.createElement('input');
-input.name = 'new_field';
-input.dataset.ctrovalidateRules = 'required';
+const newInput = document.createElement('input');
+newInput.name = 'phone';
+newInput.setAttribute('data-ctrovalidate-rules', 'required|phone');
 
-document.body.appendChild(input);
-validator.addField(input);
+document.querySelector('#form-container').appendChild(newInput);
+validator.addField(newInput);
 ```
 
 ---
 
 ## `removeField(element)`
 
-Safely stops tracking a field.
+Unregisters a field from validation tracking.
 
-- **Params**: `element` (HTMLElement)
-- **Description**: Removes internal listeners, clears error caches, and removes the element from the validation cycle.
+**Parameters:**
+- `element` (HTMLElement) - The input element to stop tracking
+
+**Description:** Removes event listeners, clears error states, and removes the field from the validation cycle. Prevents memory leaks.
+
+**Usage:**
+
+```javascript
+const fieldToRemove = document.querySelector('[name="optional"]');
+
+validator.removeField(fieldToRemove);
+fieldToRemove.remove();
+```
+
+---
+
+## `refresh()`
+
+Re-scans the form for fields with validation rules.
+
+**Description:** Discovers all fields with `data-ctrovalidate-rules` attributes, removes tracking for fields no longer in the DOM, and attaches event listeners to new fields.
+
+**Usage:**
+
+```javascript
+// After bulk DOM updates
+document.querySelector('#dynamic-section').innerHTML = generateFields();
+validator.refresh();
+```
 
 ---
 
 ## `getError(fieldName)`
 
-Retrieve the current error state for a specific field.
+Retrieves the current error message for a specific field.
 
-- **Params**: `fieldName` (string)
-- **Returns**: `string | null`
-- **Description**: Returns the formatted error message if the field is invalid, or `null` if valid.
+**Parameters:**
+- `fieldName` (string) - The `name` attribute of the field
+
+**Returns:** `string | null` - The error message, or `null` if the field is valid
+
+**Usage:**
+
+```javascript
+const emailError = validator.getError('email');
+if (emailError) {
+  console.log('Email error:', emailError);
+}
+```
 
 ---
 
 ## `isDirty(fieldName)`
 
-Check if a user has interacted with a field (triggered a blur event).
+Checks if a field has been interacted with.
 
-- **Params**: `fieldName` (string)
-- **Returns**: `boolean`
+**Parameters:**
+- `fieldName` (string) - The `name` attribute of the field
+
+**Returns:** `boolean` - `true` if the user has triggered a blur event on the field
+
+**Usage:**
+
+```javascript
+if (validator.isDirty('username')) {
+  // User has interacted with username field
+}
+```
 
 ---
 
@@ -85,12 +138,12 @@ Check if a user has interacted with a field (triggered a blur event).
 
 Resets the validation state of the entire form.
 
-- **Description**: Clears all error messages from the DOM, removes error classes, and resets all field "dirty" states to `false`.
+**Description:** Clears all error messages, removes error classes, and resets all field "dirty" states to `false`.
 
 **Usage:**
 
 ```javascript
-// Clear the form and the validator state
+// Clear form and validator state
 form.reset();
 validator.reset();
 ```
@@ -101,18 +154,60 @@ validator.reset();
 
 Completely cleans up the validator instance.
 
-- **Description**: Removes all event listeners attached to the form and its fields, clears all error states, and releases internal references. Use this when a component in a framework like React or Vue is about to be unmounted.
+**Description:** Removes all event listeners, clears error states, and releases internal references. Use this when unmounting components in React, Vue, or Svelte.
 
 **Usage:**
 
 ```javascript
-// Framework cleanup
-onUnmounted(() => {
-  validator.destroy();
+// React example
+useEffect(() => {
+  const validator = new Ctrovalidate(formRef.current);
+  
+  return () => {
+    validator.destroy();
+  };
+}, []);
+```
+
+---
+
+## `setCustomMessages(messages)`
+
+**Static method** - Sets custom error messages globally.
+
+**Parameters:**
+- `messages` (Record<string, string>) - Object mapping rule names to custom messages
+
+**Usage:**
+
+```javascript
+Ctrovalidate.setCustomMessages({
+  required: 'This field cannot be empty.',
+  email: 'Please enter a valid email address.',
+  minLength: 'Must be at least {0} characters long.'
 });
 ```
 
+---
+
+## Summary
+
+| Method | Type | Returns | Description |
+|:-------|:-----|:--------|:------------|
+| `validate()` | Instance | `Promise<boolean>` | Validates all fields |
+| `addField(element)` | Instance | `void` | Registers new field |
+| `removeField(element)` | Instance | `void` | Unregisters field |
+| `refresh()` | Instance | `void` | Re-scans form for fields |
+| `getError(fieldName)` | Instance | `string \| null` | Gets field error |
+| `isDirty(fieldName)` | Instance | `boolean` | Checks if field touched |
+| `reset()` | Instance | `void` | Resets validation state |
+| `destroy()` | Instance | `void` | Cleans up instance |
+| `setCustomMessages(messages)` | Static | `void` | Sets global messages |
+
+---
+
 ## Next Steps
 
-- **[Static Methods](./static-methods.md)** — Global library configuration.
-- **[TypeScript Types](./types.md)** — Working with Ctrovalidate in TS.
+- **[Static Methods](./static-methods.md)** — Global rule registration
+- **[TypeScript Types](./types.md)** — Type definitions
+- **[Dynamic Fields](../guide/dynamic-fields.md)** — Managing field lifecycle
