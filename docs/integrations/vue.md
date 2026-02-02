@@ -1,3 +1,8 @@
+---
+title: Vue 3 Integration | Composition API
+description: Integrate Ctrovalidate with Vue 3's Composition API using onMounted and reactive refs for DOM-based validation.
+---
+
 # Vue 3 Integration
 
 Ctrovalidate integrates seamlessly with Vue 3's Composition API, providing DOM-based validation that works alongside Vue's reactive state.

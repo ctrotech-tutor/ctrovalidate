@@ -1,3 +1,8 @@
+---
+title: Svelte Integration | Form Validation
+description: Integrate Ctrovalidate with Svelte using bind:this and onMount for seamless form validation.
+---
+
 # Svelte Integration
 
 Ctrovalidate integrates seamlessly with Svelte using the `bind:this` directive and `onMount` lifecycle function.

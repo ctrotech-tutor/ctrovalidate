@@ -1,3 +1,8 @@
+---
+title: Alpine.js Integration | Markup-First Validation
+description: Integrate Ctrovalidate with Alpine.js for reactive, validated forms using x-init and x-data directives.
+---
+
 # Alpine.js Integration
 
 Ctrovalidate and Alpine.js share a "markup-first" philosophy, making them a perfect match for building reactive, validated forms directly in HTML.
