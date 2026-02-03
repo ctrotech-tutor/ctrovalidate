@@ -1,6 +1,13 @@
 ---
 title: Static Methods API | Global Configuration
 description: API reference for Ctrovalidate static methods including addRule, addAsyncRule, and setCustomMessages for global configuration.
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: API
+    url: https://ctrotech-tutor.github.io/ctrovalidate/api/static-methods
+  - name: Static Methods
+    url: https://ctrotech-tutor.github.io/ctrovalidate/api/static-methods
 ---
 
 # Static Methods

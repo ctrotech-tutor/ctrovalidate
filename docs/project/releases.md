@@ -1,6 +1,13 @@
 ---
 title: Release Policy & Changelog
 description: Ctrovalidate follows Semantic Versioning. View our changelog and release notes for all versions.
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: Project Info
+    url: https://ctrotech-tutor.github.io/ctrovalidate/project/releases
+  - name: Release Policy
+    url: https://ctrotech-tutor.github.io/ctrovalidate/project/releases
 ---
 
 # Release Policy & Changelog

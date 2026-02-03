@@ -1,6 +1,13 @@
 ---
 title: Thank You
 description: We are incredibly grateful for your support!
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: Community
+    url: https://ctrotech-tutor.github.io/ctrovalidate/community/thanks
+  - name: Thanks
+    url: https://ctrotech-tutor.github.io/ctrovalidate/community/thanks
 ---
 
 # Thank You!

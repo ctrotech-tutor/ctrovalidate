@@ -1,6 +1,13 @@
 ---
 title: Configuration Reference | Customizing Ctrovalidate
 description: Comprehensive guide to Ctrovalidate configuration options, including error classes, logging levels, and real-time validation settings.
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: Guide
+    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/configuration
+  - name: Configuration
+    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/configuration
 ---
 
 # Configuration Options

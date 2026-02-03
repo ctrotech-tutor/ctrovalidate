@@ -1,6 +1,13 @@
 ---
 title: HTMX Integration | Client-Side Validation
 description: Integrate Ctrovalidate with HTMX to validate forms before AJAX requests using htmx:beforeRequest events.
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: Integrations
+    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/htmx
+  - name: HTMX
+    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/htmx
 ---
 
 # HTMX Integration

@@ -1,6 +1,13 @@
 ---
 title: Custom Rules | Extending Validation
 description: Learn how to build and register custom synchronous and asynchronous validation rules for complex business logic.
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: Guide
+    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/custom-rules
+  - name: Custom Rules
+    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/custom-rules
 ---
 
 # Custom Rules

@@ -1,6 +1,13 @@
 ---
 title: Conditional Validation | State-Based Rules
 description: Master the data-ctrovalidate-if attribute to create dynamic forms where validation rules depend on the state of other fields.
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: Guide
+    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/conditional-validation
+  - name: Conditional Validation
+    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/conditional-validation
 ---
 
 # Conditional Validation

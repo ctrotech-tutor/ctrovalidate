@@ -1,6 +1,13 @@
 ---
 title: Next.js Integration | Server & Client-Side Validation
 description: Best practices for using Ctrovalidate with Next.js App Router, including Server Components and hydration-safe patterns.
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: Integrations
+    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/nextjs
+  - name: Next.js
+    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/nextjs
 ---
 
 # Next.js Integration

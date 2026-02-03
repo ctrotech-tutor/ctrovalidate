@@ -1,6 +1,13 @@
 ---
 title: Real-World Examples | Practical Patterns
 description: Production-ready code examples for registration forms, conditional validation, async checks, and accessible feedback patterns.
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: Guide
+    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/examples
+  - name: Examples
+    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/examples
 ---
 
 # Real-World Examples
