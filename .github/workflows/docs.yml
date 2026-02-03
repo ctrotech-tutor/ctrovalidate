@@ -52,7 +52,7 @@ jobs:
         run: mv docs/.vitepress/dist/sitemap.xml docs/.vitepress/dist/sitemap_v3.xml
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
