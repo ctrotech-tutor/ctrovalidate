@@ -1,6 +1,13 @@
 ---
 title: Built-in Rules Catalog | Validation Syntax
 description: Explore all 21 built-in validation rules in Ctrovalidate, covering common, format, and numeric validation patterns.
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: Guide
+    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/rules
+  - name: Built-in Rules
+    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/rules
 ---
 
 # Built-in Rules Catalog

@@ -1,6 +1,13 @@
 ---
 title: React Integration | Form Validation
 description: Integrate Ctrovalidate with React using useRef and useEffect for DOM-based validation that works outside the render cycle.
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: Integrations
+    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/react
+  - name: React
+    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/react
 ---
 
 # React Integration

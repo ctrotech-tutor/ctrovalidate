@@ -1,6 +1,13 @@
 ---
 title: Instance Methods API | Ctrovalidate Reference
 description: Complete API reference for all 9 Ctrovalidate instance methods including validate, addField, removeField, refresh, getError, isDirty, reset, and destroy.
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: API
+    url: https://ctrotech-tutor.github.io/ctrovalidate/api/methods
+  - name: Instance Methods
+    url: https://ctrotech-tutor.github.io/ctrovalidate/api/methods
 ---
 
 # Instance Methods

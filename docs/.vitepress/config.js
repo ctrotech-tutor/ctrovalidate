@@ -22,6 +22,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-KC6DGMLR');`
     ],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/ctrovalidate/logo.svg' }],
+    ['link', { rel: 'icon', href: '/ctrovalidate/favicon.ico', sizes: 'any' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '48x48', href: '/ctrovalidate/favicon-48x48.png' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/ctrovalidate/favicon-96x96.png' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/ctrovalidate/apple-touch-icon.png' }],
     ['meta', { name: 'theme-color', content: '#646cff' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:locale', content: 'en' }],

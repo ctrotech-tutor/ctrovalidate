@@ -1,6 +1,13 @@
 ---
 title: Getting Started | Install and Setup Ctrovalidate
 description: Learn how to install Ctrovalidate via npm, yarn, or CDN and build your first accessible, validated form in minutes.
+breadcrumb:
+  - name: Ctrovalidate
+    url: https://ctrotech-tutor.github.io/ctrovalidate/
+  - name: Guide
+    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/getting-started
+  - name: Getting Started
+    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/getting-started
 ---
 
 # Getting Started
