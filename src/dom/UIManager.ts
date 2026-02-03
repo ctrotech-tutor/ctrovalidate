@@ -38,8 +38,23 @@ export class UIManager {
 
     if (!field.parentElement) return null;
 
+    // Create a valid CSS selector by escaping and chaining all classes
+    const safeEscape = (str: string): string => {
+      if (typeof CSS !== 'undefined' && CSS.escape) {
+        return CSS.escape(str);
+      }
+      // Basic fallback for Node/JSDOM environments where CSS is not defined
+      return str.replace(/([!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~])/g, '\\$1');
+    };
+
+    const selector = this.#errorMessageClass
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((cls) => `.${safeEscape(cls)}`)
+      .join('');
+
     const errorElement = field.parentElement.querySelector(
-      `.${this.#errorMessageClass}`
+      selector
     ) as HTMLElement | null;
 
     if (errorElement) {

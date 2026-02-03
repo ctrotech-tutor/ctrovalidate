@@ -1,3 +1,9 @@
+# [3.0.1](https://github.com/ctrotech-tutor/ctrovalidate/compare/v3.0.0...v3.0.1) (2026-02-03)
+
+### Bug Fixes
+
+- **Core**: implement `safeEscape` for CSS selectors to support JSDOM/Node environments and fix Tailwind class parsing errors ([7b28a9c](https://github.com/ctrotech-tutor/ctrovalidate/commit/7b28a9c))
+
 # [3.0.0](https://github.com/ctrotech-tutor/ctrovalidate/compare/v2.1.1...v3.0.0) (2026-02-02)
 
 ### Features
