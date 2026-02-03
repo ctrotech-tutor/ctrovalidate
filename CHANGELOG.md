@@ -1,3 +1,9 @@
+## [3.0.2](https://github.com/ctrotech-tutor/ctrovalidate/compare/v3.0.1...v3.0.2) (2026-02-03)
+
+### Bug Fixes
+
+- v3.0.1 patch — multi-class error support, Tailwind integration, dynamic field fixes ([7f43c0b](https://github.com/ctrotech-tutor/ctrovalidate/commit/7f43c0b802648e159eee5f0e43d6c902e10af22f))
+
 ## [3.0.1](https://github.com/ctrotech-tutor/ctrovalidate/compare/v3.0.0...v3.0.1) (2026-02-03)
 
 ### Bug Fixes
