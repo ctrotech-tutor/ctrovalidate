@@ -48,6 +48,9 @@ jobs:
       - name: Build Documentation
         run: npm run docs:build
 
+      - name: Rename Sitemap for Fresh Indexing
+        run: mv docs/.vitepress/dist/sitemap.xml docs/.vitepress/dist/sitemap_v3.xml
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
