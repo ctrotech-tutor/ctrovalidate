@@ -1,3 +1,45 @@
+## [3.0.1](https://github.com/ctrotech-tutor/ctrovalidate/compare/v3.0.0...v3.0.1) (2026-02-03)
+
+### Bug Fixes
+
+- **core:** resolve CSS.escape crash in JSDOM and Tailwind compatibility issues ([9b850ac](https://github.com/ctrotech-tutor/ctrovalidate/commit/9b850ac6cde4658e70fdaa04ea873f35cf4536c6))
+
+### Documentation
+
+- restructure documentation for v3.0.0 and remove promotional language ([1bfd96a](https://github.com/ctrotech-tutor/ctrovalidate/commit/1bfd96a23657b05e76953df92004184fd7f713ad))
+
+### Features
+
+- **examples:** add v3.0.0 feature showcase banner and cleanup ([b0c883c](https://github.com/ctrotech-tutor/ctrovalidate/commit/b0c883cfdcec9552225e37e5d544736736d38b3f))
+- **seo:** complete seo overhaul (assets, structured data, breadcrumbs) ([d3c0ae0](https://github.com/ctrotech-tutor/ctrovalidate/commit/d3c0ae06ca56ee87812058d9e948de90df246b59))
+
+### Performance Improvements
+
+- **seo:** comprehensive schema rollout (breadcrumbs for all pages, webmanifest fix) ([eb85156](https://github.com/ctrotech-tutor/ctrovalidate/commit/eb851562f30fd9a74b07ddabc75d06c50d72733a))
+
+### BREAKING CHANGES
+
+- Documentation structure changed from docs/2.0/_ to docs/_
+
+* Move all documentation from docs/2.0/ to docs/ root for clean v3.0.0 structure
+* Update VitePress config version from v2.1.1 to v3.0.0
+* Remove obsolete path rewrites for 2.0 folder structure
+* Update homepage to remove promotional language:
+  - Remove 'Modern' from title and tagline
+  - Remove 'Industrial' from code comments
+  - Replace vague terms with specific features
+* Add v3.0.0 highlights to homepage:
+  - TypeScript-native with full type support
+  - 98% test coverage for reliability
+  - 21 built-in validation rules
+  - <5KB gzipped bundle size
+  - ARIA-compliant accessibility
+* Update features section with factual, measurable benefits
+* Prepare structure for future multi-version support (v4)
+
+This restructure sets up clean documentation for v3.0.0 and makes it easy to
+add versioned docs (docs/v3/, docs/v4/) when future major versions are released.
+
 # [3.0.1](https://github.com/ctrotech-tutor/ctrovalidate/compare/v3.0.0...v3.0.1) (2026-02-03)
 
 ### Bug Fixes
