@@ -92,7 +92,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             },
             {
               text: 'Working with SPAs',
-              link: '/guide/spa-dynamic-fields',
+              link: '/guide/dynamic-fields',
             },
             { text: 'Real-world Examples', link: '/guide/examples' },
           ],
