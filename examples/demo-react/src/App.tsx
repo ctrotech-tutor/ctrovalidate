@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
 import { Ctrovalidate } from 'ctrovalidate';
-import './App.css';
 
 interface TeamMember {
   id: string;
@@ -11,22 +10,23 @@ function App() {
   const formRef = useRef<HTMLFormElement>(null);
   const validatorRef = useRef<Ctrovalidate | null>(null);
   const [members, setMembers] = useState<TeamMember[]>([
-    { id: crypto.randomUUID(), email: '' }
+    { id: crypto.randomUUID(), email: '' },
   ]);
 
-// Register a rule named 'isCompanyEmail'
-Ctrovalidate.addRule(
-  'isCompanyEmail',
-  (value) => value.endsWith('@industrial.com'),
-  'Please use your official company email address.'
-);
+  // Register a custom validation rule
+  Ctrovalidate.addRule(
+    'isCompanyEmail',
+    (value) => value.endsWith('@industrial.com'),
+    'Please use your official company email address.'
+  );
 
   useEffect(() => {
     if (formRef.current && !validatorRef.current) {
       validatorRef.current = new Ctrovalidate(formRef.current, {
         realTime: true,
-        errorClass: 'error-visible',
-        errorMessageClass: 'error-msg',
+        errorClass: 'border-red-500',
+        errorMessageClass: 'text-red-600 text-xs mt-1',
+        pendingClass: 'opacity-50',
       });
     }
 
@@ -35,35 +35,20 @@ Ctrovalidate.addRule(
     };
   }, []);
 
-  // When members array changes, we don't necessarily need to re-initialize.
-  // We can use a ref callback or individual useEffects for new fields, 
-  // OR just call refresh() if we wanted lazy updates. 
-  // Here we show the precise 'addField' pattern via Ref callbacks for maximum control.
-
   const addMember = () => {
-    setMembers(prev => [...prev, { id: crypto.randomUUID(), email: '' }]);
+    setMembers((prev) => [...prev, { id: crypto.randomUUID(), email: '' }]);
   };
 
   const removeMember = (id: string) => {
     if (members.length <= 1) return;
-    setMembers(prev => prev.filter(m => m.id !== id));
-    // Note: Ctrovalidate automatically cleans up when elements are removed from DOM
-    // thanks to the MutationObserver in the core engine, BUT 
-    // explicit removal (validator.removeField) is good practice if ensuring cleanup 
-    // before DOM removal, or if MutationObserver support is not relied upon.
-    // In this React example, DOM removal happens *after* state update, so 
-    // we let the validator's internal observer or refresh handle it, 
-    // or we could manually handle it if we had a ref to the element before removal.
-    // For simplicity in this demo, we can just call refresh() in a useEffect [members].
+    setMembers((prev) => prev.filter((m) => m.id !== id));
   };
 
   useEffect(() => {
-    // Ideally, for big lists, use refresh()
     if (validatorRef.current) {
       validatorRef.current.refresh();
     }
   }, [members]);
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,58 +56,74 @@ Ctrovalidate.addRule(
 
     if (isValid) {
       alert(`Inviting ${members.length} new team members!`);
-      // Reset logic
       formRef.current?.reset();
       validatorRef.current?.reset();
     }
   };
 
   return (
-    <div className="app-container">
-      <header className="header">
-        <h1>Team Onboarding</h1>
-        <p>Dynamic Field Management Demo</p>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-start p-6 font-sans">
+      <header className="text-center mb-6">
+        <h1 className="text-2xl font-bold uppercase tracking-wide">
+          Team Onboarding
+        </h1>
+        <p className="text-sm text-gray-600 mt-1">
+          Dynamic Field Management Demo
+        </p>
       </header>
 
-      <form ref={formRef} noValidate onSubmit={handleSubmit} className="card">
-        <div className="members-list">
+      <form
+        ref={formRef}
+        noValidate
+        onSubmit={handleSubmit}
+        className="w-full max-w-lg bg-white p-6 rounded-lg shadow-md"
+      >
+        <div className="space-y-4">
           {members.map((member, index) => (
-            <div key={member.id} className="field-group">
-              <label htmlFor={`email-${member.id}`}>
+            <div key={member.id} className="space-y-1">
+              <label
+                htmlFor={`email-${member.id}`}
+                className="block text-xs uppercase tracking-wider text-gray-700"
+              >
                 Member {index + 1}
               </label>
-              <div className="input-row">
+              <div className="flex items-center space-x-2">
                 <input
                   id={`email-${member.id}`}
                   type="email"
                   name={`email_${member.id}`}
-                  data-ctrovalidate-rules="required|isCompanyEmail" // Declarative rules
+                  data-ctrovalidate-rules="required|isCompanyEmail"
                   placeholder="colleague@company.com"
                   defaultValue={member.email}
+                  className="flex-1 border-2 border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
-
-              <div className="error-msg"></div> {/* Container for Ctrovalidate */}
-
                 <button
                   type="button"
                   onClick={() => removeMember(member.id)}
-                  className="icon-btn delete-btn"
-                  title="Remove"
                   disabled={members.length === 1}
+                  className="text-red-500 hover:text-red-700 font-bold text-lg px-2 disabled:opacity-50"
+                  title="Remove"
                 >
                   &times;
                 </button>
               </div>
-              
+              <div className="error-msg text-red-600 text-xs mt-1"></div>
             </div>
           ))}
         </div>
 
-        <div className="actions">
-          <button type="button" onClick={addMember} className="btn secondary">
+        <div className="mt-6 flex justify-between items-center">
+          <button
+            type="button"
+            onClick={addMember}
+            className="bg-gray-200 hover:bg-gray-300 text-gray-800 text-xs uppercase px-4 py-2 rounded tracking-wider"
+          >
             + Add Another
           </button>
-          <button type="submit" className="btn primary">
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white text-xs uppercase px-4 py-2 rounded tracking-wider"
+          >
             Send Invites
           </button>
         </div>
