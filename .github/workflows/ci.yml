@@ -31,7 +31,7 @@ jobs:
 
       # 2️⃣ Setup Node.js
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           check-latest: true # ensure latest patch version
