@@ -1,15 +1,17 @@
 {
   "git": {
-    "commitMessage": "chore(release): v${version}",
-    "tagName": "v${version}"
-  },
-  "npm": {
-    "publish": true,
-    "timeout": 120
+    "commitMessage": "chore: release v${version}",
+    "tagName": "v${version}",
+    "requireCleanWorkingDir": true,
+    "push": true
   },
   "github": {
     "release": true,
-    "releaseName": "Release v${version}"
+    "releaseName": "v${version}",
+    "tokenRef": "GITHUB_TOKEN"
+  },
+  "npm": {
+    "publish": true
   },
   "plugins": {
     "@release-it/conventional-changelog": {

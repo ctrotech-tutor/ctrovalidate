@@ -6,7 +6,7 @@ export default defineConfig({
   title: 'Ctrovalidate',
   description:
     'A zero-dependency JavaScript form validation library with built-in accessibility support and an HTML-first configuration approach.',
-  base: '/ctrovalidate/',
+  base: '/',
 
   lastUpdated: true,
   cleanUrls: true,
@@ -21,12 +21,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KC6DGMLR');`
     ],
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/ctrovalidate/logo.svg' }],
-    ['link', { rel: 'icon', href: '/ctrovalidate/favicon.ico', sizes: 'any' }],
-    ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/ctrovalidate/favicon-32x32.png' }],
-    ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/ctrovalidate/favicon-16x16.png' }],
-    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/ctrovalidate/apple-touch-icon.png' }],
-    ['link', { rel: 'manifest', href: '/ctrovalidate/site.webmanifest' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+    ['link', { rel: 'icon', href: '/favicon.ico', sizes: 'any' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' }],
+    ['link', { rel: 'manifest', href: '/site.webmanifest' }],
     [
       'script',
       { type: 'application/ld+json' },
@@ -37,7 +37,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "applicationCategory": "DeveloperTool",
         "operatingSystem": "All",
         "description": "Ctrovalidate is a lightweight, accessible, zero-dependency JavaScript form validation library.",
-        "url": "https://ctrotech-tutor.github.io/ctrovalidate/",
+        "url": "https://ctrovalidate.vercel.app/",
         "sameAs": [
           "https://www.npmjs.com/package/ctrovalidate",
           "https://github.com/ctrotech-tutor/ctrovalidate"
@@ -56,7 +56,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Ctrovalidate",
-        "url": "https://ctrotech-tutor.github.io/ctrovalidate/"
+        "url": "https://ctrovalidate.vercel.app/",
       })
     ],
     ['meta', { name: 'theme-color', content: '#646cff' }],
@@ -65,12 +65,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     ['meta', { property: 'og:site_name', content: 'Ctrovalidate' }],
     ['meta', { property: 'og:title', content: 'Ctrovalidate | Form Validation Library' }],
     ['meta', { property: 'og:description', content: 'A zero-dependency JavaScript form validation library with built-in accessibility support and HTML-first configuration.' }],
-    ['meta', { property: 'og:url', content: 'https://ctrotech-tutor.github.io/ctrovalidate/' }],
-    ['meta', { property: 'og:image', content: 'https://ctrotech-tutor.github.io/ctrovalidate/og-image.jpg' }],
+    ['meta', { property: 'og:url', content: 'https://ctrovalidate.vercel.app/' }],
+    ['meta', { property: 'og:image', content: 'https://ctrovalidate.vercel.app/og-image.jpg' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: 'Ctrovalidate | Form Validation Library' }],
     ['meta', { name: 'twitter:description', content: 'A zero-dependency JavaScript form validation library with built-in accessibility support and HTML-first configuration.' }],
-    ['meta', { name: 'twitter:image', content: 'https://ctrotech-tutor.github.io/ctrovalidate/og-image.jpg' }],
+    ['meta', { name: 'twitter:image', content: 'https://ctrovalidate.vercel.app/og-image.jpg' }],
     ['meta', { name: 'twitter:site', content: '@ctrotech' }],
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0' }],
     ['meta', { name: 'robots', content: 'index, follow' }],
@@ -79,7 +79,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   ],
 
   sitemap: {
-    hostname: 'https://ctrotech-tutor.github.io/ctrovalidate/',
+    hostname: 'https://ctrovalidate.vercel.app/',
   },
 
   themeConfig: {

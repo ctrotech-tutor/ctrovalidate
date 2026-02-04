@@ -27,13 +27,16 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "release": "release-it",
+    "release:beta": "release-it --preRelease=beta --npm.tag=beta",
+    "release:rc": "release-it --preRelease=rc --npm.tag=rc",
+    "release:canary": "release-it --preRelease=canary --npm.tag=canary",
     "lint": "eslint . && echo \"ESLint: Linting passed!\"",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --check",
     "format:fix": "prettier . --write",
     "prepare": "husky"
   },
-  "author": "Ctrotech (https://github.com/ctrotech)",
+  "author": "Ctrotech (https://github.com/ctrotech-tutor)",
   "license": "MIT",
   "keywords": [
     "validation",
@@ -82,6 +85,7 @@
     "prettier": "^3.1.1",
     "release-it": "^17.0.0",
     "vite": "^7.1.2",
+    "vitepress": "^1.6.4",
     "vitest": "^4.0.18"
   },
   "lint-staged": {
@@ -96,8 +100,5 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "dependencies": {
-    "vitepress": "^1.6.4"
   }
 }
