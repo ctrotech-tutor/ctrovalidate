@@ -10,7 +10,6 @@ export default defineConfig({
 
   lastUpdated: true,
   cleanUrls: true,
-
   head: [
     [
       'script',
@@ -19,8 +18,12 @@ export default defineConfig({
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KC6DGMLR');`
+})(window,document,'script','dataLayer','GTM-TLSBMQ6H');`
     ],
+    ['noscript', {}, `
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLSBMQ6H"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    `],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
     ['link', { rel: 'icon', href: '/favicon.ico', sizes: 'any' }],
     ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' }],
@@ -75,7 +78,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0' }],
     ['meta', { name: 'robots', content: 'index, follow' }],
     ['meta', { name: 'keywords', content: 'form validation, javascript, accessibility, aria, zero-dependency, web-development, frontend' }],
-    ['meta', { name: 'google-site-verification', content: '06TmKUBafqk7SKGbkDYTU6xjsXqlw35V8IrXHCFLB3E' }],
+    ['meta', { name: 'google-site-verification', content: '7fw3YE9ijPS8ts75lzzMdnycqj8949WBjJ0awgBrxrE' }],
   ],
 
   sitemap: {
