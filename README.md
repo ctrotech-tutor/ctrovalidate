@@ -1,6 +1,6 @@
 <div align="center">
 
-![Ctrovalidate Logo](./dist/logo.svg)
+![Ctrovalidate Logo](./public/logo.svg)
 
 # Ctrovalidate
 
