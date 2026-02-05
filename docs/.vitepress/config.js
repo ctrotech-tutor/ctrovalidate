@@ -11,6 +11,14 @@ export default defineConfig({
   lastUpdated: true,
   cleanUrls: true,
   head: [
+    // Plausible Analytics
+    ['script', { async: 'true', src: 'https://plausible.io/js/pa-K7DUHFzcjenkTx__8xpZP.js' }],
+    [
+      'script',
+      {},
+      `window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`
+    ],
+    // Google Tag Manager
     [
       'script',
       {},
