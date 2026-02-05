@@ -5,7 +5,8 @@
 # on your repository, which will link to these platforms.
 
 # Enable GitHub Sponsors
-github: [ctrotech-tutor]
+# Enable GitHub Sponsors
+# github: [ctrotech-tutor]
 
 # Enable custom sponsorship links
 custom:
