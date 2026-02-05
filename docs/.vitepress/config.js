@@ -18,6 +18,8 @@ export default defineConfig({
       {},
       `window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`
     ],
+    // Umami Analytics
+    ['script', { defer: 'true', src: 'https://cloud.umami.is/script.js', 'data-website-id': '7c85954b-0d62-4e5b-90c9-2f67e9d40f96' }],
     // Google Tag Manager
     [
       'script',
