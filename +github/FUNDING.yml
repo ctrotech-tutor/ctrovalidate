@@ -8,4 +8,8 @@
 # github: [ctrotech-tutor]
 
 # Enable custom sponsorship links (e.g., Buy Me a Coffee)
-custom: ['https://www.buymeacoffee.com/ctrotech']
+custom:
+  [
+    'https://paystack.shop/pay/ctrovalidate-support',
+    'https://flutterwave.com/donate/nkde0iddzjde',
+  ]
