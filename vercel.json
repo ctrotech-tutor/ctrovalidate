@@ -1,7 +1,0 @@
-{
-  "buildCommand": "npm run docs:build",
-  "devCommand": "npm run docs:dev",
-  "installCommand": "npm install",
-  "outputDirectory": "docs/.vitepress/dist",
-  "framework": "vitepress"
-}

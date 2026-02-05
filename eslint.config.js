@@ -22,6 +22,7 @@ export default [
       'examples/',
       'docs/.vitepress/dist/',
       'docs/.vitepress/cache/',
+      '.vercel/',
     ],
   },
 
