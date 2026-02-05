@@ -370,8 +370,8 @@ MIT © [Ctrotech](https://github.com/ctrotech-tutor)
 
 ## 🙏 Acknowledgments
 
-- Built with ❤️ for developers building accessible web apps
-- Inspired by modern form validation best practices
+- Built with ❤️ for developers
+- Inspired by form validation best practices
 
 ---
 
