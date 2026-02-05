@@ -3,11 +3,11 @@ title: Thank You
 description: We are incredibly grateful for your support!
 breadcrumb:
   - name: Ctrovalidate
-    url: https://ctrotech-tutor.github.io/ctrovalidate/
+    url: https://ctrovalidate.vercel.app/
   - name: Community
-    url: https://ctrotech-tutor.github.io/ctrovalidate/community/thanks
+    url: https://ctrovalidate.vercel.app/community/thanks
   - name: Thanks
-    url: https://ctrotech-tutor.github.io/ctrovalidate/community/thanks
+    url: https://ctrovalidate.vercel.app/community/thanks
 ---
 
 # Thank You!
@@ -28,7 +28,7 @@ We are currently working on:
 The best way to help Ctrovalidate grow is to share it with other developers:
 
 - [**Star on GitHub**](https://github.com/ctrotech-tutor/ctrovalidate)
-- [**Share on X / Twitter**](https://twitter.com/intent/tweet?text=I%20just%20supported%20Ctrovalidate!%20Check%20out%20this%20awesome%20form%20validation%20library:%20https://ctrotech-tutor.github.io/ctrovalidate/)
+- [**Share on X / Twitter**](https://twitter.com/intent/tweet?text=I%20just%20supported%20Ctrovalidate!%20Check%20out%20this%20awesome%20form%20validation%20library:%20https://ctrovalidate.vercel.app/)
 
 ---
 

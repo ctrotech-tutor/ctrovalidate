@@ -3,11 +3,11 @@ title: Dynamic Fields | Managing Field Lifecycle
 description: Learn how to manage form fields that are added or removed from the DOM at runtime using addField, removeField, and refresh methods.
 breadcrumb:
   - name: Ctrovalidate
-    url: https://ctrotech-tutor.github.io/ctrovalidate/
+    url: https://ctrovalidate.vercel.app/
   - name: Guide
-    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/dynamic-fields
+    url: https://ctrovalidate.vercel.app/guide/dynamic-fields
   - name: Dynamic Fields
-    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/dynamic-fields
+    url: https://ctrovalidate.vercel.app/guide/dynamic-fields
 ---
 
 # Dynamic Fields

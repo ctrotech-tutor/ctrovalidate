@@ -3,11 +3,11 @@ title: Vue 3 Integration | Composition API
 description: Integrate Ctrovalidate with Vue 3's Composition API using onMounted and reactive refs for DOM-based validation.
 breadcrumb:
   - name: Ctrovalidate
-    url: https://ctrotech-tutor.github.io/ctrovalidate/
+    url: https://ctrovalidate.vercel.app/
   - name: Integrations
-    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/vue
+    url: https://ctrovalidate.vercel.app/integrations/vue
   - name: Vue 3
-    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/vue
+    url: https://ctrovalidate.vercel.app/integrations/vue
 ---
 
 # Vue 3 Integration

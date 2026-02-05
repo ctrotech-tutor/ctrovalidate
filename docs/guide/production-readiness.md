@@ -3,11 +3,11 @@ title: Production Readiness | Deployment and Optimization
 description: Learn how to prepare Ctrovalidate for high-traffic production environments, including bundle optimization, security best practices, and performance tuning.
 breadcrumb:
   - name: Ctrovalidate
-    url: https://ctrotech-tutor.github.io/ctrovalidate/
+    url: https://ctrovalidate.vercel.app/
   - name: Guide
-    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/production-readiness
+    url: https://ctrovalidate.vercel.app/guide/production-readiness
   - name: Production Readiness
-    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/production-readiness
+    url: https://ctrovalidate.vercel.app/guide/production-readiness
 ---
 
 # Production Readiness

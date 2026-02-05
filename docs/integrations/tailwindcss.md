@@ -3,11 +3,11 @@ title: Tailwind CSS Integration | Dynamic Form Styling
 description: Integrate Ctrovalidate with Tailwind CSS using utility classes for accessible, styled validation states.
 breadcrumb:
   - name: Ctrovalidate
-    url: https://ctrotech-tutor.github.io/ctrovalidate/
+    url: https://ctrovalidate.vercel.app/
   - name: Integrations
-    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/tailwindcss
+    url: https://ctrovalidate.vercel.app/integrations/tailwindcss
   - name: Tailwind CSS
-    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/tailwindcss
+    url: https://ctrovalidate.vercel.app/integrations/tailwindcss
 ---
 
 # Tailwind CSS Integration

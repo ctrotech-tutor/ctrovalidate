@@ -3,11 +3,11 @@ title: Release Policy & Changelog
 description: Ctrovalidate follows Semantic Versioning. View our changelog and release notes for all versions.
 breadcrumb:
   - name: Ctrovalidate
-    url: https://ctrotech-tutor.github.io/ctrovalidate/
+    url: https://ctrovalidate.vercel.app/
   - name: Project Info
-    url: https://ctrotech-tutor.github.io/ctrovalidate/project/releases
+    url: https://ctrovalidate.vercel.app/project/releases
   - name: Release Policy
-    url: https://ctrotech-tutor.github.io/ctrovalidate/project/releases
+    url: https://ctrovalidate.vercel.app/project/releases
 ---
 
 # Release Policy & Changelog

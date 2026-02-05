@@ -3,11 +3,11 @@ title: Alpine.js Integration | Markup-First Validation
 description: Integrate Ctrovalidate with Alpine.js for reactive, validated forms using x-init and x-data directives.
 breadcrumb:
   - name: Ctrovalidate
-    url: https://ctrotech-tutor.github.io/ctrovalidate/
+    url: https://ctrovalidate.vercel.app/
   - name: Integrations
-    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/alpinejs
+    url: https://ctrovalidate.vercel.app/integrations/alpinejs
   - name: Alpine.js
-    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/alpinejs
+    url: https://ctrovalidate.vercel.app/integrations/alpinejs
 ---
 
 # Alpine.js Integration

@@ -3,11 +3,11 @@ title: Introduction | Ctrovalidate Form Validation
 description: Ctrovalidate is a lightweight, zero-dependency JavaScript library for declarative form validation with full TypeScript support and ARIA compliance.
 breadcrumb:
   - name: Ctrovalidate
-    url: https://ctrotech-tutor.github.io/ctrovalidate/
+    url: https://ctrovalidate.vercel.app/
   - name: Guide
-    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/introduction
+    url: https://ctrovalidate.vercel.app/guide/introduction
   - name: Introduction
-    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/introduction
+    url: https://ctrovalidate.vercel.app/guide/introduction
 ---
 
 # Introduction

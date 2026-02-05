@@ -60,7 +60,7 @@
   "bugs": {
     "url": "https://github.com/ctrotech-tutor/ctrovalidate/issues"
   },
-  "homepage": "https://ctrotech-tutor.github.io/ctrovalidate/",
+  "homepage": "https://ctrovalidate.vercel.app/",
   "sideEffects": false,
   "publishConfig": {
     "access": "public"

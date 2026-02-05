@@ -3,11 +3,11 @@ title: Support Ctrovalidate
 description: Support the development of Ctrovalidate - a modern, accessible form validation library.
 breadcrumb:
   - name: Ctrovalidate
-    url: https://ctrotech-tutor.github.io/ctrovalidate/
+    url: https://ctrovalidate.vercel.app/
   - name: Community
-    url: https://ctrotech-tutor.github.io/ctrovalidate/community/donate
+    url: https://ctrovalidate.vercel.app/community/donate
   - name: Donate
-    url: https://ctrotech-tutor.github.io/ctrovalidate/community/donate
+    url: https://ctrovalidate.vercel.app/community/donate
 ---
 
 # Support Ctrovalidate

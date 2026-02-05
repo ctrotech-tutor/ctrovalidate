@@ -3,11 +3,11 @@ title: Conditional Validation | State-Based Rules
 description: Master the data-ctrovalidate-if attribute to create dynamic forms where validation rules depend on the state of other fields.
 breadcrumb:
   - name: Ctrovalidate
-    url: https://ctrotech-tutor.github.io/ctrovalidate/
+    url: https://ctrovalidate.vercel.app/
   - name: Guide
-    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/conditional-validation
+    url: https://ctrovalidate.vercel.app/guide/conditional-validation
   - name: Conditional Validation
-    url: https://ctrotech-tutor.github.io/ctrovalidate/guide/conditional-validation
+    url: https://ctrovalidate.vercel.app/guide/conditional-validation
 ---
 
 # Conditional Validation

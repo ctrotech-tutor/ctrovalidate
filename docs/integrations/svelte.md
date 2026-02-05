@@ -3,11 +3,11 @@ title: Svelte Integration | Form Validation
 description: Integrate Ctrovalidate with Svelte using bind:this and onMount for seamless form validation.
 breadcrumb:
   - name: Ctrovalidate
-    url: https://ctrotech-tutor.github.io/ctrovalidate/
+    url: https://ctrovalidate.vercel.app/
   - name: Integrations
-    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/svelte
+    url: https://ctrovalidate.vercel.app/integrations/svelte
   - name: Svelte
-    url: https://ctrotech-tutor.github.io/ctrovalidate/integrations/svelte
+    url: https://ctrovalidate.vercel.app/integrations/svelte
 ---
 
 # Svelte Integration
