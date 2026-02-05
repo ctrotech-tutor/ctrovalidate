@@ -14,7 +14,7 @@
 [![License](https://img.shields.io/badge/license-MIT-black.svg)](./LICENSE)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-black.svg)](https://conventionalcommits.org)
 
-[**Documentation**](https://ctrotech-tutor.github.io/ctrovalidate/) • [**Live Demo**](./examples/demo-vanilla-js) • [**API Reference**](https://ctrotech-tutor.github.io/ctrovalidate/api/methods) • [**Contributing**](./CONTRIBUTING.md)
+[**Documentation**](https://ctrovalidate.vercel.app/) • [**Live Demo**](./examples/demo-vanilla-js) • [**API Reference**](https://ctrovalidate.vercel.app/api/methods) • [**Contributing**](./CONTRIBUTING.md)
 
 </div>
 
@@ -272,14 +272,14 @@ newInput.remove();
 
 Ctrovalidate works seamlessly with all major frameworks:
 
-| Framework       | Demo                                          | Documentation                                                                                |
-| --------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| **Vanilla JS**  | [demo-vanilla-js](./examples/demo-vanilla-js) | [Getting Started](https://ctrotech-tutor.github.io/ctrovalidate/guide/getting-started)       |
-| **React 18+**   | [demo-react](./examples/demo-react)           | [React Integration](https://ctrotech-tutor.github.io/ctrovalidate/integrations/react)        |
-| **Next.js 15+** | [demo-nextjs](./examples/demo-nextjs)         | [Next.js Integration](https://ctrotech-tutor.github.io/ctrovalidate/integrations/nextjs)     |
-| **Vue 3**       | [demo-vue](./examples/demo-vue)               | [Vue Integration](https://ctrotech-tutor.github.io/ctrovalidate/integrations/vue)            |
-| **Alpine.js**   | [demo-alpine](./examples/demo-alpine)         | [Alpine.js Integration](https://ctrotech-tutor.github.io/ctrovalidate/integrations/alpinejs) |
-| **HTMX**        | -                                             | [HTMX Best Practices](https://ctrotech-tutor.github.io/ctrovalidate/integrations/htmx)       |
+| Framework       | Demo                                          | Documentation                                                                  |
+| --------------- | --------------------------------------------- | ------------------------------------------------------------------------------ |
+| **Vanilla JS**  | [demo-vanilla-js](./examples/demo-vanilla-js) | [Getting Started](https://ctrovalidate.vercel.app/guide/getting-started)       |
+| **React 18+**   | [demo-react](./examples/demo-react)           | [React Integration](https://ctrovalidate.vercel.app/integrations/react)        |
+| **Next.js 15+** | [demo-nextjs](./examples/demo-nextjs)         | [Next.js Integration](https://ctrovalidate.vercel.app/integrations/nextjs)     |
+| **Vue 3**       | [demo-vue](./examples/demo-vue)               | [Vue Integration](https://ctrovalidate.vercel.app/integrations/vue)            |
+| **Alpine.js**   | [demo-alpine](./examples/demo-alpine)         | [Alpine.js Integration](https://ctrovalidate.vercel.app/integrations/alpinejs) |
+| **HTMX**        | -                                             | [HTMX Best Practices](https://ctrovalidate.vercel.app/integrations/htmx)       |
 
 ---
 
@@ -300,10 +300,10 @@ Check out our [**comprehensive demo**](./examples/demo-vanilla-js) that demonstr
 
 ## 📖 Documentation
 
-- 📚 [**Full Documentation**](https://ctrotech-tutor.github.io/ctrovalidate/)
-- 🚀 [**Getting Started Guide**](https://ctrotech-tutor.github.io/ctrovalidate/guide/getting-started)
-- 🔌 [**API Reference**](https://ctrotech-tutor.github.io/ctrovalidate/api/methods)
-- 🎨 [**Framework Integrations**](https://ctrotech-tutor.github.io/ctrovalidate/integrations/react)
+- 📚 [**Full Documentation**](https://ctrovalidate.vercel.app/)
+- 🚀 [**Getting Started Guide**](https://ctrovalidate.vercel.app/guide/getting-started)
+- 🔌 [**API Reference**](https://ctrovalidate.vercel.app/api/methods)
+- 🎨 [**Framework Integrations**](https://ctrovalidate.vercel.app/integrations/react)
 - 📋 [**Complete Feature List**](./FEATURES.md)
 
 ---
@@ -370,9 +370,8 @@ MIT © [Ctrotech](https://github.com/ctrotech-tutor)
 
 ## 🙏 Acknowledgments
 
-- Built with ❤️ for the industrial web
+- Built with ❤️ for developers building accessible web apps
 - Inspired by modern form validation best practices
-- Powered by [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), and [TypeScript](https://www.typescriptlang.org/)
 
 ---
 
