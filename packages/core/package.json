@@ -1,0 +1,28 @@
+{
+  "name": "@ctrovalidate/core",
+  "version": "4.0.0-alpha.0",
+  "description": "Core validation logic for Ctrovalidate (Headless).",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "author": "Ctrotech (https://github.com/ctrotech-tutor)",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

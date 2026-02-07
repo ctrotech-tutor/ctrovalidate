@@ -1,69 +1,21 @@
 {
-  "name": "ctrovalidate",
-  "version": "3.0.2",
-  "description": "The lightweight, declarative, and accessible form validation library for modern web apps. Zero-dependency, HTML-first, and ARIA-ready.",
+  "name": "ctrovalidate-monorepo",
+  "private": true,
   "type": "module",
-  "main": "./dist/ctrovalidate.umd.cjs",
-  "types": "./dist/types/index.d.ts",
-  "module": "./dist/ctrovalidate.js",
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/ctrovalidate.js",
-      "require": "./dist/ctrovalidate.umd.cjs"
-    }
-  },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "dev": "vitepress dev docs",
-    "build": "vite build && tsc",
-    "preview": "vite preview",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:fix": "npm run format",
+    "prepare": "husky",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "release": "release-it",
-    "release:beta": "release-it --preRelease=beta --npm.tag=beta",
-    "release:rc": "release-it --preRelease=rc --npm.tag=rc",
-    "release:canary": "release-it --preRelease=canary --npm.tag=canary",
-    "lint": "eslint . && echo \"ESLint: Linting passed!\"",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier . --check",
-    "format:fix": "prettier . --write",
-    "prepare": "husky"
-  },
-  "author": "Ctrotech (https://github.com/ctrotech-tutor)",
-  "license": "MIT",
-  "keywords": [
-    "validation",
-    "form-validation",
-    "validator",
-    "vanilla-js",
-    "declarative",
-    "html-first",
-    "accessible",
-    "aria",
-    "zero-dependencies",
-    "typescript",
-    "a11y",
-    "client-side-validation",
-    "modern-forms"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ctrotech-tutor/ctrovalidate.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ctrotech-tutor/ctrovalidate/issues"
-  },
-  "homepage": "https://ctrovalidate.vercel.app/",
-  "sideEffects": false,
-  "publishConfig": {
-    "access": "public"
+    "release": "release-it"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.6.1",
@@ -75,6 +27,7 @@
     "conventional-commits-parser": "^6.2.1",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
@@ -84,6 +37,10 @@
     "lint-staged": "^15.2.2",
     "prettier": "^3.1.1",
     "release-it": "^17.0.0",
+    "tsup": "^8.5.1",
+    "turbo": "^1.13.4",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.54.0",
     "vite": "^7.1.2",
     "vitest": "^4.0.18"
   },

@@ -1,0 +1,30 @@
+{
+  "name": "@ctrovalidate/svelte",
+  "version": "4.0.0-alpha.0",
+  "description": "Svelte adapter for Ctrovalidate.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "svelte": ">=3.0.0"
+  },
+  "dependencies": {
+    "@ctrovalidate/core": "workspace:*"
+  },
+  "author": "Ctrotech (https://github.com/ctrotech-tutor)",
+  "license": "MIT"
+}

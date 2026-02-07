@@ -13,6 +13,6 @@
     "vite": "^7.2.4"
   },
   "dependencies": {
-    "ctrovalidate": "file:../.."
+    "@ctrovalidate/browser": "workspace:*"
   }
 }

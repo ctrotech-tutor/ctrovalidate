@@ -1,6 +1,6 @@
 import './style.css'
 import Alpine from 'alpinejs'
-import { Ctrovalidate } from 'ctrovalidate'
+import { Ctrovalidate } from '@ctrovalidate/browser'
 
 // Initialize Alpine
 window.Alpine = Alpine

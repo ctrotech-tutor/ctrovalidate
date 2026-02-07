@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { Ctrovalidate } from 'ctrovalidate';
+import { Ctrovalidate } from '@ctrovalidate/browser';
 
 interface TeamMember {
   id: string;
@@ -16,7 +16,7 @@ function App() {
   // Register a custom validation rule
   Ctrovalidate.addRule(
     'isCompanyEmail',
-    (value) => value.endsWith('@industrial.com'),
+    (value: unknown) => (value as string).endsWith('@industrial.com'),
     'Please use your official company email address.'
   );
 

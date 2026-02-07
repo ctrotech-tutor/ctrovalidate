@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "ctrovalidate": "file:../..",
+    "@ctrovalidate/browser": "workspace:*",
+    "@ctrovalidate/react": "workspace:*",
     "lucide-react": "^0.563.0",
     "next": "16.1.6",
     "react": "19.2.3",
+    "@ctrovalidate/next": "workspace:*",
     "react-dom": "19.2.3",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0"

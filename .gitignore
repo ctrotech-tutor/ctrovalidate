@@ -37,4 +37,8 @@ Thumbs.db
 
 # Release Notes
 RELEASE_NOTES.md
+v4_features_keep.md
+v4-FEATURES.MD
 .vercel
+
+.turbo/

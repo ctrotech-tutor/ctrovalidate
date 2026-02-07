@@ -1,0 +1,36 @@
+{
+  "name": "@ctrovalidate/vue",
+  "version": "4.0.0-alpha.0",
+  "description": "Vue 3 adapter for Ctrovalidate - The lightweight, declarative validation library.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier . --check"
+  },
+  "peerDependencies": {
+    "@ctrovalidate/core": "workspace:*",
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@ctrovalidate/core": "workspace:*",
+    "vue": "^3.5.0",
+    "tsup": "^8.5.1",
+    "vitest": "^4.0.18",
+    "typescript": "^5.9.3"
+  }
+}

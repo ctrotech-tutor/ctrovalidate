@@ -1,0 +1,34 @@
+{
+  "name": "@ctrovalidate/browser",
+  "version": "4.0.0-alpha.0",
+  "description": "Browser adapter for Ctrovalidate - The lightweight, declarative validation library.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "format": "prettier . --check"
+  },
+  "author": "Ctrotech (https://github.com/ctrotech-tutor)",
+  "license": "MIT",
+  "dependencies": {
+    "@ctrovalidate/core": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

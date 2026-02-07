@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { Ctrovalidate } from 'ctrovalidate';
+import { Ctrovalidate } from '@ctrovalidate/browser';
 
 const formRef = ref<HTMLFormElement | null>(null);
 
@@ -9,13 +9,13 @@ onMounted(() => {
     // Initialize Custom Rules
     Ctrovalidate.addRule(
       'strongPassword',
-      (value) => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(value as string),
+      (value: unknown) => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(value as string),
       'Use at least 8 characters with upper, lower, and numeric values.'
     );
 
     Ctrovalidate.addAsyncRule(
       'usernameAvailable',
-      async (value) => {
+      async (value: unknown, _params?: unknown[], _context?: unknown) => {
         return new Promise((resolve) => {
           setTimeout(() => {
             const reserved = ['admin', 'root', 'ctrotech'];
@@ -145,7 +145,7 @@ onMounted(() => {
     </form>
 
     <div class="footer-note">
-      Powered by Ctrovalidate Core v2.1.1
+      Powered by Ctrovalidate v4.0.0-alpha.0
     </div>
   </div>
 </template>

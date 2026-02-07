@@ -1,15 +1,15 @@
 import './style.css';
-import { Ctrovalidate, LogLevel } from 'ctrovalidate';
+import { Ctrovalidate, LogLevel } from '@ctrovalidate/browser';
 
 /**
  * =============================================================================
- * CTROVALIDATE v3.0.0 - COMPLETE FEATURE SHOWCASE
+ * CTROVALIDATE v4.0.0-alpha - MONOREPO SHOWCASE
  * =============================================================================
- * This demo demonstrates EVERY feature of the Ctrovalidate library:
+ * This demo demonstrates:
+ * - Hybrid Schema Validation (HTML rules + JS schema)
+ * - Isomorphic Core Logic (@ctrovalidate/core)
  * - All 21 built-in validation rules
- * - All 9 public API methods
- * - All 5 configuration options
- * - Advanced features: async validation, dependencies, custom rules, state inspection
+ * - Advanced features: async, dependencies, custom rules, state inspection
  * =============================================================================
  */
 
@@ -24,7 +24,7 @@ import { Ctrovalidate, LogLevel } from 'ctrovalidate';
  */
 Ctrovalidate.addRule(
   'strongPassword',
-  (value) => {
+  (value: unknown): boolean => {
     const password = value as string;
     if (!password) return false;
 
@@ -47,7 +47,7 @@ Ctrovalidate.addRule(
  */
 Ctrovalidate.addAsyncRule(
   'usernameAvailable',
-  async (value, params, element, signal) => {
+  async (value: unknown, _params?: unknown[], _context?: unknown, signal?: AbortSignal): Promise<boolean> => {
     return new Promise((resolve, reject) => {
       // Simulate API delay
       const timeout = setTimeout(() => {
@@ -107,6 +107,26 @@ const validator = new Ctrovalidate(form, {
   errorClass: 'is-invalid',           // Applied to invalid fields
   errorMessageClass: 'error-message', // Container for error messages
   pendingClass: 'is-validating',      // Applied during async validation
+
+  // NEW: Schema Validation (Hybrid Mode)
+  schema: {
+    // invite_code has NO rules in HTML. defined entirely here.
+    invite_code: 'required|exactLength:6|alphaNum',
+
+    // email has [required|email] in HTML. We add [minLength] here.
+    email: 'minLength:5',
+
+    // fullname has [required|minLength:3|maxLength:50] in HTML.
+    // We can use array format here.
+    fullname: ['alphaSpaces'],
+
+    // age has [integer|between:18,100] in HTML.
+    // We can use more complex objects here.
+    age: [
+      { name: 'min', params: ['18'] },
+      { name: 'max', params: ['50'] }
+    ]
+  }
 });
 
 // =============================================================================

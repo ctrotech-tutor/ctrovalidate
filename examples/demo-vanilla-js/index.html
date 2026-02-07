@@ -11,8 +11,8 @@
   <div id="app">
     <div class="showcase-container">
       <header>
-        <div class="logo-text">Ctrovalidate v3.0.0</div>
-        <p>Complete Feature Showcase • All 21 Rules • All 9 API Methods</p>
+        <div class="logo-text">Ctrovalidate v4.0.0-alpha</div>
+        <p>Monorepo Edition • Isomorphic Core • Schema Support</p>
       </header>
 
       <!-- API CONTROL PANEL -->
@@ -60,12 +60,11 @@
             <div class="error-message"></div>
           </div>
 
-          <!-- exactLength -->
+          <!-- exactLength (RULES MOVED TO SCHEMA) -->
           <div class="form-group">
             <label for="invite_code">Invite Code <span class="required">*</span></label>
-            <input name="invite_code" id="invite_code" type="text" placeholder="ABC123"
-              data-ctrovalidate-rules="required|exactLength:6|alphaNum" maxlength="6" />
-            <small>Rules: required, exactLength:6, alphaNum</small>
+            <input name="invite_code" id="invite_code" type="text" placeholder="ABC123"/>
+            <small>Rules: (Defined in Code Schema)</small>
             <div class="error-message"></div>
           </div>
         </fieldset>
@@ -195,8 +194,7 @@
           <!-- between -->
           <div class="form-group">
             <label for="age">Age</label>
-            <input name="age" id="age" type="number" placeholder="25"
-              data-ctrovalidate-rules="integer|between:18,100" />
+            <input name="age" id="age" type="number" placeholder="25" />
             <small>Rules: integer, between:18,100</small>
             <div class="error-message"></div>
           </div>
@@ -274,7 +272,7 @@
       </form>
 
       <div class="footer-note">
-        Powered by Ctrovalidate v3.0.0 • 98% Test Coverage • Zero Dependencies
+        Powered by Ctrovalidate v4.0.0-alpha • 100% Core Logic Coverage • Zero Dependencies
       </div>
     </div>
   </div>
