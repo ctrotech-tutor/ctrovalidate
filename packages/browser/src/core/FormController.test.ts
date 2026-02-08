@@ -154,8 +154,7 @@ describe('FormController', () => {
     controller.addField(input, true);
 
     expect(warnSpy).toHaveBeenCalledWith(
-      'FormController',
-      'Could not find controller field with name "nonExistent".'
+      '[FormController] Could not find controller field with name "nonExistent".'
     );
     warnSpy.mockRestore();
   });
@@ -164,8 +163,7 @@ describe('FormController', () => {
     const infoSpy = vi.spyOn(logger, 'info').mockImplementation(() => {});
     controller.attachEventListeners(false);
     expect(infoSpy).toHaveBeenCalledWith(
-      'FormController',
-      'Real-time validation is disabled.'
+      '[FormController] Real-time validation is disabled.'
     );
     infoSpy.mockRestore();
   });
@@ -194,8 +192,7 @@ describe('FormController', () => {
 
     // Check if the catch block was hit via logger.debug
     expect(debugSpy).toHaveBeenCalledWith(
-      'FormController',
-      'Error while removing listeners for',
+      '[FormController] Error while removing listeners for',
       username,
       expect.any(Error)
     );

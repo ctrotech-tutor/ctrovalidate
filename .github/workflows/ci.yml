@@ -28,31 +28,34 @@ jobs:
       # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for Turbo
 
-      # 2️⃣ Setup Node.js
+      # 2️⃣ Setup pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      # 3️⃣ Setup Node.js
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          check-latest: true # ensure latest patch version
-          cache: 'npm'
-
-      # 3️⃣ Clean npm cache
-      - name: Clean npm cache
-        run: npm cache clean --force
+          cache: 'pnpm'
 
       # 4️⃣ Install dependencies
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: pnpm install --frozen-lockfile
 
-      # 5️⃣ Lint code
+      # 5️⃣ Lint Code (Turbo)
       - name: Lint Code
-        run: npm run lint
+        run: pnpm run lint
 
-      # 6️⃣ Run tests with coverage
+      # 6️⃣ Run Tests with Coverage (Turbo)
       - name: Run Tests with Coverage
-        run: npx vitest run --coverage
+        run: pnpm run test:coverage
 
-      # 7️⃣ Build project
+      # 7️⃣ Build Project (Turbo)
       - name: Build Project
-        run: npm run build
+        run: pnpm run build
