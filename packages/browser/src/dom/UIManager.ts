@@ -49,11 +49,18 @@ export class UIManager {
    * Build a DOM id from the field (name if available) or a generated counter.
    */
   #buildIdForField(field: HTMLElement): string {
-    // Check if the element has a 'name' property (inputs, selects, textareas)
-    const name = (
-      field as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    ).name;
-    if (typeof name === 'string' && name.trim().length > 0) {
+    // Safely check for name property on common form elements
+    let name: string | undefined;
+
+    if (
+      field instanceof HTMLInputElement ||
+      field instanceof HTMLSelectElement ||
+      field instanceof HTMLTextAreaElement
+    ) {
+      name = field.name;
+    }
+
+    if (name && name.trim().length > 0) {
       // sanitize name for id use
       return `ctrovalidate-error-${name.replace(/\s+/g, '-').replace(/[^A-Za-z0-9\-_:.]/g, '')}`;
     }
