@@ -10,7 +10,7 @@ breadcrumb:
     url: https://ctrovalidate.vercel.app/api/vue
 ---
 
-## @ctrovalidate/vue
+# @ctrovalidate/vue
 
 The `@ctrovalidate/vue` package provides a headless composable that integrates Ctrovalidate's logic engine with Vue 3's reactivity system.
 
