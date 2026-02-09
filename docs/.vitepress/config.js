@@ -5,11 +5,20 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
   title: 'Ctrovalidate',
   description:
-    'A zero-dependency JavaScript form validation library with built-in accessibility support and an HTML-first configuration approach.',
+    'A zero-dependency form validation ecosystem for the web. Declarative, accessible, and monorepo-ready.',
   base: '/',
 
   lastUpdated: true,
   cleanUrls: true,
+
+  transformPageData(pageData) {
+    const canonicalUrl = `https://ctrovalidate.vercel.app/${pageData.relativePath.replace(/index\.md$/, '').replace(/\.md$/, '')}`
+    pageData.frontmatter.head = [
+      ...(pageData.frontmatter.head || []),
+      ['link', { rel: 'canonical', href: canonicalUrl }]
+    ]
+  },
+
   head: [
     // Plausible Analytics
     ['script', { async: 'true', src: 'https://plausible.io/js/pa-K7DUHFzcjenkTx__8xpZP.js' }],
@@ -102,13 +111,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     },
 
     nav: [
-      { text: 'Guide', link: '/guide/getting-started' },
-      { text: 'Integrations', link: '/integrations/tailwindcss' },
-      { text: 'API', link: '/api/methods' },
-      { text: 'Sponsor', link: '/community/donate' },
+      { text: 'Guide (v3)', link: '/guide/introduction' },
+      { text: 'Integrations (v3)', link: '/integrations/tailwindcss' },
+      { text: 'API (v3)', link: '/api/methods' },
       {
-        text: 'v3.0.0',
+        text: 'v3 (Stable)',
         items: [
+          { text: 'Try v4 Alpha', link: '/v4/' },
           {
             text: 'Changelog',
             link: 'https://github.com/ctrotech-tutor/ctrovalidate/blob/main/CHANGELOG.md',
@@ -122,41 +131,70 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     ],
 
     sidebar: {
-      // ... sidebar configuration remains the same ...
-      '/guide/': [
+      // v4 (Alpha/Beta) Sidebar
+      '/v4/': [
         {
-          text: 'Introduction',
+          text: 'Essentials',
           items: [
-            { text: 'What is Ctrovalidate?', link: '/guide/introduction' },
-            { text: 'Getting Started', link: '/guide/getting-started' },
+            { text: 'Introduction', link: '/v4/guide/introduction' },
+            { text: 'Getting Started', link: '/v4/guide/getting-started' },
+            { text: 'Migration from v3', link: '/v4/guide/migration' },
           ],
         },
         {
           text: 'Core Concepts',
           items: [
-            { text: 'Configuration Options', link: '/guide/configuration' },
+            { text: 'Schema System', link: '/v4/guide/schemas' },
+            { text: 'Rules Catalog', link: '/v4/guide/rules' },
+            { text: 'State Management', link: '/v4/guide/state' },
+          ],
+        },
+        {
+          text: 'Technical Reference',
+          items: [
+            { text: '@ctrovalidate/core', link: '/v4/api/core' },
+            { text: '@ctrovalidate/browser', link: '/v4/api/browser' },
+            { text: '@ctrovalidate/react', link: '/v4/api/react' },
+            { text: '@ctrovalidate/vue', link: '/v4/api/vue' },
+            { text: '@ctrovalidate/svelte', link: '/v4/api/svelte' },
+            { text: 'TypeScript Types', link: '/v4/api/types' },
+          ],
+        },
+        {
+          text: 'Platform Adapters',
+          items: [
+            { text: 'Next.js', link: '/v4/platform/nextjs' },
+            { text: 'Tailwind CSS', link: '/v4/platform/tailwind' },
+            { text: 'HTMX', link: '/v4/platform/htmx' },
+            { text: 'Alpine.js', link: '/v4/platform/alpine' },
+          ],
+        },
+        {
+          text: 'Advanced Guides',
+          items: [
+            { text: 'Async Validation', link: '/v4/advanced/async' },
+            { text: 'i18n & Localization', link: '/v4/advanced/i18n' },
+            { text: 'Custom Rules', link: '/v4/advanced/custom-rules' },
+            { text: 'Testing', link: '/v4/advanced/testing' },
+          ],
+        },
+      ],
+      // v3 (Stable) Sidebar
+      '/': [
+        {
+          text: 'v3 (Stable) Guide',
+          items: [
+            { text: 'What is Ctrovalidate?', link: '/guide/introduction' },
+            { text: 'Getting Started', link: '/guide/getting-started' },
+            { text: 'Configuration', link: '/guide/configuration' },
             { text: 'Built-in Rules', link: '/guide/rules' },
-            {
-              text: 'Conditional Validation',
-              link: '/guide/conditional-validation',
-            },
-            {
-              text: 'Working with SPAs',
-              link: '/guide/dynamic-fields',
-            },
+            { text: 'Conditional Validation', link: '/guide/conditional-validation' },
+            { text: 'Working with SPAs', link: '/guide/dynamic-fields' },
             { text: 'Real-world Examples', link: '/guide/examples' },
           ],
         },
         {
-          text: 'Advanced',
-          items: [
-            { text: 'Creating Custom Rules', link: '/guide/custom-rules' },
-          ],
-        },
-      ],
-      '/integrations/': [
-        {
-          text: 'Framework Integrations',
+          text: 'Integrations',
           items: [
             { text: 'Tailwind CSS', link: '/integrations/tailwindcss' },
             { text: 'Alpine.js', link: '/integrations/alpinejs' },
@@ -167,28 +205,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             { text: 'Next.js', link: '/integrations/nextjs' },
           ],
         },
-      ],
-      '/api/': [
         {
           text: 'API Reference',
           items: [
             { text: 'Public Methods', link: '/api/methods' },
             { text: 'Static Methods', link: '/api/static-methods' },
             { text: 'TypeScript Types', link: '/api/types' },
-          ],
-        },
-      ],
-      '/project/': [
-        {
-          text: 'Project Info',
-          items: [{ text: 'Release Policy', link: '/project/releases' }],
-        },
-      ],
-      '/community/': [
-        {
-          text: 'Community',
-          items: [
-            { text: 'Donate', link: '/community/donate' },
           ],
         },
       ],
