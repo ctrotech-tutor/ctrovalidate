@@ -41,7 +41,7 @@ features:
 
 <div class="code-preview-section">
 
-## Declarative. Reliable. Accessible.
+## Declarative. Reliable. Accessible
 
 Define validation rules in HTML attributes. Ctrovalidate handles the validation logic, error display, and accessibility.
 
