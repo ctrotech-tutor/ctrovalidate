@@ -71,23 +71,33 @@ export class UIManager {
       return this.#errorElementCache.get(field) || null;
     }
 
-    const parent = field.parentElement;
-    if (!parent) return null;
-
     const classes = this.#errorMessageClass.split(/\s+/).filter(Boolean);
 
-    // Try to find an element matching any single class from the configured list.
-    for (const cls of classes) {
-      const selector = `.${this.#safeEscape(cls)}`;
-      const found = parent.querySelector(selector) as HTMLElement | null;
-      if (found) {
-        if (!found.id) {
-          found.id = this.#buildIdForField(field);
+    let currentParent = field.parentElement;
+    let levelsSearched = 0;
+    const maxLevels = 3;
+
+    while (currentParent && levelsSearched < maxLevels) {
+      for (const cls of classes) {
+        const selector = `.${this.#safeEscape(cls)}`;
+        const found = currentParent.querySelector(
+          selector
+        ) as HTMLElement | null;
+
+        if (found) {
+          if (!found.id) {
+            found.id = this.#buildIdForField(field);
+          }
+          this.#errorElementCache.set(field, found);
+          return found;
         }
-        this.#errorElementCache.set(field, found);
-        return found;
       }
+      currentParent = currentParent.parentElement;
+      levelsSearched++;
     }
+
+    const directParent = field.parentElement;
+    if (!directParent) return null;
 
     // If nothing found, create a fallback element (helps when authors forget the container).
     // The created element receives all classes in errorMessageClass.
@@ -105,7 +115,7 @@ export class UIManager {
       // place right after the field for predictable layout
       field.insertAdjacentElement('afterend', created);
     } catch {
-      parent.appendChild(created);
+      directParent.appendChild(created);
     }
 
     this.#errorElementCache.set(field, created);
