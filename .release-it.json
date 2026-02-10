@@ -1,25 +1,26 @@
 {
   "git": {
-    "commitMessage": "chore: release v${version}",
+    "commitMessage": "chore(release): v${version}",
     "tagName": "v${version}",
-    "requireCleanWorkingDir": true,
+    "requireCleanWorkingDir": false,
     "push": true
   },
   "github": {
     "release": true,
-    "releaseName": "v${version}",
-    "tokenRef": "GITHUB_TOKEN"
+    "autoGenerate": true
   },
   "npm": {
-    "publish": true
+    "publish": false
   },
   "plugins": {
     "@release-it/conventional-changelog": {
-      "preset": "angular",
+      "preset": "conventionalcommits",
       "infile": "CHANGELOG.md"
     }
   },
   "hooks": {
-    "before:init": ["npm run lint", "npm run test", "npm run build"]
+    "before:init": ["npm run lint", "npm run test"],
+    "after:bump": "npm run build",
+    "after:release": "turbo run deploy --filter=@ctrovalidate/*"
   }
 }

@@ -20,14 +20,14 @@ Ctrovalidate is a **zero-dependency**, **TypeScript-native** form validation lib
 
 Since v4, Ctrovalidate is organized as a high-performance monorepo, providing specialized packages for every layer of your application.
 
-| Package                                           | Description                                                                                   | Version          |
-| :------------------------------------------------ | :-------------------------------------------------------------------------------------------- | :--------------- |
-| **[`@ctrovalidate/core`](./packages/core)**       | The platform-agnostic heart. Pure validation logic that runs anywhere (Node, Browser, Edge).  | `v4.0.0-alpha.0` |
-| **[`@ctrovalidate/browser`](./packages/browser)** | The DOM-specific adapter. Powers declarative HTML-first UIs with intelligent field discovery. | `v4.0.0-alpha.0` |
-| **[`@ctrovalidate/react`](./packages/react)**     | Professional-grade hook for React 18+ and Next.js applications.                               | `v4.0.0-alpha.0` |
-| **[`@ctrovalidate/vue`](./packages/vue)**         | Reactive composable leveraging the Vue 3 Reactivity API.                                      | `v4.0.0-alpha.0` |
-| **[`@ctrovalidate/svelte`](./packages/svelte)**   | Native store-based integration for the Svelte ecosystem.                                      | `v4.0.0-alpha.0` |
-| **[`@ctrovalidate/next`](./packages/next)**       | Specialized utilities for validated Next.js **Server Actions**.                               | `v4.0.0-alpha.0` |
+| Package                                           | Description                                                                                   | Version  |
+| :------------------------------------------------ | :-------------------------------------------------------------------------------------------- | :------- |
+| **[`@ctrovalidate/core`](./packages/core)**       | The platform-agnostic heart. Pure validation logic that runs anywhere (Node, Browser, Edge).  | `v4.0.0` |
+| **[`@ctrovalidate/browser`](./packages/browser)** | The DOM-specific adapter. Powers declarative HTML-first UIs with intelligent field discovery. | `v4.0.0` |
+| **[`@ctrovalidate/react`](./packages/react)**     | Professional-grade hook for React 18+ and Next.js applications.                               | `v4.0.0` |
+| **[`@ctrovalidate/vue`](./packages/vue)**         | Reactive composable leveraging the Vue 3 Reactivity API.                                      | `v4.0.0` |
+| **[`@ctrovalidate/svelte`](./packages/svelte)**   | Native store-based integration for the Svelte ecosystem.                                      | `v4.0.0` |
+| **[`@ctrovalidate/next`](./packages/next)**       | Specialized utilities for validated Next.js **Server Actions**.                               | `v4.0.0` |
 
 ---
 
