@@ -84,7 +84,7 @@ const { isValid, results } = await validator.validateForm();
 
 <div class="stats-grid">
   <div class="stat-card">
-    <div class="stat-number">25+</div>
+    <div class="stat-number">22</div>
     <div class="stat-label">Atomic Rules</div>
     <div class="stat-desc">Universal logic primitives</div>
   </div>

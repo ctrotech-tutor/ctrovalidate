@@ -25,7 +25,7 @@ Ctrovalidate provides validation through HTML attributes instead of complex Java
 - **Zero Runtime Deps**: Small bundle size with no external dependencies.
 - **TypeScript Native**: Strict type definitions provided out of the out of the box.
 - **Automated A11Y**: Manages `aria-invalid` and `aria-describedby` for full accessibility compliance.
-- **25+ Built-in Rules**: Extensive catalog of common, format, and numeric logic.
+- **22 Built-in Rules**: Comprehensive catalog of essential, string, numeric, and format validation.
 - **Recursive Aliases**: Reusable rule macros with cycle-protection for DRY validation.
 - **Async Engine**: Native Promise-based validation with integrated AbortController.
 - **Dependency Engine**: Conditional validation via `data-ctrovalidate-if`.
@@ -75,10 +75,5 @@ const isValid = await validator.validate();
 - [**Getting Started**](./getting-started.md) - Installation and basic setup.
 - [**Core Logic**](./core.md) - Understanding the `@ctrovalidate/core` engine.
 - [**Browser Adapter**](./browser.md) - DOM-specific validation features.
-- [**Built-in Rules**](./rules.md) - Full catalog of 25+ logic rules.
+- [**Built-in Rules**](./rules.md) - Full catalog of all 22 validation rules.
 - [**API Reference**](/v4/api/browser) - Instance and static method documentation.
-
-
-
-
-

@@ -42,7 +42,7 @@ For prototyping or simple environments, load the library via a script tag.
 
 ```html
 <script type="module">
-  import { Ctrovalidate } from 'https://cdn.jsdelivr.net/npm/@ctrovalidate/browser@4.0.0-alpha.0/dist/index.js';
+  import { Ctrovalidate } from 'https://cdn.jsdelivr.net/npm/@ctrovalidate/browser@4.0.1/dist/index.js';
   // Implementation
 </script>
 ```
@@ -105,7 +105,7 @@ const validator = new Ctrovalidate(form, {
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const { isValid, results } = await validator.validateForm();
+  const isValid = await validator.validate();
 
   if (isValid) {
     const formData = new FormData(form);
@@ -128,10 +128,5 @@ form.addEventListener('submit', async (e) => {
 
 - [**Core Concepts**](./core.md) — Understanding the underlying engine logic.
 - [**Configuration**](./configuration.md) — Advanced initialization options.
-- [**Built-in Rules**](./rules.md) — Full catalog of 25+ logic rules.
+- [**Built-in Rules**](./rules.md) — Full catalog of all 22 validation rules.
 - [**Framework Integrations**](/v4/api/react.md) — Using specialized adapters.
-
-
-
-
-
