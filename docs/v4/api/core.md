@@ -18,25 +18,84 @@ The `@ctrovalidate/core` package contains the isomorphic validation engine. It i
 
 ## 🛠️ Validation Functions
 
-### `validate(value, rules, options)`
+The core package exports **4 validation functions** for different use cases:
 
-Validates a single value against a schema synchronously.
+### `validateValue(value, rules, options)` - Sync, Single Value
+
+Validates a **single value** against rules synchronously.
 
 - **Parameters:**
-  - `value` (any): The data to validate.
+  - `value` (unknown): The value to validate.
   - `rules` (SchemaRule): String, Array, or Object schema.
-  - `options` (ValidationOptions): Optional config (custom logic, messages).
-- **Returns:** `ValidationResult` - `{ valid: boolean, error: string | null }`
+  - `options` (ValidationOptions): Optional config.
+- **Returns:** `ValidationResult` - `{ isValid: boolean, error: string | null, rule: string | null }`
 
-### `validateAsync(value, rules, options)`
+**Example:**
 
-Validates a single value or multiple fields against a schema asynchronously (supports remote checks).
+```javascript
+import { validateValue } from '@ctrovalidate/core';
+
+const result = validateValue('test@example.com', 'required|email');
+console.log(result.isValid); // true
+```
+
+### `validate(data, schema, options)` - Sync, Entire Object
+
+Validates an **entire data object** against a schema synchronously.
 
 - **Parameters:**
-  - `value` (any | Record<string, any>): Single value or object with field values.
-  - `rules` (SchemaRule | ValidationSchema): String, Array, or Object schema.
+  - `data` (object): The data object to validate.
+  - `schema` (Record<string, SchemaRule>): Field-to-rules mapping.
+  - `options` (ValidationOptions): Optional config.
+- **Returns:** `Record<string, ValidationResult>` - Results for each field
+
+**Example:**
+
+```javascript
+import { validate } from '@ctrovalidate/core';
+
+const data = { email: 'test@example.com', age: 25 };
+const schema = { email: 'required|email', age: 'required|numeric' };
+const results = validate(data, schema);
+```
+
+### `validateValueAsync(value, rules, options)` - Async, Single Value
+
+Validates a **single value** asynchronously (supports async rules).
+
+- **Parameters:**
+  - `value` (unknown): The value to validate.
+  - `rules` (SchemaRule): String, Array, or Object schema.
   - `options` (ValidationOptions): Optional config (includes `signal` for AbortController).
-- **Returns:** `Promise<ValidationResult>` or `Promise<Record<string, ValidationResult>>`
+- **Returns:** `Promise<ValidationResult>`
+
+**Example:**
+
+```javascript
+import { validateValueAsync } from '@ctrovalidate/core';
+
+const result = await validateValueAsync('username', 'required|checkAvailability');
+```
+
+### `validateAsync(data, schema, options)` - Async, Entire Object
+
+Validates an **entire data object** asynchronously.
+
+- **Parameters:**
+  - `data` (object): The data object to validate.
+  - `schema` (Record<string, SchemaRule>): Field-to-rules mapping.
+  - `options` (ValidationOptions): Optional config (includes `signal`).
+- **Returns:** `Promise<Record<string, ValidationResult>>`
+
+**Example:**
+
+```javascript
+import { validateAsync } from '@ctrovalidate/core';
+
+const data = { username: 'john', email: 'john@example.com' };
+const schema = { username: 'required|checkAvailability', email: 'required|email' };
+const results = await validateAsync(data, schema);
+```
 
 ---
 

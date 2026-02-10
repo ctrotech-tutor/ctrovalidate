@@ -30,12 +30,28 @@ Initializes a new validator instance for the given form.
 
 ## 🛠️ Instance Methods
 
-### `validate()`
+### `validate()` ⭐ Recommended
 
 Validates all discovered fields in the form and updates the DOM.
 
 - **Returns**: `Promise<boolean>` - Overall form validity
 - **Technical Note**: This method orchestrates both sync and async rules across all fields.
+
+**Example:**
+
+```javascript
+const isValid = await validator.validate();
+if (isValid) {
+  // Form is valid, proceed with submission
+}
+```
+
+### `validateForm()` ⚠️ Legacy
+
+**Deprecated in favor of `validate()`**. This method still exists for backward compatibility and does exactly the same thing as `validate()`.
+
+- **Returns**: `Promise<boolean>` - Overall form validity
+- **Migration**: Replace `validateForm()` with `validate()` in new code.
 
 ### `validateField(fieldName)`
 
