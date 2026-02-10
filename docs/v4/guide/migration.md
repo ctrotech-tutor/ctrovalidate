@@ -28,14 +28,14 @@ In v3, everything was in a single `ctrovalidate` package. In v4, we have split t
 | `ctrovalidate` | `@ctrovalidate/browser` | DOM Controller (Browser only) |
 | `ctrovalidate` | `@ctrovalidate/react` | Headless React Hooks |
 
-### 2. Method Renaming
+### 2. Import Changes
 
-To differentiate between universal logic and DOM orchestration, several browser-specific methods have been renamed for clarity.
+The main change is the package name - the API remains largely compatible.
 
-| v3 Method | v4 Method | Why? |
+| v3 Import | v4 Import | Notes |
 | :--- | :--- | :--- |
-| `validate()` | `validateForm()` | Clarifies this orchestrates a full DOM form. |
-| (New) | `validate()` | Refers to the universal core validation. |
+| `import { Ctrovalidate } from 'ctrovalidate'` | `import { Ctrovalidate } from '@ctrovalidate/browser'` | Scoped package name |
+| `import { validate } from 'ctrovalidate'` | `import { validate } from '@ctrovalidate/core'` | Core validation function |
 
 ---
 
@@ -99,12 +99,7 @@ The `data-ctrovalidate-if` logic now triggers more precise re-validation events.
 ## ✅ Summary Checklist
 
 - [ ] Uninstall `ctrovalidate` and install `@ctrovalidate/browser`.
-- [ ] Update all `import { Ctrovalidate }` statements.
-- [ ] Rename `validator.validate()` to `validator.validateForm()` (recommended).
+- [ ] Update all `import { Ctrovalidate }` statements to use `@ctrovalidate/browser`.
+- [ ] Verify `validator.validate()` method calls (API unchanged).
 - [ ] Pass `signal` to custom `fetch` calls in async rules.
-- [ ] Update CSS selectors if you were relying on internal `ctrovalidate-fallback` classes (now use `errorMessageClass` configuration).
-
-
-
-
-
+- [ ] Update CSS selectors if you were relying on internal classes (now use `errorMessageClass` configuration).

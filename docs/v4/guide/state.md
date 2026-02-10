@@ -84,11 +84,8 @@ if (validator.isDirty('email')) {
 ### Check Form State
 
 ```javascript
-// Returns boolean without triggering visual errors
-const isAllValid = await validator.validate(); 
-
-// Returns full object with isValid and results
-const { isValid, results } = await validator.validateForm();
+// Returns boolean - triggers validation
+const isValid = await validator.validate();
 ```
 
 ---
@@ -98,8 +95,3 @@ const { isValid, results } = await validator.validateForm();
 - **Respect the User**: Only show errors after a field becomes `dirty` (on blur) to avoid "aggressive validation" while the user is still typing.
 - **Loading Indicators**: Always provide a visual cue when `pending` is true to bridge the gap during network-based validation.
 - **Resetting**: Use `validator.reset()` when clearing a form to wipe the `dirty` and `error` states simultaneously.
-
-
-
-
-

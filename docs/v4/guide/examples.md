@@ -64,7 +64,7 @@ const validator = new Ctrovalidate(document.querySelector('#auth-form'), {
 
 document.querySelector('#auth-form').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const isValid = await validator.validateForm();
+  const isValid = await validator.validate();
   
   if (isValid) {
     // Process validated form data
@@ -180,11 +180,6 @@ Configuration for automatic ARIA management and visual feedback.
 
 ## Next Steps
 
-- [**Built-in Rules**](./rules.md) — Reference for all 22 logic rules.
+- [**Built-in Rules**](./rules.md) — Reference for all 22 validation rules.
 - [**API Reference**](/v4/api/browser) — Full instance and static method catalog.
 - [**Core Architecture**](./core.md) — Documentation for the underlying logic engine.
-
-
-
-
-

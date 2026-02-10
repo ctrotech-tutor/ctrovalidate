@@ -51,7 +51,7 @@ Ctrovalidate does not modify input values. Separate sanitization steps should be
 
 ### Event Listeners
 
-When `realTime` is enabled, the controller attaches `blur` and `input` listeners to all discovered fields. For forms exceeding 100 fields on low-memory devices, consider disabling `realTime` and using manual `validateForm()` calls.
+When `realTime` is enabled, the controller attaches `blur` and `input` listeners to all discovered fields. For forms exceeding 100 fields on low-memory devices, consider disabling `realTime` and using manual `validate()` calls.
 
 ### Instance Lifecycle
 
@@ -77,8 +77,3 @@ The library manages the following ARIA attributes automatically:
 
 - [**API Reference**](/v4/api/browser) — Cleanup and instance management methods.
 - [**Configuration Reference**](./configuration.md) — Tuning global settings for production.
-
-
-
-
-
