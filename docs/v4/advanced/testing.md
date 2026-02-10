@@ -21,19 +21,18 @@ Ctrovalidate is designed with high logic coverage, but your application-specific
 Since `@ctrovalidate/core` is pure JavaScript, you can unit test your schemas in any environment (Vitest, Jest, Node). This is the fastest way to verify complex business logic.
 
 ```javascript
-import { validateValue } from '@ctrovalidate/core';
+import { validate } from '@ctrovalidate/core';
 import { SignupSchema } from './schemas';
 
 describe('Signup Schema', () => {
   it('should fail on weak passwords', () => {
-    const result = validateValue('123', SignupSchema.password);
-    expect(result.isValid).toBe(false);
-    expect(result.rule).toBe('strongPassword');
+    const result = validate('123', SignupSchema.password);
+    expect(result.valid).toBe(false);
   });
 
   it('should pass on valid email', () => {
-    const result = validateValue('test@test.com', SignupSchema.email);
-    expect(result.isValid).toBe(true);
+    const result = validate('test@test.com', SignupSchema.email);
+    expect(result.valid).toBe(true);
   });
 });
 ```
@@ -88,6 +87,3 @@ test('form should not submit if invalid', async ({ page }) => {
 - **Test the Schema, Not the Library**: Trust that Ctrovalidate's rules work. Focus your tests on verifying that *your* schema correctly combines those rules for your specific data.
 - **Mocking Async Rules**: Use Vitest/Jest mocks or MSW (Mock Service Worker) to simulate API responses for your async validation rules.
 - **Accessibility Checks**: Use `axe-core` in your E2E tests to verify that the `aria-describedby` links correctly and that error containers have the proper roles.
-
-
-
