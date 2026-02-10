@@ -73,14 +73,14 @@ const validator = new Ctrovalidate(
 );
 
 // Programmatic trigger
-const { isValid, results } = await validator.validateForm();
+const isValid = await validator.validate();
 ```
 
 </div>
 
 <div class="stats-section">
 
-## v4.0.0 Technical Specifications
+## v4.0.1 Technical Specifications
 
 <div class="stats-grid">
   <div class="stat-card">
