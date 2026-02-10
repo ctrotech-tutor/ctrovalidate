@@ -63,5 +63,6 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  }
+  },
+  "version": "4.0.0"
 }
