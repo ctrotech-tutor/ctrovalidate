@@ -55,18 +55,19 @@ Use the `$` prefix inside templates to access their values.
 | Property | Type | Description |
 |--------|------|-------------|
 | `values` | `Writable<Record<string, unknown>>` | Current form values. |
-| `errors` | `Readable<Record<string, string \| null>>` | Validation errors per field. |
+| `errors` | `Readable<Partial<Record<string, string>>>` | Error messages for failed fields only. Valid fields are `undefined`. |
 | `isValid` | `Readable<boolean>` | Global form validity. |
-| `isDirty` | `Readable<Record<string, boolean>>` | User interaction state. |
-| `isValidating` | `Readable<Record<string, boolean>>` | Async validation state. |
+| `isDirty` | `Readable<Partial<Record<string, boolean>>>` | Per-field dirty state tracking. |
+| `isValidating` | `Readable<Partial<Record<string, boolean>>>` | Per-field async validation state. |
 | `validate()` | `() => Promise<boolean>` | Triggers full-form validation. |
-| `reset()` | `() => void` | Resets all stores to initial values. |
+| `reset(values?)` | `(values?: Record<string, unknown>) => void` | Reset to initial or new values, clear errors and dirty state. |
 
 ---
 
 ## 🚀 Basic Usage
 
 ::: v-pre
+
 ```svelte
 <script>
   import { useCtrovalidate } from '@ctrovalidate/svelte';
@@ -96,6 +97,7 @@ Use the `$` prefix inside templates to access their values.
 
 <button on:click={submit}>Submit</button>
 ```
+
 :::
 
 ---
@@ -105,9 +107,11 @@ Use the `$` prefix inside templates to access their values.
 Svelte’s `bind:value` works naturally with the `values` store.
 
 ::: v-pre
+
 ```svelte
 <input bind:value={$values.username} />
 ```
+
 :::
 
 ---
@@ -117,6 +121,7 @@ Svelte’s `bind:value` works naturally with the `values` store.
 If you prefer explicit control instead of `bind:value`:
 
 ::: v-pre
+
 ```svelte
 <input
   value={$values.email}
@@ -125,6 +130,7 @@ If you prefer explicit control instead of `bind:value`:
   }
 />
 ```
+
 :::
 
 ---
@@ -132,11 +138,13 @@ If you prefer explicit control instead of `bind:value`:
 ## 🔁 Async Validation State
 
 ::: v-pre
+
 ```svelte
 {#if $isValidating.email}
   <span>Validating…</span>
 {/if}
 ```
+
 :::
 
 ---
@@ -148,6 +156,7 @@ reset();
 ```
 
 This will:
+
 - Restore `initialValues`
 - Clear errors
 - Reset dirty and validating states

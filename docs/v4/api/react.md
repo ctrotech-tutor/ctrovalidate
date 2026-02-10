@@ -39,14 +39,14 @@ The hook returns a reactive object containing everything needed to bind to your 
 | Property | Type | Description |
 | :--- | :--- | :--- |
 | `values` | `T` | Current reactive form state. |
-| `errors` | `Record<keyof T, string \| null>` | Current validation error messages. |
+| `errors` | `Partial<Record<keyof T, string>>` | Error messages for failed fields only. Valid fields are `undefined`. |
 | `isValid` | `boolean` | Global validity state of the form. |
-| `isDirty` | `boolean` | Whether any field has been interacted with. |
-| `isValidating` | `boolean` | `true` if any async rules are currently running. |
+| `isDirty` | `Partial<Record<keyof T, boolean>>` | Per-field dirty state tracking. |
+| `isValidating` | `Partial<Record<keyof T, boolean>>` | Per-field async validation state. |
 | `handleChange(name, value)` | `Function` | Update state and trigger validation. |
 | `handleBlur(name)` | `Function` | Mark field as dirty and trigger validation. |
-| `validate()` | `Function` | Programmatic trigger for all rules. |
-| `reset()` | `Function` | Reset all values, errors, and dirty state. |
+| `validate()` | `Function` | Programmatic trigger for all rules. Returns `Promise<boolean>`. |
+| `reset(values?)` | `Function` | Reset to initial or new values, clear errors and dirty state. |
 
 ---
 
@@ -79,6 +79,3 @@ The hook automatically manages `AbortController` instances. If a user types quic
 - **Stability**: Define your `schema` outside the component or wrap it in `useMemo` to prevent unnecessary engine re-initialization.
 - **Server Components**: Keep the hook in a `'use client'` component. For server-side validation, use `@ctrovalidate/core` or `@ctrovalidate/next`.
 - **Form Binding**: Bind `onChange={(e) => handleChange('name', e.target.value)}` for the most reactive experience.
-
-
-

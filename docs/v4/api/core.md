@@ -18,7 +18,7 @@ The `@ctrovalidate/core` package contains the isomorphic validation engine. It i
 
 ## 🛠️ Validation Functions
 
-### `validateValue(value, rules, options)`
+### `validate(value, rules, options)`
 
 Validates a single value against a schema synchronously.
 
@@ -26,17 +26,17 @@ Validates a single value against a schema synchronously.
   - `value` (any): The data to validate.
   - `rules` (SchemaRule): String, Array, or Object schema.
   - `options` (ValidationOptions): Optional config (custom logic, messages).
-- **Returns:** `ValidationResult` - `{ isValid: boolean, error: string | null, rule: string | null }`
+- **Returns:** `ValidationResult` - `{ valid: boolean, error: string | null }`
 
-### `validateValueAsync(value, rules, options)`
+### `validateAsync(value, rules, options)`
 
-Validates a single value against a schema asynchronously (supports remote checks).
+Validates a single value or multiple fields against a schema asynchronously (supports remote checks).
 
 - **Parameters:**
-  - `value` (any): The data to validate.
-  - `rules` (SchemaRule): String, Array, or Object schema.
-  - `options` (ValidationOptions): Optional config.
-- **Returns:** `Promise<ValidationResult>`
+  - `value` (any | Record<string, any>): Single value or object with field values.
+  - `rules` (SchemaRule | ValidationSchema): String, Array, or Object schema.
+  - `options` (ValidationOptions): Optional config (includes `signal` for AbortController).
+- **Returns:** `Promise<ValidationResult>` or `Promise<Record<string, ValidationResult>>`
 
 ---
 
@@ -89,6 +89,3 @@ Ctrovalidate.addAsyncRule('checkDB', async (val, params, el, signal) => { ... })
 
 - **Isomorphism**: Use `@ctrovalidate/core` for server-side validation (e.g., in Next.js Server Actions) to ensure identical logic between client and server.
 - **Zero Side-Effects**: The core package is side-effect free and tree-shakable.
-
-
-

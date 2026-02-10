@@ -35,13 +35,13 @@ Everything returned is reactive and intended to be used directly in your `<templ
 
 | Property | Type | Description |
 | :--- | :--- | :--- |
-| `values` | `Reactive` | Reactive object containing form values. |
-| `errors` | `Reactive` | Reactive object mapping field names to error messages. |
+| `values` | `Reactive<Record<string, any>>` | Reactive object containing form values. |
+| `errors` | `Reactive<Partial<Record<string, string>>>` | Error messages for failed fields only. Valid fields are `undefined`. |
 | `isValid` | `Ref<boolean>` | Global validity state. |
-| `isDirty` | `Ref<boolean>` | Whether the user has interacted with the form. |
-| `isValidating` | `Ref<boolean>` | Tracks active asynchronous validation tasks. |
-| `validate()` | `Function` | Programmatic validation trigger (Async). |
-| `reset()` | `Function` | Resets all reactive state to initial values. |
+| `isDirty` | `Reactive<Partial<Record<string, boolean>>>` | Per-field dirty state tracking. |
+| `isValidating` | `Reactive<Partial<Record<string, boolean>>>` | Per-field async validation state. |
+| `validate()` | `Function` | Programmatic validation trigger. Returns `Promise<boolean>`. |
+| `reset(values?)` | `Function` | Reset to initial or new values, clear errors and dirty state. |
 
 ---
 
@@ -84,6 +84,3 @@ Vue's `v-model` works seamlessly with the returned `values` object.
 - **Watchers**: The composable uses internal watchers. To prevent memory leaks, ensure it is called within the `setup()` lifecycle (automatically handled in `<script setup>`).
 - **Deep Reactivity**: `values` is a `reactive` object. If you need to destructure it, use `toRefs`.
 - **Nuxt**: The composable is SSR-safe and works perfectly inside Nuxt 3 projects.
-
-
-

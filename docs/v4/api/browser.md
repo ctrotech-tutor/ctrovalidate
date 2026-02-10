@@ -30,11 +30,11 @@ Initializes a new validator instance for the given form.
 
 ## 🛠️ Instance Methods
 
-### `validateForm()`
+### `validate()`
 
 Validates all discovered fields in the form and updates the DOM.
 
-- **Returns**: `Promise<{ isValid: boolean, results: Record<string, ValidationResult> }>`
+- **Returns**: `Promise<boolean>` - Overall form validity
 - **Technical Note**: This method orchestrates both sync and async rules across all fields.
 
 ### `validateField(fieldName)`
@@ -76,6 +76,3 @@ The controller searches for error message containers using a **3-level-up heuris
 - **`novalidate`**: Always add the `novalidate` attribute to your `<form>` to prevent browser default tooltips from interfering.
 - **Initialization**: Initialize ONLY ONCE per form lifecycle to avoid duplicate event listeners.
 - **Manual Discovery**: Use `addField(element)` if you need to manually track an input that doesn't have a `data-rules` attribute.
-
-
-
