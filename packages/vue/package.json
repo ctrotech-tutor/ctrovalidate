@@ -1,6 +1,6 @@
 {
   "name": "@ctrovalidate/vue",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Vue 3 adapter for Ctrovalidate - The lightweight, declarative validation library.",
   "type": "module",
   "main": "./dist/index.cjs",
