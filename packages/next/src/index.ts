@@ -53,6 +53,7 @@ export async function validateAction<
   values: T;
 }> {
   const values = formDataToValues<T>(formData);
+
   const results = await validateAsync(values, schema, {
     customRules: options.customRules,
     aliases: options.aliases,
@@ -63,13 +64,13 @@ export async function validateAction<
   const errors: Partial<Record<keyof T, string>> = {};
   let isValid = true;
 
-  for (const key in schema) {
-    const error = results[key]?.error;
+  (Object.keys(schema) as (keyof T)[]).forEach((key) => {
+    const error = results[key as string]?.error;
     if (error) {
-      errors[key as keyof T] = error;
+      errors[key] = error;
       isValid = false;
     }
-  }
+  });
 
   return { isValid, errors, values };
 }

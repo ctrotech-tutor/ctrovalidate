@@ -84,7 +84,10 @@ export function useCtrovalidate<T extends object>({
   /**
    * Validates a single field.
    */
-  async function validateField(name: keyof T): Promise<boolean> {
+  async function validateField(
+    name: keyof T,
+    value?: T[keyof T]
+  ): Promise<boolean> {
     const fieldSchema = schema[name as string];
     if (!fieldSchema) return true;
 
@@ -98,8 +101,9 @@ export function useCtrovalidate<T extends object>({
 
     try {
       const currentValues = get(values);
+      const valueToValidate = value !== undefined ? value : currentValues[name];
       const results = await validateAsync(
-        { [name]: currentValues[name] },
+        { [name]: valueToValidate },
         { [name as string]: fieldSchema },
         {
           customRules,
@@ -138,13 +142,13 @@ export function useCtrovalidate<T extends object>({
     const newErrors: Partial<Record<keyof T, string>> = {};
     let formIsValid = true;
 
-    for (const key in schema) {
-      const error = results[key]?.error;
-      newErrors[key as unknown as keyof T] = error || undefined;
+    (Object.keys(schema) as (keyof T)[]).forEach((key) => {
+      const error = results[key as string]?.error;
+      newErrors[key] = error || undefined;
       if (error) {
         formIsValid = false;
       }
-    }
+    });
 
     errors.set(newErrors);
     return formIsValid;
@@ -155,9 +159,35 @@ export function useCtrovalidate<T extends object>({
    */
   function reset(newValues?: Partial<T>) {
     values.set({ ...initialValues, ...newValues } as T);
-    errors.set({});
-    isDirty.set({});
-    isValidating.set({});
+
+    // Initialize stores per schema keys for consistency
+    const emptyErrors = (Object.keys(schema) as (keyof T)[]).reduce(
+      (acc, k) => {
+        acc[k] = undefined;
+        return acc;
+      },
+      {} as Partial<Record<keyof T, string>>
+    );
+
+    const emptyDirty = (Object.keys(schema) as (keyof T)[]).reduce(
+      (acc, k) => {
+        acc[k] = false;
+        return acc;
+      },
+      {} as Partial<Record<keyof T, boolean>>
+    );
+
+    const emptyValidating = (Object.keys(schema) as (keyof T)[]).reduce(
+      (acc, k) => {
+        acc[k] = false;
+        return acc;
+      },
+      {} as Partial<Record<keyof T, boolean>>
+    );
+
+    errors.set(emptyErrors);
+    isDirty.set(emptyDirty);
+    isValidating.set(emptyValidating);
   }
 
   /**

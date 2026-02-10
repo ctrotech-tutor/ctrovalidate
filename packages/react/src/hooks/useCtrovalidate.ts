@@ -77,7 +77,7 @@ export function useCtrovalidate<T extends object = object>(
       if (!fieldSchema) return true;
 
       const valueToValidate =
-        value !== undefined ? value : (valuesRef.current as any)[fieldName];
+        value !== undefined ? value : (valuesRef.current[name] as T[keyof T]);
 
       // Abort previous validation for this field
       if (abortControllers.current[fieldName]) {
@@ -133,10 +133,7 @@ export function useCtrovalidate<T extends object = object>(
     (name: keyof T) => {
       setIsDirty((prev) => ({ ...prev, [name]: true }));
       if (optionsRef.current.validateOnBlur !== false) {
-        setValues((currentValues) => {
-          validateField(name, currentValues[name]);
-          return currentValues;
-        });
+        validateField(name, valuesRef.current[name]);
       }
     },
     [validateField]
@@ -159,8 +156,8 @@ export function useCtrovalidate<T extends object = object>(
 
     for (const key in currentOptions.schema) {
       const error = results[key]?.error;
+      newErrors[key as keyof T] = error || undefined;
       if (error) {
-        newErrors[key as keyof T] = error;
         isValid = false;
       }
     }
