@@ -1,19 +1,23 @@
 import {
-  validate,
+  validateAsync,
   ValidationSchema,
-  ValidationOptions,
+  RuleLogic,
+  AsyncRuleLogic,
+  SchemaRule,
 } from '@ctrovalidate/core';
 
 /**
  * Converts FormData to a plain object for validation.
  */
-export function formDataToValues(formData: FormData): Record<string, unknown> {
-  const values: Record<string, unknown> = {};
+export function formDataToValues<
+  T extends Record<string, any> = Record<string, any>,
+>(formData: FormData): T {
+  const values: Record<string, any> = {};
   formData.forEach((value, key) => {
     // Handle multiple values for same key (e.g. checkboxes)
     if (values[key] !== undefined) {
       if (Array.isArray(values[key])) {
-        values[key].push(value);
+        (values[key] as any[]).push(value);
       } else {
         values[key] = [values[key], value];
       }
@@ -21,36 +25,49 @@ export function formDataToValues(formData: FormData): Record<string, unknown> {
       values[key] = value;
     }
   });
-  return values;
+  return values as T;
+}
+
+export interface ValidateActionOptions {
+  customRules?: Record<string, RuleLogic | AsyncRuleLogic>;
+  aliases?: Record<string, SchemaRule>;
+  messages?: Record<string, string>;
+  locale?: string;
 }
 
 /**
- * Validates FormData against a schema.
+ * Validates FormData against a schema asynchronously.
  * Designed for use in Next.js Server Actions.
  *
- * @returns A tuple [isValid, errors, values]
+ * @returns An object with isValid, errors (Partial<Record<K, string>>), and values
  */
-export function validateAction(
+export async function validateAction<
+  T extends Record<string, any> = Record<string, any>,
+>(
   formData: FormData,
   schema: ValidationSchema,
-  options: ValidationOptions = {}
-): {
+  options: ValidateActionOptions = {}
+): Promise<{
   isValid: boolean;
-  errors: Record<string, string | null>;
-  values: Record<string, unknown>;
-} {
-  const values = formDataToValues(formData);
-  const results = validate(values, schema, options);
+  errors: Partial<Record<keyof T, string>>;
+  values: T;
+}> {
+  const values = formDataToValues<T>(formData);
+  const results = await validateAsync(values, schema, {
+    customRules: options.customRules,
+    aliases: options.aliases,
+    messages: options.messages,
+    locale: options.locale,
+  });
 
-  const errors: Record<string, string | null> = {};
+  const errors: Partial<Record<keyof T, string>> = {};
   let isValid = true;
 
-  for (const key in results) {
-    if (!results[key].isValid) {
-      errors[key] = results[key].error;
+  for (const key in schema) {
+    const error = results[key]?.error;
+    if (error) {
+      errors[key as keyof T] = error;
       isValid = false;
-    } else {
-      errors[key] = null;
     }
   }
 

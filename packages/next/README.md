@@ -2,7 +2,7 @@
 
 **Specialized Next.js integration for Ctrovalidate.**
 
-`@ctrovalidate/next` provides purpose-built utilities for validating Next.js **Server Actions**. It allows you to reuse your standard Ctrovalidate schemas on the server to ensure high-performance, type-safe data handling.
+`@ctrovalidate/next` provides purpose-built utilities for validating Next.js **Server Actions**. It allows you to reuse your standard Ctrovalidate schemas on the server to ensure high-performance, type-safe data handling with full async validation support.
 
 ## 🚀 Installation
 
@@ -14,7 +14,7 @@ pnpm add @ctrovalidate/next @ctrovalidate/core
 
 ### Server Actions
 
-The `validateAction` utility automatically parses `FormData` and validates it against your schema.
+The `validateAction` utility automatically parses `FormData` and validates it against your schema with full TypeScript type safety.
 
 ```typescript
 // actions.ts
@@ -22,26 +22,53 @@ The `validateAction` utility automatically parses `FormData` and validates it ag
 
 import { validateAction } from '@ctrovalidate/next';
 
+interface SignupForm {
+  email: string;
+  password: string;
+}
+
 const schema = {
   email: 'required|email',
   password: 'required|minLength:8',
 };
 
 export async function signup(prevState: any, formData: FormData) {
-  // Validate directly from FormData
-  const { isValid, errors, values } = await validateAction(formData, schema);
+  // Validate with generic type support
+  const { isValid, errors, values } = await validateAction<SignupForm>(
+    formData,
+    schema
+  );
 
   if (!isValid) {
     return {
       success: false,
-      errors, // { email: 'Error message', password: null }
+      errors, // Partial<Record<keyof SignupForm, string>>
     };
   }
 
-  // Safe to use values
-  await db.createUser(values); // values is Record<string, unknown>
+  // values is fully typed as SignupForm
+  await db.createUser(values);
 
   return { success: true };
+}
+```
+
+### With Locale & Messages
+
+```typescript
+export async function signup(prevState: any, formData: FormData) {
+  const { isValid, errors, values } = await validateAction<SignupForm>(
+    formData,
+    schema,
+    {
+      locale: 'es', // Use Spanish error messages
+      messages: {
+        email: 'El correo electrónico es obligatorio',
+      },
+    }
+  );
+
+  // ...
 }
 ```
 
@@ -83,21 +110,37 @@ export default function SignupForm() {
 
 ## 🧩 API Reference
 
-### `validateAction(formData, schema, options)`
+### `validateAction<T>(formData, schema, options)`
 
 #### Parameters
 
 - `formData`: The native `FormData` object from the request.
 - `schema`: A Ctrovalidate schema object.
-- `options`: Standard validation options (custom rules, messages, etc.).
+- `options`: Optional validation options:
+  - `customRules`: Custom validation rules
+  - `aliases`: Rule aliases
+  - `messages`: Custom error messages
+  - `locale`: Locale for error messages (e.g., 'en', 'es', 'fr')
 
 #### Returns
 
-An object containing:
+A `Promise` resolving to an object containing:
 
 - `isValid`: `boolean` - True if all rules passed.
-- `errors`: `Record<string, string | null>` - Map of field names to error messages.
-- `values`: `Record<string, unknown>` - The parsed values from FormData.
+- `errors`: `Partial<Record<keyof T, string>>` - Map of field names to error messages (only failed fields).
+- `values`: `T` - The parsed and typed values from FormData.
+
+### `formDataToValues<T>(formData)`
+
+Converts `FormData` to a typed object. Handles multiple values for the same key (e.g., checkboxes).
+
+#### Parameters
+
+- `formData`: The native `FormData` object.
+
+#### Returns
+
+- `T` - The parsed values as a typed object.
 
 ## 📄 License
 
