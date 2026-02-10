@@ -21,7 +21,7 @@ export interface UseCtrovalidateOptions<T extends object> {
 
 export interface UseCtrovalidateReturn<T extends object> {
   values: T;
-  errors: Record<keyof T, string | null>;
+  errors: Record<keyof T, string | undefined>;
   isDirty: Record<keyof T, boolean>;
   isValidating: Record<keyof T, boolean>;
   isValid: boolean;
@@ -52,12 +52,12 @@ export function useCtrovalidate<T extends object>({
   const errors = reactive(
     Object.keys(schema).reduce(
       (acc, key) => {
-        acc[key] = null;
+        acc[key] = undefined;
         return acc;
       },
-      {} as Record<string, string | null>
+      {} as Record<string, string | undefined>
     )
-  ) as Record<keyof T, string | null>;
+  ) as Record<keyof T, string | undefined>;
 
   const isDirty = reactive(
     Object.keys(schema).reduce(
@@ -114,8 +114,8 @@ export function useCtrovalidate<T extends object>({
           signal: abortControllers[name as string].signal,
         }
       );
-      const error = results[name as string]?.error || null;
-      errors[name] = error;
+      const error = results[name as string]?.error;
+      errors[name] = error || undefined;
       return !error;
     } catch (err: unknown) {
       if (err instanceof Error && err.name === 'AbortError') return false;
@@ -140,8 +140,8 @@ export function useCtrovalidate<T extends object>({
     let formIsValid = true;
 
     for (const key in schema) {
-      const error = results[key]?.error || null;
-      errors[key as unknown as keyof T] = error;
+      const error = results[key]?.error;
+      errors[key as unknown as keyof T] = error || undefined;
       if (error) {
         formIsValid = false;
       }
@@ -157,7 +157,7 @@ export function useCtrovalidate<T extends object>({
   const reset = (newValues?: Partial<T>) => {
     Object.assign(values, { ...initialValues, ...newValues });
     for (const key in schema) {
-      errors[key as unknown as keyof T] = null;
+      errors[key as unknown as keyof T] = undefined;
       isDirty[key as unknown as keyof T] = false;
       isValidating[key as unknown as keyof T] = false;
     }

@@ -39,38 +39,39 @@ export function useCtrovalidate<T extends object>({
 }: UseCtrovalidateOptions<T>) {
   const values = writable<T>({ ...initialValues });
 
-  const errors = writable<Record<keyof T, string | null>>(
+  const errors = writable<Partial<Record<keyof T, string>>>(
     Object.keys(schema).reduce(
       (acc, key) => {
-        acc[key as keyof T] = null;
+        acc[key as keyof T] = undefined;
         return acc;
       },
-      {} as Record<keyof T, string | null>
+      {} as Partial<Record<keyof T, string>>
     )
   );
 
-  const isDirty = writable<Record<keyof T, boolean>>(
+  const isDirty = writable<Partial<Record<keyof T, boolean>>>(
     Object.keys(schema).reduce(
       (acc, key) => {
         acc[key as keyof T] = false;
         return acc;
       },
-      {} as Record<keyof T, boolean>
+      {} as Partial<Record<keyof T, boolean>>
     )
   );
 
-  const isValidating = writable<Record<keyof T, boolean>>(
+  const isValidating = writable<Partial<Record<keyof T, boolean>>>(
     Object.keys(schema).reduce(
       (acc, key) => {
         acc[key as keyof T] = false;
         return acc;
       },
-      {} as Record<keyof T, boolean>
+      {} as Partial<Record<keyof T, boolean>>
     )
   );
 
   const isValid = derived(errors, ($errors) => {
-    return Object.values($errors).every((error) => error === null);
+    // Check if any key has a truthy string value
+    return !Object.values($errors).some((error) => !!error);
   });
 
   // Abort controllers for async validation
@@ -109,8 +110,8 @@ export function useCtrovalidate<T extends object>({
         }
       );
 
-      const error = results[name as string]?.error || null;
-      errors.update((prev) => ({ ...prev, [name]: error }));
+      const error = results[name as string]?.error;
+      errors.update((prev) => ({ ...prev, [name]: error || undefined }));
 
       return !error;
     } catch (err: unknown) {
@@ -134,15 +135,12 @@ export function useCtrovalidate<T extends object>({
       locale,
     });
 
-    const newErrors: Record<keyof T, string | null> = {} as Record<
-      keyof T,
-      string | null
-    >;
+    const newErrors: Partial<Record<keyof T, string>> = {};
     let formIsValid = true;
 
     for (const key in schema) {
-      const error = results[key]?.error || null;
-      newErrors[key as unknown as keyof T] = error;
+      const error = results[key]?.error;
+      newErrors[key as unknown as keyof T] = error || undefined;
       if (error) {
         formIsValid = false;
       }
@@ -157,33 +155,9 @@ export function useCtrovalidate<T extends object>({
    */
   function reset(newValues?: Partial<T>) {
     values.set({ ...initialValues, ...newValues } as T);
-    errors.set(
-      Object.keys(schema).reduce(
-        (acc, key) => {
-          acc[key as keyof T] = null;
-          return acc;
-        },
-        {} as Record<keyof T, string | null>
-      )
-    );
-    isDirty.set(
-      Object.keys(schema).reduce(
-        (acc, key) => {
-          acc[key as keyof T] = false;
-          return acc;
-        },
-        {} as Record<keyof T, boolean>
-      )
-    );
-    isValidating.set(
-      Object.keys(schema).reduce(
-        (acc, key) => {
-          acc[key as keyof T] = false;
-          return acc;
-        },
-        {} as Record<keyof T, boolean>
-      )
-    );
+    errors.set({});
+    isDirty.set({});
+    isValidating.set({});
   }
 
   /**

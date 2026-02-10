@@ -20,9 +20,9 @@ export interface UseCtrovalidateOptions<T extends object> {
 
 export interface UseCtrovalidateReturn<T extends object> {
   values: T;
-  errors: Record<keyof T, string | null>;
-  isDirty: Record<keyof T, boolean>;
-  isValidating: Record<keyof T, boolean>;
+  errors: Partial<Record<keyof T, string>>;
+  isDirty: Partial<Record<keyof T, boolean>>;
+  isValidating: Partial<Record<keyof T, boolean>>;
   handleChange: (name: keyof T, value: T[keyof T]) => void;
   handleBlur: (name: keyof T) => void;
   validateField: (name: keyof T, value?: T[keyof T]) => Promise<boolean>;
@@ -40,15 +40,11 @@ export function useCtrovalidate<T extends object = object>(
   const { initialValues = {} } = options;
 
   const [values, setValues] = useState<T>(initialValues as T);
-  const [errors, setErrors] = useState<Record<keyof T, string | null>>(
-    {} as Record<keyof T, string | null>
-  );
-  const [isDirty, setIsDirty] = useState<Record<keyof T, boolean>>(
-    {} as Record<keyof T, boolean>
-  );
-  const [isValidating, setIsValidating] = useState<Record<keyof T, boolean>>(
-    {} as Record<keyof T, boolean>
-  );
+  const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
+  const [isDirty, setIsDirty] = useState<Partial<Record<keyof T, boolean>>>({});
+  const [isValidating, setIsValidating] = useState<
+    Partial<Record<keyof T, boolean>>
+  >({});
 
   // Latest options ref to avoid dependency loops when literals are passed
   const optionsRef = useRef(options);
@@ -103,9 +99,9 @@ export function useCtrovalidate<T extends object = object>(
             signal: abortControllers.current[fieldName].signal,
           }
         );
-        const error = results[fieldName]?.error || null;
+        const error = results[fieldName]?.error;
 
-        setErrors((prev) => ({ ...prev, [name]: error }));
+        setErrors((prev) => ({ ...prev, [name]: error || undefined }));
         return !error;
       } catch (err: unknown) {
         if (err instanceof Error && err.name === 'AbortError') return false;
@@ -158,13 +154,13 @@ export function useCtrovalidate<T extends object = object>(
       locale: currentOptions.locale,
     });
 
-    const newErrors = {} as Record<keyof T, string | null>;
+    const newErrors: Partial<Record<keyof T, string>> = {};
     let isValid = true;
 
     for (const key in currentOptions.schema) {
-      const error = results[key]?.error || null;
-      newErrors[key as keyof T] = error;
+      const error = results[key]?.error;
       if (error) {
+        newErrors[key as keyof T] = error;
         isValid = false;
       }
     }
@@ -180,9 +176,9 @@ export function useCtrovalidate<T extends object = object>(
     setValues(
       (newValues as T) || (optionsRef.current.initialValues as T) || ({} as T)
     );
-    setErrors({} as Record<keyof T, string | null>);
-    setIsDirty({} as Record<keyof T, boolean>);
-    setIsValidating({} as Record<keyof T, boolean>);
+    setErrors({});
+    setIsDirty({});
+    setIsValidating({});
   }, []);
 
   return {
