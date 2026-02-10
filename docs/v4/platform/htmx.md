@@ -33,15 +33,15 @@ Load `@ctrovalidate/browser` via CDN or NPM and initialize it on your HTMX-power
 </form>
 
 <script type="module">
-  import { Ctrovalidate } from 'https://cdn.jsdelivr.net/npm/@ctrovalidate/browser@4.0.0/dist/index.js';
+  import { Ctrovalidate } from 'https://cdn.jsdelivr.net/npm/@ctrovalidate/browser@4.0.1/dist/index.js';
   
   const validator = new Ctrovalidate(document.getElementById('profile-form'));
   
   // Intercept HTMX request to validate first
   document.body.addEventListener('htmx:beforeRequest', async (evt) => {
     if (evt.detail.target.id === 'profile-form') {
-      const { isValid } = await validator.validateForm();
-      if (!isValid) evt.preventDefault(); // Stop the AJAX request
+      const isValid = await validator.validate();
+    if (!isValid) evt.preventDefault(); // Stop the AJAX request
     }
   });
 </script>
@@ -73,6 +73,3 @@ If your server returns an error fragment (e.g., `422 Unprocessable Entity`), Ctr
 - **`hx-validate="true"`**: While HTMX has basic internal validation support, using Ctrovalidate via `htmx:beforeRequest` gives you more granular control and accessibility.
 - **Global Interceptor**: Instead of per-form scripts, use a global `htmx:beforeRequest` listener that checks for a specific attribute (e.g., `data-validate`) on the form.
 - **Loading States**: Bind HTMX's `htmx-request` class with Ctrovalidate's `pendingClass` for consistent loading indicators.
-
-
-
