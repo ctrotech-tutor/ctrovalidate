@@ -67,12 +67,13 @@ Define validation rules and custom messages directly in your markup. The browser
 import { Ctrovalidate } from '@ctrovalidate/browser';
 
 // Initialize the controller
+// Initialize transparently
 const validator = new Ctrovalidate(
   document.getElementById('auth-form'), 
   { realTime: true }
 );
 
-// Programmatic trigger
+// Programmatic trigger (Recommended)
 const isValid = await validator.validate();
 ```
 
@@ -100,7 +101,7 @@ const isValid = await validator.validate();
   </div>
   <div class="stat-card">
     <div class="stat-number">100%</div>
-    <div class="stat-label">Test Coverage</div>
+    <div class="stat-label">Logic Coverage</div>
     <div class="stat-desc">Strict logic verification</div>
   </div>
 </div>
