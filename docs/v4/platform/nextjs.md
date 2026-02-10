@@ -73,14 +73,14 @@ import { SignupSchema } from '@/lib/schemas';
 
 export async function signupAction(formData: FormData) {
   // Validate the form data against the SAME schema
-  const { isValid, results, data } = await validateAction(formData, SignupSchema);
+  const { isValid, errors, values } = await validateAction(formData, SignupSchema);
 
   if (!isValid) {
-    return { errors: results };
+    return { errors };
   }
 
-  // ✅ 'data' is now parsed and validated
-  await db.user.create({ data });
+  // ✅ 'values' is now parsed and validated
+  await db.user.create({ data: values });
 }
 ```
 
@@ -104,6 +104,3 @@ const values = formDataToValues(formData);
 - **Never Trust the Client**: Always re-validate on the server using `validateAction`.
 - **Error Propagation**: Return the `results` object from your Server Action and use it to populate the `errors` state in your Client Component (e.g., via `useFormState`).
 - **Edge Compatible**: Both `@ctrovalidate/core` and `@ctrovalidate/next` are fully compatible with the Next.js Edge Runtime.
-
-
-
