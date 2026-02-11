@@ -1,0 +1,26 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/core"
+    },
+    {
+      "path": "./packages/browser"
+    },
+    {
+      "path": "./packages/react"
+    },
+    {
+      "path": "./packages/vue"
+    },
+    {
+      "path": "./packages/svelte"
+    },
+    {
+      "path": "./packages/next"
+    }
+  ],
+  "compilerOptions": {
+    "typeRoots": ["./types", "./node_modules/@types"]
+  }
+}

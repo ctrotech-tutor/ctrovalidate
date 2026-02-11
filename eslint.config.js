@@ -1,70 +1,97 @@
 import js from '@eslint/js';
-import importPlugin from 'eslint-plugin-import';
-import nPlugin from 'eslint-plugin-n';
-import promisePlugin from 'eslint-plugin-promise';
-import prettier from 'eslint-config-prettier';
 import globals from 'globals';
-
 import tseslint from 'typescript-eslint';
 
+import importPlugin from 'eslint-plugin-import';
+import promisePlugin from 'eslint-plugin-promise';
+import nPlugin from 'eslint-plugin-n';
+import prettier from 'eslint-config-prettier';
+
 export default [
-  // Base recommended rules
+  /*
+  |--------------------------------------------------------------------------
+  | Base JavaScript Recommended
+  |--------------------------------------------------------------------------
+  */
   js.configs.recommended,
+
+  /*
+  |--------------------------------------------------------------------------
+  | TypeScript Recommended (Flat Config Version)
+  |--------------------------------------------------------------------------
+  */
   ...tseslint.configs.recommended,
 
-  // Prettier compatibility
+  /*
+  |--------------------------------------------------------------------------
+  | Prettier Compatibility
+  |--------------------------------------------------------------------------
+  */
   prettier,
 
-  // Ignore paths
+  /*
+  |--------------------------------------------------------------------------
+  | Global Ignores
+  |--------------------------------------------------------------------------
+  */
   {
     ignores: [
+      'node_modules/',
       'dist/',
       'coverage/',
-      'node_modules/',
-      'docs/',
-      'examples/',
+      '.vercel/',
       'docs/.vitepress/dist/',
       'docs/.vitepress/cache/',
-      '.vercel/',
       'packages/*/dist/',
       'packages/*/coverage/',
     ],
   },
 
-  // --------------------------------------------
-  // Browser source files
-  // --------------------------------------------
+  /*
+  |--------------------------------------------------------------------------
+  | Browser Source Files
+  |--------------------------------------------------------------------------
+  */
   {
-    files: ['packages/*/src/**/*.js', 'packages/*/src/**/*.ts'],
+    files: ['packages/*/src/**/*.{js,ts}'],
+
     languageOptions: {
+      parser: tseslint.parser,
       ecmaVersion: 'latest',
       sourceType: 'module',
-      parser: tseslint.parser,
       globals: {
         ...globals.browser,
         ...globals.es2021,
       },
     },
+
     settings: {
       'import/resolver': {
         typescript: {
-          project: ['packages/*/tsconfig.json', 'tsconfig.json'],
+          project: ['tsconfig.json', 'packages/*/tsconfig.json'],
+          alwaysTryTypes: true,
         },
       },
     },
+
     plugins: {
       import: importPlugin,
       promise: promisePlugin,
-      '@typescript-eslint': tseslint.plugin,
     },
-    rules: {
-      ...importPlugin.configs.recommended.rules,
-      ...promisePlugin.configs.recommended.rules,
 
-      // Allow console in a library (logging is intentional)
+    rules: {
+      /*
+      |--------------------------------------------------------------------------
+      | Core Rules
+      |--------------------------------------------------------------------------
+      */
       'no-console': 'off',
 
-      // Allow "_" as intentional unused placeholder
+      /*
+      |--------------------------------------------------------------------------
+      | TypeScript
+      |--------------------------------------------------------------------------
+      */
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -72,47 +99,69 @@ export default [
       ],
       '@typescript-eslint/no-explicit-any': 'warn',
 
-      // Fix import errors
+      /*
+      |--------------------------------------------------------------------------
+      | Import Rules
+      |--------------------------------------------------------------------------
+      */
       'import/no-unresolved': 'error',
+
+      /*
+      |--------------------------------------------------------------------------
+      | Promise Rules
+      |--------------------------------------------------------------------------
+      */
+      'promise/always-return': 'off',
     },
   },
 
-  // --------------------------------------------
-  // Node / tooling files (vite, config, etc.)
-  // --------------------------------------------
+  /*
+  |--------------------------------------------------------------------------
+  | Node / Tooling Files
+  |--------------------------------------------------------------------------
+  */
   {
-    files: ['*.config.js', 'vite.config.js', 'packages/**/*.config.js'],
+    files: [
+      '*.config.js',
+      '*.config.ts',
+      'vite.config.*',
+      'packages/**/*.config.*',
+    ],
+
     languageOptions: {
       globals: {
         ...globals.node,
-        URL: 'readonly', // Ensure URL is known
       },
     },
+
     plugins: {
       n: nPlugin,
     },
+
     rules: {
-      ...nPlugin.configs.recommended.rules,
+      ...nPlugin.configs['flat/recommended'].rules,
       'n/no-extraneous-import': 'off',
     },
   },
 
-  // --------------------------------------------
-  // Test files (Vitest + JSDOM)
-  // --------------------------------------------
+  /*
+  |--------------------------------------------------------------------------
+  | Test Files (Vitest + JSDOM)
+  |--------------------------------------------------------------------------
+  */
   {
-    files: ['**/*.test.js', '**/*.test.ts'],
+    files: ['**/*.test.{js,ts}'],
+
     languageOptions: {
       globals: {
         ...globals.browser,
         ...globals.node,
       },
     },
+
     rules: {
-      // Tests can import freely
-      'n/no-missing-import': 'off',
-      // Console allowed in tests
       'no-console': 'off',
+      'n/no-missing-import': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/ban-ts-comment': 'off',
     },
