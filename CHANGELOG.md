@@ -1,3 +1,22 @@
+## [4.0.0](https://github.com/ctrotech-tutor/ctrovalidate/compare/v3.0.2...v4.0.0) (2026-02-12)
+
+### Features
+
+- **browser:** enhance UIManager with multi-level search and safe escaping ([932f397](https://github.com/ctrotech-tutor/ctrovalidate/commit/932f397f6caa6a7f625d88a1870d1352e0f5b5a5))
+- **core:** export Translator for i18n support ([e772d62](https://github.com/ctrotech-tutor/ctrovalidate/commit/e772d6253149508a143f36fc1bf573d5efb60a9c))
+- modernize CI pipeline and restore test integrity ([bc9a118](https://github.com/ctrotech-tutor/ctrovalidate/commit/bc9a11893138412d3ff50d56845dcc0755a74c3c))
+- monorepo refactor and core standardization (v4) ([b25f782](https://github.com/ctrotech-tutor/ctrovalidate/commit/b25f782ec450aa6ca340c5e640bcd4e6e2ef07f6))
+- **next:** refactor validateAction to match React hook patterns ([426b452](https://github.com/ctrotech-tutor/ctrovalidate/commit/426b4522e3809550709cfcd32a95b2fc89f22fd4))
+
+### Bug Fixes
+
+- **community:** remove invalid github sponsors entry from all FUNDING.yml files ([e5e82f4](https://github.com/ctrotech-tutor/ctrovalidate/commit/e5e82f405829554279d4daf520dc6bdadece92db))
+- **community:** update custom sponsorship links to Paystack and Flutterwave ([2ba17c1](https://github.com/ctrotech-tutor/ctrovalidate/commit/2ba17c1bd1a257add55bc3190a6d1d6d4c17fda0))
+- **deps:** move vitepress to dependencies to ensure Vercel build availability ([7914b37](https://github.com/ctrotech-tutor/ctrovalidate/commit/7914b373d87a8d0ac5e3f2eff7578b8a4b4d6388))
+- **docs:** ensure vitepress available in production builds ([5dab0a6](https://github.com/ctrotech-tutor/ctrovalidate/commit/5dab0a604702e66773542ad741e8bd3c128dfc3a))
+- **docs:** robust GTM noscript injection using regex ([ae3db2b](https://github.com/ctrotech-tutor/ctrovalidate/commit/ae3db2b75d976d67b5b0f196b5933d038fac4fec))
+- **docs:** update README logo path to use public directory ([b6f1481](https://github.com/ctrotech-tutor/ctrovalidate/commit/b6f14810ad0344c54c6bc46843802be4c6973e11))
+
 ## [3.0.2](https://github.com/ctrotech-tutor/ctrovalidate/compare/v3.0.1...v3.0.2) (2026-02-03)
 
 ### Bug Fixes
