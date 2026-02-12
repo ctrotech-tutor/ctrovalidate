@@ -1,3 +1,5 @@
+- chore(release): remove invalid deploy hook from release-it config (3e80b77)
+
 ## [4.0.0](https://github.com/ctrotech-tutor/ctrovalidate/compare/v3.0.2...v4.0.0) (2026-02-12)
 
 ### Features
