@@ -33,7 +33,7 @@ Load `@ctrovalidate/browser` via CDN or NPM and initialize it on your HTMX-power
 </form>
 
 <script type="module">
-  import { Ctrovalidate } from 'https://cdn.jsdelivr.net/npm/@ctrovalidate/browser@3.0.2/dist/index.js';
+  import { Ctrovalidate } from 'https://cdn.jsdelivr.net/npm/@ctrovalidate/browser@4.0.0/dist/index.js';
   
   const validator = new Ctrovalidate(document.getElementById('profile-form'));
   
