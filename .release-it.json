@@ -20,7 +20,6 @@
   },
   "hooks": {
     "before:init": ["npm run lint", "npm run test"],
-    "after:bump": "npm run build",
-    "after:release": "turbo run deploy --filter=@ctrovalidate/*"
+    "after:bump": "npm run build"
   }
 }

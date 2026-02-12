@@ -28,6 +28,7 @@ export default [
       '.vercel/',
       'packages/*/dist/',
       'packages/*/coverage/',
+      'set-version.js',
     ],
   },
 
