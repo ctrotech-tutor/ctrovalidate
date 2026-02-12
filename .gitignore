@@ -1,44 +1,83 @@
-# .gitignore
-
+# --------------------------------------------------
 # Dependencies
+# --------------------------------------------------
 node_modules/
+.pnpm-store/
 npm_recovery_codes.txt
 
-# Build output
+# --------------------------------------------------
+# Build Outputs
+# --------------------------------------------------
 dist/
+build/
 coverage/
+*.tsbuildinfo
 
+# Package builds (monorepo safety)
+packages/*/dist/
+packages/*/coverage/
+
+# --------------------------------------------------
+# Turbo / Cache
+# --------------------------------------------------
+.turbo/
+.cache/
+
+# --------------------------------------------------
 # VitePress
+# --------------------------------------------------
+docs/.vitepress/dist/
+docs/.vitepress/cache/
 **/.vitepress/dist/
 **/.vitepress/cache/
 
-# Log files
+# --------------------------------------------------
+# Logs
+# --------------------------------------------------
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Editor & OS
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Environment
+# --------------------------------------------------
+# Environment Variables
+# --------------------------------------------------
 .env
 .env.*
 !.env.example
 
-# Release Notes
-RELEASE_NOTES.md
-v4_features_keep.md
-v4-FEATURES.MD
-.vercel
+# --------------------------------------------------
+# Editor / IDE
+# --------------------------------------------------
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
 
-.turbo/
+# --------------------------------------------------
+# OS Files
+# --------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# --------------------------------------------------
+# Deployment
+# --------------------------------------------------
+.vercel/
+.netlify/
+
+# --------------------------------------------------
+# Temporary / Local Scripts
+# --------------------------------------------------
+set-version.js
+
+# --------------------------------------------------
+# Optional Personal Release Files
+# --------------------------------------------------
+RELEASE_NOTES.md
+v*_features*.md

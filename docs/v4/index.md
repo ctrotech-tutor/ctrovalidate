@@ -81,7 +81,7 @@ const isValid = await validator.validate();
 
 <div class="stats-section">
 
-## v4.0.0 Technical Specifications
+## v3.0.2 Technical Specifications
 
 <div class="stats-grid">
   <div class="stat-card">

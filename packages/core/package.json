@@ -1,6 +1,6 @@
 {
   "name": "@ctrovalidate/core",
-  "version": "4.0.0",
+  "version": "3.0.2",
   "description": "Core validation logic for Ctrovalidate (Headless).",
   "type": "module",
   "main": "./dist/index.cjs",
