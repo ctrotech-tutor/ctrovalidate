@@ -1,72 +1,73 @@
 ---
-title: Ctrovalidate | Lightweight JavaScript Form Validation
-description: A lightweight, zero-dependency JavaScript library for client-side form validation with a declarative, HTML-first approach and full ARIA support.
+title: Ctrovalidate | Platform-Agnostic Validation Ecosystem
+description: A high-performance, modular JavaScript validation suite. HTML-first declarative logic with universal core execution and framework-native headless adapters.
 layout: home
 
 hero:
   name: 'Ctrovalidate'
-  text: 'Declarative Form Validation'
-  tagline: Lightweight, accessible, and zero-dependency. TypeScript-native with 98% test coverage. Define rules in HTML, handle the rest in JS.
+  text: 'The Modular Validation Suite'
+  tagline: Isomorphic core logic. Platform-native controllers. Framework-headless hooks. Zero-dependency architecture with 100% logic coverage.
   image:
     src: /logo.svg
     alt: Ctrovalidate Logo
   actions:
     - theme: brand
-      text: Get Started
-      link: /guide/getting-started
+      text: Implementation Guide
+      link: /guide/introduction
     - theme: alt
-      text: View on GitHub
+      text: GitHub Source
       link: https://github.com/ctrotech-tutor/ctrovalidate
 
 features:
-  - icon: 🎛️
-    title: HTML-First API
-    details: Use `data-ctrovalidate-rules` to define validation directly on your inputs. Keep logic clean and readable.
+  - icon: 🎯
+    title: Universal Logic Engine
+    details: Execute the same validation logic on Node.js, Edge, and Browser. Powered by ctrovalidate-core.
+  - icon: 🧩
+    title: Headless Adapters
+    details: Native hooks and actions for React, Vue, and Svelte that share the same high-performance core.
+  - icon: 🛠️
+    title: Hybrid Schemas
+    details: Define logic in HTML with data attributes or via TypeScript objects for complex multi-field business logic.
+  - icon: 💬
+    title: Strategic Overrides
+    details: Precise control over feedback via field-level catch-all messages and rule-specific overrides directly in the DOM.
   - icon: ♿
-    title: ARIA-Compliant
-    details: Automatically manages `aria-invalid` and `aria-describedby` states for screen reader compatibility.
-  - icon: 📦
-    title: <5KB Gzipped
-    details: Zero dependencies. Lightweight bundle that won't bloat your application.
-  - icon: 🔧
-    title: 21 Built-in Rules
-    details: Common, format, and numeric validation rules out of the box. Extensible with custom sync or async rules.
+    title: Automated A11Y
+    details: Industrial-grade management of `aria-invalid` and `aria-describedby` based on real-time engine state.
   - icon: ⚡
-    title: TypeScript Native
-    details: Full TypeScript support with comprehensive type definitions. 98% test coverage for reliability.
-  - icon: 🌐
-    title: Framework Agnostic
-    details: Works with React, Vue, Svelte, Alpine.js, and vanilla JavaScript. Includes conditional validation and field dependencies.
+    title: Async Reliability
+    details: Native AbortController integration ensures zero race conditions during high-frequency remote checks.
 ---
 
 <div class="code-preview-section">
 
-## Declarative. Reliable. Accessible
+## Declarative Integration. Technical Precision
 
-Define validation rules in HTML attributes. Ctrovalidate handles the validation logic, error display, and accessibility.
+Define validation rules and custom messages directly in your markup. The browser adapter orchestrates the DOM state while the core engine executes the logic.
 
 ```html
-<!-- Define rules directly in HTML -->
-<div class="form-group">
-  <input 
-    type="email" 
-    name="user_email"
-    data-ctrovalidate-rules="required|email"
-  />
-  <div class="error-message"></div>
-</div>
+<form id="auth-form" novalidate>
+  <div class="field-group">
+    <input
+      type="password"
+      name="user_password"
+      data-ctrovalidate-rules="required|minLength:8"
+      data-ctrovalidate-message="Password required"
+      data-ctrovalidate-minlength-message="Must be at least 8 characters"
+    />
+    <div class="error-container"></div>
+  </div>
+</form>
 ```
 
 ```javascript
-import { Ctrovalidate } from 'ctrovalidate';
+import { Ctrovalidate } from 'ctrovalidate-browser';
 
-// Initialize with configuration options
 const validator = new Ctrovalidate(
-  document.querySelector('form'), 
+  document.getElementById('auth-form'),
   { realTime: true }
 );
 
-// Validate programmatically
 const isValid = await validator.validate();
 ```
 
@@ -74,28 +75,28 @@ const isValid = await validator.validate();
 
 <div class="stats-section">
 
-## v3.0.0 Highlights
+## v1.0.0 Technical Specifications
 
 <div class="stats-grid">
   <div class="stat-card">
-    <div class="stat-number">21</div>
-    <div class="stat-label">Built-in Rules</div>
-    <div class="stat-desc">Common, format, and numeric validation</div>
+    <div class="stat-number">22</div>
+    <div class="stat-label">Atomic Rules</div>
+    <div class="stat-desc">Universal logic primitives</div>
   </div>
   <div class="stat-card">
-    <div class="stat-number">9</div>
-    <div class="stat-label">API Methods</div>
-    <div class="stat-desc">Complete programmatic control</div>
+    <div class="stat-number">JSON</div>
+    <div class="stat-label">Schema Support</div>
+    <div class="stat-desc">Object-based configuration</div>
   </div>
   <div class="stat-card">
-    <div class="stat-number">&lt;5KB</div>
-    <div class="stat-label">Bundle Size</div>
-    <div class="stat-desc">Gzipped, zero dependencies</div>
+    <div class="stat-number">< 5KB</div>
+    <div class="stat-label">Minified Size</div>
+    <div class="stat-desc">Zero runtime dependencies</div>
   </div>
   <div class="stat-card">
-    <div class="stat-number">98%</div>
-    <div class="stat-label">Test Coverage</div>
-    <div class="stat-desc">Production-ready reliability</div>
+    <div class="stat-number">100%</div>
+    <div class="stat-label">Logic Coverage</div>
+    <div class="stat-desc">Strict logic verification</div>
   </div>
 </div>
 
@@ -103,35 +104,30 @@ const isValid = await validator.validate();
 
 <div class="integrations-grid">
 
-## Framework Integration
+## Ecosystem Support
 
-Ctrovalidate works with any JavaScript framework or vanilla JS.
+Specialized adapters for every modern development workflow.
 
-| Framework | Status | Demo | Documentation |
-| :--- | :---: | :---: | :---: |
-| **Vanilla JS** | ✅ | [View Demo](https://github.com/ctrotech-tutor/ctrovalidate/tree/main/examples/demo-vanilla-js) | [Guide](/guide/getting-started) |
-| **React 18+** | ✅ | [View Demo](https://github.com/ctrotech-tutor/ctrovalidate/tree/main/examples/demo-react) | [Integration](/integrations/react) |
-| **Next.js 15+** | ✅ | [View Demo](https://github.com/ctrotech-tutor/ctrovalidate/tree/main/examples/demo-nextjs) | [Integration](/integrations/nextjs) |
-| **Vue 3** | ✅ | [View Demo](https://github.com/ctrotech-tutor/ctrovalidate/tree/main/examples/demo-vue) | [Integration](/integrations/vue) |
-| **Alpine.js** | ✅ | [View Demo](https://github.com/ctrotech-tutor/ctrovalidate/tree/main/examples/demo-alpine) | [Integration](/integrations/alpinejs) |
-| **Svelte** | ✅ | - | [Integration](/integrations/svelte) |
-| **HTMX** | ✅ | - | [Best Practices](/integrations/htmx) |
-
-**Styling**: Works with Tailwind CSS, CSS Modules, Vanilla CSS, Bootstrap, or any CSS framework.
+| Package | Purpose | Documentation |
+| :--- | :--- | :--- |
+| **ctrovalidate-core** | Universal validation engine (Isomorphic) | [API Ref](/api/core) |
+| **ctrovalidate-browser** | DOM adapter with declarative HTML-first API | [API Ref](/api/browser) |
+| **ctrovalidate-react** | Headless hook for React 18+ | [Reference](/api/react) |
+| **ctrovalidate-vue** | Composition API for Vue 3 | [Reference](/api/vue) |
+| **ctrovalidate-svelte** | Reactive stores for Svelte | [Reference](/api/svelte) |
+| **ctrovalidate-next** | Server Action & FormData utilities | [Reference](/platform/nextjs) |
 
 </div>
 
 <div class="cta-bottom">
 
-## Get Started
-
-Install via npm and start validating forms in minutes.
+## Next Steps
 
 ```bash
-npm install ctrovalidate
+npm install ctrovalidate-browser
 ```
 
-[**Read the Documentation**](/guide/getting-started) · [**View API Reference**](/api/methods) · [**See Examples**](/guide/examples)
+[**Implementation Guides**](/guide/introduction) · [**API Reference**](/api/core)
 
 </div>
 
@@ -141,7 +137,7 @@ npm install ctrovalidate
   text-align: center;
 }
 .code-preview-section h2 {
-  font-size: 2.5rem;
+  font-size: 2.25rem;
   font-weight: 800;
   margin-bottom: 24px;
 }
@@ -151,7 +147,7 @@ npm install ctrovalidate
   text-align: center;
 }
 .stats-section h2 {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
   margin-bottom: 48px;
 }
@@ -169,7 +165,7 @@ npm install ctrovalidate
   border: 1px solid var(--vp-c-divider);
 }
 .stat-number {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 800;
   color: var(--vp-c-brand-1);
   margin-bottom: 8px;
@@ -177,10 +173,10 @@ npm install ctrovalidate
 .stat-label {
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 .stat-desc {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--vp-c-text-2);
 }
 
@@ -193,17 +189,12 @@ npm install ctrovalidate
 .integrations-grid h2 {
   text-align: center;
   margin-bottom: 32px;
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
 }
 .integrations-grid table {
   margin: 32px auto 24px;
-}
-.integrations-grid p {
-  text-align: center;
-  color: var(--vp-c-text-2);
-  font-size: 0.95rem;
-  margin-top: 24px;
+  width: 100%;
 }
 
 .cta-bottom {
@@ -213,12 +204,12 @@ npm install ctrovalidate
   border-top: 1px solid var(--vp-c-divider);
 }
 .cta-bottom h2 {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 .cta-bottom pre {
-  max-width: 400px;
+  max-width: 450px;
   margin: 24px auto;
 }
 
@@ -226,9 +217,6 @@ npm install ctrovalidate
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-  }
-  .stat-number {
-    font-size: 2.5rem;
   }
 }
 </style>

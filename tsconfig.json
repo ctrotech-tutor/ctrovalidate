@@ -1,26 +1,15 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./packages/core"
-    },
-    {
-      "path": "./packages/browser"
-    },
-    {
-      "path": "./packages/react"
-    },
-    {
-      "path": "./packages/vue"
-    },
-    {
-      "path": "./packages/svelte"
-    },
-    {
-      "path": "./packages/next"
-    }
-  ],
   "compilerOptions": {
-    "typeRoots": ["./types", "./node_modules/@types"]
-  }
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "strict": true,
+    "noEmit": true
+  },
+  "include": ["docs/**/*.ts", "docs/**/*.js", "*.config.js"],
+  "exclude": ["node_modules", ".vitepress"]
 }

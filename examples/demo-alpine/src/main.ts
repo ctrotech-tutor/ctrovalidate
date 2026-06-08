@@ -1,6 +1,6 @@
 import './style.css'
 import Alpine from 'alpinejs'
-import { Ctrovalidate } from '@ctrovalidate/browser'
+import { Ctrovalidate } from '@ctrovalidate/web'
 
 // Initialize Alpine
 window.Alpine = Alpine
@@ -17,7 +17,7 @@ window.validator = new Ctrovalidate(form, {
 // Expose validator globally for the inline HTML scripts to access
 declare global {
   interface Window {
-    Alpine: any;
+    Alpine: typeof Alpine;
     validator: Ctrovalidate;
   }
 }

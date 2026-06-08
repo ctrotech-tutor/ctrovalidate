@@ -1,6 +1,6 @@
 ---
 title: Built-in Rules Catalog | Validation Syntax
-description: Explore all 21 built-in validation rules in Ctrovalidate, covering common, format, and numeric validation patterns.
+description: Explore all 22 built-in validation rules in Ctrovalidate, covering essential, string, numeric, and format validation patterns.
 breadcrumb:
   - name: Ctrovalidate
     url: https://ctrovalidate.vercel.app/
@@ -12,76 +12,156 @@ breadcrumb:
 
 # Built-in Rules Catalog
 
-Ctrovalidate provides **21 built-in validation rules** out of the box. Rules are declarative, composable, and can be combined in any order.
+Ctrovalidate provides **22 atomic validation rules** that form the foundation of the validation engine. These rules are zero-dependency and consistent across all platforms (Browser, Node.js, and Edge).
 
 ---
 
-## 🏗️ Composition Syntax
+## Skip Conditions
 
-Rules are defined in the `data-ctrovalidate-rules` attribute.
+Most rules **skip** (return `true`) when the value is empty. This allows "optional but valid" fields — only `required` and `sameAs` always execute.
 
-- Use a **pipe** (`|`) to separate rules: `required|email`
-- Use a **colon** (`:`) for parameters: `minLength:8`
-- Use **commas** (`,`) for multiple parameters: `between:18,65`
-
----
-
-## 📋 General & Essential Rules
-
-| Rule          | Description                                                | Usage Example     |
-| :------------ | :--------------------------------------------------------- | :---------------- |
-| `required`    | Field cannot be empty. For checkboxes, requires `checked`. | `required`        |
-| `email`       | Validates standard email formats.                          | `email`           |
-| `minLength`   | String must be $\ge$ specified length.                     | `minLength:8`     |
-| `maxLength`   | String must be $\le$ specified length.                     | `maxLength:250`   |
-| `exactLength` | String must be exactly $N$ characters.                     | `exactLength:10`  |
-| `sameAs`      | Must match the value of another field.                     | `sameAs:password` |
+| Skip pattern | Rules affected |
+|---|---|
+| Never skips | `required`, `sameAs` |
+| `null`, `undefined`, `""` | `min`, `max`, `minLength`, `maxLength`, `exactLength`, `between` |
+| Falsy (`!value`) | `email`, `url`, `ipAddress`, `json`, `phone`, `creditCard`, `strongPassword`, `alpha`, `alphaNum`, `alphaDash`, `alphaSpaces` |
+| Falsy AND not `0` | `numeric`, `integer`, `decimal` |
 
 ---
 
-## 🔢 Numeric & Counting
+## Essential & Comparison Rules
 
-| Rule      | Description                          | Usage Example  |
-| :-------- | :----------------------------------- | :------------- |
-| `numeric` | Allows integers and decimals.        | `numeric`      |
-| `integer` | Allows only whole numbers.           | `integer`      |
-| `decimal` | Requires at least one decimal point. | `decimal`      |
-| `min`     | Number must be $\ge$ target.         | `min:18`       |
-| `max`     | Number must be $\le$ target.         | `max:100`      |
-| `between` | Number must be in range `min,max`.   | `between:1,10` |
+| Rule | Behavior | Params | Skip |
+|------|----------|--------|------|
+| `required` | `null`, `undefined`, `""`, whitespace → fail. `false` → fail. Booleans pass as-is. | None | Never |
+| `sameAs` | Strict equality (`===`) against target value. Missing param → `console.error` + fail. | `targetValue` | Never |
 
----
+```html
+<input name="email" data-ctrovalidate-rules="required" />
+<input name="confirm" data-ctrovalidate-rules="required|sameAs:email" />
+```
 
-## 🔣 Format & Pattern Rules
-
-| Rule        | Description                              | Usage Example |
-| :---------- | :--------------------------------------- | :------------ |
-| `alpha`     | Only letters (A-Z, a-z).                 | `alpha`       |
-| `alphaNum`  | Only letters and numbers.                | `alphaNum`    |
-| `alphaDash` | Letters, numbers, `-`, and `_`.          | `alphaDash`   |
-| `url`       | Standard URL format (requires protocol). | `url`         |
-| `phone`     | General international phone format.      | `phone`       |
-| `ipAddress` | Validates IPv4 and IPv6 formats.         | `ipAddress`   |
-| `json`      | Validates JSON Object/Array string.      | `json`        |
-| `creditCard`| Validates credit card using Luhn Algorithm. | `creditCard` |
+In `ctrovalidate-browser`, `sameAs` resolves the other field's current value from the DOM before comparing.
 
 ---
 
-## 💡 Rule Composition
+## String & Length Rules
 
-Rules are independent and can be combined in any order:
-- `required|numeric|min:18` is identical to `numeric|min:18|required`
-- All rules are executed in the order they appear
-- Validation stops at the first failing rule
+| Rule | Behavior | Params | Skip |
+|------|----------|--------|------|
+| `minLength` | `String(value).length >= N` | `N` (number) | `null`, `undefined`, `""` |
+| `maxLength` | `String(value).length <= N` | `N` (number) | `null`, `undefined`, `""` |
+| `exactLength` | `String(value).length === N` | `N` (number) | `null`, `undefined`, `""` |
+| `between` | Dual mode (see below) | `min, max` | `null`, `undefined`, `""` |
 
-## Total: 21 Built-in Rules
+### `between` — Dual Mode
 
-- **Common Rules (6)**: required, email, minLength, maxLength, exactLength, sameAs
-- **Numeric Rules (6)**: numeric, integer, decimal, min, max, between
-- **Format Rules (9)**: alpha, alphaNum, alphaDash, url, phone, ipAddress, json, creditCard
+- **Number or numeric string**: compared numerically (`Number(value) >= min && Number(value) <= max`)
+- **Non-numeric string**: compared by length (`value.length >= min && value.length <= max`)
 
-## Next Steps
+```html
+<input name="age" data-ctrovalidate-rules="required|numeric|between:18,120" />
+<input name="bio" data-ctrovalidate-rules="between:10,200" />
+<!-- bio "Hello" (length 5) → fails; "Hello World" (length 11) → passes -->
+```
 
-- **[Conditional Validation](./conditional-validation.md)** — Apply rules dynamically based on other fields
-- **[Custom Rules](./custom-rules.md)** — Create your own validation logic
-- **[API Reference](/api/methods)** — Explore all 9 public methods
+---
+
+## Numeric Rules
+
+| Rule | Behavior | Params | Skip |
+|------|----------|--------|------|
+| `numeric` | `!isNaN(Number(value))` | None | Falsy but not `0` |
+| `integer` | Regex `/^-?\d+$/` | None | Falsy but not `0` |
+| `decimal` | Regex `/^-?\d+(\.\d+)?$/` | None | Falsy but not `0` |
+| `min` | `Number(value) >= N` | `N` (number) | `null`, `undefined`, `""` |
+| `max` | `Number(value) <= N` | `N` (number) | `null`, `undefined`, `""` |
+
+---
+
+## Format Rules
+
+| Rule | Behavior | Params | Skip |
+|------|----------|--------|------|
+| `alpha` | Regex `/^[a-zA-Z]+$/` | None | Falsy |
+| `alphaNum` | Regex `/^[a-zA-Z0-9]+$/` | None | Falsy |
+| `alphaDash` | Regex `/^[a-zA-Z0-9-_]+$/` | None | Falsy |
+| `alphaSpaces` | Regex `/^[a-zA-Z\s]+$/` | None | Falsy |
+| `email` | Simple regex: `/^[^\s@]+@[^\s@]+\.[^\s@]+$/` | None | Falsy |
+| `url` | Regex: must start with `http://` or `https://` | None | Falsy |
+| `ipAddress` | IPv4 or IPv6 (expanded format with zone ID) | None | Falsy |
+| `phone` | International format: `+` optional, 7-15 digits | None | Falsy |
+| `creditCard` | Strips `-`/spaces, checks digits only, Luhn algorithm | None | Falsy |
+| `json` | `JSON.parse()` then checks `typeof === 'object'` | None | Falsy |
+
+---
+
+## Complex Rules
+
+| Rule | Behavior | Params | Skip |
+|------|----------|--------|------|
+| `strongPassword` | ≥8 chars, ≥1 lowercase, ≥1 uppercase, ≥1 digit, ≥1 special (`@$!%*?&`) | None | Falsy |
+
+---
+
+## Advanced Syntax
+
+### Multi-Parameter Rules
+
+Parameters are separated by colons for the rule name, and commas between multiple params:
+
+```html
+<input name="age" data-ctrovalidate-rules="required|numeric|between:18,99" />
+<input name="price" data-ctrovalidate-rules="required|numeric|min:0|max:1000" />
+```
+
+### Array Notation (Programmatic)
+
+When using schema objects, parameters preserve their types:
+
+```typescript
+const schema = {
+  age: [
+    { name: 'required' },
+    { name: 'between', params: [18, 99] },
+  ],
+};
+```
+
+---
+
+## Best Practices
+
+- **Rule Atomicity**: Combine small rules (`required|numeric`) instead of creating one "monster" custom rule.
+- **Empty Values**: Most rules pass on empty values — this allows "optional but valid" patterns.
+- **Sequence Matters**: Put `required` first to stop early on empty fields.
+- **Parameter Format**: Use colons for rule names and commas for multiple parameters (`between:18,99`).
+
+---
+
+## Complete Rule List
+
+1. `required`
+2. `sameAs`
+3. `minLength`
+4. `maxLength`
+5. `exactLength`
+6. `between`
+7. `numeric`
+8. `integer`
+9. `decimal`
+10. `min`
+11. `max`
+12. `alpha`
+13. `alphaNum`
+14. `alphaDash`
+15. `alphaSpaces`
+16. `email`
+17. `url`
+18. `phone`
+19. `ipAddress`
+20. `creditCard`
+21. `strongPassword`
+22. `json`
+
+For custom rules and async validation, see [Custom Rules](/guide/custom-rules) and [Async Validation](/advanced/async).

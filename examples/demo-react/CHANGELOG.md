@@ -1,16 +1,6 @@
-# demo-react
+# Changelog
 
-## 0.0.2
+## [1.0.0] — 2026-06-08
 
-### Patch Changes
-
-- Updated dependencies
-  - @ctrovalidate/browser@4.0.0
-  - @ctrovalidate/react@4.0.0
-
-## 0.0.1
-
-### Patch Changes
-
-- @ctrovalidate/browser@4.0.0
-- @ctrovalidate/react@4.0.0
+### Added
+- Initial demo project for ctrovalidate ecosystem

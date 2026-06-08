@@ -12,55 +12,78 @@ breadcrumb:
 
 # Conditional Validation
 
-In complex forms, validation logic often depends on other field states. For example, you might want to validate a shipping address only if "Ship to different address" is checked. Ctrovalidate makes this declarative using the `data-ctrovalidate-if` attribute.
+The `data-ctrovalidate-if` attribute allows you to define dependencies between fields. Validation for a field only executes when the specified condition on a "controller" field is met.
 
 ---
 
-## ⚙️ The `if` Syntax
+## Technical Syntax
 
-The `data-ctrovalidate-if` attribute takes a controller expression in the format `controllerName:type[:value]`.
+The directive follows the format `controllerName:conditionType[=value]`.
+
+- **`:`** separates the controller field name from the condition type
+- **`=`** (for `value` type only) separates the condition type from the expected value
 
 ### 1. Boolean State (`checked`)
-Validates the current field only if the controller (checkbox/radio) is checked.
+
+Validates the target only when the controller (checkbox or radio) is checked.
 
 ```html
-<input type="checkbox" name="wants_newsletter" id="newsletter" />
+<input type="checkbox" name="shipping_separate" id="shipping" />
 
-<input 
-  name="email" 
-  data-ctrovalidate-rules="required|email"
-  data-ctrovalidate-if="wants_newsletter:checked"
+<input
+  name="shipping_address"
+  data-ctrovalidate-rules="required"
+  data-ctrovalidate-if="shipping_separate:checked"
 />
 ```
 
-### 2. Matching Value (`value`)
-Validates only if the controller's value exactly matches the provided string.
+### 2. Value Comparison (`value`)
+
+Validates the target only when the controller's current value equals the specified string. Note the `=` sign between type and value.
 
 ```html
-<select name="country">
-  <option value="US">USA</option>
-  <option value="CA">Canada</option>
+<select name="method">
+  <option value="none">None</option>
+  <option value="express">Express</option>
 </select>
 
-<input 
-  name="state" 
+<input
+  name="express_code"
   data-ctrovalidate-rules="required"
-  data-ctrovalidate-if="country:value:US"
-  placeholder="Enter US state"
+  data-ctrovalidate-if="method:value=express"
 />
+```
+
+### 3. Presence (`present`)
+
+Validates the target only when the controller has a truthy value. This is the default if no condition type is provided.
+
+```html
+<input name="referral_code" />
+
+<input
+  name="referrer_name"
+  data-ctrovalidate-rules="required"
+  data-ctrovalidate-if="referral_code"
+/>
+```
+
+Equivalent explicit form:
+
+```html
+data-ctrovalidate-if="referral_code:present"
 ```
 
 ---
 
-## ⚡ Real-Time Reactivity
+## Behavior & Lifecycle
 
-When `realTime` is enabled, Ctrovalidate automatically detects when a controller field changes and updates the validation state of all dependent fields.
-
-> [!IMPORTANT]
-> When a condition is **not met**, the field is considered valid and any existing error messages are automatically cleared.
+- **Automatic Cleanup**: When the dependency condition is not met, the dependent field is treated as valid. Errors are cleared, CSS classes are removed, and ARIA attributes are reset.
+- **Dependency Tracking**: When `realTime` is enabled, the controller field's `input` event triggers re-validation of all its dependents.
+- **Unmet condition types**: If the condition type string is not `checked`, `value`, or `present`, the dependency is treated as unmet (field is skipped).
 
 ## Next Steps
 
-- **[Built-in Rules](./rules.md)** — See all 21 rules you can apply conditionally
-- **[Dynamic Fields](./dynamic-fields.md)** — Learn how to handle fields added after page load
-- **[Custom Rules](./custom-rules.md)** — Create custom validation logic
+- [**Built-in Rules**](./rules.md) — Apply any of the 22 rules conditionally.
+- [**Dynamic Fields**](./dynamic-fields.md) — Managing dependencies for fields added at runtime.
+- [**API Reference**](/api/browser) — Programmatic dependency management.

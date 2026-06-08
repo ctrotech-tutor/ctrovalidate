@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "@ctrovalidate/browser": "workspace:*",
+    "@ctrovalidate/web": "workspace:*",
     "@ctrovalidate/react": "workspace:*",
     "lucide-react": "^0.563.0",
     "next": "16.1.6",

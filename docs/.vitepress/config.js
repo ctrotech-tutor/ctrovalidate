@@ -5,7 +5,7 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
   title: 'Ctrovalidate',
   description:
-    'A zero-dependency form validation ecosystem for the web. Declarative, accessible, and monorepo-ready.',
+    'A zero-dependency form validation ecosystem for the web. Declarative, accessible, and modular by design.',
   base: '/',
 
   lastUpdated: true,
@@ -20,16 +20,13 @@ export default defineConfig({
   },
 
   head: [
-    // Plausible Analytics
     ['script', { async: 'true', src: 'https://plausible.io/js/pa-K7DUHFzcjenkTx__8xpZP.js' }],
     [
       'script',
       {},
       `window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`
     ],
-    // Umami Analytics
     ['script', { defer: 'true', src: 'https://cloud.umami.is/script.js', 'data-website-id': '7c85954b-0d62-4e5b-90c9-2f67e9d40f96' }],
-    // Google Tag Manager
     [
       'script',
       {},
@@ -61,7 +58,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "description": "Ctrovalidate is a lightweight, accessible, zero-dependency JavaScript form validation library.",
         "url": "https://ctrovalidate.vercel.app/",
         "sameAs": [
-          "https://www.npmjs.com/package/ctrovalidate",
           "https://github.com/ctrotech-tutor/ctrovalidate"
         ],
         "author": {
@@ -111,112 +107,90 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     },
 
     nav: [
-      { text: 'Guide (v3)', link: '/guide/introduction' },
-      { text: 'Integrations (v3)', link: '/integrations/tailwindcss' },
-      { text: 'API (v3)', link: '/api/methods' },
+      { text: 'Guide', link: '/guide/introduction' },
+      { text: 'API', link: '/api/core' },
       {
-        text: 'v3 (Stable)',
+        text: 'GitHub',
         items: [
-          { text: 'Try v4 Alpha', link: '/v4/' },
           {
-            text: 'Changelog',
-            link: 'https://github.com/ctrotech-tutor/ctrovalidate/blob/main/CHANGELOG.md',
+            text: 'ctrovalidate-core',
+            link: 'https://github.com/ctrotech-tutor/ctrovalidate-core',
           },
           {
-            text: 'Releases',
-            link: 'https://github.com/ctrotech-tutor/ctrovalidate/releases',
+            text: 'ctrovalidate-browser',
+            link: 'https://github.com/ctrotech-tutor/ctrovalidate-browser',
+          },
+          {
+            text: 'ctrovalidate-react',
+            link: 'https://github.com/ctrotech-tutor/ctrovalidate-react',
+          },
+          {
+            text: 'ctrovalidate-vue',
+            link: 'https://github.com/ctrotech-tutor/ctrovalidate-vue',
+          },
+          {
+            text: 'ctrovalidate-svelte',
+            link: 'https://github.com/ctrotech-tutor/ctrovalidate-svelte',
+          },
+          {
+            text: 'ctrovalidate-next',
+            link: 'https://github.com/ctrotech-tutor/ctrovalidate-next',
           },
         ],
       },
     ],
 
     sidebar: {
-      // v4 (Alpha/Beta) Sidebar
-      '/v4/': [
+      '/': [
         {
           text: 'Essentials',
           items: [
-            { text: 'Introduction', link: '/v4/guide/introduction' },
-            { text: 'Getting Started', link: '/v4/guide/getting-started' },
-            { text: 'Migration from v3', link: '/v4/guide/migration' },
+            { text: 'Introduction', link: '/guide/introduction' },
+            { text: 'Getting Started', link: '/guide/getting-started' },
           ],
         },
         {
           text: 'Core Concepts',
           items: [
-            { text: 'Schema System', link: '/v4/guide/schemas' },
-            { text: 'Rules Catalog', link: '/v4/guide/rules' },
-            { text: 'State Management', link: '/v4/guide/state' },
+            { text: 'ctrovalidate-core', link: '/guide/core' },
+            { text: 'ctrovalidate-browser', link: '/guide/browser' },
+            { text: 'Schema System', link: '/guide/schemas' },
+            { text: 'Rules Catalog', link: '/guide/rules' },
+            { text: 'State Management', link: '/guide/state' },
           ],
         },
         {
           text: 'Technical Reference',
           items: [
-            { text: '@ctrovalidate/core', link: '/v4/api/core' },
-            { text: '@ctrovalidate/browser', link: '/v4/api/browser' },
-            { text: '@ctrovalidate/react', link: '/v4/api/react' },
-            { text: '@ctrovalidate/vue', link: '/v4/api/vue' },
-            { text: '@ctrovalidate/svelte', link: '/v4/api/svelte' },
-            { text: 'TypeScript Types', link: '/v4/api/types' },
+            { text: 'ctrovalidate-core', link: '/api/core' },
+            { text: 'ctrovalidate-browser', link: '/api/browser' },
+            { text: 'ctrovalidate-react', link: '/api/react' },
+            { text: 'ctrovalidate-vue', link: '/api/vue' },
+            { text: 'ctrovalidate-svelte', link: '/api/svelte' },
+            { text: 'TypeScript Types', link: '/api/types' },
           ],
         },
         {
           text: 'Platform Adapters',
           items: [
-            { text: 'Next.js', link: '/v4/platform/nextjs' },
-            { text: 'Tailwind CSS', link: '/v4/platform/tailwind' },
-            { text: 'HTMX', link: '/v4/platform/htmx' },
-            { text: 'Alpine.js', link: '/v4/platform/alpine' },
+            { text: 'Next.js', link: '/platform/nextjs' },
+            { text: 'Tailwind CSS', link: '/platform/tailwind' },
+            { text: 'HTMX', link: '/platform/htmx' },
+            { text: 'Alpine.js', link: '/platform/alpine' },
           ],
         },
         {
           text: 'Advanced Guides',
           items: [
-            { text: 'Async Validation', link: '/v4/advanced/async' },
-            { text: 'i18n & Localization', link: '/v4/advanced/i18n' },
-            { text: 'Custom Rules', link: '/v4/advanced/custom-rules' },
-            { text: 'Testing', link: '/v4/advanced/testing' },
-          ],
-        },
-      ],
-      // v3 (Stable) Sidebar
-      '/': [
-        {
-          text: 'v3 (Stable) Guide',
-          items: [
-            { text: 'What is Ctrovalidate?', link: '/guide/introduction' },
-            { text: 'Getting Started', link: '/guide/getting-started' },
-            { text: 'Configuration', link: '/guide/configuration' },
-            { text: 'Built-in Rules', link: '/guide/rules' },
-            { text: 'Conditional Validation', link: '/guide/conditional-validation' },
-            { text: 'Working with SPAs', link: '/guide/dynamic-fields' },
-            { text: 'Real-world Examples', link: '/guide/examples' },
-          ],
-        },
-        {
-          text: 'Integrations',
-          items: [
-            { text: 'Tailwind CSS', link: '/integrations/tailwindcss' },
-            { text: 'Alpine.js', link: '/integrations/alpinejs' },
-            { text: 'htmx', link: '/integrations/htmx' },
-            { text: 'Vue.js', link: '/integrations/vue' },
-            { text: 'React', link: '/integrations/react' },
-            { text: 'Svelte', link: '/integrations/svelte' },
-            { text: 'Next.js', link: '/integrations/nextjs' },
-          ],
-        },
-        {
-          text: 'API Reference',
-          items: [
-            { text: 'Public Methods', link: '/api/methods' },
-            { text: 'Static Methods', link: '/api/static-methods' },
-            { text: 'TypeScript Types', link: '/api/types' },
+            { text: 'Async Validation', link: '/advanced/async' },
+            { text: 'i18n & Localization', link: '/advanced/i18n' },
+            { text: 'Custom Rules', link: '/advanced/custom-rules' },
+            { text: 'Testing', link: '/advanced/testing' },
           ],
         },
       ],
     },
 
-    // Updated Social links section
     socialLinks: [
       {
         icon: 'github',
@@ -224,7 +198,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       },
       { icon: 'twitter', link: 'https://twitter.com/ctrotech' },
       { icon: 'youtube', link: 'https://youtube.com/@ctrotech' },
-      // For email, we use a custom SVG icon
       {
         icon: {
           svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5l-8-5h16zm0 12H4V8l8 5l8-5v10z"/></svg>',
@@ -232,13 +205,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         link: 'mailto:ctrotech.devs@gmail.com',
         ariaLabel: 'Email us',
       },
-      // For a community chat, you could add:
-      // { icon: 'discord', link: 'https://discord.gg/your-invite-code' }
     ],
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2025-present Ctrotech',
+      copyright: 'Copyright © 2026-present Ctrotech',
     },
   },
 });

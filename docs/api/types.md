@@ -1,297 +1,261 @@
 ---
-title: TypeScript Support | Type Definitions
-description: Complete TypeScript reference for Ctrovalidate including types, interfaces, and usage examples for type-safe form validation.
+title: TypeScript Types | Shared Ecosystem
+description: Consolidated reference for the shared TypeScript types used across the Ctrovalidate ecosystem.
 breadcrumb:
   - name: Ctrovalidate
     url: https://ctrovalidate.vercel.app/
   - name: API
     url: https://ctrovalidate.vercel.app/api/types
-  - name: TypeScript Support
+  - name: Types
     url: https://ctrovalidate.vercel.app/api/types
 ---
 
-# TypeScript Support
+# TypeScript Types
 
-Ctrovalidate is written in TypeScript and includes comprehensive type definitions. All types are exported from the main package.
-
----
-
-## Installation
-
-Type definitions are included automatically when you install Ctrovalidate:
-
-```bash
-npm install ctrovalidate
-```
-
-No separate `@types` package is needed.
+Ctrovalidate is built with TypeScript from the ground up. This page documents the core types that are shared across all packages.
 
 ---
 
-## Basic Usage
+## Schema Types
 
-### Importing Types
+### `ValidationSchema`
+
+Maps field names to their validation rules.
 
 ```typescript
-import { 
-  Ctrovalidate, 
-  type CtrovalidateOptions,
-  type RuleLogic,
-  type AsyncRuleLogic
-} from 'ctrovalidate';
+type ValidationSchema = Record<string, SchemaRule>;
 ```
 
-### Type-Safe Initialization
+### `SchemaRule`
+
+A single field's rule definition. Can be a string or an array of strings and/or `RuleDefinition` objects.
 
 ```typescript
-const form = document.querySelector<HTMLFormElement>('#myForm')!;
-
-const options: CtrovalidateOptions = {
-  realTime: true,
-  logLevel: LogLevel.DEBUG,
-  errorClass: 'is-invalid',
-  errorMessageClass: 'error-message',
-  pendingClass: 'is-validating'
-};
-
-const validator = new Ctrovalidate(form, options);
+type SchemaRule = string | (string | RuleDefinition)[];
 ```
 
----
+### `RuleDefinition`
 
-## Type Definitions
-
-### `CtrovalidateOptions`
-
-Configuration options for the validator instance.
+The normalized representation of a parsed rule.
 
 ```typescript
-import { LogLevel } from 'ctrovalidate';
-
-interface CtrovalidateOptions {
-  realTime?: boolean;           // Default: true
-  logLevel?: LogLevel;          // Default: LogLevel.NONE (0)
-  errorClass?: string;          // Default: 'is-invalid'
-  errorMessageClass?: string;   // Default: 'error-message'
-  pendingClass?: string;        // Default: 'ctrovalidate-pending'
+interface RuleDefinition {
+  name: string;
+  params: unknown[];
 }
 ```
 
-**LogLevel Enum:**
+### `DependencyDefinition`
+
+Defines a cross-field dependency for conditional validation (used by the browser adapter).
 
 ```typescript
-enum LogLevel {
-  NONE = 0,   // No logging (production)
-  ERROR = 1,  // Critical errors only
-  WARN = 2,   // Warnings and errors
-  INFO = 3,   // Info, warnings, and errors
-  DEBUG = 4   // All messages (development)
+interface DependencyDefinition {
+  controllerName: string;
+  type: 'checked' | 'value' | 'present' | string;
+  value?: unknown;
 }
 ```
 
 ---
 
-### `RuleLogic`
+## Validation Types
 
-Function signature for synchronous validation rules.
+### `ValidationResult`
+
+Returned after executing a validation rule or full schema.
 
 ```typescript
-type RuleLogic = (
-  value: string,
-  params: string[],
-  element: HTMLElement
+interface ValidationResult {
+  isValid: boolean;
+  error: string | null;
+  rule: string | null;
+}
+```
+
+### `ValidationOptions`
+
+Configuration passed to validation functions.
+
+```typescript
+interface ValidationOptions {
+  customRules?: Record<string, RuleLogic | AsyncRuleLogic>;
+  aliases?: Record<string, SchemaRule>;
+  messages?: Record<string, string>;
+  locale?: string;
+  signal?: AbortSignal;
+}
+```
+
+---
+
+## Logic Function Types
+
+### `RuleLogic<Context>`
+
+Signature for synchronous validation rules.
+
+```typescript
+type RuleLogic<Context = unknown> = (
+  value: unknown,
+  params?: unknown[],
+  context?: Context | null
 ) => boolean;
 ```
 
-**Example:**
+- The generic `Context` parameter defaults to `unknown`. In `ctrovalidate-browser`, this is `HTMLElement`.
+- Returns `true` for valid, `false` for invalid.
+
+### `AsyncRuleLogic<Context>`
+
+Signature for asynchronous validation rules.
 
 ```typescript
-const isPositive: RuleLogic = (value, params, element) => {
-  return parseFloat(value) > 0;
-};
-
-Ctrovalidate.addRule('isPositive', isPositive, 'Must be positive.');
-```
-
----
-
-### `AsyncRuleLogic`
-
-Function signature for asynchronous validation rules.
-
-```typescript
-type AsyncRuleLogic = (
-  value: string,
-  params: string[],
-  element: HTMLElement,
-  signal: AbortSignal
+type AsyncRuleLogic<Context = unknown> = (
+  value: unknown,
+  params?: unknown[],
+  context?: Context | null,
+  signal?: AbortSignal
 ) => Promise<boolean>;
 ```
 
-**Example:**
-
-```typescript
-const checkUsername: AsyncRuleLogic = async (value, params, element, signal) => {
-  const response = await fetch(`/api/check?username=${value}`, { signal });
-  const data = await response.json();
-  return data.available;
-};
-
-Ctrovalidate.addAsyncRule('usernameAvailable', checkUsername, 'Username taken.');
-```
+- Same as `RuleLogic` but returns `Promise<boolean>` and accepts an optional `AbortSignal`.
 
 ---
 
-### `FieldObject` (Internal)
+## Browser-Specific Types
 
-Internal type representing a tracked field. Not typically used in application code.
+### `CtrovalidateOptions`
+
+Configuration for the browser `Ctrovalidate` constructor.
+
+```typescript
+interface CtrovalidateOptions {
+  logLevel?: number;
+  errorClass?: string;
+  errorMessageClass?: string;
+  pendingClass?: string;
+  realTime?: boolean;
+  schema?: ValidationSchema;
+  aliases?: Record<string, SchemaRule>;
+}
+```
+
+| Option | Type | Default |
+|--------|------|---------|
+| `logLevel` | number | `LogLevel.NONE` (0) |
+| `errorClass` | string | `'is-invalid'` |
+| `errorMessageClass` | string | `'error-message'` |
+| `pendingClass` | string | `'ctrovalidate-pending'` |
+| `realTime` | boolean | `true` |
+| `schema` | ValidationSchema | `{}` |
+| `aliases` | Record<string, SchemaRule> | `{}` |
+
+### `FieldState`
+
+Internal state tracked per field in the browser controller.
+
+```typescript
+interface FieldState {
+  isDirty: boolean;
+  abortController: AbortController | null;
+  lastError: string | null;
+}
+```
+
+### `FieldObject`
+
+Full internal representation of a tracked field.
 
 ```typescript
 interface FieldObject {
   element: HTMLElement;
-  rules: ParsedRule[];
-  dependency: Dependency | null;
-  state: {
-    isDirty: boolean;
-    abortController: AbortController | null;
-    lastError: string | null;
+  rules: RuleDefinition[];
+  state: FieldState;
+  dependency: DependencyDefinition | null;
+  customMessages?: Record<string, string>;
+  listeners?: {
+    onBlur: (e: Event) => void;
+    onInput: (e: Event) => void;
+    onControllerInput: ((e: Event) => void) | null;
+    controllerElement: HTMLElement | null;
   };
 }
 ```
 
 ---
 
-## Framework Integration
+## Framework-Specific Types
 
-### React with TypeScript
+### React
 
 ```typescript
-import { useEffect, useRef } from 'react';
-import { Ctrovalidate, LogLevel, type CtrovalidateOptions } from 'ctrovalidate';
+interface UseCtrovalidateOptions<T extends object> {
+  schema: ValidationSchema;
+  initialValues?: T;
+  validateOnBlur?: boolean;
+  customRules?: Record<string, RuleLogic | AsyncRuleLogic>;
+  aliases?: Record<string, SchemaRule>;
+  messages?: Record<string, string>;
+  locale?: string;
+}
 
-function MyForm() {
-  const formRef = useRef<HTMLFormElement>(null);
-  const validatorRef = useRef<Ctrovalidate | null>(null);
-
-  useEffect(() => {
-    if (!formRef.current) return;
-
-    const options: CtrovalidateOptions = {
-      realTime: true,
-      logLevel: LogLevel.WARN
-    };
-
-    validatorRef.current = new Ctrovalidate(formRef.current, options);
-
-    return () => {
-      validatorRef.current?.destroy();
-    };
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (validatorRef.current && await validatorRef.current.validate()) {
-      // Submit form
-    }
-  };
-
-  return <form ref={formRef} onSubmit={handleSubmit}>...</form>;
+interface UseCtrovalidateReturn<T extends object> {
+  values: T;
+  errors: Partial<Record<keyof T, string>>;
+  isDirty: Partial<Record<keyof T, boolean>>;
+  isValidating: Partial<Record<keyof T, boolean>>;
+  handleChange: (name: keyof T, value: T[keyof T]) => void;
+  handleBlur: (name: keyof T) => void;
+  validateField: (name: keyof T, value?: T[keyof T]) => Promise<boolean>;
+  validateForm: () => Promise<boolean>;
+  reset: (newValues?: Partial<T>) => void;
 }
 ```
 
-### Vue 3 with TypeScript
+### Vue
 
 ```typescript
-import { ref, onMounted, onUnmounted } from 'vue';
-import { Ctrovalidate, type CtrovalidateOptions } from 'ctrovalidate';
+interface UseCtrovalidateOptions<T extends object> {
+  schema: ValidationSchema;
+  initialValues?: T;
+  validateOnBlur?: boolean;
+  validateOnChange?: boolean;
+  customRules?: Record<string, RuleLogic | AsyncRuleLogic>;
+  aliases?: Record<string, SchemaRule>;
+  messages?: Record<string, string>;
+  locale?: string;
+}
 
-export default {
-  setup() {
-    const formRef = ref<HTMLFormElement | null>(null);
-    let validator: Ctrovalidate | null = null;
+interface UseCtrovalidateReturn<T extends object> {
+  values: T;                                      // reactive
+  errors: Record<keyof T, string | undefined>;    // reactive
+  isDirty: Record<keyof T, boolean>;              // reactive
+  isValidating: Record<keyof T, boolean>;         // reactive
+  isValid: boolean;                               // ref
+  validateField: (name: keyof T) => Promise<boolean>;
+  validateForm: () => Promise<boolean>;
+  reset: (newValues?: Partial<T>) => void;
+  handleChange: (name: keyof T, value: T[keyof T]) => void;
+  handleBlur: (name: keyof T) => void;
+}
+```
 
-    onMounted(() => {
-      if (!formRef.value) return;
+### Svelte
 
-      const options: CtrovalidateOptions = {
-        realTime: true
-      };
-
-      validator = new Ctrovalidate(formRef.value, options);
-    });
-
-    onUnmounted(() => {
-      validator?.destroy();
-    });
-
-    const handleSubmit = async () => {
-      if (validator && await validator.validate()) {
-        // Submit form
-      }
-    };
-
-    return { formRef, handleSubmit };
-  }
-};
+```typescript
+// Return stores:
+values: Writable<T>
+errors: Writable<Partial<Record<keyof T, string>>>
+isDirty: Writable<Partial<Record<keyof T, boolean>>>
+isValidating: Writable<Partial<Record<keyof T, boolean>>>
+isValid: Readable<boolean>  // derived store
 ```
 
 ---
 
-## Custom Rules with Types
+## Best Practices
 
-### Synchronous Rule
-
-```typescript
-import { Ctrovalidate, type RuleLogic } from 'ctrovalidate';
-
-const minAge: RuleLogic = (value, [age], element) => {
-  const numValue = parseInt(value, 10);
-  const minAge = parseInt(age, 10);
-  return numValue >= minAge;
-};
-
-Ctrovalidate.addRule('minAge', minAge, 'Must be at least {0} years old.');
-```
-
-### Asynchronous Rule
-
-```typescript
-import { Ctrovalidate, type AsyncRuleLogic } from 'ctrovalidate';
-
-const checkEmail: AsyncRuleLogic = async (value, params, element, signal) => {
-  try {
-    const response = await fetch(`/api/check-email?email=${value}`, { signal });
-    const data = await response.json();
-    return data.available;
-  } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
-      return true; // Request was aborted
-    }
-    return false; // Network error
-  }
-};
-
-Ctrovalidate.addAsyncRule('emailAvailable', checkEmail, 'Email already in use.');
-```
-
----
-
-## Type Reference Summary
-
-| Type | Description |
-|:-----|:------------|
-| `Ctrovalidate` | Main validator class |
-| `CtrovalidateOptions` | Configuration options interface |
-| `LogLevel` | Enum for logging levels (0-4) |
-| `RuleLogic` | Synchronous rule function type |
-| `AsyncRuleLogic` | Asynchronous rule function type |
-| `FieldObject` | Internal field tracking object |
-
----
-
-## Next Steps
-
-- **[Instance Methods](./methods.md)** — All 9 public methods
-- **[Static Methods](./static-methods.md)** — Global rule registration
-- **[Custom Rules Guide](../guide/custom-rules.md)** — Detailed examples
+- **Type Inference**: Use `keyof T` when defining schemas for specific data interfaces.
+- **Core Exports**: All core types originate from `ctrovalidate-core` and are re-exported by adapter packages.
+- **Browser Context**: In `ctrovalidate-browser`, the `Context` generic is `HTMLElement`, giving rules access to the DOM element.

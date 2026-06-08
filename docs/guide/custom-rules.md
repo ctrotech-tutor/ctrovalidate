@@ -12,179 +12,105 @@ breadcrumb:
 
 # Custom Rules
 
-Ctrovalidate provides 21 built-in validation rules, but you can extend it with custom rules for your specific business logic. The library supports both synchronous and asynchronous custom rules.
+The `Ctrovalidate` class provides static methods to extend the validation engine with project-specific logic.
 
 ---
 
-## ⚡ Synchronous Rules
+## Synchronous Rules
 
-Use `Ctrovalidate.addRule()` for instant validation checks like regex patterns, range checks, or field comparisons.
+Use `Ctrovalidate.addRule()` for logic that executes instantly within the main validation cycle.
 
-### Basic Registration
+### Registration
 
 ```javascript
-import { Ctrovalidate } from 'ctrovalidate';
+import { Ctrovalidate } from 'ctrovalidate-browser';
 
-// Register a custom rule
 Ctrovalidate.addRule(
-  'isCompanyEmail',
-  (value) => value.endsWith('@company.com'),
-  'Please use your company email address.'
+  'isDomain',
+  (value) => value.endsWith('@internal.com'),
+  'Input must be an internal domain email.'
 );
 ```
 
-### Using the Rule
+### Parameters
+
+Rules receive parameters defined in the `data-ctrovalidate-rules` attribute as an array of strings.
 
 ```html
-<input 
-  name="email" 
-  data-ctrovalidate-rules="required|email|isCompanyEmail" 
-/>
-```
-
-### Rules with Parameters
-
-Rules can accept parameters from the `data-ctrovalidate-rules` attribute:
-
-```html
-<input name="age" data-ctrovalidate-rules="atLeast:18" />
+<input name="amount" data-ctrovalidate-rules="minVal:100" />
 ```
 
 ```javascript
 Ctrovalidate.addRule(
-  'atLeast',
-  (value, [minAge]) => parseInt(value, 10) >= parseInt(minAge, 10),
-  'Minimum age is {0}.'
+  'minVal',
+  (value, [target]) => Number(value) >= Number(target),
+  'Value must be at least {0}.'
 );
 ```
 
-**Message Placeholders**: Use `{0}`, `{1}`, etc. in error messages. Ctrovalidate automatically replaces them with parameter values.
+**Message Logic**: `{0}`, `{1}`, etc., in the error message are substituted with the corresponding parameter index.
 
 ---
 
-## 🚀 Asynchronous Rules
+## Asynchronous Rules
 
-Async rules allow server-side validation (e.g., checking username availability) with automatic abort handling.
+Use `Ctrovalidate.addAsyncRule()` for Promise-based logic, such as network requests.
 
-### The Abort Pattern
+### Abort Handling
 
-Ctrovalidate manages `AbortSignal` automatically. If a user types quickly, previous requests are aborted to prevent race conditions.
+The controller provides an `AbortSignal` for every async execution. When a new validation cycle begins before the previous one completes, the signal is triggered to prevent race conditions.
 
 ```javascript
 Ctrovalidate.addAsyncRule(
-  'usernameAvailable',
+  'uniqueUser',
   async (value, params, element, signal) => {
     try {
-      const response = await fetch(`/api/check-username?name=${value}`, { 
-        signal 
-      });
+      const response = await fetch(`/api/users/check?name=${value}`, { signal });
       const data = await response.json();
       return data.available;
     } catch (error) {
-      if (error.name === 'AbortError') return true; // Handled by engine
-      return false; // Validation failed
+       // AbortError is handled internally by the engine
+      return false;
     }
   },
-  'This username is already taken.'
+  'This username is not available.'
 );
 ```
 
-### Using Async Rules
+### Visual States
 
-```html
-<input 
-  name="username" 
-  data-ctrovalidate-rules="required|alphaNum|usernameAvailable" 
-/>
-```
-
-The `pendingClass` (default: `'is-validating'`) is applied during async validation:
-
-```css
-.is-validating {
-  border-color: #3b82f6;
-  background-image: url('spinner.svg');
-}
-```
+The `pendingClass` (default: `'ctrovalidate-pending'`) is applied to the input element while the Promise is unresolved.
 
 ---
 
-## 🏗️ Best Practices
+## Implementation Requirements
 
-### 1. Rule Atomicity
-Each rule should do one thing. Combine multiple rules instead of creating complex single rules:
-- ✅ Good: `required|numeric|min:18`
-- ❌ Avoid: `requiredPositiveNumber`
-
-### 2. Handle Empty Values
-Rules should return `true` for empty values, letting the `required` rule handle mandatory validation:
-
-```javascript
-Ctrovalidate.addRule('isPositive', (value) => {
-  if (!value) return true; // Let 'required' handle empty
-  return parseFloat(value) > 0;
-}, 'Value must be positive.');
-```
-
-### 3. Element Context
-Every rule receives the `HTMLElement` as the third argument for complex checks:
-
-```javascript
-Ctrovalidate.addRule('matchesOther', (value, [otherName], element) => {
-  const other = element.form.querySelector(`[name="${otherName}"]`);
-  return value === other?.value;
-}, 'This field must match {0}.');
-```
-
-### 4. Registration Timing
-Always register custom rules **before** initializing `new Ctrovalidate()`:
-
-```javascript
-// 1. Register custom rules first
-Ctrovalidate.addRule('myRule', ...);
-
-// 2. Then initialize validator
-const validator = new Ctrovalidate(form);
-```
-
-### 5. Custom Messages
-Override default messages globally:
-
-```javascript
-Ctrovalidate.setCustomMessages({
-  required: 'This field cannot be empty.',
-  email: 'Please enter a valid email address.'
-});
-```
+1. **Boolean Returns**: Rule logic must return `true` (valid) or `false` (invalid).
+2. **Empty Handling**: Logic should return `true` for empty values to allow the `required` rule to manage presence validation independently.
+3. **Execution Context**: The third argument in the logic function is the `HTMLElement` target, allowing for multi-field comparisons or DOM-aware logic.
+4. **Registration Timing**: Call static registration methods before instantiating the controller.
 
 ---
 
-## TypeScript Support
-
-Custom rules are fully typed when using TypeScript:
+## Technical Types (TypeScript)
 
 ```typescript
-import { Ctrovalidate, RuleLogic, AsyncRuleLogic } from 'ctrovalidate';
+import { Ctrovalidate, RuleLogic, AsyncRuleLogic } from 'ctrovalidate-browser';
 
-const syncRule: RuleLogic = (value, params, element) => {
-  // Your logic here
-  return true;
+const logic: RuleLogic = (value, params, element) => {
+  return value.length > 5;
 };
 
-const asyncRule: AsyncRuleLogic = async (value, params, element, signal) => {
-  // Your async logic here
-  return true;
-};
-
-Ctrovalidate.addRule('myRule', syncRule, 'Error message');
-Ctrovalidate.addAsyncRule('myAsyncRule', asyncRule, 'Error message');
+Ctrovalidate.addRule('lengthCheck', logic, 'Must exceed 5 characters.');
 ```
-
----
 
 ## Next Steps
 
-- **[Built-in Rules](./rules.md)** — Explore all 21 built-in rules
-- **[API Reference](/api/static-methods)** — Complete API documentation
-- **[TypeScript Types](/api/types)** — Type definitions for custom rules
-- **[Examples](./examples.md)** — See custom rules in action
+- [**API Reference**](/api/browser) — Full documentation of static and instance methods.
+- [**Rule Aliases**](./custom-rules.md) — Grouping custom rules into reusable macros.
+- [**Built-in Rules**](./rules.md) — Review the 22 base logic rules.
+
+
+
+
+

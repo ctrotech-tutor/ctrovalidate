@@ -1,4 +1,4 @@
-# Ctrovalidate v3.0.0 - Complete Feature Showcase
+# Ctrovalidate - Complete Feature Showcase
 
 **A comprehensive, production-ready demonstration of every Ctrovalidate feature.**
 
@@ -130,4 +130,4 @@ Check the console output for a complete feature checklist!
 
 ---
 
-**Built with Ctrovalidate v3.0.0** • [Documentation](https://ctrotech-tutor.github.io/ctrovalidate/) • [GitHub](https://github.com/ctrotech-tutor/ctrovalidate)
+**Built with Ctrovalidate** • [Documentation](https://ctrotech-tutor.github.io/ctrovalidate/) • [GitHub](https://github.com/ctrotech-tutor/ctrovalidate)

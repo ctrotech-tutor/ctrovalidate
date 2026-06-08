@@ -29,8 +29,8 @@
       "@ctrovalidate/core": [
         "../../packages/core/src/index.ts"
       ],
-      "@ctrovalidate/browser": [
-        "../../packages/browser/src/index.ts"
+      "@ctrovalidate/web": [
+        "../../packages/web/src/index.ts"
       ],
       "@ctrovalidate/react": [
         "../../packages/react/src/index.ts"

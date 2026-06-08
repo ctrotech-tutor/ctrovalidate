@@ -12,52 +12,42 @@ breadcrumb:
 
 # Configuration Options
 
-Ctrovalidate provides sensible defaults, but you can customize its behavior by passing an options object as the second argument to the constructor.
+The `Ctrovalidate` constructor accepts an optional configuration object to customize behavior.
 
 ```javascript
-import { Ctrovalidate, LogLevel } from 'ctrovalidate';
+import { Ctrovalidate } from 'ctrovalidate-browser';
+import { LogLevel } from 'ctrovalidate-core';
 
 const validator = new Ctrovalidate(document.querySelector('form'), {
   realTime: true,
   logLevel: LogLevel.WARN,
-  errorClass: 'field-error',
-  errorMessageClass: 'error-text',
-  pendingClass: 'is-validating'
+  errorClass: 'field-invalid',
+  errorMessageClass: 'error-container',
+  pendingClass: 'validating-state'
 });
 ```
 
-## Available Options
+## Initialization Settings
 
 ### `realTime`
 
 - **Type**: `boolean`
 - **Default**: `true`
-- **Description**: When enabled, the library automatically attaches `blur` and `input` listeners to every tracked field.
-- > [!TIP]
-  > For long, complex forms, `realTime` provides the best UX by preventing "error shock" at the end of the form.
+- **Description**: Automatically attaches `blur` and `input` listeners to tracked fields.
 
 ---
 
 ### `logLevel`
 
-- **Type**: `LogLevel` (enum)
+- **Type**: `number` | `LogLevel` (Enum)
 - **Default**: `LogLevel.NONE` (0)
-- **Description**: Controls console output detail for debugging.
-- **Levels**:
-  - `LogLevel.NONE` (0): No logs
-  - `LogLevel.ERROR` (1): Only critical internal failures
-  - `LogLevel.WARN` (2): Rule execution issues and configuration warnings
-  - `LogLevel.INFO` (3): Initialization steps and field discovery
-  - `LogLevel.DEBUG` (4): Full internal state transitions and event logs
-
-**Example:**
-```javascript
-import { Ctrovalidate, LogLevel } from 'ctrovalidate';
-
-const validator = new Ctrovalidate(form, {
-  logLevel: LogLevel.DEBUG // Enable detailed logging
-});
-```
+- **Description**: Controls console output detail levels.
+- **Values**:
+  - `LogLevel.NONE` (0): No output.
+  - `LogLevel.ERROR` (1): Critical failures.
+  - `LogLevel.WARN` (2): Rule warnings and configuration issues.
+  - `LogLevel.INFO` (3): Lifecycle steps and discovery logs.
+  - `LogLevel.DEBUG` (4): Full internal state transitions.
 
 ---
 
@@ -65,9 +55,7 @@ const validator = new Ctrovalidate(form, {
 
 - **Type**: `string`
 - **Default**: `'is-invalid'`
-- **Description**: The class added to the input element itself when validation fails.
-- > [!IMPORTANT]
-  > Ctrovalidate also adds `aria-invalid="true"` automatically to the element whenever this class is present.
+- **Description**: CSS class added to the input element when validation fails. `aria-invalid="true"` is also applied automatically.
 
 ---
 
@@ -75,47 +63,52 @@ const validator = new Ctrovalidate(form, {
 
 - **Type**: `string`
 - **Default**: `'error-message'`
-- **Description**: The class identifier used to find the error container for each field.
-
-**How discovery works:**
-By default, the library looks for an element with this class that shares the same parent as the input element. If not found, it continues up the DOM tree (up to 3 levels) to find a logical container.
+- **Description**: CSS class used to identify the target error container. The controller searches up to 3 parent levels to locate the container relative to the input.
 
 ---
 
 ### `pendingClass`
 
 - **Type**: `string`
-- **Default**: `'is-validating'`
-- **Description**: Applied to the field while asynchronous rules are executing.
-- **Example Usage**: Use this class to show a spinner or disable the submit button during a "Username Available" check.
+- **Default**: `'ctrovalidate-pending'`
+- **Description**: CSS class applied to the input during active asynchronous rule execution.
 
 ---
 
-## All Configuration Options
+### `schema`
 
-Here's a complete reference:
+- **Type**: `ValidationSchema`
+- **Description**: Programmatic rule definitions. Merged with `data-ctrovalidate-rules` attributes — a field discovered via both sources gets the combined rules.
+
+---
+
+### `aliases`
+
+- **Type**: `Record<string, SchemaRule>`
+- **Description**: Definition of local rule aliases (macros) for the instance. Supports recursive rule expansion.
+
+---
+
+## Technical Reference
 
 ```typescript
-import { LogLevel } from 'ctrovalidate';
-
 interface CtrovalidateOptions {
-  realTime?: boolean;           // Default: true
-  logLevel?: LogLevel;          // Default: LogLevel.NONE (0)
-  errorClass?: string;          // Default: 'is-invalid'
-  errorMessageClass?: string;   // Default: 'error-message'
-  pendingClass?: string;        // Default: 'ctrovalidate-pending'
-}
-
-enum LogLevel {
-  NONE = 0,
-  ERROR = 1,
-  WARN = 2,
-  INFO = 3,
-  DEBUG = 4
+  logLevel?: number;          // Default: 0
+  errorClass?: string;        // Default: 'is-invalid'
+  errorMessageClass?: string; // Default: 'error-message'
+  pendingClass?: string;      // Default: 'ctrovalidate-pending'
+  realTime?: boolean;         // Default: true
+  schema?: ValidationSchema;  // Programmatic rules
+  aliases?: Record<string, SchemaRule>; // Instance-level aliases
 }
 ```
 
 ## Next Steps
 
-- **[Built-in Rules](./rules.md)** — Explore the rule library.
-- **[Static Methods](../api/static-methods.md)** — Learn how to add custom rules globally.
+- [**Core Logic**](./core.md) — Documentation for the underlying engine.
+- [**API Reference**](/api/browser) — Full instance and static method catalog.
+
+
+
+
+

@@ -1,61 +1,20 @@
-# .github/workflows/ci.yml
-
-name: Continuous Integration
+name: CI
 
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - 'docs/**'
-      - '**.md'
   pull_request:
     branches: [main]
-    paths-ignore:
-      - 'docs/**'
-      - '**.md'
 
 jobs:
-  test-and-build:
-    name: Test and Build (Node ${{ matrix.node-version }})
-    runs-on: ubuntu-22.04
-
-    strategy:
-      fail-fast: false
-      matrix:
-        node-version: [20.x, 22.x] # stable versions that pass
-
+  build:
+    runs-on: ubuntu-latest
     steps:
-      # 1️⃣ Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          fetch-depth: 0 # Full history for Turbo
-
-      # 2️⃣ Setup pnpm
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      # 3️⃣ Setup Node.js
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-
-      # 4️⃣ Install dependencies
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      # 5️⃣ Lint Code (Turbo)
-      - name: Lint Code
-        run: pnpm run lint
-
-      # 6️⃣ Run Tests with Coverage (Turbo)
-      - name: Run Tests with Coverage
-        run: pnpm run test:coverage
-
-      # 7️⃣ Build Project (Turbo)
-      - name: Build Project
-        run: pnpm run build
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run docs:build

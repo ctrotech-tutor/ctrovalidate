@@ -10,81 +10,70 @@ breadcrumb:
     url: https://ctrovalidate.vercel.app/guide/production-readiness
 ---
 
-# Production Readiness
+# Deployment & Optimization
 
-Transitioning from development to production requires consideration of performance, security, and bundle size. This guide covers best practices for deploying Ctrovalidate in production environments.
+Technical considerations for integrating Ctrovalidate into production environments.
 
 ---
 
-## 🚀 Bundle Optimization
+## Bundle Optimization
 
-Ctrovalidate is natively written in modern TypeScript and exported as a tree-shakeable ESM bundle. To minimize your footprint:
+The library is distributed as tree-shakeable ESM. To minimize bundle size, ensure your toolchain supports modern module resolution.
 
-### 1. Pure ESM Imports
-Always import the library using the standard ESM syntax. Modern bundlers (Vite, Webpack 5, Rollup) will automatically remove any unused code.
+### ESM Integration
+
+Import symbols directly from the package entry point. Bundlers such as Vite, Rollup, or Webpack 5 will prune unused rule logic and internal utilities.
 
 ```javascript
-import { Ctrovalidate } from 'ctrovalidate';
+import { Ctrovalidate } from 'ctrovalidate-browser';
 ```
 
-### 2. Minification
-Your build tool should automatically minify the library. Ctrovalidate is designed to be highly compressible. When gzipped, the core library typically adds **less than 5KB** to your main chunk.
+### Footprint
+
+The core browser package adds approximately **5KB** (gzipped) to the application bundle. All built-in rules are included in this footprint by default.
 
 ---
 
-## 🛡️ Security Best Practices
+## Security Requirements
 
-### 1. Client-Side is NOT enough
+### Server-Side Validation
+>
 > [!IMPORTANT]
-> Never rely solely on client-side validation for security. Ctrovalidate is a **user experience** tool, not a security tool. Always re-validate all data on your server or database layer.
+> Client-side validation is a user experience enhancement. All data must be re-validated on the server or database layer to ensure system integrity.
 
-### 2. Sanitization
-While Ctrovalidate handles the validation logic, you should still sanitize your inputs to prevent XSS (Cross-Site Scripting) if you plan to reflect user data back into the DOM.
+### Input Sanitization
+
+Ctrovalidate does not modify input values. Separate sanitization steps should be implemented to prevent injection attacks if input values are reflected in the DOM.
 
 ---
 
-## ⚡ Performance Tuning
+## Performance Tuning
 
-### 1. Debouncing Async Rules
-If you have rules that hit an API (e.g., `username-available`), Ctrovalidate automatically debounces them to prevent flooding your server with requests. You can customize the delay using global configuration if necessary.
+### Event Listeners
 
-### 2. Real-Time vs. On-Submit
-For very large forms (50+ fields), consider disabling `realTime` validation if the user environment is low-powered (e.g., legacy mobile devices).
+When `realTime` is enabled, the controller attaches `blur` and `input` listeners to all discovered fields. For forms exceeding 100 fields on low-memory devices, consider disabling `realTime` and using manual `validate()` calls.
+
+### Instance Lifecycle
+
+In Single Page Applications (SPAs), call `.destroy()` when the component unmounts to remove event listeners and clear internal state caches.
 
 ```javascript
-const validator = new Ctrovalidate(form, {
-  realTime: false // Validate only when validator.validate() is called
-});
+// Example in a lifecycle hook
+validator.destroy();
 ```
-
-### 3. DOM Caching
-Ctrovalidate caches references to your error containers. If you are using a framework like React or Vue that frequently destroys and recreates the DOM, ensure you call `.refresh()` or `.destroy()` to manage memory effectively and prevent leaks.
 
 ---
 
-## ♿ Accessibility (A11y)
+## Accessibility (A11y)
 
-In production, accessibility is a legal and ethical requirement.
+The library manages the following ARIA attributes automatically:
 
-- **Dynamic Feedback**: Ctrovalidate automatically handles `aria-invalid` and `aria-describedby`.
-- **Live Regions**: For critical errors, consider wrapping your error containers in an `aria-live="polite"` region to ensure screen readers announce errors immediately.
+- `aria-invalid="true/false"`: Applied based on validation state.
+- `aria-describedby`: Linked to the error container ID if present.
 
 ---
-
-## 📝 Logging Levels
-
-Set `logLevel` to `LogLevel.NONE` in production to keep the console clean:
-
-```javascript
-import { Ctrovalidate, LogLevel } from 'ctrovalidate';
-
-const validator = new Ctrovalidate(form, {
-  logLevel: LogLevel.NONE // Disable logging in production
-});
-```
 
 ## Next Steps
 
-- **[Examples](./examples.md)** — Production-ready patterns
-- **[API Methods](../api/methods.md)** — Methods for cleanup and reset
-- **[Configuration](./configuration.md)** — All configuration options
+- [**API Reference**](/api/browser) — Cleanup and instance management methods.
+- [**Configuration Reference**](./configuration.md) — Tuning global settings for production.

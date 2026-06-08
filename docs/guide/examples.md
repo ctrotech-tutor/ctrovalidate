@@ -10,239 +10,176 @@ breadcrumb:
     url: https://ctrovalidate.vercel.app/guide/examples
 ---
 
-# Real-World Examples
+# Implementation Patterns
 
-This page provides practical code patterns for common form validation scenarios.
+This section provides technical integration patterns for common validation scenarios using the `ctrovalidate-browser` controller.
 
 ---
 
-## 🔐 Registration Form
+## Authentication: Registration
 
-A complete registration form with email and password confirmation:
+Pattern for a standard registration flow including password confirmation as a dependency.
 
 ```html
-<form id="reg-form" novalidate>
-  <div>
+<form id="auth-form" novalidate>
+  <div class="field-group">
     <label>Email</label>
     <input name="email" data-ctrovalidate-rules="required|email" />
-    <div class="error-message"></div>
+    <div class="error-container"></div>
   </div>
 
-  <div>
+  <div class="field-group">
     <label>Password</label>
     <input
       type="password"
-      name="pwd"
-      id="pwd"
-      data-ctrovalidate-rules="required|minLength:8"
+      name="password"
+      id="password"
+      data-ctrovalidate-rules="required|strongPassword"
     />
-    <div class="error-message"></div>
+    <div class="error-container"></div>
   </div>
 
-  <div>
+  <div class="field-group">
     <label>Confirm Password</label>
     <input
       type="password"
-      name="pwd_confirm"
-      data-ctrovalidate-rules="required|sameAs:pwd"
+      name="confirm_password"
+      data-ctrovalidate-rules="required|sameAs:password"
     />
-    <div class="error-message"></div>
+    <div class="error-container"></div>
   </div>
 
-  <button type="submit">Sign Up</button>
+  <button type="submit">Execute Registration</button>
 </form>
 ```
 
 ```javascript
-import { Ctrovalidate } from 'ctrovalidate';
+import { Ctrovalidate } from 'ctrovalidate-browser';
 
-const validator = new Ctrovalidate(
-  document.querySelector('#reg-form'),
-  { realTime: true }
-);
+const validator = new Ctrovalidate(document.querySelector('#auth-form'), {
+  realTime: true,
+  errorClass: 'input-invalid',
+  errorMessageClass: 'error-container'
+});
 
-document.querySelector('#reg-form').addEventListener('submit', async (e) => {
+document.querySelector('#auth-form').addEventListener('submit', async (e) => {
   e.preventDefault();
+  const isValid = await validator.validate();
   
-  if (await validator.validate()) {
-    const formData = new FormData(e.target);
-    await fetch('/api/register', {
-      method: 'POST',
-      body: formData
-    });
+  if (isValid) {
+    // Process validated form data
+    const data = new FormData(e.target);
+    await submitRegistration(data);
   }
 });
 ```
 
 ---
 
-## 🏦 Conditional Checkout
+## Commerce: Conditional Tax Identification
 
-Tax ID field is required only for business accounts:
+Pattern for inter-field dependencies where the visibility and validation of a field depend on a selection.
 
 ```html
 <form id="checkout-form" novalidate>
-  <label>Account Type</label>
-  <select name="acc_type">
-    <option value="personal">Personal</option>
-    <option value="business">Business</option>
+  <label>Client Type</label>
+  <select name="type">
+    <option value="consumer">Consumer</option>
+    <option value="corporate">Corporate</option>
   </select>
 
-  <div>
-    <label>Tax ID / VAT Number</label>
+  <div class="field-group">
+    <label>Corporate Tax ID</label>
     <input
-      name="vat"
-      data-ctrovalidate-rules="required|alphaNum"
-      data-ctrovalidate-if="acc_type:value:business"
+      name="tax_id"
+      data-ctrovalidate-rules="required|alphaNum|exactLength:12"
+      data-ctrovalidate-if="type:value=corporate"
     />
-    <div class="error-message"></div>
+    <div class="error-container"></div>
   </div>
 </form>
 ```
 
 ---
 
-## ☁️ Async Username Check
+## Verification: Async Availability
 
-Check username availability with server-side validation:
+Integration pattern for server-side availability checks with automatic race-condition management.
 
 ```javascript
-import { Ctrovalidate } from 'ctrovalidate';
+import { Ctrovalidate } from 'ctrovalidate-browser';
 
-// Register async rule
 Ctrovalidate.addAsyncRule(
-  'usernameAvailable',
+  'isAvailable',
   async (value, params, element, signal) => {
-    const response = await fetch(`/api/check-username?name=${value}`, { 
-      signal 
-    });
-    const data = await response.json();
-    return data.available;
+    const response = await fetch(`/api/validate?field=alias&val=${value}`, { signal });
+    const { available } = await response.json();
+    return available;
   },
-  'This username is already taken.'
+  'The requested identifier is not available.'
 );
 
-// Use in form
-const validator = new Ctrovalidate(
-  document.querySelector('#signup-form'),
-  { 
-    realTime: true,
-    pendingClass: 'is-validating'
-  }
-);
+const validator = new Ctrovalidate(document.querySelector('#setup-form'), {
+  pendingClass: 'state-validating'
+});
 ```
 
 ```html
-<form id="signup-form" novalidate>
-  <div>
-    <label>Username</label>
+<form id="setup-form" novalidate>
+  <div class="field-group">
+    <label>Alias</label>
     <input 
-      name="username" 
-      data-ctrovalidate-rules="required|alphaNum|usernameAvailable" 
+      name="alias" 
+      data-ctrovalidate-rules="required|alphaDash|isAvailable" 
     />
-    <span class="loading-indicator">Checking availability...</span>
-    <div class="error-message"></div>
+    <div class="loading-state">Validating identifier...</div>
+    <div class="error-container"></div>
   </div>
 </form>
 ```
 
 ```css
-/* Show loading indicator during async validation */
-.is-validating ~ .loading-indicator {
-  display: inline-block;
-  color: #3b82f6;
+/* Display logic for pending states */
+.state-validating ~ .loading-state {
+  display: block;
 }
 
-.loading-indicator {
+.loading-state {
   display: none;
+  font-size: 12px;
+  color: #666;
 }
 ```
 
 ---
 
-## ♿ Accessible Feedback Pattern
+## Accessibility: Standard State Management
 
-Ctrovalidate handles ARIA attributes automatically. Style the validation states:
+Configuration for automatic ARIA management and visual feedback.
 
 ```css
-/* Invalid field styling */
+/* State-based styling using ARIA attributes */
 [aria-invalid='true'] {
-  border-color: #ef4444;
-  background-color: #fef2f2;
+  border: 1px solid #d32f2f;
 }
 
-/* Error message styling */
-.error-message {
-  color: #ef4444;
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
-  min-height: 1.25rem;
+[aria-invalid='false'] {
+  border: 1px solid #2e7d32;
 }
 
-/* Validating state */
-.is-validating {
-  border-color: #3b82f6;
-  background-image: url('data:image/svg+xml,...'); /* spinner */
+.error-container {
+  color: #d32f2f;
+  min-height: 18px;
 }
 ```
 
-> [!TIP]
-> Always use `novalidate` on your `<form>` to prevent browser default validation and allow Ctrovalidate to manage accessibility.
-
----
-
-## 📧 Contact Form with Conditional Fields
-
-Show phone field only if user selects "Phone" as contact method:
-
-```html
-<form id="contact-form" novalidate>
-  <div>
-    <label>Preferred Contact Method</label>
-    <select name="contact_method">
-      <option value="email">Email</option>
-      <option value="phone">Phone</option>
-    </select>
-  </div>
-
-  <div>
-    <label>Email Address</label>
-    <input
-      name="email"
-      data-ctrovalidate-rules="required|email"
-      data-ctrovalidate-if="contact_method:value:email"
-    />
-    <div class="error-message"></div>
-  </div>
-
-  <div>
-    <label>Phone Number</label>
-    <input
-      name="phone"
-      data-ctrovalidate-rules="required|phone"
-      data-ctrovalidate-if="contact_method:value:phone"
-    />
-    <div class="error-message"></div>
-  </div>
-
-  <div>
-    <label>Message</label>
-    <textarea
-      name="message"
-      data-ctrovalidate-rules="required|minLength:10"
-    ></textarea>
-    <div class="error-message"></div>
-  </div>
-
-  <button type="submit">Send Message</button>
-</form>
-```
+> [!NOTE]
+> The controller automatically updates `aria-invalid` on the input element. Ensure error containers are logically positioned near the input for optimal screen reader flow.
 
 ---
 
 ## Next Steps
 
-- **[Built-in Rules](./rules.md)** — Explore all 21 validation rules
-- **[Custom Rules](./custom-rules.md)** — Create your own validation logic
-- **[API Reference](/api/methods)** — View all 9 public methods
-- **[Framework Integrations](../integrations/react.md)** — React, Vue, Next.js, and more
+- [**Built-in Rules**](./rules.md) — Reference for all 22 validation rules.
+- [**API Reference**](/api/browser) — Full instance and static method catalog.
+- [**Core Architecture**](./core.md) — Documentation for the underlying logic engine.
