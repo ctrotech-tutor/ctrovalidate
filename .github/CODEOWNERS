@@ -1,13 +1,1 @@
-# .github/CODEOWNERS
-
-# The CODEOWNERS file is used to define individuals or teams that are 
-# responsible for code in a repository.
-
-# By default, @ctrotech-tutor owns everything.
-*       @ctrotech-tutor
-
-# Specialized owners for documentation
-/docs/  @ctrotech-tutor
-
-# Specialized owners for core logic
-/src/   @ctrotech-tutor
+* @ctrotech-tutor

@@ -13,6 +13,6 @@
     "vite": "^7.2.4"
   },
   "dependencies": {
-    "@ctrovalidate/web": "workspace:*"
+    "ctrovalidate-browser": "*"
   }
 }

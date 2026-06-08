@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { useCtrovalidate } from '@ctrovalidate/svelte';
+  import { useCtrovalidate } from 'ctrovalidate-svelte';
 
   const { values, errors, isDirty, isValid, handleChange, handleBlur, validateForm, reset } = useCtrovalidate({
     schema: {

@@ -10,7 +10,7 @@
     },
     "dependencies": {
         "svelte": "^4.2.0",
-        "@ctrovalidate/svelte": "workspace:*"
+        "ctrovalidate-svelte": "*"
     },
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "^2.4.2",

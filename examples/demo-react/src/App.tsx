@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { Ctrovalidate } from '@ctrovalidate/browser';
+import { Ctrovalidate } from 'ctrovalidate-browser';
 
 interface TeamMember {
   id: string;

@@ -1,7 +1,7 @@
 // app/api/register/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { validateAction } from '@ctrovalidate/next'; // your async validator wrapper
-import type { ValidationSchema } from '@ctrovalidate/core';
+import { validateAction } from 'ctrovalidate-next';
+import type { ValidationSchema } from 'ctrovalidate-core';
 
 type Payload = {
     username?: string;
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
 
         // Create user etc...
         return NextResponse.json({ success: true, message: `Welcome ${username}` });
-    } catch (err) {
+    } catch {
         return NextResponse.json({ success: false, message: 'Server error' }, { status: 500 });
     }
 }

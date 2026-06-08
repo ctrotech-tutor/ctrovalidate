@@ -26,23 +26,17 @@
       "@/*": [
         "./*"
       ],
-      "@ctrovalidate/core": [
-        "../../packages/core/src/index.ts"
+      "ctrovalidate-browser": [
+        "../../ctrovalidate-browser/src/index.ts"
       ],
-      "@ctrovalidate/web": [
-        "../../packages/web/src/index.ts"
+      "ctrovalidate-react": [
+        "../../ctrovalidate-react/src/index.ts"
       ],
-      "@ctrovalidate/react": [
-        "../../packages/react/src/index.ts"
+      "ctrovalidate-next": [
+        "../../ctrovalidate-next/src/index.ts"
       ],
-      "@ctrovalidate/next": [
-        "../../packages/next/src/index.ts"
-      ],
-      "@ctrovalidate/vue": [
-        "../../packages/vue/src/index.ts"
-      ],
-      "@ctrovalidate/svelte": [
-        "../../packages/svelte/src/index.ts"
+      "ctrovalidate-core": [
+        "../../ctrovalidate-core/src/index.ts"
       ]
     }
   },

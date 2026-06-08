@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useCtrovalidate } from '@ctrovalidate/react';
+import { useCtrovalidate } from 'ctrovalidate-react';
 import { toast } from 'sonner';
 
 type FormValues = {

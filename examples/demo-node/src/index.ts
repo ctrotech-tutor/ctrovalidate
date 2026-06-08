@@ -1,5 +1,5 @@
 import express from 'express';
-import { validate, ValidationSchema } from '@ctrovalidate/core';
+import { validate, ValidationSchema } from 'ctrovalidate-core';
 
 const app = express();
 const port = 3005;

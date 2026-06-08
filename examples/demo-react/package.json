@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ctrovalidate/web": "workspace:*",
-    "@ctrovalidate/react": "workspace:*",
+    "ctrovalidate-browser": "*",
+    "ctrovalidate-react": "*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

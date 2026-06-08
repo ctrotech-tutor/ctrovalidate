@@ -9,8 +9,8 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@ctrovalidate/core": "workspace:*",
-        "@ctrovalidate/vue": "workspace:*",
+        "ctrovalidate-core": "*",
+        "ctrovalidate-vue": "*",
         "vue": "^3.5.0"
     },
     "devDependencies": {

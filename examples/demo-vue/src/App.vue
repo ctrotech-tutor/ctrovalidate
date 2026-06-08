@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { Ctrovalidate } from '@ctrovalidate/browser';
+import { Ctrovalidate } from 'ctrovalidate-browser';
 
 const formRef = ref<HTMLFormElement | null>(null);
 

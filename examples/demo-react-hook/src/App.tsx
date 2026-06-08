@@ -1,5 +1,5 @@
-import { useCtrovalidate } from '@ctrovalidate/react';
-import { translator } from '@ctrovalidate/core';
+import { useCtrovalidate } from 'ctrovalidate-react';
+import { translator } from 'ctrovalidate-core';
 import { useState } from 'react';
 
 // 1. Register a dictionary for Spanish

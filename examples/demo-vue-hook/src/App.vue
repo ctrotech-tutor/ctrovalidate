@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCtrovalidate } from '@ctrovalidate/vue';
+import { useCtrovalidate } from 'ctrovalidate-vue';
 
 const { values, errors, isDirty, isValidating, isValid, validateForm, reset } = useCtrovalidate({
   schema: {

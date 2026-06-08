@@ -1,5 +1,5 @@
 import './style.css';
-import { Ctrovalidate, LogLevel } from '@ctrovalidate/browser';
+import { Ctrovalidate, LogLevel } from 'ctrovalidate-browser';
 
 /**
  * =============================================================================
@@ -7,7 +7,7 @@ import { Ctrovalidate, LogLevel } from '@ctrovalidate/browser';
  * =============================================================================
  * This demo demonstrates:
  * - Hybrid Schema Validation (HTML rules + JS schema)
- * - Isomorphic Core Logic (@ctrovalidate/core)
+ * - Isomorphic Core Logic (ctrovalidate-core)
  * - All 21 built-in validation rules
  * - Advanced features: async, dependencies, custom rules, state inspection
  * =============================================================================
