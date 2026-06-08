@@ -9,7 +9,7 @@
     },
     "dependencies": {
         "express": "^4.18.2",
-        "ctrovalidate-core": "*"
+        "ctrovalidate-core": "^1.0.0"
     },
     "devDependencies": {
         "@types/express": "^4.17.17",

@@ -9,8 +9,8 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "ctrovalidate-core": "*",
-        "ctrovalidate-react": "*",
+        "ctrovalidate-core": "^1.0.0",
+        "ctrovalidate-react": "^1.0.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0"
     },

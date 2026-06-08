@@ -25,18 +25,6 @@
     "paths": {
       "@/*": [
         "./*"
-      ],
-      "ctrovalidate-browser": [
-        "../../ctrovalidate-browser/src/index.ts"
-      ],
-      "ctrovalidate-react": [
-        "../../ctrovalidate-react/src/index.ts"
-      ],
-      "ctrovalidate-next": [
-        "../../ctrovalidate-next/src/index.ts"
-      ],
-      "ctrovalidate-core": [
-        "../../ctrovalidate-core/src/index.ts"
       ]
     }
   },

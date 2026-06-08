@@ -15,6 +15,6 @@
   },
   "dependencies": {
     "alpinejs": "^3.15.6",
-    "ctrovalidate-browser": "*"
+    "ctrovalidate-browser": "^1.0.0"
   }
 }
