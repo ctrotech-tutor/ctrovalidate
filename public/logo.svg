@@ -1,28 +1,34 @@
 <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- 
     Logo Concept: A modern, geometric design combining a shield and a checkmark.
-    - The Shield represents the robustness, security, and protection that a good validation library provides.
+    - The Shield represents the robustness, security, and protection that a good validation library
+  provides.
     - The Checkmark is a universal symbol for "valid," "correct," and "success."
     - The clean lines and dual-tone color scheme give it a professional and contemporary feel.
   -->
-  
+
   <defs>
-    <linearGradient id="shieldGradient" x1="100" y1="20" x2="100" y2="180" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#42d392"/>
-      <stop offset="1" stop-color="#22c55e"/>
+    <linearGradient id="shieldGradient" x1="100" y1="20" x2="100" y2="180"
+      gradientUnits="userSpaceOnUse">
+      <stop stop-color="#42d392" />
+      <stop offset="1" stop-color="#22c55e" />
     </linearGradient>
-    <linearGradient id="checkGradient" x1="100" y1="70" x2="100" y2="140" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#ffffff" stop-opacity="0.9"/>
-      <stop offset="1" stop-color="#ffffff"/>
+    <linearGradient id="checkGradient" x1="100" y1="70" x2="100" y2="140"
+      gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#ffffff" />
     </linearGradient>
   </defs>
 
   <!-- Main shield shape -->
-  <path d="M100 20 L30 65 V135 C30 165, 100 180, 100 180 C100 180, 170 165, 170 135 V65 L100 20 Z" fill="url(#shieldGradient )"/>
-  
+  <path d="M100 20 L30 65 V135 C30 165, 100 180, 100 180 C100 180, 170 165, 170 135 V65 L100 20 Z"
+    fill="url(#shieldGradient )" />
+
   <!-- Inner shadow for depth -->
-  <path d="M100 20 L30 65 V135 C30 165, 100 180, 100 180 C100 180, 170 165, 170 135 V65 L100 20 Z" fill="black" fill-opacity="0.1" transform="translate(2, 2)"/>
+  <path d="M100 20 L30 65 V135 C30 165, 100 180, 100 180 C100 180, 170 165, 170 135 V65 L100 20 Z"
+    fill="black" fill-opacity="0.1" transform="translate(2, 2)" />
 
   <!-- Stylized checkmark shape -->
-  <path d="M70 105 L95 130 L140 85" stroke="url(#checkGradient)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M70 105 L95 130 L140 85" stroke="url(#checkGradient)" stroke-width="20"
+    stroke-linecap="round" stroke-linejoin="round" />
 </svg>
