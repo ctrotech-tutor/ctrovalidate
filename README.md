@@ -1,6 +1,6 @@
 # Ctrovalidate
 
-![Ctrovalidate Logo](./public/og-image.jpg)
+![Ctrovalidate Logo](./public/og-img.png)
 
 **The lightweight, declarative, and type-safe form validation ecosystem for modern web applications.**
 

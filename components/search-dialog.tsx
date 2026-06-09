@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef, useCallback } from "react"
+import { useEffect, useState, useRef } from "react"
 import Fuse from "fuse.js"
 import type { FuseResult, FuseResultMatch } from "fuse.js"
 import {
@@ -191,7 +191,7 @@ export function SearchDialog() {
                   <p className="text-sm text-muted-foreground">
                     No results for{" "}
                     <span className="font-medium text-foreground/80">
-                      "{query}"
+                      &quot;{query}&quot;
                     </span>
                   </p>
                   <p className="text-xs text-muted-foreground/50 mt-1">
@@ -229,12 +229,12 @@ export function SearchDialog() {
                           </span>
                         </div>
                         {result.item.description && (
-                          <span className="text-xs text-muted-foreground/60 line-clamp-1 pl-[22px]">
+                          <span className="text-xs text-muted-foreground/60 line-clamp-1 pl-5.5">
                             {result.item.description}
                           </span>
                         )}
                         {query && (
-                          <span className="text-xs text-muted-foreground/45 line-clamp-2 pl-[22px] mt-0.5 leading-relaxed">
+                          <span className="text-xs text-muted-foreground/45 line-clamp-2 pl-5.5 mt-0.5 leading-relaxed">
                             {highlightSnippet(
                               result.item.content,
                               result.matches
