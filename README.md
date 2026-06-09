@@ -72,6 +72,8 @@ For framework-specific setup, see:
 
 ## Documentation
 
+Full documentation is available at [**ctrovalidate.vercel.app**](https://ctrovalidate.vercel.app).
+
 - [Getting Started](/guide/getting-started) — Installation and basic setup
 - [Guide](/guide/introduction) — Core concepts, browser adapter, rules, schemas
 - [API Reference](/api/core) — Core, browser, and framework API docs
