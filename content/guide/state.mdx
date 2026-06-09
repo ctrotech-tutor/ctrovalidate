@@ -1,0 +1,99 @@
+---
+title: State Management | Field & Form Lifecycle
+description: Understand how Ctrovalidate tracks field dirty state, error visibility, and async validation status.
+---
+
+
+# State Management
+
+Ctrovalidate tracks field state as a combination of internal flags and derived visual states. Understanding these helps you build predictable UIs.
+
+---
+
+## Field State (Browser)
+
+Each field's internal state tracks only one boolean:
+
+| State | Type | Description |
+|-------|------|-------------|
+| `isDirty` | `boolean` | `true` after first `blur` or `input` event on the field |
+
+The `FieldState` object also stores the `AbortController` (for async rule cancellation) and `lastError` (most recent error string), but these are internal implementation details.
+
+`valid` / `invalid` are **not** tracked as separate booleans. They are derived:
+
+- A field is **invalid** when its last error is non-null
+- A field is **valid** when its last error is null and all rules have passed
+
+### Visual Feedback (CSS)
+
+The browser controller maps states to CSS classes:
+
+| State | CSS Class | Trigger |
+|-------|-----------|---------|
+| Invalid | `errorClass` (default `'is-invalid'`) | Added when validation fails, removed on success |
+| Pending async | `pendingClass` (default `'ctrovalidate-pending'`) | Added during async rule execution, removed on completion |
+
+```javascript
+const validator = new Ctrovalidate(form, {
+  errorClass: 'border-red-500',
+  pendingClass: 'opacity-50',
+});
+```
+
+---
+
+## Framework Hook State (React, Vue, Svelte)
+
+Framework hooks expose four reactive states:
+
+| State | Type | Description |
+|-------|------|-------------|
+| `errors` | Record of field → string \| undefined | Error message per field. `undefined` means valid. |
+| `isDirty` | Record of field → boolean | Set to `true` by `handleChange` or `handleBlur`. |
+| `isValidating` | Record of field → boolean | `true` while an async rule is in flight for that field. |
+| `isValid` | boolean (Vue/Svelte only) | Derived — `true` when no field has an error. In React, check `Object.values(errors).some(Boolean)`. |
+
+---
+
+## Accessibility (ARIA)
+
+The browser controller automatically manages:
+
+1. **`aria-invalid="true"`** — Added when a field fails validation, removed on success or reset.
+2. **`aria-describedby`** — Linked to the error container's ID for screen reader announcements.
+3. **`role="status"`** and **`aria-live="polite"`** — Set on auto-generated error containers.
+
+```html
+<!-- After validation failure -->
+<input name="email" aria-invalid="true" aria-describedby="ctrovalidate-error-email" />
+<div id="ctrovalidate-error-email" role="status" aria-live="polite">
+  Please enter a valid email address.
+</div>
+```
+
+---
+
+## Programmatic Access
+
+```javascript
+// Check if user has interacted with a field
+if (validator.isDirty('email')) {
+  const error = validator.getError('email');
+  console.log('Error:', error);
+}
+
+// Trigger full validation
+const isValid = await validator.validate();
+
+// Reset all state
+validator.reset();
+```
+
+---
+
+## Best Practices
+
+- **Deferred Errors**: Only show errors after a field becomes dirty. The browser controller already does this — `input` events only validate if the field is already dirty.
+- **Loading Indicators**: Use the `pendingClass` to show spinners during async validation.
+- **Reset**: Call `validator.reset()` or `reset()` (hooks) when clearing a form to wipe dirty flags and errors simultaneously.

@@ -1,7 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
+import { useScrollDirection } from "@/lib/hooks"
 import { Menu, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -10,9 +13,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Drawer, DrawerTrigger, DrawerContent, DrawerTitle } from "@/components/ui/drawer"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { Sidebar } from "@/components/sidebar"
+import { SearchDialog } from "@/components/search-dialog"
 import { githubRepos } from "@/lib/navigation"
 
 const navLinks = [
@@ -22,32 +25,66 @@ const navLinks = [
 
 export function Navbar() {
   const pathname = usePathname()
+  const { visible } = useScrollDirection()
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
   const isDocsPage = pathname.startsWith("/guide") || pathname.startsWith("/api") || pathname.startsWith("/platform") || pathname.startsWith("/advanced")
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-sm">
+    <header
+      key={pathname}
+      className={`sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-sm transition-transform duration-200 ${
+        visible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="mx-auto flex h-14 max-w-screen-2xl items-center gap-4 px-4 lg:px-6">
-        {isDocsPage && (
-          <Sheet>
-            <SheetTrigger asChild>
+        {!isDocsPage && (
+          <Drawer open={mobileNavOpen} onOpenChange={setMobileNavOpen} direction="left">
+            <DrawerTrigger asChild>
               <Button variant="ghost" size="icon" className="size-8 md:hidden">
                 <Menu className="size-4" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="w-72 p-0">
-              <Sidebar />
-            </SheetContent>
-          </Sheet>
+            </DrawerTrigger>
+            
+            <DrawerContent className="p-0">
+              <DrawerTitle className="sr-only">Navigation</DrawerTitle>
+              <div className="flex flex-col h-full">
+                <div className="px-4 py-4 border-b border-border/50">
+                  <Link href="/" className="flex items-center gap-2" onClick={() => setMobileNavOpen(false)}>
+                    <Image src="/logo.svg" alt="Ctrovalidate" width={28} height={28} className="size-7" />
+                    <span className="font-semibold tracking-tight">Ctrovalidate</span>
+                  </Link>
+                </div>
+                <nav className="flex-1 px-3 py-4 space-y-1">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileNavOpen(false)}
+                      className="block px-3 py-2 text-sm rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors"
+                    >
+                      {link.title}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+            </DrawerContent>
+          </Drawer>
         )}
 
         <Link
           href="/"
-          className="flex items-center gap-2 font-semibold tracking-tight shrink-0"
+          className="flex items-center gap-2 shrink-0"
         >
-          <span className="text-primary">&gt;</span>
-          <span>Ctrovalidate</span>
+          <Image
+            src="/logo.svg"
+            alt="Ctrovalidate"
+            width={28}
+            height={28}
+            className="size-7"
+          />
+          <span className="font-semibold tracking-tight">Ctrovalidate</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1 ml-6">
@@ -69,6 +106,7 @@ export function Navbar() {
         <div className="flex-1" />
 
         <div className="flex items-center gap-1">
+          <SearchDialog />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="hidden sm:flex gap-1.5 text-sm">

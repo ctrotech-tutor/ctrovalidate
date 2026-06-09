@@ -1,0 +1,358 @@
+---
+title: ctrovalidate-core API Reference
+description: >-
+  Technical API reference for the isomorphic Ctrovalidate core engine. Documents all exports: validation functions,
+  utilities, types, rules, and i18n.
+---
+
+
+# ctrovalidate-core
+
+The platform-agnostic validation engine with zero runtime dependencies. Runs in Node.js, browsers, and edge runtimes. All framework adapters (`ctrovalidate-browser`, `ctrovalidate-react`, etc.) build on top of this package.
+
+---
+
+## Exports
+
+```
+types          → RuleLogic, AsyncRuleLogic, DependencyDefinition,
+                 RuleDefinition, SchemaRule, ValidationSchema, ValidationResult
+utils          → parseRules, normalizeRules, Logger (class), LogLevel (enum)
+validate       → validateValue, validate, validateValueAsync, validateAsync,
+                 ValidationOptions
+rules          → 22 rule functions (named + rules namespace)
+i18n           → Translator (class), translator (singleton), LocaleDictionary
+other          → version ('1.0.0')
+```
+
+---
+
+## Validation Functions
+
+### `validateValue(value, rules, options?)`
+
+Synchronous validation of a single value.
+
+```typescript
+function validateValue(
+  value: unknown,
+  rules: SchemaRule,
+  options?: ValidationOptions
+): ValidationResult
+```
+
+Iterates over parsed rules in order. On first failure, returns immediately (short-circuit). If a rule's logic returns a `Promise` (shouldn't happen in sync path), it is silently skipped.
+
+```javascript
+import { validateValue } from 'ctrovalidate-core';
+
+const r1 = validateValue('test@example.com', 'required|email');
+// { isValid: true, error: null, rule: null }
+
+const r2 = validateValue('bad', 'required|email');
+// { isValid: false, error: 'Please enter a valid email address.', rule: 'email' }
+```
+
+---
+
+### `validate(data, schema, options?)`
+
+Synchronous validation of an entire data object.
+
+```typescript
+function validate<T extends object>(
+  data: T,
+  schema: ValidationSchema,
+  options?: ValidationOptions
+): Record<string, ValidationResult>
+```
+
+Iterates over each key in `schema` and calls `validateValue` for that field. Only fields present in `schema` are validated; extra data keys are ignored.
+
+```javascript
+import { validate } from 'ctrovalidate-core';
+
+const results = validate(
+  { email: 'john@example.com', age: 25 },
+  { email: 'required|email', age: 'required|numeric' }
+);
+// { email: { isValid: true, ... }, age: { isValid: true, ... } }
+```
+
+---
+
+### `validateValueAsync(value, rules, options?)`
+
+Asynchronous validation of a single value. Supports async rules with `AbortSignal`.
+
+```typescript
+async function validateValueAsync(
+  value: unknown,
+  rules: SchemaRule,
+  options?: ValidationOptions
+): Promise<ValidationResult>
+```
+
+Awaits each rule's logic. Unlike the sync version, async rules are properly awaited and their boolean result used. Propagates `signal` from options to each rule's logic function.
+
+```javascript
+import { validateValueAsync } from 'ctrovalidate-core';
+
+const result = await validateValueAsync('username1', 'required|checkAvailability', {
+  customRules: {
+    checkAvailability: async (val, params, ctx, signal) => {
+      const res = await fetch(`/api/check?u=${val}`, { signal });
+      return (await res.json()).available;
+    },
+  },
+});
+```
+
+---
+
+### `validateAsync(data, schema, options?)`
+
+Asynchronous validation of an entire data object.
+
+```typescript
+async function validateAsync<T extends object>(
+  data: T,
+  schema: ValidationSchema,
+  options?: ValidationOptions
+): Promise<Record<string, ValidationResult>>
+```
+
+Sequentially validates each field in the schema using `validateValueAsync`.
+
+```javascript
+import { validateAsync } from 'ctrovalidate-core';
+
+const results = await validateAsync(
+  { username: 'john', email: 'john@example.com' },
+  { username: 'required|checkAvailability', email: 'required|email' },
+  { locale: 'es' }
+);
+```
+
+---
+
+## `ValidationOptions`
+
+```typescript
+interface ValidationOptions {
+  customRules?: Record<string, RuleLogic | AsyncRuleLogic>;
+  aliases?: Record<string, SchemaRule>;
+  messages?: Record<string, string>;
+  locale?: string;
+  signal?: AbortSignal;
+}
+```
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `customRules` | `Record<string, RuleLogic \| AsyncRuleLogic>` | `{}` | Merged over built-in rules. Can override built-ins by name. |
+| `aliases` | `Record<string, SchemaRule>` | `{}` | Named rule combinations expanded recursively. |
+| `messages` | `Record<string, string>` | `{}` | Per-rule message overrides. `'*'` key acts as catch-all. |
+| `locale` | string | translator.currentLocale | Override locale for message translation. |
+| `signal` | AbortSignal | — | Used by async functions to abort in-progress validation. |
+
+**Message resolution order (per failing rule):**
+
+1. `messages[ruleName]`
+2. `messages['*']`
+3. `translator.translate(ruleName, params, locale)`
+4. `'Invalid input.'` (hardcoded fallback)
+
+---
+
+## `ValidationResult`
+
+```typescript
+interface ValidationResult {
+  isValid: boolean;
+  error: string | null;
+  rule: string | null;
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `isValid` | boolean | `true` if all rules passed |
+| `error` | string \| null | Translated error message, or `null` on success |
+| `rule` | string \| null | Name of the failing rule, or `null` on success |
+
+---
+
+## Utility Functions
+
+### `parseRules(rulesString)`
+
+Parses a pipe-delimited rule string into a structured array.
+
+```typescript
+function parseRules(rulesString: string | null | undefined): RuleDefinition[]
+```
+
+```javascript
+import { parseRules } from 'ctrovalidate-core';
+
+parseRules('required|minLength:8|between:1,100');
+// [
+//   { name: 'required', params: [] },
+//   { name: 'minLength', params: ['8'] },
+//   { name: 'between', params: ['1', '100'] }
+// ]
+```
+
+Returns `[]` for null, undefined, non-string, or empty input. Trailing `|` parts are skipped.
+
+### `normalizeRules(rules, aliases?, seen?)`
+
+Normalizes a `SchemaRule` (string, array, or hybrid) into a uniform `RuleDefinition[]`. Supports recursive alias expansion with cycle protection.
+
+```typescript
+function normalizeRules(
+  rules: SchemaRule,
+  aliases?: Record<string, SchemaRule>,
+  seen?: Set<string>
+): RuleDefinition[]
+```
+
+```javascript
+import { normalizeRules } from 'ctrovalidate-core';
+
+normalizeRules(['required', { name: 'minLength', params: ['8'] }]);
+// [{ name: 'required', params: [] }, { name: 'minLength', params: ['8'] }]
+```
+
+---
+
+## Logger
+
+### `LogLevel` enum
+
+```typescript
+enum LogLevel {
+  NONE = 0,
+  ERROR = 1,
+  WARN = 2,
+  INFO = 3,
+  DEBUG = 4,
+}
+```
+
+### `Logger` class
+
+Has both static and instance APIs. Static methods use `Logger.globalLevel`, instance methods use a per-instance level.
+
+```typescript
+class Logger {
+  // Static
+  static globalLevel: LogLevel;
+  static prefix: string;
+  static setLevel(level: LogLevel): void;
+  static error(message: string, ...args: unknown[]): void;
+  static warn(message: string, ...args: unknown[]): void;
+  static info(message: string, ...args: unknown[]): void;
+  static debug(message: string, ...args: unknown[]): void;
+
+  // Instance
+  constructor(level?: LogLevel);
+  setLevel(level: LogLevel): void;
+  error(message: string, ...args: unknown[]): void;
+  warn(message: string, ...args: unknown[]): void;
+  info(message: string, ...args: unknown[]): void;
+  debug(message: string, ...args: unknown[]): void;
+}
+```
+
+Default instance level is `LogLevel.NONE`. Default static `globalLevel` is `LogLevel.ERROR`. All output is prefixed with `[Ctrovalidate]`.
+
+```javascript
+import { Logger, LogLevel } from 'ctrovalidate-core';
+
+Logger.setLevel(LogLevel.DEBUG);
+Logger.info('Validation started');
+```
+
+---
+
+## Internationalization
+
+### `Translator` class
+
+```typescript
+class Translator {
+  setLocale(locale: string): void;
+  addMessages(locale: string, messages: LocaleDictionary): void;
+  translate(rule: string, params?: unknown[], localeOverride?: string): string;
+  get currentLocale(): string;
+}
+```
+
+- `setLocale(locale)` — Switches active locale. Falls back to `'en'` with a warning if locale not registered.
+- `addMessages(locale, messages)` — Merges messages into existing locale dictionary.
+- `translate(rule, params?, localeOverride?)` — Resolves message for a rule name, interpolates `{0}`, `{1}`, etc. Falls back to `'default'` key, then `'Invalid input.'`.
+- `currentLocale` — Returns the current locale string.
+
+```javascript
+import { translator } from 'ctrovalidate-core';
+
+translator.addMessages('es', {
+  required: 'Este campo es obligatorio.',
+  email: 'Por favor, introduce un correo electrónico válido.',
+});
+translator.setLocale('es');
+```
+
+### `translator` singleton
+
+A pre-instantiated `Translator` instance shared across all packages. Framework adapters read from this singleton when no locale override is provided.
+
+---
+
+## Type Definitions
+
+```typescript
+type RuleLogic<Context = unknown> = (
+  value: unknown,
+  params?: unknown[],
+  context?: Context | null
+) => boolean;
+
+type AsyncRuleLogic<Context = unknown> = (
+  value: unknown,
+  params?: unknown[],
+  context?: Context | null,
+  signal?: AbortSignal
+) => Promise<boolean>;
+
+interface DependencyDefinition {
+  controllerName: string;
+  type: 'checked' | 'value' | 'present' | string;
+  value?: unknown;
+}
+
+interface RuleDefinition {
+  name: string;
+  params: unknown[];
+}
+
+type SchemaRule = string | (string | RuleDefinition)[];
+
+type ValidationSchema = Record<string, SchemaRule>;
+
+interface ValidationResult {
+  isValid: boolean;
+  error: string | null;
+  rule: string | null;
+}
+```
+
+---
+
+## Constants
+
+```typescript
+export const version = '1.0.0';
+```

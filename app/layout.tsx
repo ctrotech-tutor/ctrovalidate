@@ -77,6 +77,28 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-dvh flex flex-col bg-background text-foreground">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Ctrovalidate",
+              url: "https://ctrovalidate.vercel.app",
+              description:
+                "A zero-dependency form validation ecosystem for the web.",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate:
+                    "https://ctrovalidate.vercel.app/search?q={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

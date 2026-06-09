@@ -27,3 +27,5 @@ Thumbs.db
 .netlify/
 .turbo/
 .next/
+
+.vercel/

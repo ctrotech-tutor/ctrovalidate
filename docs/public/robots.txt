@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://ctrovalidate.vercel.app/sitemap_v3.xml
