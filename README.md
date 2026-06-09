@@ -14,12 +14,12 @@ Ctrovalidate is split into standalone packages, each in its own repository.
 
 | Package                  | Description                                                                                | Links                                                                                                                                               |
 | ------------------------ | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **ctrovalidate-core**    | Platform-agnostic validation engine. Zero dependencies. 4 validation functions + 22 rules. | [GitHub](https://github.com/ctrotech-tutor/ctrovalidate-core) · [npm](https://www.npmjs.com/package/ctrovalidate-core) · [Docs](/api/core)          |
-| **ctrovalidate-browser** | DOM adapter with declarative HTML-first API using data attributes.                         | [GitHub](https://github.com/ctrotech-tutor/ctrovalidate-browser) · [npm](https://www.npmjs.com/package/ctrovalidate-browser) · [Docs](/api/browser) |
-| **ctrovalidate-react**   | Headless hook for React 18+ with controlled input pattern.                                 | [GitHub](https://github.com/ctrotech-tutor/ctrovalidate-react) · [npm](https://www.npmjs.com/package/ctrovalidate-react) · [Docs](/api/react)       |
-| **ctrovalidate-vue**     | Reactive composable for Vue 3 with v-model integration and watcher.                        | [GitHub](https://github.com/ctrotech-tutor/ctrovalidate-vue) · [npm](https://www.npmjs.com/package/ctrovalidate-vue) · [Docs](/api/vue)             |
-| **ctrovalidate-svelte**  | Store-based integration for Svelte with auto-subscription.                                 | [GitHub](https://github.com/ctrotech-tutor/ctrovalidate-svelte) · [npm](https://www.npmjs.com/package/ctrovalidate-svelte) · [Docs](/api/svelte)    |
-| **ctrovalidate-next**    | Server-side utilities for Next.js Server Actions.                                          | [GitHub](https://github.com/ctrotech-tutor/ctrovalidate-next) · [npm](https://www.npmjs.com/package/ctrovalidate-next) · [Docs](/platform/nextjs)   |
+| **ctrovalidate-core**    | Platform-agnostic validation engine. Zero dependencies. 4 validation functions + 22 rules. | [GitHub](https://github.com/ctrotech-tutor/ctrovalidate-core) · [npm](https://www.npmjs.com/package/ctrovalidate-core) · [Docs](https://ctrovalidate.vercel.app/api/core)          |
+| **ctrovalidate-browser** | DOM adapter with declarative HTML-first API using data attributes.                         | [GitHub](https://github.com/ctrotech-tutor/ctrovalidate-browser) · [npm](https://www.npmjs.com/package/ctrovalidate-browser) · [Docs](https://ctrovalidate.vercel.app/api/browser) |
+| **ctrovalidate-react**   | Headless hook for React 18+ with controlled input pattern.                                 | [GitHub](https://github.com/ctrotech-tutor/ctrovalidate-react) · [npm](https://www.npmjs.com/package/ctrovalidate-react) · [Docs](https://ctrovalidate.vercel.app/api/react)       |
+| **ctrovalidate-vue**     | Reactive composable for Vue 3 with v-model integration and watcher.                        | [GitHub](https://github.com/ctrotech-tutor/ctrovalidate-vue) · [npm](https://www.npmjs.com/package/ctrovalidate-vue) · [Docs](https://ctrovalidate.vercel.app/api/vue)             |
+| **ctrovalidate-svelte**  | Store-based integration for Svelte with auto-subscription.                                 | [GitHub](https://github.com/ctrotech-tutor/ctrovalidate-svelte) · [npm](https://www.npmjs.com/package/ctrovalidate-svelte) · [Docs](https://ctrovalidate.vercel.app/api/svelte)    |
+| **ctrovalidate-next**    | Server-side utilities for Next.js Server Actions.                                          | [GitHub](https://github.com/ctrotech-tutor/ctrovalidate-next) · [npm](https://www.npmjs.com/package/ctrovalidate-next) · [Docs](https://ctrovalidate.vercel.app/platform/nextjs)   |
 
 ---
 
@@ -66,7 +66,7 @@ form.addEventListener('submit', async (e) => {
 
 For framework-specific setup, see:
 
-- [React](/api/react) · [Vue](/api/vue) · [Svelte](/api/svelte) · [Next.js](/platform/nextjs)
+- [React](https://ctrovalidate.vercel.app/api/react) · [Vue](https://ctrovalidate.vercel.app/api/vue) · [Svelte](https://ctrovalidate.vercel.app/api/svelte) · [Next.js](https://ctrovalidate.vercel.app/platform/nextjs)
 
 ---
 
@@ -74,10 +74,10 @@ For framework-specific setup, see:
 
 Full documentation is available at [**ctrovalidate.vercel.app**](https://ctrovalidate.vercel.app).
 
-- [Getting Started](/guide/getting-started) — Installation and basic setup
-- [Guide](/guide/introduction) — Core concepts, browser adapter, rules, schemas
-- [API Reference](/api/core) — Core, browser, and framework API docs
-- [Advanced](/advanced/async) — Async validation, custom rules, i18n, testing
+- [Getting Started](https://ctrovalidate.vercel.app/guide/getting-started) — Installation and basic setup
+- [Guide](https://ctrovalidate.vercel.app/guide/introduction) — Core concepts, browser adapter, rules, schemas
+- [API Reference](https://ctrovalidate.vercel.app/api/core) — Core, browser, and framework API docs
+- [Advanced](https://ctrovalidate.vercel.app/advanced/async) — Async validation, custom rules, i18n, testing
 
 ---
 
