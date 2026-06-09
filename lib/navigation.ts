@@ -59,6 +59,7 @@ export const sidebarSections: SidebarSection[] = [
 ]
 
 export const githubRepos = [
+  {title: "ctrovalidate", href: "https://github.com/ctrotech-tutor/ctrovalidate" },
   { title: "ctrovalidate-core", href: "https://github.com/ctrotech-tutor/ctrovalidate-core" },
   { title: "ctrovalidate-browser", href: "https://github.com/ctrotech-tutor/ctrovalidate-browser" },
   { title: "ctrovalidate-react", href: "https://github.com/ctrotech-tutor/ctrovalidate-react" },
